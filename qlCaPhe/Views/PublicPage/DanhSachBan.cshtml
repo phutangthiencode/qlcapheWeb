@@ -1,0 +1,165 @@
+﻿@{
+    ViewBag.Title = "Lựa chọn bàn - Chổ ngồi";
+    Layout = "~/Views/Shared/_LayoutPublic.cshtml";
+}
+<style type="text/css">
+    .choNgoi {
+        width: 40px;
+        height: 40px;
+        background-image: url(../../images/Public/sprite.png);
+        background-repeat: no-repeat;
+        background-position: 0 -416px;
+        display: inline-block;
+        padding: 5px;
+        line-height: 1.42857143;
+        text-align: center;
+        cursor: pointer;
+        background-color: #E3E3E3;
+    }
+
+    .luaChon {
+        background-position: 0 -315px;
+        color: #ffffff;
+    }
+
+    .daDatCho {
+        background-position: 0 -365px;
+        cursor: not-allowed;
+        color: #ffffff;
+    }
+</style>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var kq = "";
+        $('.choNgoi').click(function () {
+            //Kiểm tra xem chổ ngồi này đã chọn chưa
+            if (!$(this).hasClass('luaChon')) {
+                //Thêm class luaChon để hiện icon khác
+                $(this).addClass('luaChon');
+                //Cộng dồn tên bàn đã chọn và hiển thị
+                var tenBan = $(this).text();
+                if (kq == "")
+                    kq = tenBan;
+                else
+                    kq = kq + ", " + tenBan;
+                $('.lbBanChon').text(kq);
+            } else {
+                //Gở bỏ bàn đã chọn
+                $(this).removeClass('luaChon');
+                //Xoá số bàn đã chọn
+                var tenBan = $(this).text();
+                var dau = tenBan + ",";
+                var cuoi = ", " + tenBan;
+                //Kiểm tra xem có số ghế đã chọn và ở vị trí đầu chuỗi
+                if (kq.indexOf(dau) > -1)
+                    kq = kq.replace(tenBan + ", ", ""); //Xoá dấu phẩy và số bàn đã chọn
+                    //Kiểm tra xem số ghế chọn phải ở vị trí cuối
+                else if (kq.indexOf(cuoi) > -1)
+                    kq = kq.replace(cuoi, "");
+                    //Xoá số trong trường họp chỉ còn 1 số
+                else
+                    kq = kq.replace(tenBan, "");
+                $('.lbBanChon').text(kq);
+            }
+        });
+
+        $('.content').hide();
+        $('#btnChon').click(function () {
+            $('.content').show(300);
+            
+        });
+    });
+</script>
+
+
+<div class="container">
+    <div class="specials">
+        <h3>Lựa chọn bàn - Chổ ngồi</h3>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <p>Chọn thời điểm đến dự kiến:</p>
+                    <input type="datetime-local" class="form-control" />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <p>Số lượng chổ ngồi</p>
+                <input type="number" placeholder="Nhập số lượng đến dự kiến" class="form-control" />
+            </div>
+            <div class="col-md-4">
+                <br />
+                <input type="submit" class="btn btn-info" id="btnChon" value="Chọn" />
+            </div>
+        </div>
+        <div class="content">
+            <div class="col-md-3 ">
+                <h2>Chọn khu vực</h2>
+                <select class="form-control show-tick">
+                    <option value="">-- Lựa chọn khu vực --</option>
+                    <option value="10">Khu vực 1</option>
+                    <option value="20">Khu vực 2</option>
+                    <option value="30">Khu vực 3</option>
+                    <option value="40">Khu vực 4</option>
+                    <option value="50">Khu vực 5</option>
+                </select>
+            </div>
+            <div class="col-md-9">
+                <div>
+                    <div class="row">
+                        <h2 style="text-align:center;">Sơ đồ chổ ngồi</h2>
+                        <div class="list-inline">
+                            <span style="font-weight:bold">Bàn đã chọn:  <span class="lbBanChon"></span></span>
+                        </div>
+                    </div>
+                    <br /><br /><br />
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="choNgoi">1</div>
+                        </div>
+                        <div class="col-md-4">
+
+                            <div class="choNgoi">2</div>
+                        </div>
+                        <div class="col-md-4">
+
+                            <div class="choNgoi">3</div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="choNgoi daDatCho">4</div>
+                        </div>
+                        <div class="col-md-4">
+
+                            <div class="choNgoi">5</div>
+                        </div>
+                        <div class="col-md-4">
+
+                            <div class="choNgoi">6</div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="choNgoi">7</div>
+                        </div>
+                        <div class="col-md-4">
+
+                            <div class="choNgoi">8</div>
+                        </div>
+                        <div class="col-md-4">
+
+                            <div class="choNgoi">9</div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <a href="~/PublicPage/DatBan" class="btn btn-success pull-right"><i class="glyphicon glyphicon-edit"></i> Đặt bàn</a> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

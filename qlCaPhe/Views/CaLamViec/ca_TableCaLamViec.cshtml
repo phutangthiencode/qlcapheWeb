@@ -1,0 +1,91 @@
+﻿
+@{
+    ViewBag.Title = "Danh mục ca làm việc";
+    Layout = "~/Views/Shared/_LayoutTools.cshtml";
+}
+@Html.Raw(ViewBag.ScriptAjax)
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <h2>Điều phối - Đánh giá > Quản lý ca làm việc > Danh mục ca làm việc</h2>
+        </div>
+        <!-- Vertical Layout -->
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+
+                        <div class="row">
+                            <div class="col-md-5 col-lg-5 col-xs-12 col-sm-5">
+                                <i class="material-icons">alarm</i>
+                                <span class="font-20">QUẢN LÝ CA LÀM VIỆC</span>
+                            </div>
+                            <div class="col-md-7 col-lg-7 col-sm-7 col-xs-12">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" style="float:right">
+                                    <li class="">
+                                        <a href="~/CaLamViec/ca_TaoMoiCaLamViec">
+                                            <i class="material-icons">add</i> TẠO MỚI CA LÀM VIỆC
+                                        </a>
+                                    </li>
+                                    <li class="active">
+                                        <a href="~/CaLamViec/ca_TableCaLamViec">
+                                            <i class="material-icons">list</i> DANH MỤC CA LÀM VIỆC
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="body">
+                        <div class="table-responsive">
+                            <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <table class="table table-bordered table-striped table-hover js-basic-example dataTable" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                                            <thead>
+                                                <tr>
+                                                    <th width="25%">Tên ca</th>
+                                                    <th width="10%">Buổi</th>
+                                                    <th width="20">Thời gian làm việc</th>
+                                                    <th width="25%">Ghi chú</th>
+                                                    <th width="20%">Chức năng</th>
+                                                </tr>
+                                            </thead>
+                                            <tfoot>
+
+                                            </tfoot>
+                                            <tbody>
+                                                @Html.Raw(ViewBag.TableData)
+                                                @*<tr role="row" class="odd">
+                                                    <td>Ca 1</td>
+                                                    <td>Sáng</td>
+                                                    <td>7:00 - 11:00</td>
+                                                    <td>Ghi chú</td>
+                                                    <td>
+                                                        <div class="btn-group">
+                                                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                                                Chức năng <span class="caret"></span>
+                                                            </button>
+                                                            <ul class="dropdown-menu" role="menu">
+                                                                <li><a href="#" class="col-blue"><i class="material-icons">mode_edit</i>Chỉnh sửa</a></li>
+                                                                <li><a href="#" class="col-red"><i class="material-icons">delete</i>Xoá bỏ</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </td>
+                                                </tr>*@
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #END# Vertical Layout -->
+    </div>
+</section>
+@*modal Xóa*@
+@Html.Raw(ViewBag.ModalXoa)

@@ -1,0 +1,283 @@
+﻿@{
+    ViewBag.Title = "Nhập hàng vào kho";
+    Layout = "~/Views/Shared/_LayoutTools.cshtml";
+}
+
+<link href="~/Content/styleTool.css" rel="stylesheet" />
+<style type="text/css">
+    .media {
+        cursor: pointer;
+    }
+</style>
+<script src="~/Scripts/validate.js"></script>
+<script src="~/Scripts/Ajax/ajaxNhapHangVaoKho.js"></script>
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <h2>Nhập - Xuất kho > Nhập hàng vào kho</h2>
+        </div>
+        <!-- Vertical Layout -->
+        <div class="row clearfix">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="header">
+                        <div class="row">
+                            <div class="col-md-5 col-lg-5 col-xs-12 col-sm-5">
+                                <i class="material-icons">cloud_download</i>
+                                <span class="font-20">QUẢN LÝ NHẬP KHO</span>
+                            </div>
+                            <div class="col-md-7 col-lg-7 col-sm-7 col-xs-12">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" style="float:right">
+                                    <li class="active">
+                                        <a href="~/NhapKho/nk_TaoMoiPhieuNhap">
+                                            <i class="material-icons">add</i> TẠO MỚI PHIẾU NHẬP KHO
+                                        </a>
+                                    </li>
+                                    <li class="">
+                                        <a href="~/NhapKho/nk_TablePhieuNhap">
+                                            <i class="material-icons">list</i> DANH MỤC PHIẾU NHẬP KHO
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="body">
+                        @using (Html.BeginForm("nk_TaoMoiPhieuNhap", "NhapKho", FormMethod.Post))
+                        {
+                            <ul class="nav nav-tabs tab-nav-right" role="tablist">
+                                <li role="presentation" class="active"><a href="#phieuNhap" data-toggle="tab" aria-expanded="true">Phiếu nhập</a></li>
+                                <li role="presentation" class=""><a href="#chonNguyenLieu" data-toggle="tab" aria-expanded="false">Chọn nguyên liệu</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane fade  active in" id="phieuNhap">
+                                    <div class="card">
+                                        <div class="header bg-red">
+                                            <h2>Phiếu nhập hàng</h2>
+                                        </div>
+                                        <div class="body">
+                                            <div class="row">
+                                                <div class="col-md-7 col-lg-7">
+
+                                                    <label for="cbbKhoHang">Chọn kho cần nhập</label>
+                                                    <select class="form-control show-tick" id="cbbKhoHang" name="cbbKhoHang">
+                                                        <option value="">-- Lựa chọn kho hàng cần nhập hàng--</option>
+                                                        @Html.Raw(ViewBag.cbbKhoHang)
+                                                    </select>
+                                                    <br /><br />
+
+                                                    <div class="row clearfix">
+                                                        <div class="col-md-6 col-lg-6">
+                                                            <label for="txtTongTien">Tổng tiền nhập thực tế in trên phiếu</label>
+                                                            <div class="form-group">
+                                                                <div class="form-line">
+                                                                    <input type="number" id="txtTongTien" name="txtTongTien" required
+                                                                           placeholder="Nhập tổng số tiền nhập nguyên liệu vào kho" value="@ViewBag.txtTongTien" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6 col-lg-6">
+                                                            <label for="txtNguoiLapPhieu">Người lập phiếu</label>
+                                                            <div class="form-group">
+                                                                <div class="form-line">
+                                                                    <input type="text" id="txtNguoiLapPhieu" name="txtNguoiLapPhieu"
+                                                                           value="@ViewBag.txtNguoiLapPhieu" disabled class="form-control">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 col-lg-4">
+
+
+                                                    <label for="txtGhiChu">Ghi chú</label>
+                                                    <div class="form-group">
+                                                        <div class="form-line">
+                                                            <textarea rows="5" id="txtGhiChu" class="form-control no-resize" name="txtGhiChu"
+                                                                      placeholder="Nhập thêm ghi chú khi nhập hàng vào kho">@ViewBag.txtGhiChu                                                            </textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div><!--row-->
+                                        </div>  <!--body-card-->
+                                    </div> <!--card phiếu nhập-->
+                                </div>
+                                <div role="tabpanel" class="tab-pane fade" id="chonNguyenLieu">
+                                    <div class="card buoc">
+                                        <div class="header bg-cyan">
+                                            <h2>Lựa chọn nguyên liệu nhâp</h2>
+                                        </div>
+                                        <div class="body">
+                                            <div class="row">
+                                                <div class="col-md-6 col-lg-6">
+                                                    <button type="button" class="btn btn-success waves-effect" data-toggle="modal" id="btnModalChonNguyenLieu"
+                                                            data-target="#largeModalChonNguyenLieu">
+                                                        Chọn nguyên liệu
+                                                    </button>
+
+
+                                                    <label for="txtTenNhom" class="showSuccess">Hình nguyên liệu</label>
+                                                    <br />
+                                                    <div id="vungNguyenLieu">
+                                                        <!--Vùng hiển thị hình ảnh của nguyên liệu sau khi đã chọn trên modal-->
+                                                    </div>
+                                                    <br />
+                                                    <div class="row clearfix">
+                                                        <div class="col-lg-6 col-md-6 col-sm-4 col-xs-4">
+
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-4">
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-lg-6">
+                                                    <br /><br />
+                                                    <label for="cbbMaKho">Chọn nhà cung cấp</label>
+                                                    <select class="form-control" id="cbbNhaCungCap">
+                                                        <option value="0">-- Lựa chọn nhà cung cấp nguyên liệu--</option>
+                                                        @Html.Raw(ViewBag.cbbNhaCC)
+                                                    </select>
+                                                    <br /><br />
+
+                                                    @*<div class="row clearfix">
+                                                        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-6">
+
+                                                            <label for="txtSoLuongNhap">Số lượng nhập:</label>
+                                                            <div class="form-group">
+                                                                <div class="form-line">
+                                                                    <input type="number" id="txtSoLuongNhap" class="form-control"
+                                                                           placeholder="Nhập số lượng nhập">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-6">
+                                                            <br/>
+                                                            <label for="txtSoLuongNhap" id="donViTinh"><b>Kg</b></label>
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                                            <label for="txtDonGiaNhap">Đơn giá nhập:</label>
+                                                            <div class="form-group">
+                                                                <div class="form-line">
+                                                                    <input type="number" class="form-control" id="txtDonGiaNhap"
+                                                                           placeholder="Nhập đơn giá nhập nguyên liệu">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                   </div>*@
+
+
+                                                    <label for="txtGhiChu">Ghi chú nguyên liệu nhập</label>
+                                                    <div class="form-group">
+                                                        <div class="form-line">
+                                                            <textarea rows="4" id="txtGhiChuCt" class="form-control no-resize"
+                                                                      placeholder="Nhập thêm ghi chú cho nguyên liệu nhập"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <button type="button" id="btnThemHangVaoPhieu" class="btn btn-info waves-effect">Thêm vào phiếu nhập</button>
+                                                    <button type="reset" class="btn btn-default waves-effect">Nhập lại nguyên liệu</button>
+                                                </div>
+                                            </div><!--row-->
+                                            <div class="card">
+                                                <div class="header">
+                                                    <h2>Danh sách nguyên liệu trong phiếu nhập</h2>
+                                                </div>
+                                                <div class="body table-responsive">
+                                                    <div id="vungDsChiTiet">
+
+                                                    </div>
+                                                    <button type="button" id="btnXoaTatCa" style="display:none;" class="btn btn-danger m-t-15 waves-effect">Xoá tất cả nguyên liệu</button>
+
+                                                </div>
+                                            </div> <!--Cart table danh sách chi tiết-->
+                                        </div>  <!--body-card-->
+                                    </div>
+                                </div>
+                            </div>
+                             <!--card Bước-->
+
+                            <div class="col-md-7"></div>
+                            <div class="col-md-5">
+                                <br>
+                                <button type="submit" class="btn btn-primary m-t-15 waves-effect">Lưu lại</button>
+                                <a href="/NhapKho/nk_TaoMoiPhieuNhap" class="btn btn-default m-t-15 waves-effect">Reset</a>
+                                <button type="button" onclick="troVeTrangTruoc()" class="btn btn-default m-t-15 waves-effect">Trở lại</button>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #END# Vertical Layout -->
+    </div>
+</section>
+@Html.Raw(ViewBag.ThongBao)
+
+<!-- Model chọn nguyên liệu -->
+<div class="modal fade" id="largeModalChonNguyenLieu" tabindex="-1" role="dialog" style="display: none;">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="largeModalLabel">Lựa chọn nguyên liệu</h4>
+            </div>
+            <div class="modal-body">
+                <div class="input-group">
+                    <div class="form-line">
+                        <input type="text" id="txtTenNguyenLieuTimKiem" class="form-control"
+                               placeholder="Nhập nhập tên nguyên liệu cần tìm">
+                    </div>
+                    <span class="input-group-addon">
+                        <button type="button" class="btn btn-sm btn-deafult waves-effect" id="btnTimKiem">
+                            <i class="material-icons">search</i>Tìm
+                        </button>
+                    </span>
+
+                </div>
+                <div class="danhMucNguyenLieuTimKiem">
+                    <div class="bs-example" data-example-id="media-alignment">
+                        <div id="vungDSNguyenLieu">
+                            <!--Vùng hiển thị danh sách nguyên liệu sau khi người dùng tìm kiếm-->
+
+                        </div>
+                        @*<div class="media " onclick="ajaxChonNguyenLieu()" manl="9">
+                               <div class="media-left">
+                                    <img src="#" width="64" height="64">
+                                  </div>
+                             <div class="media-body">
+                                       <h4 class="media-heading">Sữa ngôi sao phương nam</h4>
+                                <button type="button" class="btn btn-sm btn-deafult waves-effect btnChonNL">Chọn</button>
+                                Lon. Sữa đặc
+                                </div>
+                            </div>*@
+                    </div>
+                </div><!--danhMucNguyenLieuTimKiem-->
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">Đóng lại</button>
+            </div>
+        </div>
+    </div>
+</div>  <!-- Large Size -->
+<script type="text/javascript">
+
+    ////Code xử lý sự kiện click vào nút next tại cart thông tin công thức thực hiện chuyển xuống card chi tiết công thức
+    //$("#btnNext").click(function () {
+    //    $('html,body').animate({
+    //        scrollTop: $(".buoc").offset().top
+    //    },
+    //        'slow');
+    //});
+
+    ////Code xử lý sự kiện click vào chọn 1 nguyên liệu trên model thì hiện hình nguyên liệu lên hinhNguyenLieu
+    //$('.media').click(function () {
+    //    var valURL = $(this).attr('urlimg');
+    //    $('#hinhNguyenLieu').attr('src', valURL);
+    //});
+</script>
+
+
+
+

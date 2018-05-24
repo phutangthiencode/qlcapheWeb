@@ -1,0 +1,265 @@
+﻿@model qlCaPhe.Models.thanhVien
+@{
+    ViewBag.Title = "Chỉnh sửa thông tin thành viên";
+    Layout = "~/Views/Shared/_LayoutTools.cshtml";
+}
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <h2>Tài khoản - Thành viên > Danh mục thành viên > Chỉnh sửa thành viên</h2>
+        </div>
+        <!-- Vertical Layout -->
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                        <div class="row">
+                            <div class="col-md-5 col-lg-5 col-xs-12 col-sm-5">
+                                <i class="material-icons">person</i>
+                                <span class="font-20">CHỈNH SỬA THÔNG TIN THÀNH VIÊN</span>
+                            </div>
+                            <div class="col-md-7 col-lg-7 col-sm-7 col-xs-12">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" style="float:right">
+                                    <li class="">
+                                        <a href="~/ThanhVien/tv_TaoMoiThanhVien">
+                                            <i class="material-icons">add</i> TẠO MỚI THÀNH VIÊN
+                                        </a>
+                                    </li>
+                                    <li class="">
+                                        <a href="~/ThanhVien/tv_TableThanhVien">
+                                            <i class="material-icons">list</i> DANH MỤC THÀNH VIÊN
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="body">
+                        @using (Html.BeginForm("tv_ChinhSuaThanhVien", "ThanhVien", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.TextBox("txtMaTV", null, new
+                                               {
+                                                   @value = ViewBag.txtMaTV,
+                                                   @style = "display:none"
+                                               })
+                            <div class="row">
+                                <div class="col-md-7 col-lg-7">
+                                    <label for="txtHoTV">Họ và tên</label>
+                                    <div class="row clearfix">
+                                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-6">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    @Html.TextBox("txtHoTV", null, new
+                                               {
+                                                   @class = "form-control",
+                                                   @placeholder = "Nhập họ và tên đệm",
+                                                   @required = "true",
+                                                   pattern = ".{2,20}",
+                                                   @maxlength = "20",
+                                                   @value = ViewBag.txtHoTV
+                                               })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    @Html.TextBox("txtTenTV", null, new
+                                               {
+                                                   pattern = ".{2,8}",
+                                                   @maxlength = "8",
+                                                   @class = "form-control",
+                                                   @required = "true",
+                                                   @placeholder = "Nhập tên thành viên",
+                                                   @value = ViewBag.txtTenTV
+
+                                               })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <label for="txtMatKhau">Giới tính</label>
+                                    <div class="row clearfix">
+                                        <div class="form-group">
+                                            <div class="demo-radio-button">
+                                                &nbsp;	&nbsp;&nbsp;	&nbsp;
+                                                <input name="Gender" type="radio" id="rdbNam" class="radio-col-blue" @ViewBag.rdbNam>
+                                                <label for="rdbNam">Nam</label>
+                                                @*@Html.RadioButton("Gender", "1", true, new { @class = "radio-col-blue", @id = "Nam" })
+                                                    @Html.Label("Nam", "Nam")*@
+                                                @*@Html.RadioButton("Gender", "0", new { @class = "radio-col-pink", @id = "Nu" })
+                                                    @Html.Label("Nu", "Nữ")*@
+                                                <input name="Gender" type="radio" id="rdbNu" class="radio-col-pink" @ViewBag.rdbNu>
+                                                <label for="rdbNu">Nữ</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <label for="txtXacNhan">Ngày sinh</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="material-icons">date_range</i>
+                                        </span>
+                                        <div class="form-line">
+                                            @Html.TextBox("txtNgaySinh", null, new { @class = "form-control ngayValidate", @type = "date", @required = "true", @value = ViewBag.txtNgaySinh, @min = "1899-01-01", @max = "2100-13-13" })
+                                        </div>
+                                    </div>
+                                    <label for="txtTenNhom">Nơi sinh</label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            @Html.TextBox("txtNoiSinh", null, new
+                                       {
+                                           @class = "form-control",
+                                           @placeholder = "Nhập nơi sinh của thành viên",
+                                           @maxlength = "50",
+                                           @value = ViewBag.txtNoiSinh
+                                       })
+                                        </div>
+                                    </div>
+                                    <label for="txtDiaChi">Địa chỉ</label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            @Html.TextBox("txtDiaChi", null, new
+                                       {
+                                           @class = "form-control",
+                                           @placeholder = "Nhập địa chỉ của thành viên",
+                                           @maxlength = "250",
+                                           @required = "true",
+                                           @value = ViewBag.txtDiaChi
+                                       })
+                                        </div>
+                                    </div>
+                                    <label for="txtSDT">Số điện thoại</label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            @Html.TextBox("txtSDT", null, new
+                                       {
+                                           @class = "form-control",
+                                           @placeholder = "Nhập số điện thoại của thành viên",
+                                           @maxlength = "15",
+                                           @required = "true",
+                                           pattern = ".{10,15}",
+                                           @value = ViewBag.txtSDT
+                                       })
+                                        </div>
+                                    </div>
+                                    <label for="txtEmail">Email</label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            @Html.TextBox("txtEmail", null, new
+                                       {
+                                           @class = "form-control",
+                                           @placeholder = "Nhập Email của thành viên",
+                                           @maxlength = "256",
+                                           @value = ViewBag.txtEmail
+                                       })
+                                        </div>
+                                    </div>
+                                    <label for="txtFacebook">Facebook</label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            @Html.TextBox("txtFacebook", null, new
+                                       {
+                                           @class = "form-control",
+                                           @placeholder = "Nhập Facebook của thành viên",
+                                           @maxlength = "256",
+                                           @value = ViewBag.txtFacebook
+                                       })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-lg-4">
+                                    <label for="txtTenNhom">Hình đại diện</label>
+                                    <br />
+                                    <img id="hinhDD" class='img img-responsive img-thumbnail'
+                                         src="@ViewBag.hinhDD" width="250px" height="auto" />
+                                    <br />
+                                    <label for="file-upload" class="custom-btn-file-upload">
+                                        <i class="fa fa-cloud-upload"></i> Chọn hình ảnh
+                                    </label>
+                                    <input type='file' onchange="OpenFileBrowser(this);" id="file-upload"
+                                           style="display:none;"
+                                           accept=".png,.jpg,.jpeg,.gif,.tif" name="fileUpload" />
+                                    <br />
+
+                                    <label for="txtCMND">Số CMND</label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            @Html.TextBox("txtCMND", null, new
+                                       {
+                                           @class = "form-control",
+                                           @required = "true",
+                                           @placeholder = "Nhập số CMND của thành viên",
+                                           @maxlength = "15",
+                                           pattern = ".{9,15}",
+                                           @value = ViewBag.txtCMND
+                                       })
+                                        </div>
+                                    </div>
+                                    <label for="txtNgayCap">Ngày cấp</label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+
+                                            @Html.TextBox("txtNgayCap", null, new
+                                       {
+                                           @class = "form-control ngayValidate",
+                                           @type = "date",
+                                           @value = ViewBag.txtNgayCap,
+                                           @min = "1899-01-01",
+                                           @max = "2100-13-13"
+                                       })
+                                        </div>
+                                    </div>
+                                    <label for="txtNoiCap">Nơi cấp</label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            @Html.TextBox("txtNoiCap", null, new
+                                       {
+                                           @class = "form-control",
+                                           @placeholder = "Nhập nơi cấp CMND của thành viên",
+                                           @maxlength = "250",
+                                           @value = ViewBag.txtNoiCap
+                                       })
+                                        </div>
+                                    </div>
+                                    <label for="txtGhiChu">Ghi chú</label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+
+                                            @Html.TextArea("txtGhiChu", new
+                                       {
+                                           @rows = "4",
+                                           @class = "form-control no-resize",
+                                           @placeholder = "Nhập thêm ghi chú cho thành viên",
+                                           @value = ViewBag.txtGhiChu
+                                       })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-7"></div>
+
+                                <div class="col-md-5">
+                                    <br>
+                                    <input type="submit" class="btn btn-primary m-t-15 waves-effect" value="Lưu lại">
+                                    <a type="reset" href="/ThanhVien/tv_TaoMoiThanhVien" class="btn btn-default m-t-15 waves-effect">Reset</a>
+                                    <button type="button" class="btn btn-default m-t-15 waves-effect">Trở lại</button>
+                                </div>
+                            </div>
+
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #END# Vertical Layout -->
+    </div>
+</section>
+<!-- Modal -->
+@Html.Raw(@ViewBag.ThongBao)
+
+
+
+

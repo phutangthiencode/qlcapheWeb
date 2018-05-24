@@ -1,0 +1,64 @@
+﻿@model qlCaPhe.Models.taiKhoan
+@using qlCaPhe.App_Start;
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Truy cập thất bại</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/dungChung.js"></script>
+    <style>
+        body {
+            background-image: url(../images/background_access_denied.png);
+        }
+        .error-template {
+            padding: 40px 15px;
+            text-align: center;
+        }
+
+        .error-actions {
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
+            .error-actions .btn {
+                margin-right: 10px;
+            }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="error-template">
+                    <h1>
+                        Ôi :(
+                    </h1>
+                    <h2>
+                        Truy cập trái phép
+                    </h2>
+                    <div class="error-details">
+                        Xin lỗi, bạn không được truy cập vào chức năng này
+                    </div>
+                    <div class="error-actions">
+                        <a href="@xulyDuLieu.traVeKyTuGoc(Model.nhomTaiKhoan.trangMacDinh)" class="btn btn-primary btn-lg">
+                            <span class="glyphicon glyphicon-home"></span>Về trang chính
+                        </a>
+                        
+                        <a onclick="troVeTrangTruoc()" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-chevron-left"></span> 
+                        Trở lại</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

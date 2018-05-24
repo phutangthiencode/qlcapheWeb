@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewBag.Title = "Vị trí kho hàng trên bàn đồ";
+    Layout = "~/Views/Shared/_LayoutTools.cshtml";
+}
+
+<script src="~/Scripts/googleMap.js"></script>
+@*<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZNCVxHLF2rphFSa3Otn3BlbkXB_ecBwg&callback=initMap"
+        type="text/javascript"></script>*@
+@Html.Raw(ViewBag.ScriptAPI)
+<link href="~/Content/styleTool.css" rel="stylesheet" />
+<!-- Enclose the Javascript in a "section" so that it is rendered in the correct order after scripts have been loaded etc -->
+@section scripts {
+    <section class="scripts">
+        @Html.Raw(ViewBag.ScriptMap)
+    </section>
+}
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <h2>Cơ sở - Vật chất > Danh mục kho hàng</h2>
+        </div>
+        <!-- Vertical Layout -->
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>
+                            ĐỊA ĐIỂM KHO HÀNG &quot; @ViewBag.TenKhoHang &quot; TRÊN GOOGLE MAPS
+                        </h2>
+                    </div>
+                    <div class="body">
+                        <div class="table-responsive">
+                            <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <!-- This is the div that will contain the Google Map -->
+
+                                        <div id="map_canvas" style="height: 600px;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #END# Vertical Layout -->
+    </div>
+</section>

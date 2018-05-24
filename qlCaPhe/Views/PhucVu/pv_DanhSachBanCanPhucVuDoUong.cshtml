@@ -1,0 +1,161 @@
+﻿@{
+    ViewBag.Title = "Giao cho khách";
+    Layout = "~/Views/Shared/_LayoutTools.cshtml";
+}
+
+<link href="~/Content/toolTipGoiY.css" rel="stylesheet" />
+@Html.Raw(ViewBag.ScriptAjaxXemChiTiet)
+
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <h2>Pha chế - Phục vụ > Danh sách phục vụ</h2>
+        </div>
+        <!-- Vertical Layout -->
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+
+                    <div class="header">
+                        <h2>
+                            <i class="material-icons">add_alert</i>
+                            GIAO CHO KHÁCH
+                        </h2>
+                    </div>
+
+                    <div class="body">
+
+                        <div class="tab-content">
+                            <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <table class="table table-bordered table-striped table-hover js-basic-example dataTable" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                                            <thead>
+                                                <tr>
+                                                    <th rowspan="1" width="20%" colspan="1">Số bàn</th>
+                                                    <th rowspan="1" width="20%" colspan="1">Tiếp nhận lúc</th>
+                                                    <th rowspan="1" width="20%" colspan="1">Số sản phẩm</th>
+                                                    <th rowspan="1" width="20%" colspan="1">Tổng tiền</th>
+                                                    <th rowspan="1" width="20%" colspan="1">Chức năng</th>
+                                                </tr>
+                                            </thead>
+                                            <tfoot>
+
+                                            </tfoot>
+                                            <tbody id="danhSachPhucVu">
+                                                @Html.Raw(ViewBag.TableData)
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="row"><div class="col-sm-5"><div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div></div><div class="col-sm-7"><div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate"><ul class="pagination"><li class="paginate_button previous disabled" id="DataTables_Table_0_previous"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0">Previous</a></li><li class="paginate_button active"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0">1</a></li><li class="paginate_button "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="2" tabindex="0">2</a></li><li class="paginate_button "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="3" tabindex="0">3</a></li><li class="paginate_button "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="4" tabindex="0">4</a></li><li class="paginate_button "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="5" tabindex="0">5</a></li><li class="paginate_button "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="6" tabindex="0">6</a></li><li class="paginate_button next" id="DataTables_Table_0_next"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="7" tabindex="0">Next</a></li></ul></div></div></div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #END# Vertical Layout -->
+    </div>
+</section>
+@Html.Raw(ViewBag.ModalChiTiet)
+
+<script>
+    $(document).ready(function (event) {
+        ////=====================CÁC SỰ KIỆN GỬI REQUEST VÀO SESSION
+        layDanhSachPhucVu();
+    });
+    function layDanhSachPhucVu(e) {
+        AjaxLayDanhSachPhucVu(event); //-------Lấy danh sách lần 1
+        setInterval(function (e) { //-------Chờ 30s rồi lấy danh sách 1 lần
+            AjaxLayDanhSachPhucVu(e);
+        }, 30000);   //--------reload danh sách sau 30s
+    }
+    //-----Script load danh sách bàn đã order
+    function AjaxLayDanhSachPhucVu(e) {
+        $.ajax({
+            url: getDuongDan() + 'PhucVu/AjaxLayDanhSachBanCanPhucVu',
+            context: this,
+            dataType: 'html',
+            beforeSend: function () {
+                //------Hiện reload
+                $('.page-loader-wrapper').attr('style', 'display:block');
+            },
+            success: function (data, textStatus, xhr) {
+                $('#danhSachPhucVu').empty();
+                $('#danhSachPhucVu').html(data);//Đổ danh sách lên body của table
+                //=====================CÁC SỰ KIỆN GỬI REQUEST VÀO SESSION
+                vaoTrangCoTruyenThamSoMaHoa(e);
+                addRequestToSession(e);
+                thucThi();
+                //------Hiện reload
+                $('.page-loader-wrapper').attr('style', 'display:none');
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                layDanhSachPhucVu(e);
+            }
+        });
+    }
+    function thucThi(e) {
+        //====================SỰ KIỆN CLICK VÀO 1 BÀN ĐỂ XEM CHI TIẾT==================
+        //-----------------------Hiện modal chi tiết sản phẩm của bàn
+        $('.goiY').click(function (event) {
+            var ts = $(this).attr('maBan');
+            $.ajax({
+                url: getDuongDan() + 'PhucVu/AjaxXemChiTietCacSanPhamCanPhucVuc?maBan=' + ts,
+                type: 'get',
+                beforeSend: function () {
+                    //---Sự kiện unbind không click vào item nữa
+                    event.preventDefault();
+                    event.stopImmediatePropagation();
+                },
+                success: function (data, textStatus, xhr) {
+                    $('#vungChiTiet').html(data);
+                    $('#modalChiTiet').modal('show');
+                    ////=====================CÁC SỰ KIỆN GỬI REQUEST VÀO SESSION
+                    //vaoTrangCoTruyenThamSoMaHoa(e);
+                    //addRequestToSession(e);
+                    thucThi();
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                }
+            });
+            return false;
+        });
+
+        //====================SỰ KIỆN CLICK VÀO NÚT GIAO TẤT CẢ TRÊN BẢNG DANH SÁCH=============
+        $('.btnGiaoTatCa').click(function (event) {
+            var ts = $(this).attr('task');
+            $.ajax({
+                url: getDuongDan() + 'PhucVu/capNhatSangDaGiao',
+                data: "param=" + ts,
+                type: 'get',
+                beforeSend: function () {
+                    //---Sự kiện unbind không click vào item nữa
+                    event.preventDefault();
+                    event.stopImmediatePropagation();
+                    $('.page-loader-wrapper').attr('style', 'display:block');
+                },
+                success: function (data, textStatus, xhr) {
+                    $('#danhSachPhucVu').empty();
+                    $('#danhSachPhucVu').html(data);//Đổ danh sách lên body của table
+                    $('#modalChiTiet').modal('hide');
+                    //vaoTrangCoTruyenThamSoMaHoa(e);
+                    //addRequestToSession(e);
+                    $('.page-loader-wrapper').attr('style', 'display:none');
+                    thucThi();
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                }
+            });
+            return false;
+        });
+    }
+</script>
+
+
+

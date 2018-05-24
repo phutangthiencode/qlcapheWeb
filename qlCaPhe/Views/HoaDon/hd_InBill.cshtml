@@ -1,0 +1,97 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>In hóa đơn @ViewBag.SoHDTitle</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/style.css" rel="stylesheet" />
+    <style>
+        body{
+            background-color:#ffffff;
+            width:300px; 
+            height:auto;
+            border: 1px solid;
+        }
+    </style>
+</head>
+<body onload="window.print()">
+    <div>
+        @Html.Raw(ViewBag.Data)
+    </div>
+    @*<div>
+            <div class="row text-center">
+
+                <h4>@xulyDuLieu.traVeKyTuGoc(cauHinh.tenQuan)</h4>
+                <label><i>Địa chỉ: xulyDuLieu.traVeKyTuGoc(cauHinh.diaChi)</i></label>
+                <label><i>ĐT: xulyDuLieu.traVeKyTuGoc(cauHinh.hotLine)</i></label><br />
+                <label>*********************</label>
+
+            </div>
+            <div class="row">
+
+                <h4 class="text-center">HÓA ĐƠN THANH TOÁN</h4>
+                <p>Số TT: @Model.maHoaDon.ToString()</p>
+                <p><b>Bàn: @xulyDuLieu.traVeKyTuGoc(Model.BanChoNgoi.tenBan)</b> - Ngày: @Model.ngayLap.ToString()</p>
+
+            </div>
+            <div class="row">
+                <table>
+                    <thead>
+                        <tr>
+                            <th width="40%">Tên hàng</th>
+                            <th width="20%">Đơn giá</th>
+                            <th width="20%">T.Tiền</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(ctHoaDonOrder ct in Model.ctHoaDonOrders.ToList())
+                        {
+                            @{
+                                var tenSP = xulyDuLieu.traVeKyTuGoc(ct.sanPham.tenSanPham) + "(x " + ct.soLuong.ToString() + ")";
+                            }
+                            <tr>
+                                <td>@tenSP</td>
+                                <td>@ct.donGia.ToString()</td>
+                                <td>@{(ct.soLuong* ct.donGia).ToString()}</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <br />
+            <div class="font-16 bold">
+                <label>T.Cộng:</label>
+                <label class="pull-right">@Model.tongTien.ToString()</label>
+
+            </div>
+            <div class="font-18 bold">
+
+                <label>Tạm tính:</label>
+                <label class="pull-right">@Model.tamTinh.ToString()</label>
+
+            </div>
+            <div class="font-14 bold">
+
+                <label>Nhận tiền mặt:</label>
+                <label class="pull-right">"+tienMat+"</label>
+
+            </div>
+            <div class="font-14 bold">
+
+                <label>Tiền trả:</label>
+                <label class="pull-right">"+tienTra+"</label>
+
+            </div>
+            <div class="font-11 text-center">
+
+                <label>Cám ơn quý khách - hẹn gặp lại !!!</label>
+
+            </div>
+        </div>*@
+</body>
+</html>

@@ -1,0 +1,32 @@
+﻿@model qlCaPhe.Models.taiKhoan
+@using qlCaPhe.App_Start;
+@*@{
+    if (Model.tenDangNhap != null)
+    {
+        
+    }
+    else
+}*@
+
+
+<div class="user-info">
+    <div class="image">
+        <img src="@xulyDuLieu.chuyenByteHinhThanhSrcImage(Model.thanhVien.hinhDD)" width="48" height="48" alt="User" />
+    </div>
+    <div class="info-container">
+        @{
+            string hoTen = xulyDuLieu.traVeKyTuGoc(Model.thanhVien.hoTV) + " " + xulyDuLieu.traVeKyTuGoc(Model.thanhVien.tenTV);
+        }
+        <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="text-transform: uppercase;">@hoTen</div>
+        <div class="email">@xulyDuLieu.traVeKyTuGoc(Model.thanhVien.Email)</div>
+        <div class="btn-group user-helper-dropdown">
+            <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
+
+            <ul class="dropdown-menu pull-right">
+                <li><a href="/Home/Profile"><i class="material-icons">person</i>Cá nhân</a></li>
+                <li><a onclick="location.href='@Url.Action("Logout","Home")'"><i class="material-icons">input</i>Đăng xuất</a></li>
+            </ul>
+
+        </div>
+    </div>
+</div>

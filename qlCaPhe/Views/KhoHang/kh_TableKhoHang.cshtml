@@ -1,0 +1,101 @@
+﻿@{
+    ViewBag.Title = "Danh mục kho hàng";
+    Layout = "~/Views/Shared/_LayoutTools.cshtml";
+}
+
+<link href="~/Content/toolTipGoiY.css" rel="stylesheet" />
+@Html.Raw(ViewBag.ScriptAjax)
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <h2>Cơ sở - Vật chất > Danh mục kho hàng</h2>
+        </div>
+        <!-- Vertical Layout -->
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                        <div class="row">
+                            <div class="col-md-5 col-lg-5 col-xs-12 col-sm-5">
+                                <i class="material-icons">view_array</i>
+                                <span class="font-20">QUẢN LÝ KHO HÀNG</span>
+                            </div>
+                            <div class="col-md-7 col-lg-7 col-sm-7 col-xs-12">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" style="float:right">
+                                    <li class="">
+                                        <a href="~/KhoHang/kh_TaoMoiKhoHang">
+                                            <i class="material-icons">add</i> TẠO MỚI KHO HÀNG
+                                        </a>
+                                    </li>
+                                    <li class="active">
+                                        <a href="~/KhoHang/kh_TableKhoHang">
+                                            <i class="material-icons">list</i> DANH MỤC KHO HÀNG
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="body">
+                        <div class="table-responsive">
+                            <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+            
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <table class="table table-bordered table-striped table-hover js-basic-example dataTable" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                                            <thead>
+                                                <tr>
+                                                    <th width="15%">Tên kho hàng</th>
+                                                    <th width="10%">Diện tích</th>
+                                                    <th width="12%">Số điện thoại</th>
+                                                    <th width="30%">Địa chỉ</th>
+                                                    <th width="13%">Trạng thái</th>
+                                                    <th width="20%">Chức năng</th>
+                                                </tr>
+                                            </thead>
+                                            <tfoot>
+
+                                            </tfoot>
+                                            <tbody>
+                                                @Html.Raw(ViewBag.TableData)
+                                                @*<tr role="row" class="odd">
+                                                    <td>Kho hàng 1</td>
+                                                    <td>75 m<sup>2</sup></td>
+                                                    <td>02838123454</td>
+                                                    <td>
+                                                        <a class="goiY" data-toggle="modal" data-target="#modalBanDo" style="cursor:pointer">
+                                                            448 QL1A, An Phú Đông, Q.12, TP.HCM
+                                                            <span class="noiDungGoiY">Click để xem bản đồ</span>
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        <div class="btn-group">
+                                                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                                                Chức năng <span class="caret"></span>
+                                                            </button>
+                                                            <ul class="dropdown-menu" role="menu">
+                                                                <li><a href="#" class="col-blue"><i class="material-icons">mode_edit</i>Chỉnh sửa</a></li>
+                                                                <li><a href="#" class="col-orange"><i class="material-icons">clear</i>Ngưng sử dụng</a></li>
+                                                                <li><a href="#" class="col-red"><i class="material-icons">delete</i>Xoá bỏ</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                              *@
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #END# Vertical Layout -->
+    </div>
+</section>
+@*modal Xóa*@
+@Html.Raw(ViewBag.ModalXoa)

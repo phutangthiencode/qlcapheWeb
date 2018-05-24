@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<root>
+	<menuItem idCha="0" id="1" name="Vùng làm việc" link="../Tools_VungLamViec/Index" description="" icon="home" cssClass="active"></menuItem>
+
+	<menuItem idCha="0" id="2" name="Tài khoản - Thành Viên" link="" cssClass="" description="" icon="account_box">
+		<menuItem id="201" idCha="2" name="Quản lý nhóm tài khoản" link="../NhomTaiKhoan/ntk_TableNhomTK" cssClass="" description=""  icon="group"></menuItem>
+		<menuItem id="202" idCha="2" name="Quản lý tài khoản" link="../TaiKhoan/RouteTaiKhoanHoatDong" cssClass="" description=""  icon="account_circle"></menuItem>
+		<menuItem id="203" idCha="2" name="Quản lý thành viên" link="../ThanhVien/tv_TableThanhVien" cssClass="" description="" icon="person"></menuItem>
+	</menuItem>
+
+	<menuItem idCha="0" id="3" name="Cơ sở - Vật chất" link="" cssClass="" description="" icon="event_seat">
+		<menuItem id="301" idCha="3" name="Quản lý khu vực" link="../KhuVuc/kv_TableKhuVuc" cssClass="" description="" icon="blur_circular"></menuItem>
+		<menuItem id="302" idCha="3" name="Quản lý bàn - chỗ ngồi" link="../Ban/b_TableBan" cssClass="" description="" icon="vibration"></menuItem>
+		<menuItem id="303" idCha="3" name="Quản lý kho hàng" link="../KhoHang/kh_TableKhoHang" cssClass="" description="" icon="view_array"></menuItem>
+	</menuItem>
+
+	<menuItem idCha="0" id="4" name="Thực đơn - Đồ uống" link="" cssClass="" description="" icon="local_drink">
+		<menuItem id="401" idCha="4" name="Quản lý loại đồ uống" link="../LoaiDoUong/ldu_TableLoaiDoUong" cssClass="" description="" icon="bookmark"></menuItem>
+		<menuItem id="402" idCha="4" name="Quản lý đồ uống" link="/DoUong/RouteDoUongDuocBan" cssClass="" description="" icon="local_cafe"></menuItem>
+	</menuItem>
+
+	<menuItem idCha="0" id="5" name="Đặt bàn - Thanh toán" link="" cssClass="" description="" icon="event_note">
+		<menuItem id="501" idCha="5" name="Đặt bàn - Order" link="../NghiepVuBan/nvb_QuanLyDatBanTaiQuan" cssClass="" description="" icon="receipt"></menuItem>
+		<menuItem id="502" idCha="5" name="Thanh toán - tính tiền" link="../HoaDon/hd_TableHoaDonChoThanhToan" cssClass="" description="" icon="payment"></menuItem>
+		<menuItem id="503" idCha="5" name="Danh mục hoá đơn" link="../HoaDon/hd_TableHoaDonOrderTrongNgay" cssClass="" description="" icon="playlist_add_check"></menuItem>
+		<menuItem id="504" idCha="5" name="Danh mục đặt bàn online" link="../NhanBan/TableNhanBanOnline" cssClass="" description="" icon=""></menuItem>
+	</menuItem>
+
+	<menuItem idCha="0" id="6" name="Pha chế - Phục vụ" link="" cssClass="" description="" icon="local_dining">
+		<menuItem id="601" idCha="6" name="Tiếp nhận pha chế" link="../PhaChe/pc_PhaCheTheoBan" cssClass="" description="" icon="cached"></menuItem>
+		<menuItem id="602" idCha="6" name="Đã pha chế xong" link="../PhucVu/pv_DanhSachBanCanPhucVuDoUong" cssClass="" description="" icon="add_alert"></menuItem>
+	</menuItem>
+
+	<menuItem idCha="0" id="7" name="Nguyên liệu - Nhà cung cấp" link="" cssClass="" description="" icon="layers">
+		<menuItem id="701" idCha="7" name="Quản lý loại nguyên liệu" link="../LoaiNguyenLieu/lnl_TableLoaiNguyenLieu" cssClass="" description="" icon="bookmark"></menuItem>
+		<menuItem id="702" idCha="7" name="Quản lý nguyên liệu" link="../NguyenLieu/nl_TableNguyenLieu" cssClass="" description="" icon="layers"></menuItem>
+		<menuItem id="703" idCha="7" name="Quản lý nhà cung cấp" link="../NhaCungCap/ncc_TableNhaCungCap" cssClass="" description="" icon="local_grocery_store"></menuItem>
+	</menuItem>
+
+  <menuItem idCha="0" id="8" name="Nhập - Xuất kho" link="" cssClass="" description="" icon="store_mall_directory">
+    <menuItem id="801" idCha="8" name="Nhập hàng" link="../NhapKho/nk_TablePhieuNhap" cssClass="" description="" icon="cloud_download"></menuItem>
+    <menuItem id="802" idCha="8" name="Xuất hàng" link="../XuatKho/xk_TableXuatKho" cssClass="" description="" icon="cloud_upload"></menuItem>
+    <!--<menuItem id="803" idCha="8" name="Tồn kho theo tháng" link="../TonKho/tkho_TableTonKhoTheoThang" cssClass="" description="" icon="view_list"></menuItem>-->
+    <menuItem id="803" idCha="8" name="Kiểm kho" link="../TonKho/tkho_KiemKho" cssClass="" description="" icon="spellcheck"></menuItem>
+    <menuItem id="804" idCha="8" name="Tồn kho" link="../TonKho/tkho_TableTonKho" cssClass="" description="" icon="view_list"></menuItem>
+  </menuItem>
+
+  <menuItem idCha="0" id="9" name="Điều phối - Đánh giá" link="" cssClass="" description="" icon="schedule">
+    <menuItem id="901" idCha="9" name="Quản lý ca làm việc" link="../CaLamViec/ca_TableCaLamViec" cssClass="" description="" icon="alarm"></menuItem>
+    <menuItem id="902" idCha="9" name="Điều phối công tác" link="../BangCongTac/bct_TableDieuPhoi" cssClass="" description="" icon="directions_run"></menuItem>
+    <menuItem id="906" idCha="9" name="Tạo mới mục tiêu đánh giá" link="../DanhGia/mtdg_TaoMoiMucTieuDanhGia" cssClass="" description="" icon=""></menuItem>
+    <menuItem id="907" idCha="9" name="Danh mục mục tiêu đánh giá" link="../DanhGia/mtdg_TableMucTieuDanhGia" cssClass="" description="" icon=""></menuItem>
+    <menuItem id="908" idCha="9" name="Đánh giá nhân viên" link="../DanhGia/DanhGiaNhanVien" cssClass="" description="" icon=""></menuItem>
+    <menuItem id="909" idCha="9" name="Danh mục đánh giá nhân viên" link="../DanhGia/DanhMucDanhGia" cssClass="" description="" icon=""></menuItem>
+  </menuItem>
+
+  <menuItem idCha="0" id="10" name="Bài viết - Phản hồi" link="" cssClass="" description="" icon="border_color">
+    <menuItem id="1001" idCha="10" name="Quản lý bài viết" link="../BaiViet/bv_TableBaiVietDaDuyet" cssClass="" description="" icon="subtitles"></menuItem>
+    <menuItem id="1002" idCha="10" name="Danh mục phản hồi" link="../PhanHoi/TablePhanHoi" cssClass="" description="" icon="comment"></menuItem>
+  </menuItem>
+
+  <menuItem idCha="0" id="11" name="Cấu hình - Nhật ký" link="" cssClass="" description="" icon="settings">
+    <menuItem id="1101" idCha="11" name="Thiết lập thông số chung" link="../CauHinh/ch_ThietLapThongSoChung" cssClass="" description="" icon="system_update"></menuItem>
+    <menuItem id="1102" idCha="11" name="Quản lý Slideshow" link="../Slide/sl_TableSlideShow?trangThai=true" cssClass="" description="" icon="slideshow"></menuItem>
+    <menuItem id="1103" idCha="11" name="Nhật ký truy cập" link="../NhatKy/NhatKyTruyCap" cssClass="" description="" icon="comment"></menuItem>
+  </menuItem>
+
+  <menuItem idCha="0" id="12" name="Thống kê" link="" cssClass="" description="" icon="pie_chart">
+    <menuItem id="1201" idCha="12" name="Thống kê 1" link="#" cssClass="" description="" icon=""></menuItem>
+    <menuItem id="1202" idCha="12" name="Thống kê 2" link="#" cssClass="" description="" icon=""></menuItem>
+    <menuItem id="1203" idCha="12" name="Thống kê 3" link="#" cssClass="" description="" icon=""></menuItem>
+  </menuItem>
+</root>

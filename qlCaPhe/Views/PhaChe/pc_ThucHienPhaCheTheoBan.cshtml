@@ -1,0 +1,318 @@
+﻿@{
+    ViewBag.Title = "Pha chế theo bàn";
+    Layout = "~/Views/Shared/_LayoutTools.cshtml";
+}
+
+<link href="~/Content/toolTipGoiY.css" rel="stylesheet" />
+@Html.Raw(ViewBag.ScriptAjaxXemChiTiet)
+
+<link href="~/Content/formWizard.css" rel="stylesheet" />
+<script src="~/Scripts/formWizard.js"></script>
+@Html.Raw(ViewBag.ScriptAjaxXemChiTiet)
+<script>
+    $(document).ready(function (e) {
+        xemCongThuc(e);
+        layDanhSachSPPhaChe();
+        suKienPhaChe();
+        hoanTatMotMon();
+    });
+    //---------Hàm HIỆN DỮ LIỆU lên các ID TAG sau khi AJAX LẤY DANH SÁCH SẢN PHẨM pha chế thành công
+    function successAjaxGetListProduct(data) {
+        $('#listChoPhaChe').empty();
+        $('#listDangPhaChe').empty();
+        $('#listDaPhaChe').empty();
+        $('#listChoPhaChe').html(data.split('|')[0]); //-----Lấy bảng danh sách món chờ pha chế
+        $('#listDangPhaChe').html(data.split('|')[1]); //-----Lấy bảng danh sách món đang pha chế
+        $('#listDaPhaChe').html(data.split('|')[2]); //-----Lấy bảng danh sách các món đã pha chế
+    }
+    //----Script xem công thức pha chế
+    function xemCongThuc(e) {
+        $("#listDangPhaChe").on("click", ".btnXemCongThuc", function (e) {
+            var ts = $(this).attr('maCongThuc');
+            $.ajax({
+                url: getDuongDan() + 'CongThuc/AjaxXemChiTietCongThuc',
+                data: 'maCongThuc=' + ts,
+                context: this,
+                dataType: 'html',
+                type: 'get',
+                beforeSend: function () {
+                    //---Sự kiện unbind không click vào item nữa
+                    e.preventDefault();
+                    e.stopImmediatePropagation();
+                },
+                success: function (data, textStatus, xhr) {
+                    $('#vungChiTiet').html(data);
+                    $('#modalChiTiet').modal('show');
+                    xemCongThuc();
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    xemCongThuc();
+                }
+            });
+        });
+    }
+    //-----Hàm lấy danh sách các sản phẩm pha chế
+    function layDanhSachSPPhaChe() {
+        var ts = $('#maBanTask').val();//----Lấy mã bàn
+        $.ajax({
+            url: getDuongDan() + 'PhaChe/taoBangSanPham?maBan=' + ts,
+            type: 'GET',
+            context: this,
+            dataType: 'html',
+            beforeSend: function () {
+                //---Sự kiện unbind không click vào item nữa
+                event.preventDefault();
+                event.stopImmediatePropagation();
+            },
+            success: function (data, textStatus, xhr) {
+                successAjaxGetListProduct(data);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                layDanhSachSPPhaChe();
+            }
+        });
+    }
+    //-----Hàm cập nhật trạng thái sang đang pha chế khi người dùng click vào nút pha chế
+    function suKienPhaChe() {
+        $('#listChoPhaChe').on('click', '.btnPhaChe', function (e) {
+            var ts = $(this).attr('mact');
+            $.ajax({
+                url: getDuongDan() + 'PhaChe/AjaxPhaCheSanPham?maCt=' + ts,
+                type: 'GET',
+                context: this,
+                dataType: 'html',
+                beforeSend: function () {
+                    //---Sự kiện unbind không click vào item nữa
+                    e.preventDefault();
+                    e.stopImmediatePropagation();
+                },
+                success: function (data, textStatus, xhr) {
+                    successAjaxGetListProduct(data);
+                    suKienPhaChe();
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    suKienPhaChe();
+                }
+            });
+        });
+        //-----------SỰ KIỆN CẬP NHẬT TRẠNG THÁI ĐỀ XUẤT THAY THẾ CHO SẢN PHẨM HẾT HÀNG 
+        $('#listChoPhaChe').on('click', '.btnThayThe', function (e) {
+            var ts = $(this).attr('mact');
+            $.ajax({
+                url: getDuongDan() + 'PhaChe/AjaxDeXuatThayThe',
+                data: 'param=' + ts,
+                type: 'GET',
+                context: this,
+                dataType: 'html',
+                beforeSend: function () {
+                    //---Sự kiện unbind không click vào item nữa
+                    e.preventDefault();
+                    e.stopImmediatePropagation();
+                },
+                success: function (data, textStatus, xhr) {
+                    successAjaxGetListProduct(data);
+                    suKienPhaChe();
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    suKienPhaChe();
+                }
+            });
+        });
+    }
+    //-----Hàm cập nhật trạng thái pha chế của 1 món sang hoàn tất khi click vào nút hoàn tất
+    function hoanTatMotMon() {
+        $('#listDangPhaChe').on('click', '.btnHoanTat', function (e) {
+            var ts = $(this).attr('mact');
+            $.ajax({
+                url: getDuongDan() + 'PhaChe/AjaxHoanTatMotMon?maCt=' + ts,
+                type: 'GET',
+                context: this,
+                dataType: 'html',
+                beforeSend: function () {
+                    //---Sự kiện unbind không click vào item nữa
+                    e.preventDefault();
+                    e.stopImmediatePropagation();
+                },
+                success: function (data, textStatus, xhr) {
+                    successAjaxGetListProduct(data);
+                    hoanTatMotMon();
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    hoanTatMotMon();
+                }
+            });
+        });
+
+    }
+
+</script>
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <h2>Pha chế - Phục vụ > Tiếp nhận pha chế</h2>
+        </div>
+        <!-- Vertical Layout -->
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+
+                        <h2>
+                            <a href="/PhaChe/pc_PhaCheTheoBan" class="btn bg-red btn-circle-lg waves-effect waves-circle waves-float">
+                                <i class="material-icons">arrow_back</i>
+                            </a>
+                            @ViewBag.TieuDeTrang
+                            <a href="/PhaChe/pc_ThucHienPhaCheTheoBan" class="btn bg-blue btn-circle-lg waves-effect waves-circle waves-float pull-right">
+                                <i class="material-icons">refresh</i>
+                            </a>
+                        </h2>
+                    </div>
+                    <div class="body">
+
+                        <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                            @using (Html.BeginForm("hoanTatPhaCheHoaDon", "PhaChe"))
+                            {
+                                <input id="maBanTask" value="@ViewBag.MaBan" type="hidden" />
+                                <div class="row">
+                                    <div class="col-md-6 col-lg-6">
+                                        <div class="card">
+                                            <div class="header bg-cyan">
+                                                <h2>
+                                                    Danh mục món chờ pha chế
+                                                </h2>
+                                            </div>
+                                            <div class="body table-responsive">
+
+                                                <div id="listChoPhaChe">
+                                                    @*
+                                                                                                        <table class="table table-hover">
+                                                                                                            <thead>
+                                                                                                                <tr>
+                                                                                                                    <th style="width:40%">Tên món</th>
+                                                                                                                    <th>Số lượng</th>
+                                                                                                                    <th></th>
+                                                                                                                    <th></th>
+                                                                                                                </tr>
+                                                                                                            </thead>
+                                                                                                            <tbody>
+                                                                                                                <tr>
+                                                            <td>
+                                                                <img width="50px;" height="50px;" src="/images/image-gallery/1.jpg">
+                                                                <b>Cà phê đen</b>
+                                                            </td>
+                                                            <td>
+                                                                4
+                                                            </td>
+                                                            <td>
+                                                                <button type="submit" class="btn btn-default" data-toggle="modal" data-target="#modalXemCongThuc">Hủy</button>
+                                                            </td>
+                                                            <td>
+                                                                <button type="submit" class="btn btn-success">Pha chế</button>
+                                                            </td>
+                                                        </tr>
+                                                                                                </tbody>
+                                                                                            </table>*@
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-lg-6">
+                                        <div class="card">
+                                            <div class="header bg-green">
+                                                <h2>
+                                                    Danh sách các món đang pha chế
+                                                </h2>
+                                            </div>
+                                            <div class="body table-responsive">
+                                                <div id="listDangPhaChe"></div>
+                                                @*<table class="table table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th width="40%">Tên món</th>
+                                                            <th>Số lượng</th>
+                                                            <th></th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <img width="50px;" height="50px;" src="/images/image-gallery/1.jpg">
+                                                                <b>Cà phê đen Cà phê đen Cà phê đen Cà phê đen</b>
+                                                            </td>
+                                                            <td>
+                                                                4
+                                                            </td>
+                                                            <td>
+                                                                <button type="submit" class="btn btn-info" data-toggle="modal" data-target="#modalXemCongThuc">Xem công thức</button>
+                                                            </td>
+                                                            <td>
+                                                                <button type="submit" class="btn btn-danger">Hoàn tất</button>
+                                                            </td>
+                                                        </tr>
+                                                                                                    </tbody>
+                                                                                                </table>
+                                                *@
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> <!--row dsPhaChe-->
+
+                                <div class="row">
+
+                                    <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
+                                        <div class="card">
+                                            <div class="header bg-red">
+                                                <h2>
+                                                    Danh sách các món đã pha chế
+                                                </h2>
+                                            </div>
+                                            <div class="body table-responsive">
+                                                <div id="listDaPhaChe"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
+                                        <div class="card">
+                                            <div class="header bg-purple">
+                                                <h2>Ghi chú</h2>
+                                            </div>
+                                            <div class="body  bg-BLUE GREY">
+                                                <div class="form-group">
+                                                    <div class="form-line">
+                                                        <textarea rows="3" id="txtGhiChu" name="txtGhiChu" class="form-control">@ViewBag.GhiChu</textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                                <div class="row">
+
+                                    <button type="submit" class="btnXong btn bg-orange btn-circle-lg waves-effect waves-circle waves-float pull-right" style="margin-right: 15px;">
+                                        <i class="material-icons">done_all</i>
+                                    </button>
+
+                                </div>
+                            }
+                        </div>
+
+                    </div> <!--card body-->
+                    <div class="footer">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #END# Vertical Layout -->
+    </div>
+</section>
+
+
+
+<!--Modal xem chi tiết công thức-->
+@Html.Raw(ViewBag.ModalChiTiet)

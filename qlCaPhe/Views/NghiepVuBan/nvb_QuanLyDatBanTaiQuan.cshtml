@@ -1,0 +1,331 @@
+﻿@{
+    ViewBag.Title = "Quản lý đặt bàn";
+    Layout = "~/Views/Shared/_LayoutTools.cshtml";
+}
+<script src="~/Scripts/Ajax/ajaxNghiepVuBan.js"></script>
+<link href="~/Content/styleTool.css" rel="stylesheet" />
+<style>
+    #btnSearch {
+        cursor: pointer;
+    }
+
+    input::-webkit-input-placeholder {
+        color: white !important;
+    }
+
+    input:-moz-placeholder { /* Firefox 18- */
+        color: white !important;
+    }
+
+    input::-moz-placeholder { /* Firefox 19+ */
+        color: white !important;
+    }
+
+    input:-ms-input-placeholder {
+        color: white !important;
+    }
+</style>
+<link href="~/Content/toolTipGoiY.css" rel="stylesheet" />
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <h2>Đặt bàn - Thanh toán > Quản lý đặt bàn</h2>
+        </div>
+        <!-- Vertical Layout -->
+        <div class="row clearfix">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>
+                            <i class="material-icons">receipt</i>
+                            ĐẶT BÀN - ORDER
+                        </h2>
+                    </div>
+                    <div class="body">
+                        <div class="row">
+                            <div class="col-md-2 col-lg-2 col-sm-2">
+                                <label>Chọn khu vực</label>
+                                <select class="form-control" id="cbbKhuVuc">
+                                    @Html.Raw(ViewBag.cbbKhuVuc)
+                                </select>
+                            </div>
+                            <div class="col-md-8 col-lg-8 col-sm-9">
+                                <h2 class="card-inside-title">Liệt kê theo trạng thái bàn</h2>
+                                <div class="demo-radio-button">
+                                    <input name="rdbTrangThai" type="radio" id="rdbBanTrong" value="-1" class="with-gap radio-col-blue-grey rdbTrangThai" checked="">
+                                    <label for="rdbBanTrong">Bàn trống</label>
+
+                                    <input name="rdbTrangThai" type="radio" id="rdbChuaOrDer" value="0" class="with-gap radio-col-lime rdbTrangThai">
+                                    <label for="rdbChuaOrDer">Chưa order</label>
+
+                                    <input name="rdbTrangThai" type="radio" id="rdbDaOrder" value="1" class="with-gap radio-col-red rdbTrangThai">
+                                    <label for="rdbDaOrder">Đã order</label>
+
+                                    <input name="rdbTrangThai" type="radio" id="rdbDaThanhToan" value="3" class="with-gap radio-col-deep-purple rdbTrangThai">
+                                    <label for="rdbDaThanhToan">Đã thanh toán</label>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-lg-2 col-sm-2">
+                                <br />
+                                <input type="button" class="btn btn-info" id="btnLietKe" value="Liệt kê" />
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="header bg-red">
+                                <h2>Danh mục bàn</h2>
+                            </div>
+                            <div class="body">
+                                <div class="row">
+                                    <div id="vungDanhSachBan">
+                                        <!--Khu vực chứa danh sách bàn đã liệt kê-->
+                                    </div>
+                                </div>
+                            </div>  <!--body-card-->
+                        </div> <!--card-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #END# Vertical Layout -->
+    </div>
+
+    <!-- Modal chọn đồ uống khi khách order -->
+    <div class="modal fade" id="modalChonDoUong" data-keyboard="false" data-backdrop="static"
+         tabindex="-1" role="dialog" style="display: none;">
+        <div class="modal-dialog modal-lg" style="width:90%" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h4 class="modal-title">Nhận order</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-7 col-lg-7 col-sm-7 col-xs-12">
+                            <div class="card">
+                                <div class="header bg-red">
+
+                                    <h2 style="width:35%">Lựa chọn đồ uống</h2>
+                                    <ul class="header-dropdown m-r--5">
+                                        <li>
+                                            <div class="input-group pull-right" style="width:65%;">
+                                                <div class="form-line">
+                                                    <input type="text" id="txtTimKiemSP" class="form-control bg-red"
+                                                           placeholder="Nhập nhập tên món cần tìm">
+                                                </div>
+                                                <span class="input-group-addon">
+                                                    <i class="material-icons" id="btnSearch">search</i>
+                                                </span>
+                                            </div>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                                <div class="body">
+
+                                    <div class="row">
+
+                                        <div class="col-xs-12 ol-sm-12 col-md-12 col-lg-12">
+
+                                            <div id="dsSanPhamModal">
+
+                                            </div>
+
+
+
+                                            @*<b>Loại sản phẩm</b>
+                                                <div class="panel-group" id="accordion_1" role="tablist" aria-multiselectable="true">
+                                                    <div class="panel panel-primary">
+                                                        <div class="panel-heading" role="tab" id="headingOne_1">
+                                                            <h4 class="panel-title">
+                                                                <a role="button" data-toggle="collapse" data-parent="#accordion_1" href="#collapseOne_1" aria-expanded="true" aria-controls="collapseOne_1">
+                                                                    Cà phê - Ca cao - Trà
+                                                                </a>
+                                                            </h4>
+                                                        </div>
+                                                        <div id="collapseOne_1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne_1">
+                                                            <div class="panel-body">
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>*@
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5 col-lg-5 col-sm-5 col-xs-12">
+                            <div class="card">
+                                <div class="header bg-cyan">
+                                    <h2>
+                                        Danh mục món đã chọn
+                                    </h2>
+                                </div>
+                                <div class="body table-responsive">
+                                    <div id="listChiTiet">
+
+                                    </div>
+                                    <div id="cartGoiDoUong">
+
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <label for="txtGhiChu">Ghi chú</label>
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <textarea id="txtGhiChu" class="form-control" rows="2"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    @*<table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th width="30%">Tên món</th>
+                                                    <th style="width:30%">SL</th>
+                                                    <th width="20%">Đơn giá</th>
+                                                    <th width="20%"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Lipton hồng trà bạc hà</td>
+                                                    <td>
+                                                        <input type="number" value="4" class="form-control" style="width:60%" />
+                                                    </td>
+                                                    <td>12000</td>
+                                                    <td>
+                                                        <div class="demo-google-material-icon">
+                                                            <i class="material-icons" style="cursor:pointer">update</i> <span class="icon-name"></span>
+                                                            <i class="material-icons" style="cursor:pointer">clear</i> <span class="icon-name"></span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <p class="font-16 font-bold col-pink">Tạm tính: <i>250.000 VNĐ</i></p>*@
+                                    @*<div class="col-md-9" id="divTongTien" style="display:none;">
+                                            <p class="font-16 font-bold col-pink">Tạm tính: <i id="lbTongTien">114000</i><i> VNĐ</i></p>
+
+                                            <label for="txtTenQuan">Ghi chú</label>
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <input type="text" id="txtGhiChu" class="form-control" placeholder="Nhập thêm yêu cầu..."/>
+                                                </div>
+                                            </div>
+
+                                        </div>*@
+                                </div>
+
+
+                            </div>
+                            <button type="button" class="btn btn-success waves-effect" id="btnSave" data-dismiss="modal"><i class="material-icons">save</i>Hoàn tất</button>
+                            <button type="button" class="btn btn-danger waves-effect" id="btnCancelOrder" data-dismiss="modal"><i class="material-icons">exit_to_app</i>Đóng lại</button>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>  <!-- Modal chọn đồ uống khi khách order -->
+
+    <!--Modal hiện checkout cho cần thanh toán-->
+    <div class="modal fade" id="modalCheckout" data-keyboard="false" data-backdrop="static"
+         tabindex="-1" role="dialog" style="display: none;">
+        <div class="modal-dialog modal-sm" style="width:40%" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h4 class="modal-title">Check out</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12 col-lg-12">
+
+                            <div class="card">
+                                <div class="header bg-cyan">
+                                    <h2>
+                                        Danh mục món đã chọn
+                                    </h2>
+                                </div>
+                                <div class="body table-responsive">
+                                    <div id="vungCheckout"></div>
+                                    @*<table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Tên món</th>
+                                                    <th style="width:20%">Số lượng</th>
+                                                    <th>Đơn giá</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <img width="50px;" height="50px;" src="/images/image-gallery/1.jpg">
+                                                        <b>Cà phê đen</b>
+                                                    </td>
+                                                    <td>
+                                                        4
+
+                                                    </td>
+                                                    <td>12000 VNĐ</td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+
+                                        <p class="font-16 font-bold col-pink">Tạm tính: <i>250.000 VNĐ</i></p>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="btnThanhToan" class="btn btn-info waves-effect" data-dismiss="modal"><i class="material-icons">add_box</i>Thanh toán</button>
+                        <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal"><i class="material-icons">exit_to_app</i>Đóng lại</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <input type="hidden" id="maBanCuCanDoi" /> <!--Lưu lại mã bàn cũ cần đổi khi click vào lệnh đổi bàn-->
+
+    <div class="modal fade" id="modalDoiBan" data-keyboard="false" data-backdrop="static"
+         tabindex="-1" role="dialog" style="display: none;">
+        <div class="modal-dialog modal-lg" style="width:90%" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h4 class="modal-title">Chuyển đổi bàn</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="col-md-4 col-lg-4 col-sm-4">
+                        <label>Chọn khu vực</label>
+                        <select class="form-control" id="cbbKhuVucModal">
+                            @Html.Raw(ViewBag.cbbKhuVuc)
+                        </select>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-4">
+                        <br />
+                        <input type="button" class="btn btn-info" id="btnLietKeModal" value="Liệt kê" />
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                            <div id="vungDanhSachBanModalChuyenDoi">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal"><i class="material-icons">exit_to_app</i>Đóng lại</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

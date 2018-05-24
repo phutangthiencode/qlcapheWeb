@@ -1,0 +1,108 @@
+﻿@{
+    ViewBag.Title = "Danh mục nhà cung cấp";
+    Layout = "~/Views/Shared/_LayoutTools.cshtml";
+}
+<link href="~/Content/toolTipGoiY.css" rel="stylesheet" />
+@Html.Raw(ViewBag.ScriptAjax)
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <h2>Nguyên liệu - Nhà cung cấp > Danh mục nhà cung cấp</h2>
+        </div>
+        <!-- Vertical Layout -->
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                        <div class="row">
+                            <div class="col-md-5 col-lg-5 col-xs-12 col-sm-5">
+                                <i class="material-icons">local_grocery_store</i>
+                                <span class="font-20">QUẢN LÝ NHÀ CUNG CẤP</span>
+                            </div>
+                            <div class="col-md-7 col-lg-7 col-sm-7 col-xs-12">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" style="float:right">
+                                    <li class="">
+                                        <a href="~/NhaCungCap/ncc_TaoMoiNhaCungCap">
+                                            <i class="material-icons">add</i> TẠO MỚI NHÀ CUNG CẤP
+                                        </a>
+                                    </li>
+                                    <li class="active">
+                                        <a href="~/NhaCungCap/ncc_TableNhaCungCap">
+                                            <i class="material-icons">list</i> DANH MỤC NHÀ CUNG CẤP
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="body">
+                        <div class="body">
+                            <ul class="nav nav-tabs tab-col-pink" role="tablist">
+                                <li role="presentation" class="active"><a href="/NhaCungCap/ncc_TableNhaCungCap"><i class="material-icons">check</i>Danh mục nhà cung cấp còn cung cấp</a></li>
+                                <li role="presentation" class=""><a href="/NhaCungCap/ncc_TableNhaCungCapNgung"><i class="material-icons">check</i>Danh mục nhà cung cấp ngừng cung cấp</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="table-responsive">
+                                    <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                                                    <thead>
+                                                        <tr>
+                                                            <th width="20%" rowspan="1" colspan="1">Tên nhà cung cấp</th>
+                                                            <th width="10%" rowspan="1" colspan="1">Mã số thuế</th>
+                                                            <th width="25%" rowspan="1" colspan="1">Địa chỉ</th>
+                                                            <th width="15%" rowspan="1" colspan="1">Số điện thoại</th>
+                                                            <th width="10%" rowspan="1" colspan="1">Email</th>
+                                                            <th width="20%" rowspan="1" colspan="1"></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tfoot>
+
+                                                    </tfoot>
+                                                    <tbody>
+                                                        @Html.Raw(ViewBag.TableData)
+                                                        @*<tr role="row" class="odd">
+                                                            <td>
+                                                                <a href="http://www.trungnguyen.com.vn/" target="_blank" class="goiY">
+                                                                    Cà phê Trung Nguyên
+                                                                    <span class="noiDungGoiY-right">Click để vào trang web</span>
+                                                                </a>
+
+                                                            </td>
+                                                            <td>325456545</td>
+                                                            <td>123 Nguyễn Trãi, Q.5, TP.HCM</td>
+                                                            <td>0909888444</td>
+                                                            <td>caphetrungnguyen@mail.com</td>
+                                                            <td>
+                                                                <div class="btn-group">
+                                                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                                                        Chức năng <span class="caret"></span>
+                                                                    </button>
+                                                                    <ul class="dropdown-menu" role="menu">
+                                                                        <li><a href="#" class="col-blue"><i class="material-icons">mode_edit</i>Chỉnh sửa</a></li>
+                                                                        <li><a href="#" class="col-orange"><i class="material-icons">clear</i>Ngừng cung cấp</a></li>
+                                                                        <li><a href="#" class="col-red"><i class="material-icons">delete</i>Xoá bỏ</a></li>
+                                                                    </ul>
+                                                                </div>
+                                                            </td>
+                                                        </tr>*@
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div><div class="row"><div class="col-sm-5"><div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div></div><div class="col-sm-7"><div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate"><ul class="pagination"><li class="paginate_button previous disabled" id="DataTables_Table_0_previous"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0">Previous</a></li><li class="paginate_button active"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0">1</a></li><li class="paginate_button "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="2" tabindex="0">2</a></li><li class="paginate_button "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="3" tabindex="0">3</a></li><li class="paginate_button "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="4" tabindex="0">4</a></li><li class="paginate_button "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="5" tabindex="0">5</a></li><li class="paginate_button "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="6" tabindex="0">6</a></li><li class="paginate_button next" id="DataTables_Table_0_next"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="7" tabindex="0">Next</a></li></ul></div></div></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- #END# Vertical Layout -->
+        </div>
+        </div>
+</section>
+
+@*modal Xóa*@
+@Html.Raw(ViewBag.ModalXoa)

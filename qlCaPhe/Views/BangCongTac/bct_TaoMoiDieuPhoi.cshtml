@@ -1,0 +1,175 @@
+﻿@{
+    ViewBag.Title = "Phân chia công tác";
+    Layout = "~/Views/Shared/_LayoutTools.cshtml";
+}
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <h2>Điều phối - Đánh giá > Phân chia công tác</h2>
+        </div>
+
+
+        <!-- Vertical Layout -->
+        <div class="row clearfix">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="header">
+                        <div class="row">
+                            <div class="col-md-5 col-lg-5 col-xs-12 col-sm-5">
+                                <i class="material-icons">directions_run</i>
+                                <span class="font-20">PHÂN CHIA CÔNG TÁC</span>
+                            </div>
+                            <div class="col-md-7 col-lg-7 col-sm-7 col-xs-12">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" style="float:right">
+                                    <li class="active">
+                                        <a href="/BangCongTac/bct_TaoMoiDieuPhoi">
+                                            <i class="material-icons">add</i> ĐIỀU PHỐI NHÂN VIÊN
+                                        </a>
+                                    </li>
+                                    <li class="">
+                                        <a href="/BangCongTac/bct_TableDieuPhoi">
+                                            <i class="material-icons">list</i> DANH MỤC PHÂN CÔNG
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="body">
+                        <form action="/BangCongTac/bct_TaoMoiDieuPhoi" method="post">
+                            <div class="row">
+                                <div class="col-md-7 col-lg-7">
+                                    <label for="txtTenLoai">Tài khoản điều phối</label>
+                                    <select class="form-control" name="cbbThanhVien" id="cbbThanhVien">
+                                        <option value="-1">-- Lựa chọn tài khoản thành viên cần phân công --</option>
+                                        @Html.Raw(ViewBag.cbbThanhVien)
+                                    </select>
+                                    <br /><br />
+                                    <label for="txtGhiChu">Ghi chú</label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <textarea rows="4" name="txtGhiChu" id="txtGhiChu" class="form-control no-resize"
+                                                      placeholder="Nhập thêm ghi chú cho phân công này">@ViewBag.txtGhiChu</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-5 col-lg-5">
+                                    <div id="vungThanhVien">
+                                        @Html.Raw(ViewBag.hinhDD)
+                                        <br /><br /><br /><br />
+                                        <br /><br /><br /><br />
+                                    </div>
+                                    <button type="button" id="btnNext" class="btn bg-orange btn-sm btn-circle pull-right">
+                                        <i class="material-icons">arrow_downward</i>
+                                    </button>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="card buoc">
+                                    <div class="header bg-cyan">
+                                        <h2>Lựa chọn ca phân phối</h2>
+                                    </div>
+                                    <div class="body">
+                                        <div class="row">
+                                            <div class="col-md-6 col-lg-6">
+                                                <label>Ca làm việc</label>
+                                                <select class="form-control" id="cbbCaLamViec">
+                                                    <option value="">-- Lựa chọn ca làm việc phân công --</option>
+                                                    @Html.Raw(ViewBag.cbbCaLamViec)
+                                                </select>
+                                                <br /><br />
+
+                                                <label for="txtGhiChuCt">Ghi chú</label>
+                                                <div class="form-group">
+                                                    <div class="form-line">
+                                                        <textarea rows="4" id="txtGhiChuCt" class="form-control no-resize"
+                                                                  placeholder="Nhập thêm ghi chú cho ca làm việc này"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-lg-6">
+                                                <br />
+                                                <button id="js-btnDieuPhoi" class="btn btn-info waves-effect">Điều phối</button>
+                                            </div>
+                                        </div><!--row-->
+                                        <div id="vungChiTiet">
+                                            @Html.Raw(ViewBag.VungChiTiet)
+                                            @*<div class="header">
+                                                    <h2>Danh sách ca làm việc đã chọn</h2>
+                                                </div>
+                                                <div class="body table-responsive">
+                                                    <table class="table table-bordered table-striped table-hover js-basic-example dataTable" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Tên ca</th>
+                                                                <th>Buổi</th>
+                                                                <th>Thời gian làm việc</th>
+                                                                <th>Ghi chú</th>
+                                                                <th></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tfoot>
+
+                                                        </tfoot>
+                                                        <tbody>
+                                                            <tr role="row" class="odd">
+                                                                <td>
+                                                                    Ca 1
+                                                                </td>
+                                                                <td>Sáng</td>
+                                                                <td>7:00 - 11:00</td>
+                                                                <td>không đi trễ</td>
+                                                                <td>
+                                                                    <button type="submit" class="btn btn-danger">Bỏ ca này</button>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+
+                                                    <button type="button" class="btn btn-danger m-t-15 waves-effect">Xoá tất cả ca làm việc</button>
+                                                </div>*@
+                                        </div> <!--Cart table danh sách chi tiết-->
+                                        <div class="col-md-7"></div>
+
+                                        <div class="col-md-5">
+                                            <br>
+                                            <button type="submit" class="btn btn-primary m-t-15 waves-effect">Lưu lại</button>
+                                            <a href="/BangCongTac/bct_TaoMoiDieuPhoi" class="btn btn-default m-t-15 waves-effect">Reset</a>
+                                            <button onclick="troVeTrangTruoc()" type="button" class="btn btn-default m-t-15 waves-effect">Trở lại</button>
+                                        </div>
+                                    </div>  <!--body-card-->
+                                </div>
+                            </div> <!--row vùng lựa chọn-->
+
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- #END# Vertical Layout -->
+    </div>
+    @Html.Raw(ViewBag.ThongBao)
+
+    @Html.Raw(ViewBag.ScriptAjax)
+
+    <script type="text/javascript">
+
+        //Code xử lý sự kiện click vào nút next tại cart thông tin công thức thực hiện chuyển xuống card chi tiết công thức
+        $("#btnNext").click(function () {
+            $('html,body').animate({
+                scrollTop: $(".buoc").offset().top
+            },
+                'slow');
+        });
+
+    </script>
+    <script src="~/Scripts/Ajax/ajaxDieuPhoi.js"></script>
+</section>

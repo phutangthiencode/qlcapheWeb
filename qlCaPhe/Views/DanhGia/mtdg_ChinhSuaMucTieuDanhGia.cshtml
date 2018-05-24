@@ -1,0 +1,71 @@
+﻿
+@{
+    ViewBag.Title = "mtdg_ChinhSuaMucTieuDanhGia";
+    Layout = "~/Views/Shared/_LayoutTools.cshtml";
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <h2>Điều phối - Đánh giá > Danh mục mục tiêu đánh giá > Chỉnh sửa mục tiêu đánh giá</h2>
+        </div>
+        <!-- Vertical Layout -->
+        <div class="row clearfix">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>
+                            CHỈNH SỬA NỘI DUNG MỤC TIÊU ĐÁNH GIÁ NĂNG LỰC NHÂN VIÊN
+                        </h2>
+
+                    </div>
+                    <div class="body">
+                        @using (Html.BeginForm())
+                        {
+                            <div class="row">
+                                <div class="col-md-7 col-lg-7">
+                                    <input type="text" id="txtMaMucTieu" class="form-control" style="display:none"
+                                           name="txtMaMucTieu" value="@ViewBag.txtMaMucTieu">
+                                    <label for="txtTenMucTieu">Tên mục tiêu</label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" id="txtTenMucTieu" class="form-control" name="txtTenMucTieu" required maxlength="100"
+                                                   placeholder="Nhập tên mục tiêu cần đánh giá tại đây" value="@ViewBag.txtTenMucTieu">
+                                        </div>
+                                    </div>
+                                    <label for="txtDienGiai">Diễn giải</label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <textarea rows="4" id="txtDienGiai" class="form-control no-resize" name="txtDienGiai" required maxlength="256"
+                                                      placeholder="Nhập thông tin diễn giải cho mục tiêu đánh giá">@ViewBag.txtDienGiai</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-lg-4">
+                                        <label for="txtGhiChu">Ghi chú</label>
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <textarea rows="8" id="txtGhiChu" class="form-control no-resize" name="txtGhiChu"
+                                                          placeholder="Nhập thêm ghi chú cho mục tiêu">@ViewBag.txtGhiChu</textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-7"></div>
+
+                                        <div class="col-md-5">
+                                            <br>
+                                            <button type="submit" class="btn btn-primary m-t-15 waves-effect">Lưu lại</button>
+                                            <a href="/DanhGia/mtdg_TaoMoiMucTieuDanhGia" class="btn btn-default m-t-15 waves-effect">Reset</a>
+                                            <button type="button" class="btn btn-default m-t-15 waves-effect">Trở lại</button>
+                                        </div>
+                                    </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #END# Vertical Layout -->
+    </div>
+</section>
+@Html.Raw(ViewBag.ThongBao)

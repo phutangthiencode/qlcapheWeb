@@ -1,0 +1,87 @@
+﻿@{
+    ViewBag.Title = "Tạo mới loại nguyên liệu";
+    Layout = "~/Views/Shared/_LayoutTools.cshtml";
+}
+
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <h2>Nguyên liệu - Nhà cung cấp > Tạo mới loại nguyên liệu</h2>
+        </div>
+        <!-- Vertical Layout -->
+        <div class="row clearfix">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="header">
+                        <div class="row">
+                            <div class="col-md-5 col-lg-5 col-xs-12 col-sm-5">
+                                <i class="material-icons">bookmark</i>
+                                <span class="font-20">QUẢN LÝ LOẠI NGUYÊN LIỆU</span>
+                            </div>
+                            <div class="col-md-7 col-lg-7 col-sm-7 col-xs-12">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" style="float:right">
+                                    <li class="active">
+                                        <a href="~/LoaiNguyenLieu/lnl_TaoMoiLoaiNguyenLieu">
+                                            <i class="material-icons">add</i> TẠO MỚI LOẠI NGUYÊN LIỆU
+                                        </a>
+                                    </li>
+                                    <li class="">
+                                        <a href="~/LoaiNguyenLieu/lnl_TableLoaiNguyenLieu">
+                                            <i class="material-icons">list</i> DANH MỤC LOẠI NGUYÊN LIỆU
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="body">
+                        @using (Html.BeginForm("lnl_TaoMoiLoaiNguyenLieu", "LoaiNguyenLieu", FormMethod.Post))
+                        {
+
+                            <div class="row">
+                                <div class="col-md-7 col-lg-7">
+                                    <label for="txtTenLoai">Tên loại</label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" id="txtTenLoai" class="form-control" name="txtTenLoai" required pattern=".{1,50}"
+                                                   maxlength="50" placeholder="Nhập tên loại nguyên liệu tại đây" value="@ViewBag.txtTenLoai">
+                                        </div>
+                                    </div>
+                                    <label for="txtDienGiai">Diễn giải</label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <textarea rows="4" id="txtDienGiai" class="form-control no-resize" name="txtDienGiai" required maxlength="100"
+                                                      placeholder="Nhập thông tin diễn giải cho loại nguyên liệu">@ViewBag.txtDienGiai</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-lg-4">
+                                    <label for="txtGhiChu">Ghi chú</label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <textarea rows="8" id="txtGhiChu" class="form-control no-resize" name="txtGhiChu"
+                                                      placeholder="Nhập thêm ghi chú cho loại nguyên liệu">@ViewBag.txtGhiChu</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-7"></div>
+
+                                <div class="col-md-5">
+                                    <br>
+                                    <button type="submit" class="btn btn-primary m-t-15 waves-effect">Lưu lại</button>
+                                    <a href="/LoaiNguyenLieu/lnl_TaoMoiLoaiNguyenLieu" class="btn btn-default m-t-15 waves-effect">Reset</a>
+                                    <button type="button" class="btn btn-default m-t-15 waves-effect">Trở lại</button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #END# Vertical Layout -->
+    </div>
+</section>
+@Html.Raw(ViewBag.ThongBao)

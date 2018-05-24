@@ -1,0 +1,154 @@
+﻿@{
+    ViewBag.Title = "Danh mục nhóm tài khoản";
+    Layout = "~/Views/Shared/_LayoutTools.cshtml";
+}
+@*Ajax*@
+@Html.Raw(ViewBag.ScriptAjax)
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <h2>Tài khoản - Thành viên > Quản lý nhóm tài khoản > Danh mục nhóm tài khoản</h2>
+        </div>
+        <!-- Vertical Layout -->
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                        <div class="row">
+                            <div class="col-md-5 col-lg-5 col-xs-12 col-sm-5">
+                                <i class="material-icons">group</i>
+                                <span class="font-20">QUẢN LÝ NHÓM TÀI KHOẢN</span>
+                            </div>
+                            <div class="col-md-7 col-lg-7 col-sm-7 col-xs-12">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" style="float:right">
+                                    <li>
+                                        <a href="~/NhomTaiKhoan/ntk_TaoMoiNhomTK">
+                                            <i class="material-icons">add</i> TẠO MỚI NHÓM TÀI KHOẢN
+                                        </a>
+                                    </li>
+                                    <li class="active">
+                                        <a href="~/NhomTaiKhoan/ntk_TableNhomTK">
+                                            <i class="material-icons">list</i> DANH MỤC NHÓM TÀI KHOẢN
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                          </div>
+                    </div>
+                    <div class="body">
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane fade in active" id="home_with_icon_title">
+                                <div class="table-responsive">
+                                    <table class="table  table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th width="20%">Tên nhóm</th>
+                                                <th width="30%">Diễn giải</th>
+                                                <th width="30%">Link mặc định</th>
+                                                <th width="20%">Chức năng</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+
+                                        </tfoot>
+                                        <tbody>
+                                            @Html.Raw(ViewBag.TableData)
+                                            @*@foreach (var item in Model)
+                    {
+                    <tr role="row" class="odd">
+                        <td>
+                            @item.tenNhom
+                        </td>
+                        <td>@item.dienGiai</td>
+                        <td>@item.ghiChu</td>
+                        <td>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                    Chức năng <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#" class="col-blue"><i class="material-icons">mode_edit</i>Chỉnh sửa</a></li>
+                                    <li><a href="#" class="col-red"><i class="material-icons">delete</i>Xoá bỏ</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    }*@
+
+
+                                        </tbody>
+                                    </table>
+
+                                    <!--  <div id="DataTables_Table_0_wrapper" class="">
+            <div class="row">
+                <div class="col-sm-12">
+                    <table class="table  table-hover">
+                        <thead>
+                            <tr>
+                                <th width="20%">Tên nhóm</th>
+                                <th width="30%">Diễn giải</th>
+                                <th width="30%">Link mặc định</th>
+                                <th width="20%">Chức năng</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+
+                        </tfoot>
+                        <tbody>
+                            @Html.Raw(ViewBag.TableData)
+                            @*@foreach (var item in Model)
+                                {
+                                <tr role="row" class="odd">
+                                    <td>
+                                        @item.tenNhom
+                                    </td>
+                                    <td>@item.dienGiai</td>
+                                    <td>@item.ghiChu</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                                Chức năng <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li><a href="#" class="col-blue"><i class="material-icons">mode_edit</i>Chỉnh sửa</a></li>
+                                                <li><a href="#" class="col-red"><i class="material-icons">delete</i>Xoá bỏ</a></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                                }*@
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>-->
+                                    @*Phân trang
+            <div class="row"><div class="col-sm-5"><div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div></div><div class="col-sm-7"><div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate"><ul class="pagination"><li class="paginate_button previous disabled" id="DataTables_Table_0_previous"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0">Previous</a></li><li class="paginate_button active"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0">1</a></li><li class="paginate_button "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="2" tabindex="0">2</a></li><li class="paginate_button "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="3" tabindex="0">3</a></li><li class="paginate_button "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="4" tabindex="0">4</a></li><li class="paginate_button "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="5" tabindex="0">5</a></li><li class="paginate_button "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="6" tabindex="0">6</a></li><li class="paginate_button next" id="DataTables_Table_0_next"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="7" tabindex="0">Next</a></li></ul></div></div></div>*@
+                                </div>
+                                @*<div class="card">
+                                    <div class="header bg-info">
+                                        <h2>
+                                            DANH MỤC NHÓM TÀI KHOẢN
+                                        </h2>
+                                    </div>
+                                    <div class="body">
+                                        </div>
+                                    </div>
+                                </div>*@
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- #END# Vertical Layout -->
+    </div>
+</section>
+
+
+@*modal Xóa*@
+@Html.Raw(ViewBag.ModalXoa)

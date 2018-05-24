@@ -1,0 +1,168 @@
+﻿@{
+    ViewBag.Title = "Thiết lập thông số chung";
+    Layout = "~/Views/Shared/_LayoutTools.cshtml";
+}
+<link href="~/Content/styleTool.css" rel="stylesheet" />
+
+<link href="~/Content/jquery.Jcrop.min.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.Jcrop.js"></script>
+
+<script type="text/javascript">
+    @Html.Raw(ViewBag.ScriptCropImage)
+</script>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <h2>Cấu hình - Nhật ký > Thiết lập thông số chung</h2>
+        </div>
+
+
+        <!-- Vertical Layout -->
+        <div class="row clearfix">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>
+                            THIẾT LẬP THÔNG SỐ CHUNG
+                        </h2>
+
+                    </div>
+                    <div class="body">
+                        @using (Html.BeginForm("ch_ThietLapThongSoChung", "CauHinh", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+                        {
+                            <div class="row">
+                                <div class="col-md-7 col-lg-7">
+
+                                    <label for="txtTenQuan">Tên quán</label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" id="txtTenQuan" class="form-control" required maxlength="50" name="txtTenQuan"
+                                                   placeholder="Nhập tên quán cà phê tại đây" value="@ViewBag.txtTenQuan">
+                                        </div>
+                                    </div>
+
+                                    <label for="txtGioiThieu">Giới thiệu</label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <textarea rows="4" id="txtGioiThieu" class="form-control no-resize" name="txtGioiThieu" required maxlength="128"
+                                                      placeholder="Nhập thông tin giới thiệu về quán tại đây">@ViewBag.txtGioiThieu</textarea>
+                                        </div>
+                                    </div>
+
+                                    <label for="txtDiaChi">Địa chỉ</label>
+                                    <div class="form-group">
+                                        <div class="form-line"> 
+                                            <input type="text" id="txtDiaChi" class="form-control" name="txtDiaChi" required max="128"
+                                                   placeholder="Nhập địa chỉ của quán tại đây" value="@ViewBag.txtDiaChi">
+                                        </div>
+                                    </div>
+
+
+                                    <label for="txtHotline">Hotline</label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="number" id="txtHotline" class="form-control" name="txtHotline" maxlength="15"
+                                                   placeholder="Nhập số điện thoại của quán tại đây" value="@ViewBag.txtHotline">
+                                        </div>
+                                    </div>
+
+                                    <label for="txtEmail">Email</label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" id="txtEmail" class="form-control" name="txtEmail" maxlength="256"
+                                                   placeholder="Nhập địa chỉ email của quán tại đây" value="@ViewBag.txtEmail">
+                                        </div>
+                                    </div>
+
+
+
+                                    <label for="txtFacebook">Facebook</label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" id="txtFacebook" class="form-control" name="txtFacebook" maxlength="200"
+                                                   placeholder="Nhập đường dẫn facebook của quán tại đây" value="@ViewBag.txtFacebook">
+                                        </div>
+                                    </div>
+
+                                    <label for="txtGooglePlus">Google Plus</label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" id="txtGooglePlus" class="form-control" name="txtGooglePlus" maxlength="200"
+                                                   placeholder="Nhập đường dẫn Google Plus của quán tại đây" value="@ViewBag.txtGooglePlus">
+                                        </div>
+                                    </div>
+
+                                    <label for="txtTwitter">Twitter</label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" id="txtTwitter" class="form-control" name="txtTwitter" maxlength="200"
+                                                   placeholder="Nhập đường dẫn Twitter của quán tại đây" value="@ViewBag.txtTwitter">
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+                                <div class="col-md-5 col-lg-5">
+                                    <label for="txtKinhDo">Toạ độ quán trên Google Maps</label>
+                                    <div class="row clearfix">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <input type="text" id="txtKinhDo" class="form-control" name="txtKinhDo" maxlength="20"
+                                                           placeholder="Kinh độ" value="@ViewBag.txtKinhDo">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <input type="text" class="form-control" id="txtViDo" name="txtViDo" maxlength="20"
+                                                           placeholder="Vĩ độ" value="@ViewBag.txtViDo">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <label for="hinhDD">Logo</label>
+                                    <br />
+                                    <img id="hinhDD" class='img img-responsive img-thumbnail'
+                                         src="@ViewBag.Logo" width="250px" height="auto" />
+                                    <br />
+                                    <button type="button" class="btn btn-default " id="btnChonHinh"
+                                            data-toggle="modal" data-target="#modalChonHinh">
+                                        Chọn hình
+                                    </button>
+                                    <input id="pathHinh" type="hidden" name="pathHinh" value="">
+
+                                    <br /><br />
+                                    <label for="txtGhiChu">Ghi chú</label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <textarea rows="4" id="txtGhiChu" name="txtGhiChu" class="form-control no-resize" 
+                                                      placeholder="Nhập thêm ghi chú cho đồ uống">@ViewBag.txtGhiChu</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-7"></div>
+
+                                <div class="col-md-5">
+                                    <br>
+                                    <button type="submit" class="btn btn-primary m-t-15 waves-effect">Lưu lại</button>
+                                    <button type="button" class="btn btn-default m-t-15 waves-effect">Trở lại</button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #END# Vertical Layout -->
+    </div>
+</section>
+
+@Html.Raw(ViewBag.ThongBao)
+
+@Html.Raw(ViewBag.modalChonHinh)

@@ -1,0 +1,43 @@
+﻿
+<script>
+    $(document).ready(function () {
+        var ts = "";
+        selectPermission(ts);
+    });
+
+    function selectPermission(ts) {
+        $('.js-cbbPermission').one("click", function () {
+            //-------Kiểm tra trạng thái đã chọn
+            //if ($(this).children('.cbPermission').is(':checked')) { //----Nếu đã chọn
+
+            //}
+            //else {
+            //    var soQuyen = parseInt($(this).attr('data-permission'), 10);
+            //    ts += $(this).parent().parent().attr('data-id-parent') + "|" + $(this).parent().parent().attr('data-id-child');
+
+            //}
+
+            //ts = $(this).attr('data-permission');
+            //$.ajax({
+            //    url: getDuongDan() + 'NhomTaiKhoan/selectPermission',
+            //    data: 'data=' + ts,
+            //    type: 'GET',
+            //    context: this,
+            //    dataType: 'html',
+            //    beforeSend: function () {
+            //        //---Sự kiện unbind không thực hiện click vào item nữa
+            //        event.preventDefault();
+            //        event.stopImmediatePropagation();
+            //        $('.js-cbbPermission').unbind();
+            //    },
+            //    success: function (data, textStatus, xhr) {
+            //        $('#' + ts).attr('checked', true);
+            //        selectPermission();
+            //    },
+            //    error: function (xhr, textStatus, errorThrown) {
+            //        selectPermission();
+            //    }
+            //});
+        });
+    }
+</script>

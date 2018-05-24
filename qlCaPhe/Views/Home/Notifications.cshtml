@@ -1,0 +1,40 @@
+﻿@model IEnumerable<qlCaPhe.Models.thongBao>
+@using qlCaPhe.Models;
+
+<a class="dropdown-toggle" data-toggle="dropdown" role="button">
+    <i class="material-icons">notifications</i>
+    @if (Model.Count() > 0)
+    {
+        <span class="label-count">@Model.Count()</span>
+    }
+</a>
+<ul class="dropdown-menu" style="list-style-type:none">
+    <li class="header">THÔNG BÁO</li>
+    <li class="body">
+        <ul class="menu">
+            @foreach (thongBao notify in Model)
+            {
+                <li>
+                    <a href="javascript:void(0);">
+                        <div class="icon-circle bg-blue-grey">
+                            <i class="material-icons">comment</i>
+                        </div>
+                        <div class="menu-info">
+                            <h4>@notify.ndThongBao</h4>
+                            <p>
+                                <i class="material-icons">access_time</i> @notify.ngayTao
+                            </p>
+                        </div>
+                    </a>
+                </li>
+            }
+        </ul>
+    </li>
+    @if (Model.Count() > 0)
+    {
+        <li class="footer">
+            <a href="javascript:void(0);" class="col-red" id="jsBtnXoaThongBao"><b>Xóa tất cả</b></a>
+        </li>
+    }
+</ul>
+

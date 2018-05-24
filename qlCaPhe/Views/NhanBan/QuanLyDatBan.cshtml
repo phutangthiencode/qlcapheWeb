@@ -1,0 +1,752 @@
+﻿@{
+    ViewBag.Title = "Quản lý đặt bàn";
+    Layout = "~/Views/Shared/_LayoutTools.cshtml";
+}
+
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <h2>Đặt bàn - Thanh toán > Quản lý đặt bàn</h2>
+        </div>
+        <!-- Vertical Layout -->
+        <div class="row clearfix">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>
+                            QUẢN LÝ NGHIỆP VỤ BÀN
+                        </h2>
+                    </div>
+                    <div class="body">
+                        <label>Chọn khu vực</label>
+                        <select class="form-control show-tick">
+                            <option value="">-- Lựa chọn khu vực --</option>
+                            <option value="1">Khu vực 1</option>
+                            <option value="2">Khu vực 2</option>
+                            <option value="3">Khu vực 3</option>
+                            <option value="4">Khu vực 4</option>
+                            <option value="5">Khu vực 5</option>
+                        </select>
+                        <div class="card">
+                            <div class="header bg-red">
+                                <h2>Danh mục bàn</h2>
+                            </div>
+                            <div class="body">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                        <div class="info-box-2 bg-grey">
+                                            <div class="icon">
+                                                <i class="material-icons">view_carousel</i>
+                                            </div>
+                                            <div class="content">
+                                                <div class="text">Bàn 01</div>
+                                                <div class="number count-to" data-from="0" data-to="4" data-speed="1000"
+                                                     data-fresh-interval="20"></div>
+                                            </div>
+                                            <ul class="header-dropdown m-r--5">
+                                                <li class="dropdown">
+                                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="material-icons">more_vert</i>
+                                                    </a>
+                                                    <ul class="dropdown-menu pull-right">
+                                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Tiếp nhận</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                        <div class="info-box-2 bg-grey">
+                                            <div class="icon">
+                                                <i class="material-icons">view_carousel</i>
+                                            </div>
+                                            <div class="content">
+                                                <div class="text">Bàn 02</div>
+                                                <div class="number count-to" data-from="0" data-to="4" data-speed="1000"
+                                                     data-fresh-interval="20"></div>
+                                            </div>
+                                            <ul class="header-dropdown m-r--5">
+                                                <li class="dropdown">
+                                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="material-icons">more_vert</i>
+                                                    </a>
+                                                    <ul class="dropdown-menu pull-right">
+                                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Tiếp nhận</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                        <div class="info-box-2 bg-red">
+                                            <div class="icon">
+                                                <i class="material-icons">view_carousel</i>
+                                            </div>
+                                            <div class="content">
+                                                <div class="text">Bàn 03</div>
+                                                <div class="number count-to" data-from="0" data-to="4" data-speed="1000"
+                                                     data-fresh-interval="20"></div>
+                                            </div>
+                                            <ul class="header-dropdown m-r--5">
+                                                <li class="dropdown">
+                                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="material-icons">more_vert</i>
+                                                    </a>
+                                                    <ul class="dropdown-menu pull-right">
+                                                        <li><a href="javascript:void(0);" data-toggle="modal" data-target="#largeModal" class=" goiMon waves-effect waves-block">Gọi thêm</a></li>
+                                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Thanh Toán</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                        <div class="info-box-2 bg-light-green">
+                                            <div class="icon">
+                                                <i class="material-icons">view_carousel</i>
+                                            </div>
+                                            <div class="content">
+                                                <div class="text">Bàn 04</div>
+                                                <div class="number count-to" data-from="0" data-to="4" data-speed="1000"
+                                                     data-fresh-interval="20"></div>
+                                            </div>
+                                            <ul class="header-dropdown m-r--5">
+                                                <li class="dropdown">
+                                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="material-icons">more_vert</i>
+                                                    </a>
+                                                    <ul class="dropdown-menu pull-right">
+                                                        <li><a href="javascript:void(0);" data-toggle="modal" data-target="#largeModal" class=" goiMon waves-effect waves-block">Gọi món</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                        <div class="info-box-2 bg-purple">
+                                            <div class="icon">
+                                                <i class="material-icons">view_carousel</i>
+                                            </div>
+                                            <div class="content">
+                                                <div class="text">Bàn 05</div>
+                                                <div class="number count-to" data-from="0" data-to="4" data-speed="1000"
+                                                     data-fresh-interval="20"></div>
+                                            </div>
+                                            <ul class="header-dropdown m-r--5">
+                                                <li class="dropdown">
+                                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="material-icons">more_vert</i>
+                                                    </a>
+                                                    <ul class="dropdown-menu pull-right">
+                                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Reset bàn</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                        <div class="info-box-2 bg-grey">
+                                            <div class="icon">
+                                                <i class="material-icons">view_carousel</i>
+                                            </div>
+                                            <div class="content">
+                                                <div class="text">Bàn 06</div>
+                                                <div class="number count-to" data-from="0" data-to="4" data-speed="1000"
+                                                     data-fresh-interval="20"></div>
+                                            </div>
+                                            <ul class="header-dropdown m-r--5">
+                                                <li class="dropdown">
+                                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="material-icons">more_vert</i>
+                                                    </a>
+                                                    <ul class="dropdown-menu pull-right">
+                                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Tiếp nhận</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                        <div class="info-box-2 bg-red">
+                                            <div class="icon">
+                                                <i class="material-icons">view_carousel</i>
+                                            </div>
+                                            <div class="content">
+                                                <div class="text">Bàn 07</div>
+                                                <div class="number count-to" data-from="0" data-to="5" data-speed="1000"
+                                                     data-fresh-interval="20"></div>
+                                            </div>
+                                            <ul class="header-dropdown m-r--5">
+                                                <li class="dropdown">
+                                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="material-icons">more_vert</i>
+                                                    </a>
+                                                    <ul class="dropdown-menu pull-right">
+                                                        <li><a href="javascript:void(0);" data-toggle="modal" data-target="#largeModal" class=" goiMon waves-effect waves-block">Gọi thêm</a></li>
+                                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Thanh Toán</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                        <div class="info-box-2 bg-light-green">
+                                            <div class="icon">
+                                                <i class="material-icons">view_carousel</i>
+                                            </div>
+                                            <div class="content">
+                                                <div class="text">Bàn 08</div>
+                                                <div class="number count-to" data-from="0" data-to="4" data-speed="1000"
+                                                     data-fresh-interval="20"></div>
+                                            </div>
+                                            <ul class="header-dropdown m-r--5">
+                                                <li class="dropdown">
+                                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="material-icons">more_vert</i>
+                                                    </a>
+                                                    <ul class="dropdown-menu pull-right">
+                                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Gọi món</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                        <div class="info-box-2 bg-grey">
+                                            <div class="icon">
+                                                <i class="material-icons">view_carousel</i>
+                                            </div>
+                                            <div class="content">
+                                                <div class="text">Bàn 09</div>
+                                                <div class="number count-to" data-from="0" data-to="4" data-speed="1000"
+                                                     data-fresh-interval="20"></div>
+                                            </div>
+                                            <ul class="header-dropdown m-r--5">
+                                                <li class="dropdown">
+                                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="material-icons">more_vert</i>
+                                                    </a>
+                                                    <ul class="dropdown-menu pull-right">
+                                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Tiếp nhận</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                        <div class="info-box-2 bg-grey">
+                                            <div class="icon">
+                                                <i class="material-icons">view_carousel</i>
+                                            </div>
+                                            <div class="content">
+                                                <div class="text">Bàn 10</div>
+                                                <div class="number count-to" data-from="0" data-to="4" data-speed="1000"
+                                                     data-fresh-interval="20"></div>
+                                            </div>
+                                            <ul class="header-dropdown m-r--5">
+                                                <li class="dropdown">
+                                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="material-icons">more_vert</i>
+                                                    </a>
+                                                    <ul class="dropdown-menu pull-right">
+                                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Tiếp nhận</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                        <div class="info-box-2 bg-red">
+                                            <div class="icon">
+                                                <i class="material-icons">view_carousel</i>
+                                            </div>
+                                            <div class="content">
+                                                <div class="text">Bàn 11</div>
+                                                <div class="number count-to" data-from="0" data-to="4" data-speed="1000"
+                                                     data-fresh-interval="20"></div>
+                                            </div>
+                                            <ul class="header-dropdown m-r--5">
+                                                <li class="dropdown">
+                                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="material-icons">more_vert</i>
+                                                    </a>
+                                                    <ul class="dropdown-menu pull-right">
+                                                        <li><a href="javascript:void(0);" data-toggle="modal" data-target="#largeModal" class=" goiMon waves-effect waves-block">Gọi thêm</a></li>
+                                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Thanh Toán</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                        <div class="info-box-2 bg-light-green">
+                                            <div class="icon">
+                                                <i class="material-icons">view_carousel</i>
+                                            </div>
+                                            <div class="content">
+                                                <div class="text">Bàn 12</div>
+                                                <div class="number count-to" data-from="0" data-to="4" data-speed="1000"
+                                                     data-fresh-interval="20"></div>
+                                            </div>
+                                            <ul class="header-dropdown m-r--5">
+                                                <li class="dropdown">
+                                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="material-icons">more_vert</i>
+                                                    </a>
+                                                    <ul class="dropdown-menu pull-right">
+                                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Gọi món</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                        <div class="info-box-2 bg-grey">
+                                            <div class="icon">
+                                                <i class="material-icons">view_carousel</i>
+                                            </div>
+                                            <div class="content">
+                                                <div class="text">Bàn 13</div>
+                                                <div class="number count-to" data-from="0" data-to="4" data-speed="1000"
+                                                     data-fresh-interval="20"></div>
+                                            </div>
+                                            <ul class="header-dropdown m-r--5">
+                                                <li class="dropdown">
+                                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="material-icons">more_vert</i>
+                                                    </a>
+                                                    <ul class="dropdown-menu pull-right">
+                                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Tiếp nhận</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                        <div class="info-box-2 bg-grey">
+                                            <div class="icon">
+                                                <i class="material-icons">view_carousel</i>
+                                            </div>
+                                            <div class="content">
+                                                <div class="text">Bàn 14</div>
+                                                <div class="number count-to" data-from="0" data-to="4" data-speed="1000"
+                                                     data-fresh-interval="20"></div>
+                                            </div>
+                                            <ul class="header-dropdown m-r--5">
+                                                <li class="dropdown">
+                                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="material-icons">more_vert</i>
+                                                    </a>
+                                                    <ul class="dropdown-menu pull-right">
+                                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Tiếp nhận</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                        <div class="info-box-2 bg-red">
+                                            <div class="icon">
+                                                <i class="material-icons">view_carousel</i>
+                                            </div>
+                                            <div class="content">
+                                                <div class="text">Bàn 15</div>
+                                                <div class="number count-to" data-from="0" data-to="4" data-speed="1000"
+                                                     data-fresh-interval="20"></div>
+                                            </div>
+                                            <ul class="header-dropdown m-r--5">
+                                                <li class="dropdown">
+                                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="material-icons">more_vert</i>
+                                                    </a>
+                                                    <ul class="dropdown-menu pull-right">
+                                                        <li><a href="javascript:void(0);" data-toggle="modal" data-target="#largeModal" class=" goiMon waves-effect waves-block">Gọi thêm</a></li>
+                                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Thanh Toán</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                        <div class="info-box-2 bg-light-green">
+                                            <div class="icon">
+                                                <i class="material-icons">view_carousel</i>
+                                            </div>
+                                            <div class="content">
+                                                <div class="text">Bàn 16</div>
+                                                <div class="number count-to" data-from="0" data-to="4" data-speed="1000"
+                                                     data-fresh-interval="20"></div>
+                                            </div>
+                                            <ul class="header-dropdown m-r--5">
+                                                <li class="dropdown">
+                                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="material-icons">more_vert</i>
+                                                    </a>
+                                                    <ul class="dropdown-menu pull-right">
+                                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Gọi món</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                        <div class="info-box-2 bg-grey">
+                                            <div class="icon">
+                                                <i class="material-icons">view_carousel</i>
+                                            </div>
+                                            <div class="content">
+                                                <div class="text">Bàn 17</div>
+                                                <div class="number count-to" data-from="0" data-to="4" data-speed="1000"
+                                                     data-fresh-interval="20"></div>
+                                            </div>
+                                            <ul class="header-dropdown m-r--5">
+                                                <li class="dropdown">
+                                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="material-icons">more_vert</i>
+                                                    </a>
+                                                    <ul class="dropdown-menu pull-right">
+                                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Tiếp nhận</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                        <div class="info-box-2 bg-grey">
+                                            <div class="icon">
+                                                <i class="material-icons">view_carousel</i>
+                                            </div>
+                                            <div class="content">
+                                                <div class="text">Bàn 18</div>
+                                                <div class="number count-to" data-from="0" data-to="4" data-speed="1000"
+                                                     data-fresh-interval="20"></div>
+                                            </div>
+                                            <ul class="header-dropdown m-r--5">
+                                                <li class="dropdown">
+                                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="material-icons">more_vert</i>
+                                                    </a>
+                                                    <ul class="dropdown-menu pull-right">
+                                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Tiếp nhận</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                        <div class="info-box-2 bg-red">
+                                            <div class="icon">
+                                                <i class="material-icons">view_carousel</i>
+                                            </div>
+                                            <div class="content">
+                                                <div class="text">Bàn 19</div>
+                                                <div class="number count-to" data-from="0" data-to="4" data-speed="1000"
+                                                     data-fresh-interval="20"></div>
+                                            </div>
+                                            <ul class="header-dropdown m-r--5">
+                                                <li class="dropdown">
+                                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="material-icons">more_vert</i>
+                                                    </a>
+                                                    <ul class="dropdown-menu pull-right">
+                                                        <li><a href="javascript:void(0);" data-toggle="modal" data-target="#largeModal" class=" goiMon waves-effect waves-block">Gọi thêm</a></li>
+                                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Thanh Toán</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                        <div class="info-box-2 bg-light-green">
+                                            <div class="icon">
+                                                <i class="material-icons">view_carousel</i>
+                                            </div>
+                                            <div class="content">
+                                                <div class="text">Bàn 20</div>
+                                                <div class="number count-to" data-from="0" data-to="4" data-speed="1000"
+                                                     data-fresh-interval="20"></div>
+                                            </div>
+                                            <ul class="header-dropdown m-r--5">
+                                                <li class="dropdown">
+                                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="material-icons">more_vert</i>
+                                                    </a>
+                                                    <ul class="dropdown-menu pull-right">
+                                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Gọi món</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                        <div class="info-box-2 bg-grey">
+                                            <div class="icon">
+                                                <i class="material-icons">view_carousel</i>
+                                            </div>
+                                            <div class="content">
+                                                <div class="text">Bàn 21</div>
+                                                <div class="number count-to" data-from="0" data-to="4" data-speed="1000"
+                                                     data-fresh-interval="20"></div>
+                                            </div>
+                                            <ul class="header-dropdown m-r--5">
+                                                <li class="dropdown">
+                                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="material-icons">more_vert</i>
+                                                    </a>
+                                                    <ul class="dropdown-menu pull-right">
+                                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Tiếp nhận</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                        <div class="info-box-2 bg-grey">
+                                            <div class="icon">
+                                                <i class="material-icons">view_carousel</i>
+                                            </div>
+                                            <div class="content">
+                                                <div class="text">Bàn 22</div>
+                                                <div class="number count-to" data-from="0" data-to="4" data-speed="1000"
+                                                     data-fresh-interval="20"></div>
+                                            </div>
+                                            <ul class="header-dropdown m-r--5">
+                                                <li class="dropdown">
+                                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="material-icons">more_vert</i>
+                                                    </a>
+                                                    <ul class="dropdown-menu pull-right">
+                                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Tiếp nhận</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                        <div class="info-box-2 bg-red">
+                                            <div class="icon">
+                                                <i class="material-icons">view_carousel</i>
+                                            </div>
+                                            <div class="content">
+                                                <div class="text">Bàn 23</div>
+                                                <div class="number count-to" data-from="0" data-to="4" data-speed="1000"
+                                                     data-fresh-interval="20"></div>
+                                            </div>
+                                            <ul class="header-dropdown m-r--5">
+                                                <li class="dropdown">
+                                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="material-icons">more_vert</i>
+                                                    </a>
+                                                    <ul class="dropdown-menu pull-right">
+                                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Thanh Toán</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                        <div class="info-box-2 bg-light-green">
+                                            <div class="icon">
+                                                <i class="material-icons">view_carousel</i>
+                                            </div>
+                                            <div class="content">
+                                                <div class="text">Bàn 24</div>
+                                                <div class="number count-to" data-from="0" data-to="4" data-speed="1000"
+                                                     data-fresh-interval="20"></div>
+                                            </div>
+                                            <ul class="header-dropdown m-r--5">
+                                                <li class="dropdown">
+                                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="material-icons">more_vert</i>
+                                                    </a>
+                                                    <ul class="dropdown-menu pull-right">
+                                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Gọi món</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>  <!--body-card-->
+                        </div> <!--card-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #END# Vertical Layout -->
+    </div>
+
+    <!-- Large Size -->
+    <div class="modal fade" id="largeModal" tabindex="-1" role="dialog" style="display: none;">
+        <div class="modal-dialog modal-lg" style="width:90%" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-7 col-lg-7">
+                            <div class="card">
+                                <div class="header bg-red">
+                                    <h2>
+                                        Lựa chọn đồ uống
+                                    </h2>
+                                </div>
+                                <div class="body">
+
+                                    <div class="input-group">
+                                        <div class="form-line">
+                                            <input type="text" id="txtTimKiemMon" class="form-control" placeholder="Nhập nhập tên món cần tìm">
+                                        </div>
+                                        <span class="input-group-addon">
+                                            <i class="material-icons">search</i>
+                                        </span>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4 col-lg-4 col-sm-4">
+                                            <div class="list-group">
+                                                <button type="button" class="list-group-item">Cà phê</button>
+                                                <button type="button" class="list-group-item">Sinh tố</button>
+                                                <button type="button" class="list-group-item">Nước ngọt</button>
+                                                <button type="button" class="list-group-item">Trái cây</button>
+                                                <button type="button" class="list-group-item">Khác</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="row">
+                                                <div class="col-sm-6 col-md-6">
+                                                    <div class="thumbnail">
+                                                        <img src="~/images/image-gallery/1.jpg">
+                                                        <div class="caption">
+                                                            <h3>Cà phê đen</h3>
+                                                            <label class="font-13 font-bold col-pink">15.000 VNĐ</label>
+                                                            <button class="btn btn-info">Chọn</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6 col-md-6">
+                                                    <div class="thumbnail">
+                                                        <img src="~/images/image-gallery/1.jpg">
+                                                        <div class="caption">
+                                                            <h3>Cà phê đen</h3>
+                                                            <label class="font-13 font-bold col-pink">15.000 VNĐ</label>
+                                                            <button class="btn btn-info">Chọn</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6 col-md-6">
+                                                    <div class="thumbnail">
+                                                        <img src="~/images/image-gallery/1.jpg">
+                                                        <div class="caption">
+                                                            <h3>Cà phê đen</h3>
+                                                            <label class="font-13 font-bold col-pink">15.000 VNĐ</label>
+                                                            <button class="btn btn-info">Chọn</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6 col-md-6">
+                                                    <div class="thumbnail">
+                                                        <img src="~/images/image-gallery/1.jpg">
+                                                        <div class="caption">
+                                                            <h3>Cà phê đen</h3>
+                                                            <label class="font-13 font-bold col-pink">15.000 VNĐ</label>
+                                                            <button class="btn btn-info">Chọn</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6 col-md-6">
+                                                    <div class="thumbnail">
+                                                        <img src="~/images/image-gallery/1.jpg">
+                                                        <div class="caption">
+                                                            <h3>Cà phê đen</h3>
+                                                            <label class="font-13 font-bold col-pink">15.000 VNĐ</label>
+                                                            <button class="btn btn-info">Chọn</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6 col-md-6">
+                                                    <div class="thumbnail">
+                                                        <img src="~/images/image-gallery/1.jpg">
+                                                        <div class="caption">
+                                                            <h3>Cà phê đen</h3>
+                                                            <label class="font-13 font-bold col-pink">15.000 VNĐ</label>
+                                                            <button class="btn btn-info">Chọn</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5 col-lg-5">
+                            <div class="card">
+                                <div class="header bg-cyan">
+                                    <h2>
+                                        Danh mục món đã chọn
+                                    </h2>
+                                </div>
+                                <div class="body table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Tên món</th>
+                                                <th style="width:40%">SL</th>
+                                                <th>Đơn giá</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Cà phê đen</td>
+                                                <td>
+                                                    <input type="number" value="4" class="form-control" style="width:60%"/>
+                                                </td>
+                                                <td>12000</td>
+                                                <td>
+                                                    <div class="demo-google-material-icon"> 
+                                                        <i class="material-icons" style="cursor:pointer">update</i> <span class="icon-name"></span> 
+                                                        <i class="material-icons" style="cursor:pointer">clear</i> <span class="icon-name"></span> 
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Cà phê đen</td>
+                                                <td>
+                                                    <input type="number" value="4" class="form-control" style="width:60%" />
+                                                </td>
+                                                <td>12000</td>
+                                                <td>
+                                                    <div class="demo-google-material-icon"> 
+                                                        <i class="material-icons" style=" cursor:pointer">update</i> <span class="icon-name"></span> 
+                                                        <i class="material-icons" style="cursor:pointer">clear</i> <span class="icon-name"></span> 
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <p class="font-16 font-bold col-pink">Tạm tính: <i>250.000 VNĐ</i></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success waves-effect" data-dismiss="modal"><i class="material-icons">add_box</i>Hoàn tất</button>
+                        <button type="button" class="btn btn-info waves-effect" data-dismiss="modal"><i class="material-icons">save</i>Lưu tạm</button>
+                        <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal"><i class="material-icons">exit_to_app</i>Đóng lại</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>  <!-- Large Size -->
+</section>

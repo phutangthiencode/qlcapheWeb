@@ -1,0 +1,190 @@
+﻿
+@{
+    ViewBag.Title = "Danh mục đánh giá nhân viên";
+    Layout = "~/Views/Shared/_LayoutTools.cshtml";
+}
+
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <h2>Điều phối - Đánh giá > Danh mục đánh giá nhân viên</h2>
+        </div>
+        <!-- Vertical Layout -->
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>
+                            DANH MỤC ĐÁNH GIÁ NHÂN VIÊN
+                        </h2>
+                    </div>
+                    <div class="body">
+                        <div class="table-responsive">
+                            <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <table class="table table-bordered table-striped table-hover js-basic-example dataTable" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                                            <thead>
+                                                <tr>
+                                                    <th rowspan="1" colspan="1">Nhân viên</th>
+                                                    <th rowspan="1" colspan="1">Ngày đánh giá</th>
+                                                    <th rowspan="1" colspan="1">Tổng Điểm số</th>
+                                                    <th rowspan="1" colspan="1">Người đánh giá</th>
+                                                    <th rowspan="1" colspan="1"></th>
+                                                </tr>
+                                            </thead>
+                                            <tfoot>
+
+                                            </tfoot>
+                                            <tbody>
+                                                <tr role="row" class="odd">
+                                                    <td>
+                                                        Nguyễn Minh Vy
+                                                    </td>
+                                                    <td>22/11/2017 12:05:45</td>
+                                                    <td>80</td>
+                                                    <td>ttphu</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-info m-t-15 waves-effect"
+                                                                 data-toggle="modal" data-target="#modalChiTiet">Xem chi tiết</button>
+                                                    </td>
+                                                </tr>
+                                                <tr role="row" class="odd">
+                                                    <td>
+                                                        Nguyễn Minh Vy
+                                                    </td>
+                                                    <td>22/11/2017 12:05:45</td>
+                                                    <td>80</td>
+                                                    <td>ttphu</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-info m-t-15 waves-effect"
+                                                                data-toggle="modal" data-target="#modalChiTiet">
+                                                            Xem chi tiết
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                <tr role="row" class="odd">
+                                                    <td>
+                                                        Nguyễn Minh Vy
+                                                    </td>
+                                                    <td>22/11/2017 12:05:45</td>
+                                                    <td>80</td>
+                                                    <td>ttphu</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-info m-t-15 waves-effect"
+                                                                data-toggle="modal" data-target="#modalChiTiet">
+                                                            Xem chi tiết
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                <tr role="row" class="odd">
+                                                    <td>
+                                                        Nguyễn Minh Vy
+                                                    </td>
+                                                    <td>22/11/2017 12:05:45</td>
+                                                    <td>80</td>
+                                                    <td>ttphu</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-info m-t-15 waves-effect"
+                                                                data-toggle="modal" data-target="#modalChiTiet">
+                                                            Xem chi tiết
+                                                        </button>
+                                                    </td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="row"><div class="col-sm-5">
+                                    <div class="dataTables_info" id="DataTables_Table_0_info" role="status" 
+                                         aria-live="polite">Showing 1 to 10 of 57 entries</div></div><div class="col-sm-7">
+                                    <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
+                                    <ul class="pagination"><li class="paginate_button previous disabled" id="DataTables_Table_0_previous"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0">Previous</a></li><li class="paginate_button active"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0">1</a></li><li class="paginate_button "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="2" tabindex="0">2</a></li><li class="paginate_button "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="3" tabindex="0">3</a></li><li class="paginate_button "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="4" tabindex="0">4</a></li><li class="paginate_button "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="5" tabindex="0">5</a></li><li class="paginate_button "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="6" tabindex="0">6</a></li><li class="paginate_button next" id="DataTables_Table_0_next"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="7" tabindex="0">Next</a></li></ul></div></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #END# Vertical Layout -->
+    </div>
+
+    <!-- Modal cho danh sách chi tiết hoá đơn-->
+    <div class="modal fade" id="modalChiTiet" tabindex="-2" role="dialog" style="display: none;">
+        <div class="modal-dialog modal-lg" style="width:90%" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="largeModalLabel">CHI TIẾT ĐÁNH GIÁ CHO NHÂN VIÊN NGUYỄN MINH VY</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12 col-lg-12">
+                            <div class="card">
+                                <div class="header bg-cyan">
+                                    <h2>
+                                        Danh mục mục tiêu đã đánh giá
+                                    </h2>
+                                </div>
+                                <div class="body table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th width="40%">Mục tiêu</th>
+                                                <th width="15%">Điểm số</th>
+                                                <th width="35%">Diễn giải điểm số</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    Mục tiêu 1........
+                                                </td>
+                                                <td>
+                                                    8
+                                                </td>
+                                                <td>
+                                                    Nhân viên tốt
+                                                </td>
+                         
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Mục tiêu 1........
+                                                </td>
+                                                <td>
+                                                    8
+                                                </td>
+                                                <td>
+                                                    Nhân viên tốt
+                                                </td>
+                                   
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Mục tiêu 1........
+                                                </td>
+                                                <td>
+                                                    8
+                                                </td>
+                                                <td>
+                                                    Nhân viên tốt
+                                                </td>
+                                    
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal"><i class="material-icons">exit_to_app</i>Đóng lại</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>  <!-- Modal cho danh sách chi tiết  -->
+</section>
+

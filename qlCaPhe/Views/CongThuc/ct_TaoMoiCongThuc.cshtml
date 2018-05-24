@@ -1,0 +1,360 @@
+﻿@{
+    ViewBag.Title = "Tạo công thức pha chế";
+    Layout = "~/Views/Shared/_LayoutTools.cshtml";
+}
+<style type="text/css">
+    .showSuccess{
+        display:none;
+    }
+    .itemNguyenLieu{
+        cursor:pointer;
+    }
+</style>
+
+<link href="~/Content/toolTipGoiY.css" rel="stylesheet" />
+<script src="~/Scripts/Ajax/ajaxCongThucPhaChe.js"></script>
+@Html.Raw(ViewBag.ScriptAjax)
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <h2>Thực đơn - Đồ uống > Tạo mới công thức pha chế đồ uống</h2>
+        </div>
+        <!-- Vertical Layout -->
+        <div class="row clearfix">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="header">
+                        <div class="row">
+                            <div class="col-md-5 col-lg-5 col-xs-12 col-sm-5">
+                                <i class="material-icons">transform</i>
+                                <span class="font-20">QUẢN LÝ CÔNG THỨC PHA CHẾ</span>
+                            </div>
+                            <div class="col-md-7 col-lg-7 col-sm-7 col-xs-12">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" style="float:right">
+                                    <li class="active">
+                                        <a href="~/CongThuc/ct_TaoMoiCongThuc">
+                                            <i class="material-icons">add</i> TẠO MỚI CÔNG THỨC PHA CHẾ
+                                        </a>
+                                    </li>
+                                    <li class="">
+                                        <a href="~/CongThuc/ct_TableCongThuc">
+                                            <i class="material-icons">list</i> DANH MỤC CÔNG THỨC PHA CHẾ
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="body">
+                        @using (Html.BeginForm("ct_TaoMoiCongThuc", "CongThuc", FormMethod.Post))
+                        {
+                            <ul class="nav nav-tabs tab-nav-right" role="tablist">
+                                <li role="presentation" class="active"><a href="#tongQuan" data-toggle="tab" aria-expanded="true">Tổng quan</a></li>
+                                <li role="presentation" class=""><a href="#buocThucHien" data-toggle="tab" aria-expanded="false">Bước thực hiện</a></li>
+                                <li role="presentation" class=""><a href="#dinhGia" data-toggle="tab" aria-expanded="false">Định giá sản phẩm</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane fade  active in" id="tongQuan">
+                                    <div class="card">
+                                        <div class="header bg-red">
+                                            <h2>Thông tin công thức</h2>
+                                        </div>
+                                        <div class="body">
+                                            <div class="row">
+                                                <div class="col-md-7 col-lg-7">
+                                                    @*<label for="cbbDoUong">Chọn đồ uống</label>
+    <select class="form-control" id="cbbDoUong" name="cbbDoUong">
+        <option value="">-- Lựa chọn đồ uống cần công thức pha chế --</option>
+        @Html.Raw(ViewBag.cbbSanPham)
+    </select>
+    <br /><br />*@
+                                                    <label for="txtTenCongThuc">Tên công thức</label>
+                                                    <div class="form-group">
+                                                        <div class="form-line">
+                                                            <input type="text" id="txtTenCongThuc" class="form-control" name="txtTenCongThuc" required
+                                                                   placeholder="Nhập tên loại đồ uống tại đây" value="@ViewBag.txtTenCongThuc" maxlength="50">
+                                                        </div>
+                                                    </div>
+                                                    <label for="txtDienGiai">Diễn giải công thức</label>
+                                                    <div class="form-group">
+                                                        <div class="form-line">
+                                                            <textarea rows="6" id="txtDienGiai" class="form-control no-resize" placeholder="Nhập thông tin diễn giải sơ lược về công thức"
+                                                                      name="txtDienGiai" required>@ViewBag.txtDienGiai</textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4 col-lg-4">
+                                                        <label>Hình ảnh sản phẩm</label>
+                                                        <br />
+
+                                                        <img id="hinhDD" class="img img-responsive img-thumbnail" src="@ViewBag.hinhSP" width="250px" height="auto">
+
+                                                        <br />
+
+                                                        <label for="txtGhiChu">Ghi chú</label>
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <input type="text" id="txtGhiChu" class="form-control" name="txtGhiChu"
+                                                                       placeholder="Nhập thêm ghi chú cho công thức" value="@ViewBag.txtGhiChu">
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div><!--row-->
+                                            </div>  <!--body-card-->
+                                        </div> <!--card thông tin công thức-->
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane fade" id="buocThucHien">
+                                        <div class="card buoc">
+                                            <div class="header bg-cyan">
+                                                <h2>Các bước thực hiện</h2>
+                                            </div>
+                                            <div class="body">
+                                                <div class="row">
+                                                    <div class="col-md-6 col-lg-6">
+                                                        <div class="row clearfix">
+                                                            <input name="txtMaCT" type="hidden"
+                                                                   id="txtMaCT" value="" class="form-control" />
+                                                            <label for="txtTenNhom">Bước thứ:</label>
+                                                            <div class="form-group">
+                                                                <div class="form-line">
+                                                                    <input name="txtBuocSo" type="number" required min="1"
+                                                                           id="txtBuocSo" value="1" class="form-control" />
+                                                                </div>
+                                                            </div>
+
+                                                            <label for="txtHanhDong">Hành động</label>
+                                                            <div class="form-group">
+                                                                <div class="form-line">
+                                                                    <textarea id="txtHanhDong" class="form-control" name="txtHanhDong" rows="7"
+                                                                              placeholder="Nhập hành động thực hiện tại đây"></textarea>
+                                                                </div>
+                                                            </div>
+
+                                                            <label for="txtGhiChuCt">Ghi chú</label>
+                                                            <div class="form-group">
+                                                                <div class="form-line">
+                                                                    <input type="text" id="txtGhiChuCt" name="txtGhiChuCt" placeholder="Nhập thêm ghi chú cho bước thực hiện"
+                                                                           value="" class="form-control no-resize" />
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="col-md-6 col-lg-6">
+                                                        <button type="button" class="btn btn-success waves-effect" data-toggle="modal" id="btnModalChonNguyenLieu"
+                                                                data-target="#largeModalChonNguyenLieu">
+                                                            Chọn nguyên liệu
+                                                        </button>
+
+
+                                                        <label for="txtTenNhom" class="showSuccess">Hình nguyên liệu</label>
+                                                        <br />
+                                                        <div id="vungNguyenLieu">
+                                                            <!--Vùng hiển thị hình ảnh của nguyên liệu sau khi đã chọn trên modal-->
+                                                        </div>
+                                                        <br />
+                                                        <div class="row clearfix">
+
+                                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-4 showSuccess">
+                                                                <label for="txtDonVi" class="goiY">
+                                                                    Đơn vị:
+                                                                    <span class="noiDungGoiY-right">Đơn vị sử dụng nguyện liệu (Muỗng, Ca, Ly, ml, lít, kg....)</span>
+                                                                </label>
+                                                                <div class="form-group">
+                                                                    <div class="form-line">
+                                                                        <input type="text" class="form-control" id="txtDonVi" name="txtDonVi"
+                                                                               placeholder="Nhập đơn vị lấy nguyên liệu (Muỗng, Ca, Ly, thể tích...)">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-lg-6 col-md-6 col-sm-4 col-xs-4 showSuccess">
+                                                                <label for="txtSoLuong">
+                                                                    Số lượng sử dụng
+                                                                </label>
+                                                                <div class="form-group">
+                                                                    <div class="form-line">
+                                                                        <input type="number" id="txtSoLuong" class="form-control" name="txtSoLuong"
+                                                                               placeholder="Nhập số lượng nguyên liệu cần">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                         
+                                                        </div>
+
+                                                    </div>
+                                                </div><!--row-->
+                                                <div class="row">
+                                                    <div style="display:inline-block;">
+                                                        <button type="button" class="btn btn-info waves-effect" id="btnThemVaoCongThuc">Thêm vào công thức</button>
+                                                        <button type="button" class="btn btn-danger waves-effect" id="btnSuaChiTiet" style="display:none;">Chỉnh sửa</button>
+                                                        <button type="button" onclick="resetDuLieuChiTiet()" class="btn btn-default waves-effect">Nhập lại bước này</button>
+                                                    </div>
+                                                    <div class="col-md-5 col-lg-5">
+
+                                                    </div>
+                                                    <div class="col-md-7 col-lg-7">
+
+                                                    </div>
+                                                </div>
+                                                <div class="card">
+                                                    <div class="header">
+                                                        <h2>Danh sách các bước thực hiện của công thức</h2>
+                                                    </div>
+                                                    <div class="body table-responsive">
+                                                        <div id="vungDsChiTiet">
+                                                            @*<table class="table table-hover">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Bước</th>
+                                                                            <th>Hành động</th>
+                                                                            <th>Tên nguyên liệu</th>
+                                                                            <th>Số lượng</th>
+                                                                            <th>Đơn vị</th>
+                                                                            <td>Chức năng</td>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <th scope="row">1</th>
+                                                                            <td>Đổ</td>
+                                                                            <td>Cà phê</td>
+                                                                            <td>50</td>
+                                                                            <td>mg</td>
+                                                                            <td>
+                                                                                <div class="btn-group open">
+                                                                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                                                                        Chức năng <span class="caret"></span>
+                                                                                    </button>
+                                                                                    <ul class="dropdown-menu" role="menu">
+                                                                                        <li>
+                                                                                            <a href="#" class="col-blue waves-effect waves-block">
+                                                                                                <i class="material-icons">mode_edit</i>Sửa bước
+                                                                                            </a>
+                                                                                        </li>
+                                                                                        <li>
+                                                                                            <a href="#" class="col-red waves-effect waves-block">
+                                                                                                <i class="material-icons">delete</i>Xoá bước
+                                                                                            </a>
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>*@
+                                                        </div>
+                                                        <button type="button" id="btnXoaTatCa" class="btn btn-danger m-t-15 waves-effect">Xoá tất cả các bước</button>
+                                                    </div>
+                                                </div> <!--Cart table danh sách chi tiết-->
+                                            </div>  <!--body-card-->
+                                        </div> <!--card Bước-->
+
+                                    </div>
+                                    <div id="dinhGia" class="tab-pane fade" role="tabpanel">
+                                        <div class="row clearfix">
+                                            <div class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
+                                                <table class="table table-hover">
+                                                    <thead>
+                                                        <tr class="bg-cyan">
+                                                            <th>STT</th>
+                                                            <th>Tên Nguyên Liệu</th>
+                                                            <th>Số lượng</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="vungTableNguyenLieu">
+                                                    </tbody>
+                                                </table>
+                                                <div class="col-red font-22">Tổng số tiền nguyên liệu <label id="tongTienNguyenLieu"></label></div>
+                                                <input type="hidden" name="txtTongTienNguyenLieu" value="" id="txtTongTienNguyenLieu" />
+                                            </div>
+                                            <div class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
+
+                                                <div class="col-lg-6 col-md-6 col-sm-4 col-xs-4">
+                                                    <label for="txtPhanTramLai" class="goiY">
+                                                        Tỷ lệ lãi xuất
+                                                        <span class="noiDungGoiY-right">Phần trăm lãi xuất trên tổng tiền nguyên liệu</span>
+                                                    </label>
+                                                    <div class="form-group">
+                                                        <div class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
+                                                            <div class="form-line">
+                                                                <input type="number" id="txtPhanTramLai" class="form-control" name="txtPhanTramLai" placeholder="Số phần trăm lãi xuất mong muốn">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
+                                                            <b style="font-size:20px;">&#37;</b> <!--Dấu %-->
+                                                            <div id="btnTinhPhanTram" class="btn btn-sm btn btn-warning waves-effect">=</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-4">
+                                                    <label for="txtDonGiaMongMuon">Đơn giá mong muốn</label>
+                                                    <div class="form-group">
+                                                        <div class="form-line">
+                                                            <input type="text" class="form-control" id="txtDonGiaMongMuon" name="txtDonGiaMongMuon"
+                                                                   placeholder="Số tiền mong muốn bán sản phẩm">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row clearfix">
+                                            <div class="col-md-7"></div>
+                                            <div class="col-md-5">
+                                                <br>
+                                                <button type="submit" class="btn btn-primary m-t-15 waves-effect">Lưu công thức</button>
+                                                <a href="/CongThuc/ct_TaoMoiCongThuc" class="btn btn-default m-t-15 waves-effect">Reset</a>
+                                                <button type="button" onclick="troVeTrangTruoc()" class="btn btn-default m-t-15 waves-effect">Trở lại</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #END# Vertical Layout -->
+    </div>
+
+</section>
+
+@Html.Raw(ViewBag.ThongBao)
+<div class="modal fade" id="largeModalChonNguyenLieu" tabindex="-1" role="dialog" style="display: none;">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="largeModalLabel">Lựa chọn nguyên liệu</h4>
+            </div>
+            <div class="modal-body">
+                <div class="input-group">
+                    <div class="form-line">
+                        <input type="text" id="txtTenNguyenLieuTimKiem" class="form-control"
+                               placeholder="Nhập nhập tên nguyên liệu cần tìm">
+                    </div>
+                    <span class="input-group-addon">
+                        <button type="button" class="btn btn-sm btn-deafult waves-effect" id="btnTimKiem">
+                            <i class="material-icons">search</i>Tìm
+                        </button>
+                    </span>
+
+                </div>
+                <div class="danhMucNguyenLieuTimKiem">
+                    <div class="bs-example" data-example-id="media-alignment">
+                        <div id="vungDSNguyenLieu">
+                            <!--Vùng hiển thị danh sách nguyên liệu sau khi người dùng tìm kiếm-->
+                        </div>
+                    </div>
+                </div><!--danhMucNguyenLieuTimKiem-->
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">Đóng lại</button>
+            </div>
+        </div>
+    </div>
+</div>  <!-- Large Size -->

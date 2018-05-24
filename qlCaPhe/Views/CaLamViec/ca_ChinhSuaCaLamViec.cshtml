@@ -1,0 +1,116 @@
+﻿
+@{
+    ViewBag.Title = "Chỉnh sửa ca làm việc";
+    Layout = "~/Views/Shared/_LayoutTools.cshtml";
+}
+<script src="~/Scripts/jquery.timeMask.min.js"></script>
+<script>
+    $(function () {
+        $('.time').timeMask();
+    });
+</script>
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <h2>Điều phối - Đánh giá > Danh mục ca làm việc > Chỉnh sửa ca làm việc</h2>
+        </div>
+
+
+        <!-- Vertical Layout -->
+        <div class="row clearfix">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="header">
+                        <div class="row">
+                            <div class="col-md-5 col-lg-5 col-xs-12 col-sm-5">
+                                <i class="material-icons">alarm</i>
+                                <span class="font-20">CHỈNH SỬA THÔNG TIN CA LÀM VIỆC</span>
+                            </div>
+                            <div class="col-md-7 col-lg-7 col-sm-7 col-xs-12">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" style="float:right">
+                                    <li class="">
+                                        <a href="~/CaLamViec/ca_TaoMoiCaLamViec">
+                                            <i class="material-icons">add</i> TẠO MỚI CA LÀM VIỆC
+                                        </a>
+                                    </li>
+                                    <li class="">
+                                        <a href="~/CaLamViec/ca_TableCaLamViec">
+                                            <i class="material-icons">list</i> DANH MỤC CA LÀM VIỆC
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="body">
+                        @using (Html.BeginForm())
+                        {
+                            <div class="row">
+                                <div class="col-md-7 col-lg-7 col-xs-7">
+                                    <input type="text" id="txtMaCa" class="form-control" style="display:none"
+                                           name="txtMaCa" value="@ViewBag.txtMaCa">
+                                    <label for="cbbBuoi">Buổi làm việc</label>
+                                    <select class="form-control show-tick" id="cbbBuoi" name="cbbBuoi" required>
+                                        <option value="-1">-- Lựa chọn buổi làm việc --</option>
+                                        @Html.Raw(ViewBag.cbbBuoi)
+                                    </select>
+                                    <br /><br />
+
+                                    <label for="txtTenCa">Tên ca làm việc</label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" id="txtTenCa" class="form-control" name="txtTenCa" required maxlength="50"
+                                                   placeholder="Nhập tên ca làm việc tại đây" value="@ViewBag.txtTenCa">
+                                        </div>
+                                    </div>
+
+                                    <label for="txtGhiChu">Ghi chú</label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <textarea rows="4" id="txtGhiChu" class="form-control no-resize" name="txtGhiChu"
+                                                      placeholder="Nhập thêm ghi chú cho ca làm việc">@ViewBag.txtGhiChu</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-lg-4">
+                                        <label for="txtBatDau">Giờ bắt đầu:</label>
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input type="text" id="txtBatDau" name="txtBatDau" required
+                                                       class="form-control time" placeholder="Ex: 23:59" maxlength="8" value="@ViewBag.txtBatDau">
+                                            </div>
+                                        </div>
+
+                                        <label for="txtKetThuc">Giờ kết thúc:</label>
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input type="text" id="txtKetThuc" name="txtKetThuc" value="@ViewBag.txtKetThuc" required
+                                                       class="form-control time" placeholder="Ex: 23:59">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-7"></div>
+
+                                    <div class="col-md-5">
+                                        <br>
+                                        <button type="submit" class="btn btn-primary m-t-15 waves-effect">Lưu lại</button>
+                                        <a href="/CaLamViec/ca_TaoMoiCaLamViec" class="btn btn-default m-t-15 waves-effect">Reset</a>
+                                        <button type="button" class="btn btn-default m-t-15 waves-effect">Trở lại</button>
+                                    </div>
+                                </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #END# Vertical Layout -->
+    </div>
+</section>
+@Html.Raw(ViewBag.ThongBao)
+
+
+
+
+

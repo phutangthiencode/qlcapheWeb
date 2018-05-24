@@ -1,0 +1,78 @@
+﻿@{
+    ViewBag.Title = "Danh mục mục tiêu đánh giá";
+    Layout = "~/Views/Shared/_LayoutTools.cshtml";
+}
+@Html.Raw(ViewBag.ScriptAjax)
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <h2>Điều phối - Đánh giá > Danh mục mục tiêu đánh giá</h2>
+        </div>
+        <!-- Vertical Layout -->
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>
+                            DANH MỤC MỤC TIÊU ĐÁNH GIÁ KHÔNG PHÙ HỢP
+                        </h2>
+                    </div>
+                    <div class="body">
+                        <ul class="nav nav-tabs tab-nav-right" role="tablist">
+                            <li role="presentation" class=""><a href="/DanhGia/mtdg_TableMucTieuDanhGia">Danh mục mục tiêu đánh giá còn phù hợp</a></li>
+                            <li role="presentation" class="active"><a href="/DanhGia/mtdg_TableMucTieuDanhGiaHuy">Danh mục mục tiêu đánh giá không phù hợp</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="table-responsive">
+                                <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <table class="table table-bordered table-striped table-hover js-basic-example dataTable" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                                                <thead>
+                                                    <tr>
+                                                        <th rowspan="1" width="25%" colspan="1">Tên mục tiêu</th>
+                                                        <th rowspan="1" width="40%" colspan="1">Diễn giải</th>
+                                                        <th rowspan="1" width="15%" colspan="1">Ghi chú</th>
+                                                        <th>Chức năng</th>
+                                                    </tr>
+                                                </thead>
+                                                <tfoot>
+
+                                                </tfoot>
+                                                <tbody>
+                                                    @Html.Raw(ViewBag.TableData)
+                                                    @*<tr role="row" class="odd">
+                                                            <td>Mục tiêu 1</td>
+                                                            <td>Diễn giải mục tiêu 1</td>
+                                                            <td>Ghi chú</td>
+                                                            <td>
+                                                                <div class="btn-group">
+                                                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                                                        Chức năng <span class="caret"></span>
+                                                                    </button>
+                                                                    <ul class="dropdown-menu" role="menu">
+                                                                        <li><a href="#" class="col-blue waves-effect waves-block"><i class="material-icons">mode_edit</i>Chỉnh sửa</a></li>
+                                                                        <li><a href="#" class="col-orange waves-effect waves-block"><i class="material-icons">clear</i>Tạm ngưng</a></li>
+                                                                        <li><a href="#" class="col-red waves-effect waves-block"><i class="material-icons">delete</i>Xoá bỏ</a></li>
+                                                                    </ul>
+                                                                </div>
+                                                            </td>
+                                                        </tr>*@
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="row"><div class="col-sm-5"><div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div></div><div class="col-sm-7"><div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate"><ul class="pagination"><li class="paginate_button previous disabled" id="DataTables_Table_0_previous"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0">Previous</a></li><li class="paginate_button active"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0">1</a></li><li class="paginate_button "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="2" tabindex="0">2</a></li><li class="paginate_button "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="3" tabindex="0">3</a></li><li class="paginate_button "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="4" tabindex="0">4</a></li><li class="paginate_button "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="5" tabindex="0">5</a></li><li class="paginate_button "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="6" tabindex="0">6</a></li><li class="paginate_button next" id="DataTables_Table_0_next"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="7" tabindex="0">Next</a></li></ul></div></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #END# Vertical Layout -->
+    </div>
+</section>
+@*modal Xóa*@
+@Html.Raw(ViewBag.ModalXoa)

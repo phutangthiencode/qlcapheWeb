@@ -1,0 +1,181 @@
+﻿@{
+    ViewBag.Title = "Danh mục hoá đơn";
+    Layout = "~/Views/Shared/_LayoutTools.cshtml";
+}
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <h2>Đặt bàn - Thanh toán > Thanh toán - tính tiền</h2>
+        </div>
+        <!-- Vertical Layout -->
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>
+                            <i class="material-icons">payment</i>
+                            DANH SÁCH HOÁ ĐƠN CHỜ THANH TOÁN
+                        </h2>
+                    </div>
+                    <div class="body">
+                        <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table class="table table-bordered table-striped table-hover js-basic-example dataTable" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                                        <thead>
+                                            <tr>
+                                                <th rowspan="1" colspan="1">Số bàn</th>
+                                                <th rowspan="1" colspan="1">Ngày lập</th>
+                                                <th rowspan="1" colspan="1">Thời điểm đến</th>
+                                                <th rowspan="1" colspan="1">Phục vụ</th>
+                                                <th rowspan="1" colspan="1">Tổng tiền</th>
+                                                <th rowspan="1" colspan="1"></th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+
+                                        </tfoot>
+                                        <tbody id="danhSachHoaDonTam">
+                                            @*<tr role="row" class="odd">
+                                                <td class="sorting_1">Bàn 01</td>
+                                                <td>10/11/2017</td>
+                                                <td>12:05:45</td>
+                                                <td>null</td>
+                                                <td>Nguyễn Mai Thi</td>
+                                                <td>150.000</td>
+                                                <td><button class="btn btn-primary waves-effect" data-toggle="modal" data-target="#largeModal">Thanh toán</button></td>
+                                            </tr>*@
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div><div class="row"><div class="col-sm-5"><div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div></div><div class="col-sm-7"><div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate"><ul class="pagination"><li class="paginate_button previous disabled" id="DataTables_Table_0_previous"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0">Previous</a></li><li class="paginate_button active"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0">1</a></li><li class="paginate_button "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="2" tabindex="0">2</a></li><li class="paginate_button "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="3" tabindex="0">3</a></li><li class="paginate_button "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="4" tabindex="0">4</a></li><li class="paginate_button "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="5" tabindex="0">5</a></li><li class="paginate_button "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="6" tabindex="0">6</a></li><li class="paginate_button next" id="DataTables_Table_0_next"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="7" tabindex="0">Next</a></li></ul></div></div></div>
+                        </div>
+                        <div class="">
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #END# Vertical Layout -->
+    </div>
+
+    <!-- Large Size -->
+    <div class="modal fade" id="largeModal" tabindex="-1" role="dialog" style="display: none;">
+        <div class="modal-dialog modal-lg" style="width:90%" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h3 class="modal-title" id="largeModalLabel">THANH TOÁN CHO BÀN 01</h3>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-7 col-lg-7">
+                            <div class="card">
+                                <div class="header bg-cyan">
+                                    <h2>Danh mục món đã chọn</h2>
+                                </div>
+                                <div class="body table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Tên món</th>
+                                                <th style="width:20%">Số lượng</th>
+                                                <th>Đơn giá</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <img width="50px;" height="50px;" src="/images/image-gallery/1.jpg">
+                                                    <b>Cà phê đen</b>
+                                                </td>
+                                                <td>4</td>
+                                                <td>12000 VNĐ</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <p class="font-16 font-bold col-pink">Ghi chú: <i>250.000 VNĐ</i></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5 col-lg-5">
+                            <div class="card">
+                                <div class="header bg-green">
+                                    <h2>Tính tiền</h2>
+                                </div>
+                                <div class="body table-responsive">
+                                    <label for="txtTenNhom">Số tiền tạm tính:</label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <p class="font-16 font-bold col-pink">250.000 VNĐ</p>
+                                        </div>
+                                    </div>
+                                    <label for="txtTenNhom">Khách đưa</label>
+                                    <input type="number" id="txtKhachDua" placeholder="Nhập số tiền khách đưa..." class="form-control">
+                                    <label for="txtTenNhom">Chiết khấu</label>
+                                    <input type="number" id="txtChietKhau" placeholder="Nhập số tiền chiết khấu..." class="form-control">
+                                    <br />
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                                        <label class="font-18 col-orange">Hoàn lại: <i>36.000 VNĐ</i></label>
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                        <button class="btn btn-warning waves-effect">Tính tiền</button>
+                                    </div>
+                                    <hr />
+                                    <label class="font-18 col-pink">Tổng cộng: <i>200.000 VNĐ</i></label>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info waves-effect" data-dismiss="modal"><i class="material-icons">add_box</i>Hoàn tất</button>
+                    <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal"><i class="material-icons">exit_to_app</i>Đóng lại</button>
+                </div>
+            </div>
+        </div>
+    </div> <!-- Large Size -->
+</section>
+@Html.Raw(ViewBag.ModalThanhToan)
+<div id="vungModal">
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        layHoaDonTam();
+    });
+
+    function layHoaDonTam(e) {
+        AjaxGetListOfBillToPay(event); //-------Lấy danh sách lần 1
+        setInterval(function (e) { //-------Chờ 30s rồi lấy danh sách 1 lần
+            AjaxGetListOfBillToPay(e);
+        }, 30000);
+    }
+    //-----Script load danh sách hóa đơn yêu cầu thanh toán
+    function AjaxGetListOfBillToPay(e) {
+        $.ajax({
+            url: getDuongDan() + 'HoaDon/AjaxLayDanhSachHoaDonTam',
+            context: this,
+            dataType: 'html',
+            beforeSend: function () {
+            },
+            success: function (data, textStatus, xhr) {
+                $('#danhSachHoaDonTam').empty();
+                $('#danhSachHoaDonTam').html(data);//Đổ danh sách lên body của table
+                //------Bắt lại sự kiện click vào nút pha chế để chuyển trang
+                vaoTrangCoTruyenThamSoMaHoa(e);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                layHoaDonTam(e);
+            }
+        });
+    }
+
+
+</script>

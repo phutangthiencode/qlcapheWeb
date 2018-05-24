@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewBag.Title = "Gửi phản hồi";
+    Layout = "~/Views/Shared/_LayoutPublic.cshtml";
+}
+
+
+<div class="container">
+    <div class="contact">
+        <div class="contact-in">
+            <h3>Phản hồi</h3>
+            <div class=" col-md-9 contact-left">
+
+                <form>
+                    <div>
+                        <span>Họ và tên</span>
+                        <input name="txtTenNguoiGui" type="text" class="textbox" placeholder="Nhập họ và tên của bạn">
+                    </div>
+                    <div>
+                        <span>E-Mail</span>
+                        <input name="txtEmailNguoiGui" placeholder="Nhập địa chỉ Email của bạn" type="text" class="textbox">
+                    </div>
+                    <div>
+                        <span>Tiêu đề</span>
+                        <input name="txtTieuDe" placeholder="Nhập tiêu đề, chủ đề cần phản hồi" type="text" class="textbox">
+                    </div>
+                    <div>
+                        <span>Nội dung</span>
+                        <textarea name="txtNoiDung" placeholder="Nhập nội dung chi tiết ý kiến của bạn"> </textarea>
+                    </div>
+                    <div>
+                        <span><input type="submit" value="Gửi phản hồi"></span>
+                    </div>
+                </form>
+            </div>
+
+            <div class=" col-md-3 contact-right">
+                <h5>Kính gửi:</h5>
+                <p>Mọi thông tin phản hồi của quý khách sẽ được nhân viên quán tiếp nhận và trả lời nhanh chóng.</p>
+                <p>Xin chân thành cảm ơn !!!</p>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+     
+    </div>
+</div>
+

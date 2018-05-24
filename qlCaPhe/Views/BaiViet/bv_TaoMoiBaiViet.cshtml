@@ -1,0 +1,142 @@
+﻿@model qlCaPhe.Models.EditorHTML
+@{
+    ViewBag.Title = "Đăng bài viết";
+    Layout = "~/Views/Shared/_LayoutTools.cshtml";
+}
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <h2>Bài viết - Phản hồi > Đăng bài viết</h2>
+        </div>
+
+
+        <!-- Vertical Layout -->
+        <div class="row clearfix">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="header">
+                        <div class="row">
+                            <div class="col-md-5 col-lg-5 col-xs-12 col-sm-5">
+                                <i class="material-icons">subtitles</i>
+                                <span class="font-20">QUẢN LÝ BÀI VIẾT</span>
+                            </div>
+                            <div class="col-md-7 col-lg-7 col-sm-7 col-xs-12">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" style="float:right">
+                                    <li class="active">
+                                        <a href="~/BaiViet/bv_TaoMoiBaiViet">
+                                            <i class="material-icons">add</i> ĐĂNG BÀI VIẾT
+                                        </a>
+                                    </li>
+                                    <li class="">
+                                        <a href="~/BaiViet/bv_TableBaiVietDaDuyet">
+                                            <i class="material-icons">list</i> DANH MỤC BÀI VIẾT
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="body">
+                        @using (Html.BeginForm("bv_TaoMoiBaiViet", "BaiViet", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+                        { 
+                            <div class="row">
+                                <div class="col-md-7 col-lg-7">
+                 
+                                    <label for="txtTenBaiViet">Tiêu đề</label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" id="txtTenBaiViet" class="form-control" required maxlength="128" name="txtTenBaiViet"
+                                                   placeholder="Nhập tên, tiêu đề bài viết tại đây" value="@ViewBag.txtTenBaiViet">
+                                        </div>
+                                    </div>
+
+                                    <label for="txtTomTat">Nội dung tóm tắt</label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <textarea rows="4" id="txtTomTat" class="form-control no-resize" name="txtTomTat" required maxlength="512"
+                                                      placeholder="Nhập nội dung tóm tắt cho bài viết">@ViewBag.txtTomTat</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-5 col-lg-5">
+                                    <label for="txtLoaiTin">Loại bài viết</label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" id="txtLoaiTin" class="form-control" name="txtLoaiTin" required maxlength="50"
+                                                   placeholder="Nhập loại bài viết vào đây" value="@ViewBag.txtLoaiTin">
+                                        </div>
+                                    </div>
+
+                                    <label for="txtGhiChu">Ghi chú</label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <textarea rows="4" id="txtGhiChu" class="form-control no-resize" name="txtGhiChu" 
+                                                       placeholder="Nhập thêm ghi chú cho đồ uống">@ViewBag.txtGhiChu</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> <!--Row-->
+                             <div class="row">
+                                 <div class="col-md-12 col-lg-12">
+                                     <label for="hinhDD">Hình đại diện</label>
+                                     <br />
+                                     <img id="hinhDD" class='img img-responsive img-thumbnail' 
+                                          src="@ViewBag.HinhDD" width="100%" height="auto" />
+                                     <br />
+                                     <label for="file-upload" class="custom-btn-file-upload">
+                                         <i class="fa fa-cloud-upload"></i> Chọn hình ảnh
+                                     </label>
+                                     <input type='file' onchange="OpenFileBrowserBaiViet(this);" id="file-upload"
+                                            style="display:none;" name="fileUpload"
+                                            accept=".png,.jpg,.jpeg,.gif,.tif" />
+                                     <br /><br />
+                                 </div> 
+                             </div>
+
+                            <div class="row">
+                                <div class="col-md-12 col-lg-12">
+                                    <label for="txtNoiDungBV">Nội dung bài viết</label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <textarea rows="4" id="txtNoiDungBV" class="noiDung" name="txtNoiDungBV"
+                                                      placeholder="Nhập thêm ghi chú cho đồ uống" style="height:400px;">@ViewBag.txtNoiDungBV</textarea>
+                                        </div>
+                                    </div>
+                                </div> 
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-7"></div>
+
+                                <div class="col-md-5">
+                                    <br>
+                                    <button type="submit" class="btn btn-primary m-t-15 waves-effect">Lưu lại</button>
+                                    <a href="/BaiViet/bv_TaoMoiBaiViet" class="btn btn-default m-t-15 waves-effect">Reset</a>
+                                    <button type="button" class="btn btn-default m-t-15 waves-effect">Trở lại</button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #END# Vertical Layout -->
+    </div>
+</section>
+<!--Script cho editor textbox -->
+@Scripts.Render("~/bundles/jquery")
+<!--Script tạo giao diện editor-->
+<script type="text/javascript" src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
+<!--Định dạng cho editor-->
+<script type="text/javascript">
+    tinymce.init({ selector: ' .noiDung'});
+</script>
+
+
+
+<!-- Modal -->
+@Html.Raw(@ViewBag.ThongBao)
+
+

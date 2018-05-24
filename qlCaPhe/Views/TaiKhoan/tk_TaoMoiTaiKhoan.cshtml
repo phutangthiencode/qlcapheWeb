@@ -1,0 +1,118 @@
+﻿
+@{
+    ViewBag.Title = "Tạo mới tài khoản";
+    Layout = "~/Views/Shared/_LayoutTools.cshtml";
+}
+
+@Html.Raw(ViewBag.ScriptAjax)
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <h2>Tài khoản - Thành viên > Tạo mới tài khoản</h2>
+        </div>
+        <!-- Vertical Layout -->
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                        <div class="row">
+                            <div class="col-md-5 col-lg-5 col-xs-12 col-sm-5">
+                                <i class="material-icons">account_circle</i>
+                                <span class="font-20">QUẢN LÝ TÀI KHOẢN</span>
+                            </div>
+                            <div class="col-md-7 col-lg-7 col-sm-7 col-xs-12">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" style="float:right">
+                                    <li class="active">
+                                        <a href="~/TaiKhoan/tk_TaoMoiTaiKhoan">
+                                            <i class="material-icons">add</i> TẠO MỚI TÀI KHOẢN
+                                        </a>
+                                    </li>
+                                    <li class="">
+                                        <a href="~/TaiKhoan/RouteTaiKhoanHoatDong">
+                                            <i class="material-icons">list</i> DANH MỤC TÀI KHOẢN
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="body">
+                        @using (Html.BeginForm("tk_TaoMoiTaiKhoan", "TaiKhoan", FormMethod.Post))
+                        {
+                            <div class="row">
+                                <div class="col-md-7 col-lg-7">
+                                    <label for="txtTenNhom">Chọn thành viên</label>
+                                    <select class="form-control" name="cbbThanhVien" id="cbbThanhVien">
+                                        <option value="-1">-- Lựa chọn thành viên cung cấp tài khoản --</option>
+                                        @Html.Raw(ViewBag.cbbThanhVien)
+                                    </select>
+                                    <br /><br />
+                                    <label for="txtTenDangNhap">Tên đăng nhập</label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" id="txtTenDangNhap" name="txtTenDangNhap" 
+                                                   class="form-control" placeholder="Nhập tên đăng nhập tại đây" required 
+                                                   pattern=".{5,68}" value="@ViewBag.TenDangNhap">
+                                        </div>
+                                    </div>
+                                    <label for="txtMatKhau">Mật khẩu</label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="password" id="txtMatKhau" name="txtMatKhau" class="form-control"
+                                                   pattern=".{8,256}" placeholder="Nhập tên đăng nhập tại đây" required>
+                                        </div>
+                                    </div>
+                                    <label for="txtXacNhan">Xác nhận mật khẩu</label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="password" id="txtXacNhan" name="txtXacNhan" class="form-control"
+                                                   pattern=".{8,256}" placeholder="Nhập tên đăng nhập tại đây" required>
+                                        </div>
+                                    </div>
+
+
+                                    <label for="txtGhiChu">Ghi chú</label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <textarea rows="1" id="txtGhiChu" name="txtGhiChu" class="form-control no-resize" 
+                                                      placeholder="Nhập thêm ghi chú cho nhóm tài khoản">@ViewBag.GhiChu</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-lg-4">
+                                    <label for="txtTenNhom">Chọn nhóm tài khoản</label>                              
+                                    <select class="form-control show-tick" name="cbbNhomTK" id="cbbNhomTK">
+                                        <option value="-1">-- Lựa chọn nhóm quản lý tài khoản --</option>
+                                        @Html.Raw(ViewBag.cbbNhomTK)
+                                    </select>
+                                    <br />
+                                    <div id="vungThongTin">
+                                        @*<img id="hinhDD" class='img img-responsive img-thumbnail'
+                                             src="~/images/user.jpg" width="250px" height="auto" />
+                                        <br />
+                                        <p class="font-bold col-pink">Thành viên: Tăng Thiên Phú</p>
+                                        <p class="font-bold col-blue">Phone: 01254654212</p>*@
+                                    </div>
+                                </div>
+
+                                <div class="col-md-7"></div>
+
+                                <div class="col-md-5">
+                                    <br>
+                                    <input type="submit" class="btn btn-primary m-t-15 waves-effect" value="Lưu lại">
+                                    <a href="/TaiKhoan/tk_TaoMoiTaiKhoan" class="btn btn-default m-t-15 waves-effect">Reset</a>
+                                    <button type="button" class="btn btn-default m-t-15 waves-effect" id="btnTroLai">Trở lại</button>
+                                </div>
+                            </div>
+
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #END# Vertical Layout -->
+    </div>
+</section>
+<!-- Modal -->
+@Html.Raw(@ViewBag.ThongBao)

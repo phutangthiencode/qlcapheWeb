@@ -1,0 +1,224 @@
+﻿@using qlCaPhe.Models;
+@using qlCaPhe.Models.Business;
+@using qlCaPhe.App_Start;
+@model qlCaPhe.Models.hoaDonTam  
+@{
+    ViewBag.Title = "Thanh toán";
+    Layout = "~/Views/Shared/_LayoutTools.cshtml";
+}
+
+
+<style>
+    #printBill {
+        background-color: #ffffff;
+        width: 300px;
+        height: auto;
+        border: 1px solid;
+    }
+</style>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <h2>Đặt bàn - Thanh toán > Danh mục hoá đơn > Thực hiện thanh toán</h2>
+        </div>
+        <!-- Vertical Layout -->
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+
+                    <div class="header">
+                        <h2>
+                            <a href="/HoaDon/hd_TableHoaDonChoThanhToan" class="btn bg-orange btn-circle waves-effect waves-circle waves-float">
+                                <i class="material-icons">arrow_back</i>
+                            </a>
+                            THANH TOÁN CHO  @xulyDuLieu.traVeKyTuGoc(@Model.BanChoNgoi.tenBan)
+                        </h2>
+                    </div>
+
+                    <div class="body">
+
+                        @using (Html.BeginForm("hd_ThucHienThanhToan", "HoaDon", FormMethod.Post))
+                        {
+                            <div class="row">
+                                <div class="col-md-7 col-lg-7">
+                                    <div class="card">
+                                        <div class="header bg-cyan">
+                                            <h2>Danh mục món đã chọn</h2>
+                                        </div>
+                                        <div class="body table-responsive">
+                                            <table class="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Tên món</th>
+                                                        <th style="width:20%">Số lượng</th>
+                                                        <th>Đơn giá</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <!--Lặp qua danh sách sản phẩm trong hóa đơn-->
+                                                    @foreach (ctHoaDonTam ct in @Model.ctHoaDonTams.Where(c => c.trangThaiPhaChe != 4))
+                                                    {
+                                                        <tr>
+                                                            <td>
+                                                                <img width="50px;" height="50px;" src="@xulyDuLieu.chuyenByteHinhThanhSrcImage(ct.sanPham.hinhAnh)">
+                                                                <b> @xulyDuLieu.traVeKyTuGoc(ct.sanPham.tenSanPham)</b>
+                                                            </td>
+                                                            <td>@ct.soLuong.ToString() </td>
+                                                            <td>@ct.sanPham.donGia.ToString() VNĐ</td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                            <p class="font-16 col-grey">Ghi chú: @xulyDuLieu.traVeKyTuGoc(Model.ghiChu)<i></i></p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-5 col-lg-5">
+                                    <div class="card">
+                                        <div class="header bg-green">
+                                            <h2>Tính tiền</h2>
+                                        </div>
+                                        <div class="body">
+                                            <div class="row">
+                                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                                                    <label for="txtTenNhom">Tổng cộng:</label>
+                                                    <div class="form-group">
+                                                        <div class="form-line"> 
+                                                            @{ var tongTien = new bHoaDonTam().layTongTienSanPham(Model); }
+                                                            <label class="font-16 font-bold col-pink"><span id="lbTamTinh">@tongTien.ToString()</span> VNĐ</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row clearfix">
+                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                                    <label for="txtTienKhachDua">Khách đưa</label>
+                                                    <div class="form-group">
+                                                        <div class="form-line">
+                                                            <input type="number" id="txtTienKhachDua" placeholder="Nhập số tiền khách đưa..." class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                                    <label for="txtTienChietKhau">Chiết khấu</label>
+                                                    <div class="form-group">
+                                                        <div class="form-line">
+                                                            <input type="number" id="txtTienChietKhau" name="txtTienChietKhau" placeholder="Nhập số tiền chiết khấu..." class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <label class="font-15 col-blue" id="lbTienHoanLai"></label>
+
+                                                <label class="font-18 col-pink" id="lbTongTien"></label>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+
+                                                </div>
+
+                                                <br>
+                                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                                    <button type="button" class="btn btn-warning waves-effect" id="btnTinhTien"><i class="material-icons">filter_9_plus</i>Tính tiền</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="footer">
+                                            <button class="btn btn-info waves-effect btn-lg pull-right" style="display:none;" id="btnSave" data-dismiss="modal"><i class="material-icons">save</i>Hoàn tất</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>                            
+                            <input type="hidden" value="" name="txtTienMat" id="txtTienMat"/>
+                            <input type="hidden" value="" name="txtTienTra" id="txtTienTra" />
+                        }
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <!-- #END# Vertical Layout -->
+    </div>
+</section>
+@Html.Raw(ViewBag.ModalBill)
+<script>
+
+    $(document).ready(function () {
+        thucThi();
+    });
+
+
+    function thucThi() {
+        //===============SỰ KIỆN CHO NÚT TÍNH TIỀN TRÊN MODAL
+        $('#btnTinhTien').click(function (e) {
+            var status = false
+            var tienHoanLai = "Tiền khách trả chưa đủ";
+            var tamTinh = parseInt($('#lbTamTinh').text(), 10);
+            var tienKhachDua = parseInt($('#txtTienKhachDua').val(), 10);
+            if (tienKhachDua > 0) {
+                var tienChietKhau = parseInt($('#txtTienChietKhau').val(), 10);
+                if (tienChietKhau > 0)
+                    tamTinh -= tienChietKhau;//Tính tiền sau khi chiết khấu
+
+                //if (tienKhachDua < tamTinh)
+                //    tienHoanLai = "Tiền khách trả chưa đủ";
+                if (tienKhachDua >= tamTinh) {
+                    tienHoanLai = "Hoàn lại: " + (tienKhachDua - tamTinh) + " VNĐ ||";
+                    status = true;
+                }
+                if (status == true) {
+                    $('#btnSave').attr('style', 'display:block');
+                    $('#lbTongTien').html("Tạm tính: " + tamTinh + " VNĐ");
+                }
+            }
+            $('#lbTienHoanLai').html(tienHoanLai);
+            $('#txtTienMat').val(tamTinh);
+            $('#txtTienTra').val((tienKhachDua-tamTinh));
+            thucThi();
+
+        });
+
+    }
+
+
+    function printContent(el) {
+        var restorepage = $('body').html();
+        var printcontent = $('#' + el).clone();
+        $('body').empty().html(printcontent);
+        window.print();
+        $('body').html(restorepage);
+    }
+</script>
+
+
+@*<div id="printBill">
+    <div class="modal-body">
+        <div class="row text-center">
+            <h4>Fuca Coffee</h4>
+
+            <label><i>Địa chỉ: 123, Tôn Đức Thắng , Q.1</i></label>
+            <label><i>ĐT: 0283182333</i></label><br />
+            <label>*********************</label>
+        </div>
+        <div class="row">
+            <h4 class="text-center">HÓA ĐƠN THANH TOÁN</h4>
+            <p>Số TT: 69</p>
+            <p><b>Bàn: Bàn số 18</b> - Ngày: 3/8/2018 10:38:22 PM</p>
+        </div>
+        <div class="row">
+            <table>
+                <thead>                            <tr>                                <th width="40%">Tên hàng</th>                                <th width="20%">Đơn giá</th>                                <th width="20%">T.Tiền</th>                            </tr>                        </thead>
+                <tbody>                            <tr>                                <td>Cà phê đen đá (x1)</td>                                <td>10000</td>                                <td>10000</td>                            </tr>                            <tr>                                <td>Cà phê đen nóng (x1)</td>                                <td>10000</td>                                <td>10000</td>                            </tr>                            <tr>                                <td>Cà phê sữa nóng (x1)</td>                                <td>12000</td>                                <td>12000</td>                            </tr>                        </tbody>
+            </table>
+        </div>                <br />                <div class="font-16 bold">                    <label>T.Cộng:</label>                    <label class="pull-right">32000</label>                </div>                <div class="font-18 bold">                    <label>Tạm tính:</label>                    <label class="pull-right">32000</label>                </div>                <div class="font-14 bold">                    <label>Nhận tiền mặt:</label>                    <label class="pull-right">32000</label>                </div>                <div class="font-14 bold">                    <label>Tiền trả:</label>                    <label class="pull-right">18000</label>                </div>                <div class="font-11 text-center">                    <label>Cám ơn quý khách - hẹn gặp lại !!!</label>                </div>
+    </div>
+</div>*@

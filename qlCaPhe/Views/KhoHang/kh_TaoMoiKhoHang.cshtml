@@ -1,0 +1,138 @@
+﻿@{
+    ViewBag.Title = "Tạo mới kho hàng";
+    Layout = "~/Views/Shared/_LayoutTools.cshtml";
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <h2>Cơ sở - Vật chất > Tạo mới kho hàng</h2>
+        </div>
+        <!-- Vertical Layout -->
+        <div class="row clearfix">
+            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                        <div class="row">
+                            <div class="col-md-5 col-lg-5 col-xs-12 col-sm-5">
+                                <i class="material-icons">view_array</i>
+                                <span class="font-20">QUẢN LÝ KHO HÀNG</span>
+                            </div>
+                            <div class="col-md-7 col-lg-7 col-sm-7 col-xs-12">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" style="float:right">
+                                    <li class="active">
+                                        <a href="~/KhoHang/kh_TaoMoiKhoHang">
+                                            <i class="material-icons">add</i> TẠO MỚI KHO HÀNG
+                                        </a>
+                                    </li>
+                                    <li class="">
+                                        <a href="~/KhoHang/kh_TableKhoHang">
+                                            <i class="material-icons">list</i> DANH MỤC KHO HÀNG
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="body">
+                        @using (Html.BeginForm("kh_TaoMoiKhoHang", "KhoHang", FormMethod.Post))
+                        {
+                            <div class="row">
+                                <div class="col-md-7 col-lg-7">
+                                    <label for="txtTenKhoHang">Tên kho hàng</label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" id="txtTenKhoHang" class="form-control" required maxlength="50" name="txtTenKhoHang"
+                                                   placeholder="Nhập tên kho hàng tại đây" value="@ViewBag.txtTenKhoHang">
+                                        </div>
+                                    </div>
+
+                                    <label for="txtSDT">Số điện thoại cục bộ</label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" id="txtSDT" class="form-control" name="txtSDT" maxlength="15"
+                                                   placeholder="Nhập số điện thoại cục bộ của kho hàng tại đây" value="@ViewBag.txtSDT">
+                                        </div>
+                                    </div>
+
+                                    <label for="txtDiaChi">Địa chỉ</label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" id="txtDiaChi" class="form-control" name="txtDiaChi" required maxlength="100"
+                                                   placeholder="Nhập địa chỉ kho hàng tại đây" value="@ViewBag.txtDiaChi">
+                                        </div>
+                                    </div>
+
+                                    <label for="txtKinhDo">Toạ độ Google Maps</label>
+                                    <div class="row clearfix">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <input type="text" id="txtKinhDo" class="form-control" maxlength="20" name="txtKinhDo"
+                                                           placeholder="Nhập toạ độ Latitude từ Google Maps" value="@ViewBag.txtKinhDo">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <input type="text" class="form-control" id="txtViDo" name="txtViDo" maxlength="20"
+                                                           placeholder="Nhập toạ độ Longtitude từ Google Maps" value="@ViewBag.txtViDo">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div class="col-md-4 col-lg-4">
+                                    <label for="txtDienTich">Diện tích</label>
+                                    <div class="row clearfix">
+                                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <input type="number" id="txtDienTich" class="form-control" required min="1" name="txtDienTich"
+                                                           placeholder="Nhập diện tích khả dụng của kho hàng" value="@ViewBag.txtDienTich">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                                            <label for="txtDienTich"><b>m<sup>2</sup></b></label>
+                                        </div>
+                                    </div>
+
+                                    <label for="txtGhiChu">Ghi chú</label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <textarea rows="4" id="txtGhiChu" class="form-control no-resize" name="txtGhiChu"
+                                                      placeholder="Nhập thêm ghi chú cho kho hàng">
+                                                @ViewBag.txtGhiChu
+                                                </textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-7"></div>
+
+                                    <div class="col-md-5">
+                                        <br>
+                                        <button type="submit" class="btn btn-primary m-t-15 waves-effect">Lưu lại</button>
+                                        <a href="/KhoHang/kh_TaoMoiKhoHang" class="btn btn-default m-t-15 waves-effect">Reset</a>
+                                        <button type="button" class="btn btn-default m-t-15 waves-effect">Trở lại</button>
+                                    </div>
+                                </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #END# Vertical Layout -->
+    </div>
+</section>
+<!-- Modal -->
+@Html.Raw(@ViewBag.ThongBao)
+
+
+
+

@@ -1,0 +1,112 @@
+﻿@{
+    ViewBag.Title = "Chỉnh sửa thông tin khu vực";
+    Layout = "~/Views/Shared/_LayoutTools.cshtml";
+}
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <h2>Cơ sở - Vật chất > Danh mục khu vực > Chỉnh sửa khu vực</h2>
+        </div>
+        <!-- Vertical Layout -->
+        <div class="row clearfix">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="header">
+                        <div class="row">
+                            <div class="col-md-5 col-lg-5 col-xs-12 col-sm-5">
+                                <i class="material-icons">blur_circular</i>
+                                <span class="font-20">CHỈNH SỬA THÔNG TIN KHU VỰC</span>
+                            </div>
+                            <div class="col-md-7 col-lg-7 col-sm-7 col-xs-12">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" style="float:right">
+                                    <li class="">
+                                        <a href="~/KhuVuc/kv_TaoMoiKhuVuc">
+                                            <i class="material-icons">add</i> TẠO MỚI KHU VỰC
+                                        </a>
+                                    </li>
+                                    <li class="">
+                                        <a href="~/KhuVuc/kv_TableKhuVuc">
+                                            <i class="material-icons">list</i> DANH MỤC KHU VỰC
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="body">
+                        @using (Html.BeginForm())
+                        {
+                            <input type="hidden" value="@ViewBag.txtMaKV" name="txtMaKV" />
+                            <div class="row">
+                                <div class="col-md-7 col-lg-7">
+                                    <label for="txtTenKV">Tên khu vực</label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" id="txtTenKV" name="txtTenKV" class="form-control" maxlength="50" required
+                                                   placeholder="Nhập tên khu vực tại đây" value="@ViewBag.txtTenKV">
+                                        </div>
+                                    </div>
+
+                                    <label for="txtDienGiai">Diễn giải</label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <textarea rows="4" id="txtDienGiai" class="form-control no-resize" name="txtDienGiai" maxlength="500" required
+                                                      placeholder="Nhập diễn giải về khu vực (Quang cảnh, vị trí...)">@ViewBag.txtDienGiai</textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="txtTongSucChua">Tổng sức chứa</label>
+                                            <div class="form-line">
+                                                <input type="number" id="txtTongSucChua" name="txtTongSucChua" class="form-control" required min="0"
+                                                       placeholder="Nhập tổng sức chứa của tại đây" value="@ViewBag.txtTongSucChua">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-lg-4">
+                                        <label for="txtDienTich">Diện tích</label>
+                                        <div class="row clearfix">
+                                            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                                                <div class="form-group">
+                                                    <div class="form-line">
+                                                        <input type="number" id="txtDienTich" class="form-control" name="txtDienTich" required min="0"
+                                                               placeholder="Nhập diện tích khả dụng của khu vực" value="@ViewBag.txtDienTich">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                                                <label for="txtDienTich"><b>m<sup>2</sup></b></label>
+                                            </div>
+                                        </div>
+
+                                        <label for="txtGhiChu">Ghi chú</label>
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <textarea rows="4" id="txtGhiChu" name="txtGhiChu" class="form-control no-resize"
+                                                          placeholder="Nhập thêm ghi chú cho nhóm tài khoản">@ViewBag.txtGhiChu</textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-7"></div>
+
+                                        <div class="col-md-5">
+                                            <br>
+                                            <input type="submit" class="btn btn-primary m-t-15 waves-effect" value="Lưu lại">
+                                            <a href="/KhuVuc/kv_TaoMoiKhuVuc" class="btn btn-default m-t-15 waves-effect">Reset</a>
+                                            <button onclick="troVeTrangTruoc()" type="button" class="btn btn-default m-t-15 waves-effect">Trở lại</button>
+                                        </div>
+                                    </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #END# Vertical Layout -->
+    </div>
+</section>
+<!-- Modal -->
+@Html.Raw(@ViewBag.ThongBao)
+

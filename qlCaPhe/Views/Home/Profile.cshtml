@@ -1,0 +1,255 @@
+﻿@model qlCaPhe.Models.taiKhoan
+@using qlCaPhe.App_Start;
+@{
+    ViewBag.Title = "Thông tin cá nhân";
+    Layout = "~/Views/Shared/_LayoutTools.cshtml";
+}
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <h2>Cá nhân</h2>
+        </div>
+
+        <div class="row clearfix">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="header">
+                        <div class="row">
+                            <div class="col-md-5 col-lg-5 col-xs-12 col-sm-5">
+                                <i class="material-icons">cloud_download</i>
+                                <span class="font-20">CẬP NHẬT THÔNG TIN CÁ NHÂN</span>
+                            </div>
+                            <div class="col-md-7 col-lg-7 col-sm-7 col-xs-12">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="body">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active">
+                                <a href="#taikhoan" data-toggle="tab">
+                                    <i class="material-icons">account_box</i> Tài khoản
+                                </a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#profile" data-toggle="tab">
+                                    <i class="material-icons">face</i> Cá nhân
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane fade in active" id="taikhoan">
+                                <form method="post" action="/Home/capNhatMatKhau">
+                                    @Html.AntiForgeryToken()
+                                    <div class="row">
+                                        <div class="col-md-6 col-lg-6 col-sm-8 col-xs-12">
+                                            <label for="txtMatKhauCu">Mật khẩu cũ: </label>
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <input class="form-control" id="txtMatKhauCu" name="txtMatKhauCu" placeholder="Nhập mật khẩu cũ của tài khoản" type="password" />
+                                                </div>
+                                            </div>
+
+                                            <label for="txtMatKhauMoi">Mật khẩu mới: </label>
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <input class="form-control" id="txtMatKhauMoi" name="txtMatKhauMoi" placeholder="Nhập mật khẩu mới cần thay đổi" type="password" />
+                                                </div>
+                                            </div>
+
+                                            <label for="txtXacNhan">Xác nhận: </label>
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <input class="form-control" id="txtXacNhan" name="txtXacNhan" placeholder="Nhập lại mật khẩu" type="password" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 col-lg-6 col-sm-4 col-xs-12">
+                                            <label for="txtGhiChuTaiKhoan">Ghi chú tài khoản: </label>
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <textarea class="form-control" id="txtGhiChuTaiKhoan"
+                                                               name="txtGhiChuTaiKhoan" rows="8">@xulyDuLieu.traVeKyTuGoc(Model.ghiChu)</textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-7 col-lg-6 col-sm-8 col-xs-12">
+                                        </div>
+                                        <div class="col-md-5 col-lg-6 col-sm-4 col-xs-12">
+                                            <input type="submit" class="btn btn-primary m-t-15 waves-effect" value="Cập nhật" />
+                                            <input type="submit" class="btn btn-default m-t-15 waves-effect" value="Reset" />
+                                            <input type="submit" class="btn btn-default m-t-15 waves-effect" value="Trở lại" />
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div role="tabpanel" class="tab-pane fade" id="profile">
+                                <form method="post" action="/Home/capNhatProfile" enctype="multipart/form-data">
+                                    @Html.AntiForgeryToken()
+                                    <div class="row">
+                                        <div class="col-md-7 col-lg-7">
+                                            <label for="txtHoTV">Họ và tên</label>
+                                            <div class="row clearfix">
+                                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-6">
+                                                    <div class="form-group">
+                                                        <div class="form-line">
+                                                            <input class="form-control" id="txtHoTV"
+                                                                   maxlength="20" name="txtHoTV" pattern=".{2,20}" placeholder="Nhập họ và tên đệm"
+                                                                   required="true" type="text" value="@xulyDuLieu.traVeKyTuGoc(Model.thanhVien.hoTV)">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+                                                    <div class="form-group">
+                                                        <div class="form-line focused">
+                                                            <input class="form-control" id="txtTenTV" maxlength="8" name="txtTenTV"
+                                                                   pattern=".{2,8}" placeholder="Nhập tên thành viên" required="true" type="text" value="@xulyDuLieu.traVeKyTuGoc(Model.thanhVien.tenTV)">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <label for="txtMatKhau">Giới tính</label>
+                                            <div class="row clearfix">
+                                                <div class="form-group">
+                                                    <div class="demo-radio-button">
+                                                        @{
+                                                            bool gioiTinh = (bool)Model.thanhVien.gioiTinh;
+                                                        }
+                                                        &nbsp;	&nbsp;&nbsp;	&nbsp;
+                                                        @if (gioiTinh)
+                                                        {
+                                                            <input name="Gender" type="radio" id="rdbNam" value="1" class="radio-col-blue" checked="">
+                                                            <label for="rdbNam">Nam</label>
+
+
+                                                            <input name="Gender" type="radio" id="rdbNu" value="0" class="radio-col-pink">
+                                                            <label for="rdbNu">Nữ</label>
+                                                        }
+                                                        else
+                                                        {
+                                                            <input name="Gender" type="radio" id="rdbNam" value="1" class="radio-col-blue">
+                                                            <label for="rdbNam">Nam</label>
+
+
+                                                            <input name="Gender" type="radio" id="rdbNu" value="0" class="radio-col-pink" checked>
+                                                            <label for="rdbNu">Nữ</label>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <label for="txtXacNhan">Ngày sinh</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <i class="material-icons">date_range</i>
+                                                </span>
+                                                <div class="form-line focused">
+                                                    <input class="form-control ngayValidate" id="txtNgaySinh" max="2100-13-13"
+                                                           min="1899-01-01" name="txtNgaySinh" required="true" type="date" value="@string.Format("{0:yyyy-MM-dd}", Model.thanhVien.ngaySinh)">
+                                                </div>
+                                            </div>
+                                            <label for="txtTenNhom">Nơi sinh</label>
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <input class="form-control" id="txtNoiSinh" maxlength="50" name="txtNoiSinh"
+                                                           placeholder="Nhập nơi sinh của thành viên" type="text" value="@xulyDuLieu.traVeKyTuGoc(Model.thanhVien.noiSinh)">
+                                                </div>
+                                            </div>
+                                            <label for="txtDiaChi">Địa chỉ</label>
+                                            <div class="form-group">
+                                                <div class="form-line focused">
+                                                    <input class="form-control" id="txtDiaChi" maxlength="250" name="txtDiaChi"
+                                                           placeholder="Nhập địa chỉ của thành viên" required="true" type="text" value="@xulyDuLieu.traVeKyTuGoc(Model.thanhVien.diaChi)">
+                                                </div>
+                                            </div>
+                                            <label for="txtSDT">Số điện thoại</label>
+                                            <div class="form-group">
+                                                <div class="form-line focused">
+                                                    <input class="form-control" id="txtSDT" maxlength="15" name="txtSDT" pattern=".{10,15}"
+                                                           placeholder="Nhập số điện thoại của thành viên" required="true" type="text" value="@xulyDuLieu.traVeKyTuGoc(Model.thanhVien.soDT)">
+                                                </div>
+                                            </div>
+                                            <label for="txtEmail">Email</label>
+                                            <div class="form-group">
+                                                <div class="form-line focused">
+                                                    <input class="form-control" id="txtEmail" maxlength="256" name="txtEmail" placeholder="Nhập Email của thành viên" type="text"
+                                                           value="@xulyDuLieu.traVeKyTuGoc(Model.thanhVien.Email)">
+                                                </div>
+                                            </div>
+                                            <label for="txtFacebook">Facebook</label>
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <input class="form-control" id="txtFacebook" maxlength="256" name="txtFacebook"
+                                                           placeholder="Nhập Facebook của thành viên" type="text" value="@xulyDuLieu.traVeKyTuGoc(Model.thanhVien.Facebook)">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-5 col-lg-5 col-sm-4 col-xs-12">
+                                            <label for="txtHinhDD">Hình đại diện</label> <br />
+                                            <img id="hinhDD" class="img img-responsive img-thumbnail" src="@xulyDuLieu.chuyenByteHinhThanhSrcImage(Model.thanhVien.hinhDD)" width="250px" height="auto" />
+                                            <br />
+                                            <label for="file-upload" class="custom-btn-file-upload">
+                                                <i class="fa fa-cloud-upload"></i> Chọn hình ảnh
+                                            </label>
+                                            <input type="file" onchange="OpenFileBrowser(this);" id="file-upload" style="display:none;" accept=".png,.jpg,.jpeg,.gif,.tif" name="fileUpload">
+                                            <br>
+
+                                            <label for="txtCMND">Số CMND</label>
+                                            <div class="form-group">
+                                                <div class="form-line focused">
+                                                    <input class="form-control" id="txtCMND" maxlength="15" name="txtCMND" pattern=".{9,15}"
+                                                           placeholder="Nhập số CMND của thành viên" required="true" type="text" value="@xulyDuLieu.traVeKyTuGoc(Model.thanhVien.soCMND)">
+                                                </div>
+                                            </div>
+
+                                            <label for="txtNgayCap">Ngày cấp</label>
+                                            <div class="form-group">
+                                                <div class="form-line focused">
+
+                                                    <input class="form-control ngayValidate" id="txtNgayCap" max="2100-13-13" min="1899-01-01"
+                                                           name="txtNgayCap" type="date" value="@string.Format("{0:yyyy-MM-dd}", Model.thanhVien.ngayCap)">
+                                                </div>
+                                            </div>
+
+                                            <label for="txtNoiCap">Nơi cấp</label>
+                                            <div class="form-group">
+                                                <div class="form-line focused">
+                                                    <input class="form-control" id="txtNoiCap" maxlength="250" name="txtNoiCap"
+                                                           placeholder="Nhập nơi cấp CMND của thành viên" type="text" value="@xulyDuLieu.traVeKyTuGoc(Model.thanhVien.noiCap)">
+                                                </div>
+                                            </div>
+
+                                            <label for="txtGhiChuThanhVien">Ghi chú</label>
+                                            <div class="form-group">
+                                                <div class="form-line focused">
+                                                    <textarea class="form-control no-resize" cols="20" id="txtGhiChuThanhVien" name="txtGhiChuThanhVien"
+                                                              placeholder="Nhập thêm ghi chú cho thành viên" rows="4">@xulyDuLieu.traVeKyTuGoc(Model.thanhVien.ghiChu)
+                                                        </textarea>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-md-7 col-lg-7 col-sm-8 col-xs-12">
+                                            </div>
+                                            <div class="col-md-5 col-lg-5 col-sm-4 col-xs-12">
+                                                <input type="submit" class="btn btn-primary m-t-15 waves-effect" value="Cập nhật" />
+                                                <input type="submit" class="btn btn-default m-t-15 waves-effect" value="Reset" />
+                                                <input type="submit" class="btn btn-default m-t-15 waves-effect" value="Trở lại" />
+                                            </div>
+                                        </div>
+                                    </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@Html.Raw(ViewBag.ThongBao)

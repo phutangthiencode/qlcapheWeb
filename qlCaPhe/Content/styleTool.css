@@ -1,0 +1,31 @@
+﻿/*CSS cho label hiện nút chọn hình*/
+.custom-btn-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+
+/*This css is to ensure that the google map contols (zoom bar etc) show and size correctly.*/
+
+#map_canvas img {
+    max-width: none;
+}
+
+/*This css is to give a nice big popup "info window" when a marker is clicked on the map*/
+
+.infoDiv {
+    height: 200px;
+    width: 300px;
+    -webkit-user-select: none;
+    background-color: white;
+}
+.hetHang{
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    position: absolute;
+    background: url(../images/hetHang.png) no-repeat;
+}

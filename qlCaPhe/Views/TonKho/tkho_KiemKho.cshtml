@@ -1,0 +1,193 @@
+﻿@{
+    ViewBag.Title = "Kiểm kho";
+    Layout = "~/Views/Shared/_LayoutTools.cshtml";
+}
+
+<section class="content">
+
+    <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="header">
+                    <i class="material-icons">spellcheck</i>
+                    <span class="font-20">
+                        KIỂM KÊ TỒN KHO NGUYÊN LIỆU
+                    </span>
+                </div>
+                <div class="body">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active js-tab-item">
+                            <a href="#indanhsach" data-toggle="tab" aria-expanded="true" id="js-tab-indanhsach">
+                                <i class="material-icons">print</i> IN DANH SÁCH
+                            </a>
+                        </li>
+                        <li role="presentation" class="js-tab-item">
+                            <a href="#nhapsolieu" data-toggle="tab" aria-expanded="false" id="js-tab-nhapsolieu">
+                                <i class="material-icons">keyboard</i> NHẬP SỐ LIỆU
+                            </a>
+                        </li>
+                        <li role="presentation" class="js-tab-item">
+                            <a href="#doichieu" data-toggle="tab" id="js-tab-doichieu">
+                                <i class="material-icons">compare_arrows</i> ĐỐI CHIẾU
+                            </a>
+                        </li>
+                        <li role="presentation" class="js-tab-item">
+                            <a href="#luudulieu" data-toggle="tab" id="js-tab-luudulieu">
+                                <i class="material-icons">save</i> LƯU DỮ LIỆU
+                            </a>
+                        </li>
+                    </ul>
+
+                    <!-- Tab panes -->
+                    <div class="tabs">
+                        <div role="tabpanel" id="indanhsach" class="js-tabs tab-pane fade active in">
+                            <div class="col-md-offset-4">
+                                <button type="button" class="btn bg-blue btn-lg waves-effect " id="btnModalNguyenLieuKiemKho">
+                                    <i class="material-icons">print</i>
+                                    <span>IN DANH SÁCH NGUYÊN LIỆU KIỂM KHO</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade js-tabs" id="nhapsolieu">
+                            <div class="row clearfix">
+                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                                    <thead>
+                                        <tr>
+                                            <th width="20%">Nguyên liệu</th>
+                                            <th width="10%">Đơn giá</th>
+                                            <th width="10%">Số lượng thực tế</th>
+                                            <th width="10%">Đơn vị tính</th>
+                                            <th width="20%">Nguyên nhân</th>
+                                            <th width="10%">Chức năng</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+
+                                    </tfoot>
+                                    <tbody id="danhSachTruocKiem">
+                                        @*<tr role="row" class="odd">
+                                                <td><b>Cà phê xay nguyên chất</b></td>
+                                                <td>220000</td>
+                                                <td>   <input value="10000" min="0" class="form-control" id="txtSoLuongThucTe22" style="width:100%"></td>
+                                                <td>gam</td>
+                                                <td>   <input type="text" min="0" class="form-control" id="txtNguyenNhan22" placeholder="Nguyên nhân hao hụt" style="width:100%"></td>
+                                                <td>      <button type="button" manl="22" class="btnKiemHang btn btn-info  m-t-15 waves-effect">Nhập </button>  </td>
+                                            </tr>*@
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade js-tabs" id="doichieu">
+                            <div class="row clearfix">
+                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                                    <thead>
+                                        <tr>
+                                            <th width="12%">Nguyên liệu</th>
+                                            <th width="8%">Đơn giá</th>
+                                            <th width="15%">Số lượng đầu kỳ</th>
+                                            <th width="15%">Số lượng lý thuyết</th>
+                                            <th width="15%">Số lượng thực tế</th>
+                                            <th width="10%">Hao hụt</th>
+                                            <th width="15%">Nguyên nhân</th>
+                                            <th width="10%">Chức năng</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+
+                                    </tfoot>
+                                    <tbody id="danhSachDaKiem">
+                                        @*<tr role="row" class="odd">
+                                                <td><b>Cà phê xay nguyên chất</b></td>
+                                                <td>220000</td>
+                                                <td>3870 (gam)</td>
+                                                <td>10000 (gam)</td>
+                                                <td><b>9000 (gam)</b></td>
+                                                <td class="col-red">20%</td>
+                                                <td><i>Hư hỏng</i></td>
+                                                <td>
+                                                    <button type="button" manl="22" class="btnKiemLai btn btn-warning  waves-effect">Kiểm lại</button>
+                                                </td>
+                                            </tr>*@
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade js-tabs" id="luudulieu">
+                            <b class="col-red"><i>Quá trình kiểm kê tất cả các nguyên liệu trong kho đã hoàn tất</i></b>
+                            <br /><br />
+
+                            <form action="/TonKho/tkho_KiemKho" method="post">
+                                <label for="txtGhiChu">Ghi chú</label>
+                                <div class="form-group">
+                                    <div class="form-line focused">
+                                        <textarea id="txtGhiChu" name="txtGhiChu" class="form-control" rows="3" placeholder="Nhập ghi chú về kiểm kê kho hàng">@Html.Raw(ViewBag.txtGhiChu)</textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-offset-4">
+                                    <a href="/TonKho/tkho_KiemKho" class="btn btn-danger waves-effect">
+                                        <i class="material-icons">settings_backup_restore</i><span>KIỂM LẠI KHO HÀNG</span>
+                                    </a>
+                                    <button type="submit" class="btn btn-primary waves-effect">
+                                        <i class="material-icons">check</i><span>HOÀN TẤT KIỂM KHO</span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade in" id="modalInNguyenLieuKiem" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-blue">
+                    <h4 class="modal-title" id="largeModalLabel">Danh sách nguyên liệu cần kiểm</h4>
+                </div>
+                <div class="modal-body" id="phieuNguyenLieuKiem">
+                    <div class="row text-center">
+                        <h4>Fuca Coffee</h4><label><i>Địa chỉ: 123, Tôn Đức Thắng , Q.1</i></label><label><i>ĐT: 0283182333</i></label><br><label>*********************</label>
+                    </div>
+                    <div class="row">
+                        <h4 class="text-center">DANH SÁCH NGUYÊN LIỆU CẦN KIỂM KÊ</h4><b class="pull-right">Ngày 01/05/2018 4:16:48 PM</b>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr><th width="5%">#</th><th width="25%">Nguyên liệu</th><th width="15%">Số lượng</th><th width="15%">Đơn vị tính</th><th width="25%">Nguyên nhân hao hụt</th><th width="15%">Ghi chú</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Cà phê xay nguyên chất</td>
+                                        <td></td>
+                                        <td>gam</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="pull-right">
+                            <b>Người kiểm</b><br /><br /><br /><b>TĂNG THIÊN PHÚ</b>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info btn-lg waves-effect" onclick="  printContent('phieuNguyenLieuKiem');"><i class="material-icons">print</i>In</button>
+                    <a href="/TonKho/tkho_KiemKho" class="btn btn-link waves-effect " data-dismiss="modal">CLOSE</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @Html.Raw(ViewBag.ThongBao)
+</section>
+<script src="~/Scripts/Ajax/kiemKho.js"></script>
+

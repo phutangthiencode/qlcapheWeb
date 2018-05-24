@@ -1,0 +1,183 @@
+﻿@{
+    ViewBag.Title = "Chỉnh sửa đồ uống";
+    Layout = "~/Views/Shared/_LayoutTools.cshtml";
+}
+<link href="~/Content/styleTool.css" rel="stylesheet" />
+
+<link href="~/Content/jquery.Jcrop.min.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.Jcrop.js"></script>
+
+<script type="text/javascript">
+    @Html.Raw(ViewBag.ScriptCropImage)
+</script>
+<!--Script chart-->
+<script src="~/plugins/ChartCustom/Chart.bundle.js"></script>
+<script src="~/plugins/ChartCustom/utils.js"></script>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <h2>Thực đơn - Đồ uống > Danh mục đồ uống > Chỉnh sửa đồ uống</h2>
+        </div>
+        <!-- Vertical Layout -->
+        <div class="row clearfix">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="header">
+                        <div class="row">
+                            <div class="col-md-5 col-lg-5 col-xs-12 col-sm-5">
+                                <i class="material-icons">local_cafe</i>
+                                <span class="font-20">CHỈNH SỬA THÔNG TIN ĐỒ UỐNG</span>
+                            </div>
+                            <div class="col-md-7 col-lg-7 col-sm-7 col-xs-12">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" style="float:right">
+                                    <li class="">
+                                        <a href="~/DoUong/du_TaoMoiDoUong">
+                                            <i class="material-icons">add</i> TẠO MỚI ĐỒ UỐNG
+                                        </a>
+                                    </li>
+                                    <li class="">
+                                        <a href="~/DoUong/du_TableDoUong">
+                                            <i class="material-icons">list</i> DANH MỤC ĐỒ UỐNG
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="body">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active">
+                                <a href="#thongTinSanPham" data-toggle="tab">
+                                    <i class="material-icons">info</i> THÔNG TIN SẢN PHẨM
+                                </a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#lichSuGia" data-toggle="tab">
+                                    <i class="material-icons">insert_chart</i> LỊCH SỬ GIÁ
+                                </a>
+                            </li>
+
+                            <li role="presentation">
+                                <a class="guiRequest" href="" task="@ViewBag.TaskCongThuc">
+                                    <i class="material-icons">transform</i> CÔNG THỨC PHA CHẾ
+                                </a>
+                            </li>
+
+                        </ul>
+                        <br />
+                        <div class="tab-content">
+                            <div id="thongTinSanPham" class="tab-pane fade in active">
+                                @using (Html.BeginForm("du_ChinhSuaDoUong", "DoUong", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+                                {
+                                    <div class="row">
+                                        <div class="col-md-7 col-lg-7">
+                                            <input name="txtMaDoUong" id="txtMaDoUong" value="@ViewBag.txtMaDoUong" style="display:none" />
+                                            <label for="txtTenNhom">Chọn loại đồ uống</label>
+                                            <select class="form-control show-tick" id="cbbLoai" name="cbbLoai" required>
+                                                <option value="-1">-- Lựa chọn loại đồ uống--</option>
+                                                @Html.Raw(ViewBag.cbbLoai)
+                                            </select>
+                                            <br /><br />
+                                            <label for="txtTenDoUong">Tên đồ uống</label>
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <input type="text" id="txtTenDoUong" class="form-control" name="txtTenDoUong" maxlength="50"
+                                                           value="@ViewBag.txtTenDoUong" pattern=".{3,50}" required placeholder="Nhập tên đồ uống tại đây">
+                                                </div>
+                                            </div>
+
+                                            <div class="row clearfix">
+                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                                    <label for="txtDonGia">Đơn giá</label>
+                                                    <div class="form-group">
+                                                        <div class="form-line">
+                                                            <input type="number" id="txtDonGia" class="form-control" name="txtDonGia" min="1" required
+                                                                   placeholder="Nhập đơn giá đồ uống tại đây" value="@ViewBag.txtDonGia">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                                    <label for="txtThoiGian">Thời gian pha chế dự kiến</label>
+                                                    <div class="row clearfix">
+                                                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-6">
+                                                            <div class="form-group">
+                                                                <div class="form-line">
+                                                                    <input type="number" id="txtThoiGian" class="form-control" name="txtThoiGian" min="0" required
+                                                                           placeholder="Nhập thời gian dự kiến để pha chế đồ uống tại đây" value="@ViewBag.txtThoiGian">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+                                                            <label for="txtThoiGian"><b>Phút</b></label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <label for="txtMoTa">Mô tả</label>
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <textarea rows="4" id="txtMoTa" class="form-control no-resize" name="txtMoTa"
+                                                              placeholder="Nhập thông tin mô tả cho đồ uống">@ViewBag.txtMoTa</textarea>
+                                                </div>
+                                            </div>
+                                         
+                                        </div>
+                                        <div class="col-md-4 col-lg-4">
+                                            <label for="txtTenNhom">Hình đồ uống</label>
+                                            <br />
+                                            <img id="hinhDD" class='img img-responsive img-thumbnail'
+                                                 src="@ViewBag.hinhDD" width="250px" height="auto" />
+                                            <br />
+                                            <button type="button" class="btn btn-default " id="btnChonHinh"
+                                                    data-toggle="modal" data-target="#modalChonHinh">
+                                                Chọn hình
+                                            </button>
+
+                                            <input id="pathHinh" type="hidden" name="pathHinh" value="">
+
+                                            <br /><br />
+                                            <label for="txtTenNhom">Ghi chú</label>
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <textarea rows="4" id="txtGhiChu" class="form-control no-resize" name="txtGhiChu"
+                                                              placeholder="Nhập thêm ghi chú cho đồ uống">@ViewBag.txtGhiChu</textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-7"></div>
+
+                                        <div class="col-md-5">
+                                            <br>
+                                            <button type="submit" class="btn btn-primary m-t-15 waves-effect">Lưu lại</button>
+                                            <a href="/DoUong/du_TaoMoiDoUong" class="btn btn-default m-t-15 waves-effect">Reset</a>
+                                            <button type="button" class="btn btn-default m-t-15 waves-effect">Trở lại</button>
+                                        </div>
+                                    </div>
+                                }
+                            </div> <!--Thông tin sản phẩm-->
+                            <div role="tabpanel" id="lichSuGia" class="tab-pane fade">
+                                <div>
+                                    <canvas id="canvasLichSuGia"></canvas>
+                                    <script>
+                                        @Html.Raw(ViewBag.ScriptCavasLichSuGia)
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #END# Vertical Layout -->
+    </div>
+</section>
+@Html.Raw(ViewBag.ThongBao)
+
+@Html.Raw(ViewBag.modalChonHinh)
+
