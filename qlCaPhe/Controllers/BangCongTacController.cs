@@ -116,10 +116,10 @@ namespace qlCaPhe.Controllers
                     //--------Lặp qua danh sách bảng công tác được sắp xếp theo trạng thái
                     foreach (BangGiaoViec bgv in new qlCaPheEntities().BangGiaoViecs.ToList().OrderBy(c => c.trangThai))
                     {
-                        htmlTable += "<tr role=htmlTable+=\"row\" class=\"odd\">";
+                        htmlTable += "<tr role=\"row\" class=\"odd\">";
                         htmlTable += "    <td>";
                         htmlTable += "        <a href=\"#\" data-toggle=\"modal\" data-target=\"#modalChiTiet\"";
-                        htmlTable += "            class=\"goiY\">" + xulyDuLieu.traVeKyTuGoc(bgv.taiKhoan.tenDangNhap) + "<span class=\"noiDungGoiY-right\">Click để xem chi tiết</span></a>";
+                        htmlTable += "            class=\"goiY\" task=\""+bgv.maBang.ToString()+"\">" + xulyDuLieu.traVeKyTuGoc(bgv.taiKhoan.tenDangNhap) + "<span class=\"noiDungGoiY-right\">Click để xem chi tiết</span></a>";
                         htmlTable += "    </td>";
                         htmlTable += "    <td>" + bgv.ngayLap.ToShortDateString() + "</td>";
                         htmlTable += "    <td>" + (bgv.trangThai ? "Còn sử dụng" : "Ngưng sử dụng") + "</td>";
@@ -140,6 +140,10 @@ namespace qlCaPhe.Controllers
                     }
                     ViewBag.ScriptAjax = createScriptAjax.scriptAjaxXoaDoiTuong("BangCongTac/xoaDieuPhoi?maBang=");
                     ViewBag.ModalXoa = createHTML.taoCanhBaoXoa("Bảng công tác");
+                    //----Nhúng script ajax hiển thị chi tiết hóa đơn khi người dùng click vào mã số hóa đơn trên bảng
+                    ViewBag.ScriptAjaxXemChiTiet = createScriptAjax.scriptAjaxXemChiTietKhiClick("goiY", "task", "BangCongTac/AjaxXemChiTietCaCuaTaiKhoan?param=", "vungChiTiet", "modalChiTiet");
+                    //----Nhúng các tag html cho modal chi tiết
+                    ViewBag.ModalChiTiet = createHTML.taoModalChiTiet("modalChiTiet", "vungChiTiet", 2);
                 }
                 catch (Exception ex)
                 {
@@ -239,6 +243,7 @@ namespace qlCaPhe.Controllers
         }
 
         #region AJAX
+        #region NHÓM HÀM XỬ LÝ LỰA CHỌN CA LÀM VIỆC CẦN ĐIỀU PHỐI
 
         /// <summary>
         /// Hàm thực hiện nhận Ajax thêm mới 1 ca làm việc đã chọn vào giỏ
@@ -308,7 +313,7 @@ namespace qlCaPhe.Controllers
             }
         }
         /// <summary>
-        /// Hàm tạo giao diện cho vùng chi tiết ca làm việc
+        /// Hàm tạo giao diện cho vùng chi tiết ca làm việc tại giao diện nhập thông tin cho Điều phối
         /// </summary>
         /// <returns></returns>
         private string taoGiaoDienChiTiet()
@@ -390,6 +395,99 @@ namespace qlCaPhe.Controllers
             return kq;
         }
 
+        #endregion
+
+        #region NHÓM HÀM TẠI DANH MỤC CHI TIẾT CA LÀM VIỆC
+        /// <summary>
+        /// Hàm tạo dữ liệu cho bảng chi tiết có trên modal xem chi tiết điều phối của 1 nhân viên
+        /// Sự kiện xảy ra khi người dùng click vào tên nhân viên trong danh mục để xem chi tiết
+        /// </summary>
+        /// <param name="param">Mã bảng công tác cần xem chi tiết</param>
+        /// <returns>Chuỗi html tạo nội dung chi tiết</returns>
+        public string AjaxXemChiTietCaCuaTaiKhoan(string param)
+        {
+            string htmlDetails = "";
+            try
+            {
+                int maBang = xulyDuLieu.doiChuoiSangInteger(param);
+                if (xulyChung.duocTruyCap(idOfPage))
+                {
+                    BangGiaoViec bgv = new qlCaPheEntities().BangGiaoViecs.SingleOrDefault(b => b.maBang == maBang);
+                    if (bgv != null)
+                    {
+                        htmlDetails += "<div class=\"modal-header\">";
+                        htmlDetails += "      <button type=\"button\" class=\"close\" data-dismiss=\"modal\">×</button>";
+                        htmlDetails += "    <h3 class=\"modal-title\" id=\"largeModalLabel\">CHI TIẾT PHÂN CÔNG CHO \"" + xulyDuLieu.traVeKyTuGoc(bgv.taiKhoan.thanhVien.hoTV) + " " + xulyDuLieu.traVeKyTuGoc(bgv.taiKhoan.thanhVien.tenTV) + "\" </h3>";
+                        htmlDetails += "</div>";
+                        htmlDetails += "<div class=\"modal-body\">";
+                        htmlDetails += "    <div class=\"row\">";
+                        htmlDetails += "        <div class=\"col-md-12 col-lg-12\">";
+                        htmlDetails += "            <div class=\"card\">";
+                        htmlDetails += "                <div class=\"header bg-cyan\">";
+                        htmlDetails += "                    <h2>Danh mục ca đã phân công</h2>";
+                        htmlDetails += "                </div>";
+                        htmlDetails += "                <div class=\"body table-responsive\">";
+                        //////-------------------HIỆN DANH SÁCH CHI TIẾT
+                        htmlDetails += this.taoBangChiTietDieuPhoi(bgv);
+                        htmlDetails += "                </div>";
+                        htmlDetails += "            </div>";
+                        htmlDetails += "        </div>";
+                        htmlDetails += "</div>";
+                        htmlDetails += "<div class=\"modal-footer\">";
+                        htmlDetails += "    <div class=\"col-md-4\"></div>";
+                        htmlDetails += "    <div class=\"col-md-8\">          ";
+                        htmlDetails += "        <a class=\"btn btn-default waves-effect\"  data-dismiss=\"modal\"><i class=\"material-icons\">close</i>Đóng lại</a>";
+                        htmlDetails += "    </div>";
+                        htmlDetails += "</div>";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                xulyFile.ghiLoi("Class: BangCongTacController - Function: AjaxXemChiTietCaCuaTaiKhoan", ex.Message);
+            }
+            return htmlDetails;
+        }
+        /// <summary>
+        /// Hàm tạo bảng chi tiết có trong modal chi tiết phân công tại danh mục
+        /// </summary>
+        /// <param name="bgv">Object chứa Điều phối cần xem</param>
+        /// <returns>Chuỗi html tạo bảng nội dung</returns>
+        private string taoBangChiTietDieuPhoi(BangGiaoViec bgv)
+        {
+            string htmlDetail = "";
+            try
+            {
+                htmlDetail+=" <div class=\"body table-responsive\">";
+                htmlDetail+="    <table class=\"table table-bordered table-striped table-hover js-basic-example dataTable\" id=\"DataTables_Table_0\" role=\"grid\" aria-describedby=\"DataTables_Table_0_info\">";
+                htmlDetail+="        <thead>";
+                htmlDetail+="            <tr>";
+                htmlDetail+="                <th>Tên ca</th>";
+                htmlDetail+="                <th>Buổi</th>";
+                htmlDetail+="                <th>Thời gian làm việc</th>";
+                htmlDetail+="            </tr>";
+                htmlDetail+="        </thead>";
+                htmlDetail+="        <tbody>";
+                //----Lặp qua bảng chi tiết để xem chi tiết đã phân công
+                foreach (ctBangGiaoViec ct in bgv.ctBangGiaoViecs.ToList().OrderBy(c=>c.caLamViec.buoi))
+                {
+                    htmlDetail += "            <tr role=\"row\" class=\"odd\">";
+                    htmlDetail += "                <td>"+xulyDuLieu.traVeKyTuGoc(ct.caLamViec.tenCa)+"</td>";
+                    htmlDetail += "                <td>"+this.layBuoiLamViec(ct.caLamViec.buoi)+"</td>";
+                    htmlDetail += "                <td>"+ct.caLamViec.batDau.ToString()+" - "+ct.caLamViec.ketThuc.ToString()+"</td>";
+                    htmlDetail += "            </tr>";
+                }
+                htmlDetail+="        </tbody>";
+                htmlDetail+="    </table>";
+                htmlDetail += "</div>";
+            }
+            catch (Exception ex)
+            {
+                xulyFile.ghiLoi("Class: BangCongTacController - Function: AjaxXemChiTietCaCuaTaiKhoan", ex.Message);
+            }
+            return htmlDetail;
+        }
+        #endregion
         #endregion
     }
 }

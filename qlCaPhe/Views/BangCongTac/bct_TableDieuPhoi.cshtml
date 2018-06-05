@@ -4,6 +4,7 @@
 }
 <link href="~/Content/toolTipGoiY.css" rel="stylesheet" />
 @Html.Raw(ViewBag.ScriptAjax)
+@Html.Raw(ViewBag.ScriptAjaxXemChiTiet)
 <section class="content">
     <div class="container-fluid">
         <div class="block-header">
@@ -91,8 +92,10 @@
         <!-- #END# Vertical Layout -->
     </div>
 
+    <!--Modal xem chi tiết các sản phẩm có trong hóa đơn-->
+    @Html.Raw(ViewBag.ModalChiTiet)
     <!-- Modal cho danh sách chi tiết bảng công tác-->
-    <div class="modal fade" id="modalChiTiet" tabindex="-2" role="dialog" style="display: none;">
+    @*<div class="modal fade" id="modalChiTiet" tabindex="-2" role="dialog" style="display: none;">
         <div class="modal-dialog modal-lg" style="width:90%" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -148,7 +151,8 @@
                 </div>
             </div>
         </div>
-    </div>  <!-- Modal cho danh sách chi tiết  -->
+    </div>*@  
+    <!-- Modal cho danh sách chi tiết  -->
 </section>
 @*modal Xóa*@
 @Html.Raw(ViewBag.ModalXoa)
