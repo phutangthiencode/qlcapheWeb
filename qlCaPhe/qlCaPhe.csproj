@@ -4121,6 +4121,7 @@
     <Content Include="Views\TonKho\tkho_TonThucTe.cshtml" />
     <Content Include="Views\BangCongTac\bct_TaoMoiDieuPhoi.cshtml" />
     <Content Include="Views\BangCongTac\bct_TableDieuPhoi.cshtml" />
+    <Content Include="Views\BangCongTac\bct_ChinhSuaDieuPhoi.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

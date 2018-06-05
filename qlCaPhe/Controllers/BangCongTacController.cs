@@ -193,6 +193,44 @@ namespace qlCaPhe.Controllers
             return RedirectToAction("bct_TableDieuPhoi");
         }
 
+        /// <summary>
+        /// Hàm tạo giao diện form chỉnh sửa điều phối của nhân viên
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult bct_ChinhSuaDieuPhoi()
+        {
+            try
+            {
+                if (xulyChung.duocTruyCap(idOfPage))
+                {
+                    string param = xulyChung.nhanThamSoTrongSession(); //param = maBang;
+                    if (param.Length > 0)
+                    {
+                        int maBang = xulyDuLieu.doiChuoiSangInteger(param);
+                        qlCaPheEntities db = new qlCaPheEntities();
+                        BangGiaoViec bgv = db.BangGiaoViecs.SingleOrDefault(s => s.maBang == maBang);
+                        if (bgv != null)
+                        {
+                            //-----Đổ dữ liệu chi tiết lên giao diện
+                            this.docChiTietVaThemVaoGio(bgv);
+                            ViewBag.VungChiTiet = this.taoGiaoDienChiTiet();
+                            //-----Đổ thông tin điều phối lên giao diện
+                            this.doDuLieuLenView(bgv, db);
+                            //----Chèn script ajax hiện thông tin thành viên khi người dùng click chọn trên combobox
+                            ViewBag.ScriptAjax = createScriptAjax.scriptGetInfoComboboxClick("cbbThanhVien", "ThanhVien/AjaxGetInforThanhVienByTaiKhoan?param=", "vungThanhVien");
+                        }
+                        else throw new Exception("Bảng giao việc không tồn tại để cập nhật");
+                    }
+                    else throw new Exception("Chưa nhận được tham số");
+                }
+            }
+            catch (Exception ex)
+            {
+                xulyFile.ghiLoi("Class: BangCongTacController - Function: capNhatTrangThai", ex.Message);
+                return RedirectToAction("/Home/PageNotFound");
+            }
+            return View();
+        }
         #endregion
 
         #region DELETE
@@ -272,6 +310,7 @@ namespace qlCaPhe.Controllers
         /// Hàm tạo dữ liệu cho combobox 
         /// </summary>
         /// <param name="db"></param>
+        /// <param name="maTV">Mã thành viên đã chọn </param>
         private void taoDuLieuChoCbb(qlCaPheEntities db, int maTV)
         {
             try
@@ -339,6 +378,33 @@ namespace qlCaPhe.Controllers
             catch (Exception ex)
             {
                 xulyFile.ghiLoi("Class: BangCongTacController - Function: doDuLieuLenView", ex.Message);
+            }
+        }
+        /// <summary>
+        /// Hàm thực hiện đọc các thông tin chi tiết có trong database và thêm vào giỏ
+        /// </summary>
+        /// <param name="bgv"></param>
+        private void docChiTietVaThemVaoGio(BangGiaoViec bgv)
+        {
+            try
+            {
+                this.resetData();
+                cartDieuPhoi cart = (cartDieuPhoi)Session["dieuPhoi"];
+                foreach (ctBangGiaoViec ct in bgv.ctBangGiaoViecs.ToList())
+                {
+                    ctBangGiaoViec ctTam = new ctBangGiaoViec();
+                    ctTam.maCa = ct.maCa;
+                    ctTam.BangGiaoViec = bgv;
+                    ctTam.caLamViec = ct.caLamViec;
+                    ctTam.ghiChu = ct.ghiChu;
+                    ctTam.maBang = ct.maBang;
+                    cart.addCart(ctTam);
+                    Session["dieuPhoi"] = cart;
+                }
+            }
+            catch (Exception ex)
+            {
+                xulyFile.ghiLoi("Class: BangCongTacController - Function: docChiTietVaThemVaoGio", ex.Message);
             }
         }
 
