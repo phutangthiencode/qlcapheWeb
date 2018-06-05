@@ -182,14 +182,16 @@ namespace qlCaPhe.App_Start
             string script = "";
             script += "<script>";
             //Script Hiện hình ảnh sản phẩm khi click vào tên hình
-            script += "     $(document).ready(function () {\n";
-            script += "         $('." + classClick + "').click(function () {\n";
+            script += "     $(document).ready(function (e) {\n";
+            script += "         $('." + classClick + "').click(function (e) {\n";
             script += "         var ts = $(this).attr('" + idDoiTuong + "');\n";
             //Thực hiện ajax lấy thông tin hình ảnh sản phẩm
             script += "         $.ajax({\n";
             script += "             url: getDuongDan() + '" + urlAction + "' + ts, \n";
             script += "             type: 'get', \n";
             script += "             beforeSend: function () {\n";
+            script += "                 e.preventDefault();\n";
+            script += "                 e.stopImmediatePropagation();\n";
             script += "             },\n";
             script += "             success: function (data, textStatus, xhr) {\n";
             script += "                 $('#" + vungHienThi + "').html(data);\n";
