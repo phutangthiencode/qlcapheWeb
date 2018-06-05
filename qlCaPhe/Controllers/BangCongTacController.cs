@@ -170,20 +170,27 @@ namespace qlCaPhe.Controllers
         /// <param name="db"></param>
         private void taoDuLieuChoCbb(qlCaPheEntities db, int maTV)
         {
-            //-----Tạo dữ liệu combobox cho thành viên
-            string html = "";
-            foreach (taiKhoan tk in db.taiKhoans.ToList().Where(t => t.trangThai == true))
-                if (tk.thanhVien.maTV == maTV) //-------Nếu mã tài khoản đang duyệt đã chọn thì hiển lên combobobox
-                    html += "<option selected value=\"" + xulyDuLieu.traVeKyTuGoc(tk.tenDangNhap) + "\">" + xulyDuLieu.traVeKyTuGoc(tk.tenDangNhap) + " - " + xulyDuLieu.traVeKyTuGoc(tk.thanhVien.hoTV) + " " + xulyDuLieu.traVeKyTuGoc(tk.thanhVien.tenTV) + "</option>";
-                else
-                    html += "<option value=\"" + xulyDuLieu.traVeKyTuGoc(tk.tenDangNhap) + "\">" + xulyDuLieu.traVeKyTuGoc(tk.tenDangNhap) + " - " + xulyDuLieu.traVeKyTuGoc(tk.thanhVien.hoTV) + " " + xulyDuLieu.traVeKyTuGoc(tk.thanhVien.tenTV) + "</option>";
-            ViewBag.cbbThanhVien = html;
+            try
+            {
+                //-----Tạo dữ liệu combobox cho thành viên
+                string html = "";
+                foreach (taiKhoan tk in db.taiKhoans.ToList().Where(t => t.trangThai == true))
+                    if (tk.thanhVien.maTV == maTV) //-------Nếu mã tài khoản đang duyệt đã chọn thì hiển lên combobobox
+                        html += "<option selected value=\"" + xulyDuLieu.traVeKyTuGoc(tk.tenDangNhap) + "\">" + xulyDuLieu.traVeKyTuGoc(tk.tenDangNhap) + " - " + xulyDuLieu.traVeKyTuGoc(tk.thanhVien.hoTV) + " " + xulyDuLieu.traVeKyTuGoc(tk.thanhVien.tenTV) + "</option>";
+                    else
+                        html += "<option value=\"" + xulyDuLieu.traVeKyTuGoc(tk.tenDangNhap) + "\">" + xulyDuLieu.traVeKyTuGoc(tk.tenDangNhap) + " - " + xulyDuLieu.traVeKyTuGoc(tk.thanhVien.hoTV) + " " + xulyDuLieu.traVeKyTuGoc(tk.thanhVien.tenTV) + "</option>";
+                ViewBag.cbbThanhVien = html;
 
-            //-----Tạo dữ liệu combobox cho ca làm việc
-            string htmlCa = "";
-            foreach (caLamViec ca in db.caLamViecs.ToList().OrderBy(c=> c.buoi).ThenBy(c=>c.maCa))
-                htmlCa += "<option value=\"" + ca.maCa.ToString() + "\">" + xulyDuLieu.traVeKyTuGoc(ca.tenCa) + " (" + ca.batDau.ToString() + " - " + ca.ketThuc.ToString() + ")</option>";
-            ViewBag.cbbCaLamViec = htmlCa;
+                //-----Tạo dữ liệu combobox cho ca làm việc
+                string htmlCa = "";
+                foreach (caLamViec ca in db.caLamViecs.ToList().OrderBy(c => c.buoi).ThenBy(c => c.maCa))
+                    htmlCa += "<option value=\"" + ca.maCa.ToString() + "\">" + xulyDuLieu.traVeKyTuGoc(ca.tenCa) + " (" + ca.batDau.ToString() + " - " + ca.ketThuc.ToString() + ")</option>";
+                ViewBag.cbbCaLamViec = htmlCa;
+            }
+            catch (Exception ex)
+            {
+                xulyFile.ghiLoi("Class: BangCongTacController - Function: taoDuLieuChoCbb", ex.Message);
+            }
         }
 
         /// <summary>
