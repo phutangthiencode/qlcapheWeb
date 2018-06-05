@@ -300,6 +300,11 @@ namespace qlCaPhe.Controllers
         public ActionResult PageNotFound()
         {
             Response.StatusCode = 404;
+            taiKhoan tkLogin = (taiKhoan)Session["login"];
+            if (tkLogin.tenDangNhap != null)//------Đã đăng nhập
+                ViewBag.VeTrangChu = tkLogin.nhomTaiKhoan.trangMacDinh;
+            else
+                return RedirectToAction("Login");
             return View();
         }
         public ActionResult ServerError()

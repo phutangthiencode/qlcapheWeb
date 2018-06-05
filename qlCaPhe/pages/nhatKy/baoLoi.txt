@@ -18,3 +18,23 @@ Vị trí: Class: BangCongTacController - Function: AjaxXemChiTietCaCuaTaiKhoan
  Lỗi: Sequence contains more than one element
 ---------------------------------------------------------------
 
+-----------------------6/6/2018 12:09:54 AM----------
+Vị trí: Class: AjaxController - Function: xulyRequest 
+ Lỗi: Object reference not set to an instance of an object.
+---------------------------------------------------------------
+
+-----------------------6/6/2018 12:11:00 AM----------
+Vị trí: Class: BangCongTacController - Function: capNhatTrangThai 
+ Lỗi: Bảng công tác có mã 0 không tồn tại để cập nhật
+---------------------------------------------------------------
+
+-----------------------6/6/2018 12:37:32 AM----------
+Vị trí: Class: BangCongTacController - Function: capNhatTrangThai 
+ Lỗi: Mã bảng giao việc cần xóa không chính xác
+---------------------------------------------------------------
+
+-----------------------6/6/2018 12:44:43 AM----------
+Vị trí: Class: BangCongTacController - Function: capNhatTrangThai 
+ Lỗi: Mã bảng giao việc cần xóa không chính xác
+---------------------------------------------------------------
+

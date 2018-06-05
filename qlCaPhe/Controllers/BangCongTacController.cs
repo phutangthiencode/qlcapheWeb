@@ -54,7 +54,7 @@ namespace qlCaPhe.Controllers
 
                     this.layDuLieuTrenView(bgv, f, db);
                     db.BangGiaoViecs.Add(bgv);
-                    kqLuu=db.SaveChanges();
+                    kqLuu = db.SaveChanges();
 
                     if (kqLuu > 0)
                     {
@@ -113,13 +113,13 @@ namespace qlCaPhe.Controllers
                 string htmlTable = "";
                 try
                 {
-                    //--------Lặp qua danh sách bảng công tác được sắp xếp theo trạng thái
-                    foreach (BangGiaoViec bgv in new qlCaPheEntities().BangGiaoViecs.ToList().OrderBy(c => c.trangThai))
+                    //--------Lặp qua danh sách bảng công tác được sắp xếp theo trạng thái. Hiển thị trạng thái "còn sử dụng" trước
+                    foreach (BangGiaoViec bgv in new qlCaPheEntities().BangGiaoViecs.ToList().OrderByDescending(c => c.trangThai))
                     {
                         htmlTable += "<tr role=\"row\" class=\"odd\">";
                         htmlTable += "    <td>";
                         htmlTable += "        <a href=\"#\" data-toggle=\"modal\" data-target=\"#modalChiTiet\"";
-                        htmlTable += "            class=\"goiY\" task=\""+bgv.maBang.ToString()+"\">" + xulyDuLieu.traVeKyTuGoc(bgv.taiKhoan.tenDangNhap) + "<span class=\"noiDungGoiY-right\">Click để xem chi tiết</span></a>";
+                        htmlTable += "            class=\"goiY\" task=\"" + bgv.maBang.ToString() + "\">" + xulyDuLieu.traVeKyTuGoc(bgv.taiKhoan.tenDangNhap) + "<span class=\"noiDungGoiY-right\">Click để xem chi tiết</span></a>";
                         htmlTable += "    </td>";
                         htmlTable += "    <td>" + bgv.ngayLap.ToShortDateString() + "</td>";
                         htmlTable += "    <td>" + (bgv.trangThai ? "Còn sử dụng" : "Ngưng sử dụng") + "</td>";
@@ -155,6 +155,106 @@ namespace qlCaPhe.Controllers
             return View();
         }
         #endregion
+
+        #region UPDATE
+        /// <summary>
+        /// Hàm thực hiện cập nhật trạng thái của 1 công tác.
+        /// Tham số là mã bảng được lưu trữ trong Session
+        /// </summary>
+        /// <returns>Trả về giao diện danh mục Bảng công tác</returns>
+        public ActionResult capNhatTrangThai()
+        {
+            try
+            {
+                if (xulyChung.duocCapNhat(idOfPage, "7"))
+                {
+                    string param = xulyChung.nhanThamSoTrongSession(); //param = maBang
+                    if (param.Length > 0)
+                    {
+                        int maBang = xulyDuLieu.doiChuoiSangInteger(param);
+                        qlCaPheEntities db = new qlCaPheEntities();
+                        BangGiaoViec bgv = db.BangGiaoViecs.SingleOrDefault(s => s.maBang == maBang);
+                        if (bgv != null)
+                        {
+                            bgv.trangThai = !bgv.trangThai;
+                            db.Entry(bgv).State = System.Data.Entity.EntityState.Modified;
+                            db.SaveChanges();
+                        }
+                        else
+                            throw new Exception("Bảng công tác có mã " + maBang.ToString() + " không tồn tại để cập nhật");
+                    }
+                    else throw new Exception("không nhận được tham số");
+                }
+            }
+            catch (Exception ex)
+            {
+                xulyFile.ghiLoi("Class: BangCongTacController - Function: capNhatTrangThai", ex.Message);
+            }
+            return RedirectToAction("bct_TableDieuPhoi");
+        }
+
+        #endregion
+
+        #region DELETE
+        /// <summary>
+        /// Hàm thực hiện xóa 1 điều phối khỏi CSDL
+        /// Sau khi xóa sẽ thực hiện load lại danh sách bằng javascript
+        /// </summary>
+        /// <param name="maBang">Mã bảng điều phối cần xóa</param>
+        public void xoaDieuPhoi(string maBang)
+        {
+            try
+            {
+                if (xulyChung.duocCapNhat(idOfPage, "7"))
+                {
+                    int maXoa = xulyDuLieu.doiChuoiSangInteger(maBang);
+                    if (maXoa > 0)
+                    {
+                        qlCaPheEntities db = new qlCaPheEntities();
+                        BangGiaoViec bgv = db.BangGiaoViecs.SingleOrDefault(b => b.maBang == maXoa);
+                        if (bgv != null)
+                        {
+                            //-------Xóa tất cả chi tiết của điều phối trước.
+                            List<ctBangGiaoViec> listChiTiet = bgv.ctBangGiaoViecs.ToList();
+                            int soLuongChiTiet = listChiTiet.Count, chiTietDaXoa = 0;
+                            if (listChiTiet.Count > 0)
+                                chiTietDaXoa = xoaChiTietDieuPhoi(db, listChiTiet);
+                            //----Nếu đã xóa hết chi tiết thì xóa bảng DieuPhoi
+                            if (soLuongChiTiet == chiTietDaXoa)
+                            {
+                                db.BangGiaoViecs.Remove(bgv);
+                                db.SaveChanges();
+                            }
+                        }
+                        else throw new Exception("Bảng giao việc cần xóa không tồn tại");
+                    }
+                    else throw new Exception("Mã bảng giao việc cần xóa không chính xác");
+                }
+            }
+            catch (Exception ex)
+            {
+                xulyFile.ghiLoi("Class: BangCongTacController - Function: capNhatTrangThai", ex.Message);
+                Response.Redirect(xulyChung.layTenMien() + "/Home/PageNotFound");
+            }
+        }
+        /// <summary>
+        /// Hàm thực hiện xóa tất cả dữ liệu trong bảng chi tiết của 1 điều phối
+        /// </summary>
+        /// <param name="db"></param>
+        /// <param name="bgv">Bảng điều phối có chi tiết cần xóa</param>
+        private int xoaChiTietDieuPhoi(qlCaPheEntities db, List<ctBangGiaoViec> listChiTiet)
+        {
+            int kq = 0;
+            //------Lặp qua danh sách các item chi tiết 
+            foreach (ctBangGiaoViec ctXoa in listChiTiet)
+            {
+                db.ctBangGiaoViecs.Remove(ctXoa);
+                kq += db.SaveChanges();
+            }
+            return kq;
+        }
+        #endregion
+
         /// <summary>
         /// Hàm thực hiện xóa dữ liệu trong session
         /// </summary>
@@ -353,7 +453,7 @@ namespace qlCaPhe.Controllers
             kq += "        <thead><tr><th>Tên ca</th><th>Buổi</th><th>Thời gian làm việc</th><th>Ghi chú</th><th></th></tr></thead>";
             kq += "        <tbody>";
             //--------Lặp qua danh sách các ca làm việc có trên giỏ
-            foreach (ctBangGiaoViec ct in cart.getList().OrderBy(c=>c.caLamViec.buoi).ThenBy(c=>c.caLamViec.maCa))
+            foreach (ctBangGiaoViec ct in cart.getList().OrderBy(c => c.caLamViec.buoi).ThenBy(c => c.caLamViec.maCa))
             {
                 kq += "            <tr role=\"row\" class=\"odd\">";
                 kq += "                <td>" + xulyDuLieu.traVeKyTuGoc(ct.caLamViec.tenCa) + "</td>";
@@ -458,27 +558,27 @@ namespace qlCaPhe.Controllers
             string htmlDetail = "";
             try
             {
-                htmlDetail+=" <div class=\"body table-responsive\">";
-                htmlDetail+="    <table class=\"table table-bordered table-striped table-hover js-basic-example dataTable\" id=\"DataTables_Table_0\" role=\"grid\" aria-describedby=\"DataTables_Table_0_info\">";
-                htmlDetail+="        <thead>";
-                htmlDetail+="            <tr>";
-                htmlDetail+="                <th>Tên ca</th>";
-                htmlDetail+="                <th>Buổi</th>";
-                htmlDetail+="                <th>Thời gian làm việc</th>";
-                htmlDetail+="            </tr>";
-                htmlDetail+="        </thead>";
-                htmlDetail+="        <tbody>";
+                htmlDetail += " <div class=\"body table-responsive\">";
+                htmlDetail += "    <table class=\"table table-bordered table-striped table-hover js-basic-example dataTable\" id=\"DataTables_Table_0\" role=\"grid\" aria-describedby=\"DataTables_Table_0_info\">";
+                htmlDetail += "        <thead>";
+                htmlDetail += "            <tr>";
+                htmlDetail += "                <th>Tên ca</th>";
+                htmlDetail += "                <th>Buổi</th>";
+                htmlDetail += "                <th>Thời gian làm việc</th>";
+                htmlDetail += "            </tr>";
+                htmlDetail += "        </thead>";
+                htmlDetail += "        <tbody>";
                 //----Lặp qua bảng chi tiết để xem chi tiết đã phân công
-                foreach (ctBangGiaoViec ct in bgv.ctBangGiaoViecs.ToList().OrderBy(c=>c.caLamViec.buoi))
+                foreach (ctBangGiaoViec ct in bgv.ctBangGiaoViecs.ToList().OrderBy(c => c.caLamViec.buoi))
                 {
                     htmlDetail += "            <tr role=\"row\" class=\"odd\">";
-                    htmlDetail += "                <td>"+xulyDuLieu.traVeKyTuGoc(ct.caLamViec.tenCa)+"</td>";
-                    htmlDetail += "                <td>"+this.layBuoiLamViec(ct.caLamViec.buoi)+"</td>";
-                    htmlDetail += "                <td>"+ct.caLamViec.batDau.ToString()+" - "+ct.caLamViec.ketThuc.ToString()+"</td>";
+                    htmlDetail += "                <td>" + xulyDuLieu.traVeKyTuGoc(ct.caLamViec.tenCa) + "</td>";
+                    htmlDetail += "                <td>" + this.layBuoiLamViec(ct.caLamViec.buoi) + "</td>";
+                    htmlDetail += "                <td>" + ct.caLamViec.batDau.ToString() + " - " + ct.caLamViec.ketThuc.ToString() + "</td>";
                     htmlDetail += "            </tr>";
                 }
-                htmlDetail+="        </tbody>";
-                htmlDetail+="    </table>";
+                htmlDetail += "        </tbody>";
+                htmlDetail += "    </table>";
                 htmlDetail += "</div>";
             }
             catch (Exception ex)
@@ -491,3 +591,4 @@ namespace qlCaPhe.Controllers
         #endregion
     }
 }
+
