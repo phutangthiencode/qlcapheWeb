@@ -231,6 +231,57 @@ namespace qlCaPhe.Controllers
             }
             return View();
         }
+
+        /// <summary>
+        /// Hàm Thực hiện cập nhật lại Điều phối trong CSDL
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult bct_ChinhSuaDieuPhoi(FormCollection f)
+        {
+            string ndThongBao = ""; 
+            qlCaPheEntities db = null;
+            BangGiaoViec bgv = new BangGiaoViec();
+            try
+            {
+                if (xulyChung.duocCapNhat(idOfPage, "7"))
+                {
+                    string param = xulyChung.nhanThamSoTrongSession(); //param = maBang;
+                    if (param.Length > 0)
+                    {
+                        int maBang = xulyDuLieu.doiChuoiSangInteger(param), kqLuu=0;
+                        db = new qlCaPheEntities();
+                        bgv = db.BangGiaoViecs.SingleOrDefault(s => s.maBang == maBang);
+                        if (bgv != null)
+                        {
+                            List<ctBangGiaoViec> listChiTiet = bgv.ctBangGiaoViecs.ToList();
+                            this.layDuLieuTrenView(bgv, f, db);
+                            //---------Cập nhật dự liệu trong bảng BangGiaoViec
+                            db.Entry(bgv).State = System.Data.Entity.EntityState.Modified;
+                            kqLuu = db.SaveChanges();
+                            if (kqLuu > 0)
+                            {
+                                //-------Cập nhật bảng chi tiết. THỰC HIỆN XÓA DỮ LIỆU TRONG BẢNG CHI TIẾT VÀ TẠO MỚI LẠI
+                                this.xoaChiTietDieuPhoi(db, listChiTiet);
+                                this.themCtBangGiaoViecVaoDatabase(bgv, db);
+                                return RedirectToAction("bct_TableDieuPhoi");
+                            }
+                        }
+                        else throw new Exception("Bảng giao việc không tồn tại để cập nhật");
+                    }
+                    else throw new Exception("Chưa nhận được tham số");
+                }
+            }
+            catch (Exception ex)
+            {
+                xulyFile.ghiLoi("Class: BangCongTacController - Function: capNhatTrangThai", ex.Message);
+                ndThongBao = ex.Message;
+                this.doDuLieuLenView(bgv, db);
+            }
+            ViewBag.ThongBao = createHTML.taoThongBaoLuu(ndThongBao);
+            return View();
+        }
         #endregion
 
         #region DELETE
@@ -293,6 +344,7 @@ namespace qlCaPhe.Controllers
         }
         #endregion
 
+        #region ORTHERS
         /// <summary>
         /// Hàm thực hiện xóa dữ liệu trong session
         /// </summary>
@@ -407,6 +459,7 @@ namespace qlCaPhe.Controllers
                 xulyFile.ghiLoi("Class: BangCongTacController - Function: docChiTietVaThemVaoGio", ex.Message);
             }
         }
+        #endregion
 
         #region AJAX
         #region NHÓM HÀM XỬ LÝ LỰA CHỌN CA LÀM VIỆC CẦN ĐIỀU PHỐI
