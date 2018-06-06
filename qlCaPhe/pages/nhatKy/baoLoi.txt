@@ -73,3 +73,13 @@ Vị trí: Class: DoUongController - Function: du_TableDoUong
  Lỗi: The method 'Skip' is only supported for sorted input in LINQ to Entities. The method 'OrderBy' must be called before the method 'Skip'.
 ---------------------------------------------------------------
 
+-----------------------6/6/2018 4:44:23 PM----------
+Vị trí: Class: bHoaDonTam - Fucntion: themMoiHoaDonTam 
+ Lỗi: An error occurred while updating the entries. See the inner exception for details.
+---------------------------------------------------------------
+
+-----------------------6/6/2018 4:54:11 PM----------
+Vị trí: Class: HoaDonController - Function: hd_ThucHienThanhToan 
+ Lỗi: không nhận được tham số
+---------------------------------------------------------------
+

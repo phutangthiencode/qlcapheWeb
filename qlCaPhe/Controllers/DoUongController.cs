@@ -141,9 +141,9 @@ namespace qlCaPhe.Controllers
         }
 
         /// <summary>
-        /// Hàm thực hiện tạo view danh mục đồ uống theo trạng thái
+        /// Hàm thực hiện tạo table danh mục đồ uống
         /// </summary>
-        /// <param name="trangThai">Trạng thái đồ uống cần lấy danh sách</param>
+        /// <param name="listSP">List object sản phẩm cần hiển thị</param>
         private void createTableDoUong(List<sanPham> listSP)
         {
             try

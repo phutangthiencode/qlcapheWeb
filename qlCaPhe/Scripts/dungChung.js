@@ -74,3 +74,23 @@ function printContent(el) {
     window.print();
     $('body').html(restorepage);
 }
+
+
+//-------HÀM ĐỌC CÁC REQUEST TRUYỀN VÀO CÓ TRÊN URL
+function getUrlVars() {
+    var vars = [], hash;
+    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    for (var i = 0; i < hashes.length; i++) {
+        hash = hashes[i].split('=');
+        vars.push(hash[0]);
+        vars[hash[0]] = hash[1];
+    }
+    return vars;
+}
+//-----Hàm lấy tham số trang hiện tại có trên url
+function getCurrentPageInRequest() {
+    var res = getUrlVars()["page"];
+    if (typeof (res) === 'undefined')
+        return 1;
+    return res;
+}

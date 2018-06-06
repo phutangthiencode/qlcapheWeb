@@ -29,15 +29,17 @@ namespace qlCaPhe.Controllers
         /// Hàm lấy danh sách các hóa đơn tạm yêu cầu thanh toán.
         /// </summary>
         /// <returns></returns>
-        public string AjaxLayDanhSachHoaDonTam()
+        public string AjaxLayDanhSachHoaDonTam(int ?page)
         {
-            string kq = "";
+            string kq = ""; int trangHienHanh = (page ?? 1); int soPhanTu = 0;
             if (xulyChung.duocCapNhat(idOfPage, "7"))
             {
                 try
                 {
+                    qlCaPheEntities db = new qlCaPheEntities();
+                    soPhanTu = db.hoaDonTams.Where(h => h.trangThaiHoadon == 2 || h.trangThaiHoadon == 1).Count();
                     //---------Lặp qua các hóa đơn ĐÃ GỌI MÓN hoặc ĐANG CHỜ THANH TOÁN
-                    foreach (hoaDonTam hd in new qlCaPheEntities().hoaDonTams.Where(h => h.trangThaiHoadon == 2 || h.trangThaiHoadon == 1).ToList().OrderBy(h => h.ngayLap))
+                    foreach (hoaDonTam hd in db.hoaDonTams.Where(h => h.trangThaiHoadon == 2 || h.trangThaiHoadon == 1).OrderBy(h => h.ngayLap).Skip((trangHienHanh - 1) * createHTML.pageSize).Take(createHTML.pageSize).ToList())
                     {
                         kq += "<tr role=\"row\" class=\"odd\">";
                         kq += "   <td>" + xulyDuLieu.traVeKyTuGoc(hd.BanChoNgoi.tenBan) + "</td>";
@@ -48,6 +50,8 @@ namespace qlCaPhe.Controllers
                         kq += "   <td><button task=\"" + xulyChung.taoUrlCoTruyenThamSo("/HoaDon/hd_ThucHienThanhToan", hd.maBan.ToString()) + "\" class=\" guiRequest btn btn-primary waves-effect\" data-toggle=\"modal\" data-target=\"#modalThanhToan\"><i class=\"material-icons\">attach_money</i>Thanh toán</button></td>";
                         kq += " </tr>";
                     }
+                    kq += "&&"; //------Ký tự xác định chuỗi html để gán lên giao diện
+                    kq += createHTML.taoPhanTrang(soPhanTu, trangHienHanh, "/HoaDon/hd_TableHoaDonChoThanhToan");
                 }
                 catch (Exception ex)
                 {
@@ -368,13 +372,14 @@ namespace qlCaPhe.Controllers
         /// Hàm tạo danh sách TẤT CẢ hóa đơn ĐÃ THANH TOÁN
         /// </summary>
         /// <returns></returns>
-        public ActionResult hd_TableTatCaHoaDonOrder()
+        public ActionResult hd_TableTatCaHoaDonOrder(int ?page)
         {
             if (xulyChung.duocCapNhat(idOfPage, "7"))
             {
                 try
                 {
-                    ViewBag.TableData = this.layDanhSachHoaDon(4);
+                    //-------Lấy danh sách tất cả hóa đơn
+                    ViewBag.TableData = this.layDanhSachHoaDon(4, page);
                 }
                 catch (Exception ex)
                 {
@@ -387,13 +392,13 @@ namespace qlCaPhe.Controllers
         /// Hàm tạo danh sách các hóa đơn ĐÃ THANH TOÁN TRONG NGÀY
         /// </summary>
         /// <returns></returns>
-        public ActionResult hd_TableHoaDonOrderTrongNgay()
+        public ActionResult hd_TableHoaDonOrderTrongNgay(int ?page)
         {
             if (xulyChung.duocCapNhat(idOfPage, "7"))
             {
                 try
                 {
-                    ViewBag.TableData = this.layDanhSachHoaDon(1);
+                    ViewBag.TableData = this.layDanhSachHoaDon(1, page);
                 }
                 catch (Exception ex)
                 {
@@ -406,13 +411,13 @@ namespace qlCaPhe.Controllers
         /// Hàm tạo giao diện danh sách hóa đơn theo TUẦN
         /// </summary>
         /// <returns></returns>
-        public ActionResult hd_TableHoaDonOrderTrongTuan()
+        public ActionResult hd_TableHoaDonOrderTrongTuan(int ?page)
         {
             if (xulyChung.duocCapNhat(idOfPage, "7"))
             {
                 try
                 {
-                    ViewBag.TableData = this.layDanhSachHoaDon(3);
+                    ViewBag.TableData = this.layDanhSachHoaDon(3, page);
                 }
                 catch (Exception ex)
                 {
@@ -427,29 +432,36 @@ namespace qlCaPhe.Controllers
         /// </summary>
         /// <param name="loaiOrder">Loại hóa đơn cần lấy: <para/> 1: Theo ngày, 2: Theo ca, 3: Theo tuần, 4: tất cả</param>
         /// <returns>Danh sách hóa đơn đã được lấy theo điều kiện cần lấy</returns>
-        private string layDanhSachHoaDon(int loaiOrder)
+        private string layDanhSachHoaDon(int loaiOrder, int ?page)
         {
-            string kq = "";
-            qlCaPheEntities db = new qlCaPheEntities();
-            List<hoaDonOrder> listHoaDon = new List<hoaDonOrder>();
+            string kq = "", url = "/HoaDon/";
+            int trangHienHanh = (page ?? 1); int soPhanTu = 0;//--------Số tất cả phần tử trong list            
+            qlCaPheEntities db = new qlCaPheEntities();List<hoaDonOrder> listHoaDon = new List<hoaDonOrder>();
             switch (loaiOrder)
             {
                 case 1: //---------Lấy hóa đơn theo ngày
-                    listHoaDon = db.hoaDonOrders.Where(h => h.ngayLap.Value.Day == DateTime.Now.Day && h.ngayLap.Value.Month == DateTime.Now.Month && h.ngayLap.Value.Year == DateTime.Now.Year).ToList();
+                    url += "hd_TableHoaDonOrderTrongNgay";
+                    soPhanTu = db.hoaDonOrders.Where(h => h.ngayLap.Value.Day == DateTime.Now.Day && h.ngayLap.Value.Month == DateTime.Now.Month && h.ngayLap.Value.Year == DateTime.Now.Year).Count();
+                    listHoaDon = db.hoaDonOrders.Where(h => h.ngayLap.Value.Day == DateTime.Now.Day && h.ngayLap.Value.Month == DateTime.Now.Month && h.ngayLap.Value.Year == DateTime.Now.Year).OrderByDescending(h=>h.ngayLap).Skip((trangHienHanh - 1) * createHTML.pageSize).Take(createHTML.pageSize).ToList();
                     break;
                 case 2: //--------Lấy hóa đơn theo ca
                    
                     break;
                 case 3: //--------Lấy hóa đơn theo tuần
+                    url += "hd_TableHoaDonOrderTrongTuan";
                     DateTime dateLastWeek = DateTime.Now.AddDays(-7); //-------Lấy ngảy này của tuần trước
-                    listHoaDon = db.hoaDonOrders.Where(h => h.ngayLap >= dateLastWeek && h.ngayLap <= DateTime.Now).ToList();
+                    soPhanTu = db.hoaDonOrders.Where(h => h.ngayLap >= dateLastWeek && h.ngayLap <= DateTime.Now).Count();
+                    listHoaDon = db.hoaDonOrders.Where(h => h.ngayLap >= dateLastWeek && h.ngayLap <= DateTime.Now).OrderByDescending(h => h.ngayLap).Skip((trangHienHanh - 1) * createHTML.pageSize).Take(createHTML.pageSize).ToList();
                     break;
                 case 4: //---------Lấy tất cả hóa đơn
-                    listHoaDon = db.hoaDonOrders.ToList();
+                    url += "hd_TableTatCaHoaDonOrder";
+                    soPhanTu = db.hoaDonOrders.ToList().Count();
+                    listHoaDon = db.hoaDonOrders.OrderByDescending(n=>n.ngayLap).Skip((trangHienHanh-1) * createHTML.pageSize).Take(createHTML.pageSize).ToList();
                     break;
                 default: break;
             }
             kq += taoBangHoaDon(listHoaDon);
+            ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, trangHienHanh, url); //------cấu hình phân trang
             //----Nhúng script ajax hiển thị chi tiết hóa đơn khi người dùng click vào mã số hóa đơn trên bảng
             ViewBag.ScriptAjaxXemChiTiet = createScriptAjax.scriptAjaxXemChiTietKhiClick("btnXemChiTiet", "maHD", "HoaDon/AjaxXemChiTietHoaDonOrder?maHD=", "vungChiTiet", "modalChiTiet");
             //----Nhúng các tag html cho modal chi tiết

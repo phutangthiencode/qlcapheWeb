@@ -17,15 +17,17 @@ namespace qlCaPhe.Controllers
         /// Hàm lấy danh sách bàn đang chờ pha chế
         /// </summary>
         /// <returns></returns>
-        public string AjaxLayDanhSachBanCanPhaChe()
+        public string AjaxLayDanhSachBanCanPhaChe(int ?page)
         {
-            string html = "";
+            string html = ""; int trangHienHanh = (page ?? 1); int soPhanTu = 0;
             if (xulyChung.duocCapNhat(idOfPage, "7"))
             {
                 try
                 {
+                    qlCaPheEntities db = new qlCaPheEntities();
+                    soPhanTu = db.hoaDonTams.Where(h => h.trangthaiphucVu == 0 || h.trangthaiphucVu == 1).OrderBy(h => h.ngayLap).Count();
                     //----Lặp qua danh sách hoaDonTam có trangthaiphucVu=0 hoặc trangThaiphucvu=1 --Chờ pha chế hoặc đang pha chếDanh sách được sort theo ngày lập hóa đơn tăng dần.
-                    foreach (hoaDonTam hoaDon in new qlCaPheEntities().hoaDonTams.Where(h => h.trangthaiphucVu == 0 || h.trangthaiphucVu == 1).OrderBy(h => h.ngayLap).ToList())
+                    foreach (hoaDonTam hoaDon in db.hoaDonTams.Where(h => h.trangthaiphucVu == 0 || h.trangthaiphucVu == 1).OrderBy(h => h.ngayLap).Skip((trangHienHanh - 1) * createHTML.pageSize).Take(createHTML.pageSize).ToList())
                     {
                         html += "<tr role=\"row\" class=\"odd\">";
                         html += "   <td>";
@@ -42,10 +44,12 @@ namespace qlCaPhe.Controllers
                         html += "   </td>";
                         html += "</tr>";
                     }
+                    html += "&&"; //------Ký tự xác định chuỗi html để gán lên giao diện
+                    html += createHTML.taoPhanTrang(soPhanTu, trangHienHanh, "/PhaChe/pc_PhaCheTheoBan");
                 }
                 catch (Exception ex)
                 {
-                    xulyFile.ghiLoi("Class: PhaCheController - Function: pc_TiepNhanPhaChe", ex.Message);
+                    xulyFile.ghiLoi("Class: PhaCheController - Function: AjaxLayDanhSachBanCanPhaChe", ex.Message);
                 }
             }
             return html;

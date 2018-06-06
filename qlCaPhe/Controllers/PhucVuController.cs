@@ -16,15 +16,17 @@ namespace qlCaPhe.Controllers
         /// Hàm lấy danh sách bàn có sản phẩm đã pha chế.
         /// </summary>
         /// <returns></returns>
-        public string AjaxLayDanhSachBanCanPhucVu()
+        public string AjaxLayDanhSachBanCanPhucVu(int ?page)
         {
-            string html = "";
+            string html = ""; int trangHienHanh = (page ?? 1); int soPhanTu = 0;
             if (xulyChung.duocCapNhat(idOfPage, "7"))
             {
                 try
                 {
+                    qlCaPheEntities db = new qlCaPheEntities();
+                    soPhanTu = db.hoaDonTams.Where(h => h.trangthaiphucVu == 2).OrderBy(h => h.ngayLap).Count();
                     //----Lặp qua danh sách hoaDonTam có trangthaiphucVu=2 Đã pha chế Danh sách được sort theo ngày lập hóa đơn tăng dần.
-                    foreach (hoaDonTam hoaDon in new qlCaPheEntities().hoaDonTams.Where(h => h.trangthaiphucVu == 2).OrderBy(h => h.ngayLap).ToList())
+                    foreach (hoaDonTam hoaDon in db.hoaDonTams.Where(h => h.trangthaiphucVu == 2).OrderBy(h => h.ngayLap).Skip((trangHienHanh - 1) * createHTML.pageSize).Take(createHTML.pageSize).ToList())
                     {
                         html += "<tr role=\"row\" class=\"odd\">";
                         html += "   <td>";
@@ -41,6 +43,8 @@ namespace qlCaPhe.Controllers
                         html += "   </td>";
                         html += "</tr>";
                     }
+                    html += "&&"; //------Ký tự xác định chuỗi html để gán lên giao diện
+                    html += createHTML.taoPhanTrang(soPhanTu, trangHienHanh, "/PhucVu/pv_DanhSachBanCanPhucVuDoUong");
                 }
                 catch (Exception ex)
                 {
@@ -190,7 +194,7 @@ namespace qlCaPhe.Controllers
                     xulyFile.ghiLoi("Class: PhucVuController - Function: capNhatSangDaGiao", ex.Message);
                 }
             }
-            return AjaxLayDanhSachBanCanPhucVu();
+            return AjaxLayDanhSachBanCanPhucVu(1);
         }
 	}
 }

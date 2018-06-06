@@ -194,12 +194,12 @@ namespace qlCaPhe.App_Start
                 kq+="<ul class=\"pagination\">";
                 //-----Nếu trang hiện hành lớn hơn hoặc bằng 1 thì hiện previous
                 int previousPage = soTrangHienHanh-1;//------Lấy số trang trước đó
-                kq += previousPage >= 1 ? "<li class=\"paginate_button previous\" id=\"DataTables_Table_0_previous\"><a href=\"" + url + "?page=" + previousPage.ToString() + "\" aria-controls=\"DataTables_Table_0\" data-dt-idx=\"0\" tabindex=\"0\">Previous</a></li>" : "";
+                kq += previousPage >= 1 ? "<li class=\"previous\"><a href=\"" + url + "?page=" + previousPage.ToString() + "\">Previous</a></li>" : "";
                 for (int i = 1; i <= soLuongTrang; i++ )
-                    kq += "    <li class=\"paginate_button "+(i==soTrangHienHanh ? " active" : "")+" \"><a href=\""+url+"?page="+i.ToString()+"\" aria-controls=\"DataTables_Table_0\" data-dt-idx=\""+i.ToString()+"\" tabindex=\"0\">"+i.ToString()+"</a></li>";
+                    kq += "    <li class=\""+(i==soTrangHienHanh ? " active" : "")+" \"><a href=\""+url+"?page="+i.ToString()+"\">"+i.ToString()+"</a></li>";
                 //------------Cấu hình hiện nút next
                 int nextPage = soTrangHienHanh + 1;
-                kq += soTrangHienHanh < soLuongTrang ?  "<li class=\"paginate_button next\" id=\"DataTables_Table_0_next\"><a href=\""+url + "?page=" + nextPage.ToString()+"\" aria-controls=\"DataTables_Table_0\" data-dt-idx=\"7\" tabindex=\"0\">Next</a></li>" : "";
+                kq += soTrangHienHanh < soLuongTrang ?  "<li class=\"next\"><a href=\""+url + "?page=" + nextPage.ToString()+"\">Next</a></li>" : "";
                 kq += "</ul>";
             }
             return kq;
