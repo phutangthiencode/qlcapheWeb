@@ -3,3 +3,18 @@ Vị trí: Class: BangCongTacController - Function: capNhatTrangThai
  Lỗi: Vui lòng chọn tài khoản thành viên cần điều phối
 ---------------------------------------------------------------
 
+-----------------------6/6/2018 10:36:23 AM----------
+Vị trí: Class: BangCongTacController - Function: bct_TaoMoiDieuPhoi_Post 
+ Lỗi: Vui lòng chọn tài khoản thành viên cần điều phối
+---------------------------------------------------------------
+
+-----------------------6/6/2018 10:37:27 AM----------
+Vị trí: Class: BangCongTacController - Function: bct_TaoMoiDieuPhoi_Post 
+ Lỗi: Vui lòng chọn tài khoản thành viên cần điều phối
+---------------------------------------------------------------
+
+-----------------------6/6/2018 10:41:50 AM----------
+Vị trí: Class: BangCongTacController - Function: capNhatTrangThai 
+ Lỗi: Vui lòng chọn tài khoản thành viên cần điều phối
+---------------------------------------------------------------
+

@@ -213,7 +213,6 @@ namespace qlCaPhe.Controllers
                         {
                             //-----Đổ dữ liệu chi tiết lên giao diện
                             this.docChiTietVaThemVaoGio(bgv);
-                            ViewBag.VungChiTiet = this.taoGiaoDienChiTiet();
                             //-----Đổ thông tin điều phối lên giao diện
                             this.doDuLieuLenView(bgv, db);
                             //----Chèn script ajax hiện thông tin thành viên khi người dùng click chọn trên combobox
@@ -419,8 +418,10 @@ namespace qlCaPhe.Controllers
             try
             {
                 ViewBag.txtGhiChu = xulyDuLieu.traVeKyTuGoc(bgv.ghiChu);
+                ViewBag.VungChiTiet = this.taoGiaoDienChiTiet();
                 if (bgv.taiKhoan != null)
                 {
+                    //-----------Hiển thị thông tin thành viên
                     ViewBag.hinhDD = xulyChung.DrawInforThanhVienWithTaiKhoan(bgv.taiKhoan);
                     this.taoDuLieuChoCbb(db, bgv.taiKhoan.maTV);
                 }
