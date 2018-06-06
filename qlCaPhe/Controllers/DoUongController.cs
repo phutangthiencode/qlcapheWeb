@@ -109,9 +109,11 @@ namespace qlCaPhe.Controllers
         /// <summary>
         /// hàm thực hiện tạo giao diện danh sách đồ uống đang bán
         /// </summary>
+        /// <param name="page">Số trang hiện hành</param>
         /// <returns></returns>
-        public ActionResult du_TableDoUong()
+        public ActionResult du_TableDoUong(int ?page)
         {
+            int trangHienHanh = (page ??1);
             if (xulyChung.duocTruyCap(idOfPage))
             {
                 try
@@ -121,59 +123,33 @@ namespace qlCaPhe.Controllers
                     request = request.Replace("request=", ""); //-------request có dạng trangThai
                     int trangThai = xulyDuLieu.doiChuoiSangInteger(request);
                     this.thietLapThongSoChung(trangThai);
-                    this.createTableDoUong(trangThai);
+
+                    qlCaPheEntities db = new qlCaPheEntities();
+
+                    int soPhanTu = db.sanPhams.Where(s => s.trangThai == trangThai).Count();
+                    ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, trangHienHanh, "/DoUong/du_TableDoUong"); //------cấu hình phân trang
+
+                    List<sanPham> listSP = db.sanPhams.Where(s => s.trangThai == trangThai).OrderBy(s => s.tenSanPham).Skip((trangHienHanh - 1) * createHTML.pageSize).Take(createHTML.pageSize).ToList(); //-----Lấy danh sách các sản phẩm được phân trang
+                    this.createTableDoUong(listSP);
                 }
                 catch (Exception ex)
                 {
-                    xulyFile.ghiLoi("Class: DoUongController - Function: du_TaoMoiDoUong_Post", ex.Message);
+                    xulyFile.ghiLoi("Class: DoUongController - Function: du_TableDoUong", ex.Message);
                 }
             }
             return View();
         }
 
-        ///// <summary>
-        ///// hàm thực hiện hiện danh sách đồ uống chờ duyệt
-        ///// </summary>
-        ///// <returns></returns>
-        //public ActionResult du_TableDoUongChoDuyet()
-        //{
-        //    try
-        //    {
-        //        this.createTableDoUong(0);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        xulyFile.ghiLoi("Class: DoUongController - Function: du_TableDoUongChoDuyet", ex.Message);
-        //    }
-        //    return View();
-        //}
-        ///// <summary>
-        ///// Hàm thực hiện hiện danh sách đồ uống đã ngưng bán
-        ///// </summary>
-        ///// <returns></returns>
-        //public ActionResult du_TableDoUongTamNgung()
-        //{
-        //    try
-        //    {
-        //        this.createTableDoUong(2);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        xulyFile.ghiLoi("Class: DoUongController - Function: du_TableDoUongTamNgung", ex.Message);
-        //    }
-        //    return View();
-        //}
         /// <summary>
         /// Hàm thực hiện tạo view danh mục đồ uống theo trạng thái
         /// </summary>
         /// <param name="trangThai">Trạng thái đồ uống cần lấy danh sách</param>
-        private void createTableDoUong(int trangThai)
+        private void createTableDoUong(List<sanPham> listSP)
         {
             try
             {
-                qlCaPheEntities db = new qlCaPheEntities();
                 string htmlTable = "";
-                foreach (sanPham sp in db.sanPhams.ToList().Where(s => s.trangThai == trangThai))
+                foreach (sanPham sp in listSP)
                 {
                     htmlTable += "<tr role=\"row\" class=\"odd\">";
                     htmlTable += "      <td>";
@@ -182,7 +158,7 @@ namespace qlCaPhe.Controllers
                     htmlTable += "              <span class=\"noiDungGoiY-right\">Click để xem hình</span>";
                     htmlTable += "          </a>";
                     htmlTable += "      </td>";
-                    htmlTable += "      <td>" + xulyDuLieu.traVeKyTuGoc(db.loaiSanPhams.SingleOrDefault(l => l.maLoai == sp.maLoai).tenLoai) + "</td>";
+                    htmlTable += "      <td>" + xulyDuLieu.traVeKyTuGoc(sp.loaiSanPham.tenLoai) + "</td>";
                     htmlTable += "      <td>" + xulyDuLieu.traVeKyTuGoc(sp.moTa) + "</td>";
                     htmlTable += "      <td>" + sp.donGia.ToString() + " VNĐ</td>";
                     htmlTable += "      <td>" + sp.thoiGianPhaChe.ToString() + " phút</td>";

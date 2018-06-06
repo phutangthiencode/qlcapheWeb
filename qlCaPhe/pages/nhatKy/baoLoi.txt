@@ -18,3 +18,58 @@ Vị trí: Class: BangCongTacController - Function: capNhatTrangThai
  Lỗi: Vui lòng chọn tài khoản thành viên cần điều phối
 ---------------------------------------------------------------
 
+-----------------------6/6/2018 10:47:56 AM----------
+Vị trí: Class: BangCongTacController - Function: bct_TaoMoiDieuPhoi_Post 
+ Lỗi: Vui lòng chọn tài khoản thành viên cần điều phối
+---------------------------------------------------------------
+
+-----------------------6/6/2018 10:48:04 AM----------
+Vị trí: Class: BangCongTacController - Function: bct_TaoMoiDieuPhoi_Post 
+ Lỗi: Vui lòng chọn ca cần điều phối cho nhân viên
+---------------------------------------------------------------
+
+-----------------------6/6/2018 10:48:14 AM----------
+Vị trí: Class: BangCongTacController - Function: bct_TaoMoiDieuPhoi_Post 
+ Lỗi: Vui lòng chọn tài khoản thành viên cần điều phối
+---------------------------------------------------------------
+
+-----------------------6/6/2018 11:35:23 AM----------
+Vị trí: Class: DoUongController - Function: du_TableDoUong 
+ Lỗi: Index was outside the bounds of the array.
+---------------------------------------------------------------
+
+-----------------------6/6/2018 11:35:46 AM----------
+Vị trí: Class: DoUongController - Function: du_TableDoUong 
+ Lỗi: Index was outside the bounds of the array.
+---------------------------------------------------------------
+
+-----------------------6/6/2018 11:36:00 AM----------
+Vị trí: Class: DoUongController - Function: du_TableDoUong 
+ Lỗi: Index was outside the bounds of the array.
+---------------------------------------------------------------
+
+-----------------------6/6/2018 11:36:21 AM----------
+Vị trí: Class: DoUongController - Function: du_TableDoUong 
+ Lỗi: Index was outside the bounds of the array.
+---------------------------------------------------------------
+
+-----------------------6/6/2018 11:36:49 AM----------
+Vị trí: Class: DoUongController - Function: du_TableDoUong 
+ Lỗi: Index was outside the bounds of the array.
+---------------------------------------------------------------
+
+-----------------------6/6/2018 11:37:24 AM----------
+Vị trí: Class: DoUongController - Function: du_TableDoUong 
+ Lỗi: The method 'Skip' is only supported for sorted input in LINQ to Entities. The method 'OrderBy' must be called before the method 'Skip'.
+---------------------------------------------------------------
+
+-----------------------6/6/2018 11:39:33 AM----------
+Vị trí: Class: DoUongController - Function: du_TableDoUong 
+ Lỗi: The method 'Skip' is only supported for sorted input in LINQ to Entities. The method 'OrderBy' must be called before the method 'Skip'.
+---------------------------------------------------------------
+
+-----------------------6/6/2018 11:42:34 AM----------
+Vị trí: Class: DoUongController - Function: du_TableDoUong 
+ Lỗi: The method 'Skip' is only supported for sorted input in LINQ to Entities. The method 'OrderBy' must be called before the method 'Skip'.
+---------------------------------------------------------------
+

@@ -10,6 +10,7 @@ namespace qlCaPhe.App_Start
     /// </summary>
     public class createHTML
     {
+        public static int pageSize = 10; //-----Thiết lập số lượng phần tử có trên trang
         /// <summary>
         /// hàm thực hiện tạo nội dung thông báo 
         /// </summary>
@@ -168,6 +169,39 @@ namespace qlCaPhe.App_Start
             kq += "         </div>";
             kq += "     </div>";
             kq += "</div>";
+            return kq;
+        }
+
+        /// <summary>
+        /// Hàm thực hiện tạo chuỗi html cho việc phân trang
+        /// </summary>
+        /// <param name="soPhanTu">Số lượng tất cả các phần tử có trong list cần phân trang</param>
+        /// <param name="soTrangHienHanh">Số trang hiện tại dang đứng</param>
+        /// <param name="url">Đường dẫn đến với trang trong danh sách</param>
+        /// <returns>Chuỗi html danh sách trang</returns>
+        public static string taoPhanTrang(int soPhanTu, int soTrangHienHanh, string url)
+        {
+            string kq = ""; 
+            if (soPhanTu > pageSize)
+            {
+                //-----Tính số trang chứa đủ 10 phần tử
+                int soLuongTrang = soPhanTu / pageSize;
+                //-----tính trang chứa phần tử lẻ còn lại
+                if (soPhanTu % pageSize > 0)
+                    soLuongTrang++;
+
+                //-------Tạo chuỗi html dựa trên số trang đã xác định
+                kq+="<ul class=\"pagination\">";
+                //-----Nếu trang hiện hành lớn hơn hoặc bằng 1 thì hiện previous
+                int previousPage = soTrangHienHanh-1;//------Lấy số trang trước đó
+                kq += previousPage >= 1 ? "<li class=\"paginate_button previous\" id=\"DataTables_Table_0_previous\"><a href=\"" + url + "?page=" + previousPage.ToString() + "\" aria-controls=\"DataTables_Table_0\" data-dt-idx=\"0\" tabindex=\"0\">Previous</a></li>" : "";
+                for (int i = 1; i <= soLuongTrang; i++ )
+                    kq += "    <li class=\"paginate_button "+(i==soTrangHienHanh ? " active" : "")+" \"><a href=\""+url+"?page="+i.ToString()+"\" aria-controls=\"DataTables_Table_0\" data-dt-idx=\""+i.ToString()+"\" tabindex=\"0\">"+i.ToString()+"</a></li>";
+                //------------Cấu hình hiện nút next
+                int nextPage = soTrangHienHanh + 1;
+                kq += soTrangHienHanh < soLuongTrang ?  "<li class=\"paginate_button next\" id=\"DataTables_Table_0_next\"><a href=\""+url + "?page=" + nextPage.ToString()+"\" aria-controls=\"DataTables_Table_0\" data-dt-idx=\"7\" tabindex=\"0\">Next</a></li>" : "";
+                kq += "</ul>";
+            }
             return kq;
         }
     }
