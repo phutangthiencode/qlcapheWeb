@@ -141,7 +141,7 @@ namespace qlCaPhe.Controllers
                     ViewBag.ScriptAjax = createScriptAjax.scriptAjaxXoaDoiTuong("BangCongTac/xoaDieuPhoi?maBang=");
                     ViewBag.ModalXoa = createHTML.taoCanhBaoXoa("Bảng công tác");
                     //----Nhúng script ajax hiển thị chi tiết hóa đơn khi người dùng click vào mã số hóa đơn trên bảng
-                    ViewBag.ScriptAjaxXemChiTiet = createScriptAjax.scriptAjaxXemChiTietKhiClick("goiY", "task", "BangCongTac/AjaxXemChiTietCaCuaTaiKhoan?param=", "vungChiTiet", "modalChiTiet");
+                    ViewBag.ScriptAjaxXemChiTiet = createScriptAjax.scriptAjaxXemChiTietKhiClick("goiY", "task", "BangCongTac/AjaxXemChiTietDieuPhoi?param=", "vungChiTiet", "modalChiTiet");
                     //----Nhúng các tag html cho modal chi tiết
                     ViewBag.ModalChiTiet = createHTML.taoModalChiTiet("modalChiTiet", "vungChiTiet", 2);
                 }
@@ -624,7 +624,7 @@ namespace qlCaPhe.Controllers
         /// </summary>
         /// <param name="param">Mã bảng công tác cần xem chi tiết</param>
         /// <returns>Chuỗi html tạo nội dung chi tiết</returns>
-        public string AjaxXemChiTietCaCuaTaiKhoan(string param)
+        public string AjaxXemChiTietDieuPhoi(string param)
         {
             string htmlDetails = "";
             try
@@ -685,6 +685,7 @@ namespace qlCaPhe.Controllers
                 htmlDetail += "                <th>Tên ca</th>";
                 htmlDetail += "                <th>Buổi</th>";
                 htmlDetail += "                <th>Thời gian làm việc</th>";
+                htmlDetail += "                <th>Ghi chú</th>";
                 htmlDetail += "            </tr>";
                 htmlDetail += "        </thead>";
                 htmlDetail += "        <tbody>";
@@ -695,6 +696,7 @@ namespace qlCaPhe.Controllers
                     htmlDetail += "                <td>" + xulyDuLieu.traVeKyTuGoc(ct.caLamViec.tenCa) + "</td>";
                     htmlDetail += "                <td>" + this.layBuoiLamViec(ct.caLamViec.buoi) + "</td>";
                     htmlDetail += "                <td>" + ct.caLamViec.batDau.ToString() + " - " + ct.caLamViec.ketThuc.ToString() + "</td>";
+                    htmlDetail += "                <td>" + xulyDuLieu.traVeKyTuGoc(ct.ghiChu)+ "</td>";
                     htmlDetail += "            </tr>";
                 }
                 htmlDetail += "        </tbody>";
