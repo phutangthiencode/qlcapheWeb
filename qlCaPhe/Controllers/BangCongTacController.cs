@@ -106,15 +106,18 @@ namespace qlCaPhe.Controllers
         /// Hàm tạo giao diện danh mục phân công công tác cho nhân viên
         /// </summary>
         /// <returns></returns>
-        public ActionResult bct_TableDieuPhoi()
+        public ActionResult bct_TableDieuPhoi(int ?page)
         {
             if (xulyChung.duocTruyCap(idOfPage))
             {
-                string htmlTable = "";
+                string htmlTable = ""; int trangHienHanh = (page ?? 1);
                 try
                 {
+                    qlCaPheEntities db = new qlCaPheEntities();
+                    int soPhanTu = db.BangGiaoViecs.Count();
+                    ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, trangHienHanh, "/BangCongTac/bct_TableDieuPhoi"); //------cấu hình phân trang
                     //--------Lặp qua danh sách bảng công tác được sắp xếp theo trạng thái. Hiển thị trạng thái "còn sử dụng" trước
-                    foreach (BangGiaoViec bgv in new qlCaPheEntities().BangGiaoViecs.ToList().OrderByDescending(c => c.trangThai))
+                    foreach (BangGiaoViec bgv in db.BangGiaoViecs.ToList().OrderByDescending(c => c.trangThai).Skip((trangHienHanh - 1) * createHTML.pageSize).Take(createHTML.pageSize))
                     {
                         htmlTable += "<tr role=\"row\" class=\"odd\">";
                         htmlTable += "    <td>";

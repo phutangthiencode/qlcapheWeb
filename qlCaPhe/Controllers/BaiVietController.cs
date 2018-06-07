@@ -66,20 +66,20 @@ namespace qlCaPhe.Controllers
         /// Hàm tạo view danh sách bài viết đã duyệt
         /// </summary>
         /// <returns></returns>
-        public ActionResult bv_TableBaiVietDaDuyet()
+        public ActionResult bv_TableBaiVietDaDuyet(int ?page)
         {
             if (xulyChung.duocTruyCap(idOfPage))
-                this.createTableBaiViet(1);
+                this.createTableBaiViet(1, (page??1),"/BaiViet/bv_TableBaiVietDaDuyet");
             return View();
         }
         /// <summary>
         /// Hàm tạo view danh mục bài viết chờ kiểm duyệt
         /// </summary>
         /// <returns></returns>
-        public ActionResult bv_TableBaiVietChoDuyet()
+        public ActionResult bv_TableBaiVietChoDuyet(int ?page)
         {
             if (xulyChung.duocTruyCap(idOfPage))
-                this.createTableBaiViet(0);
+                this.createTableBaiViet(0, (page ?? 1), "/BaiViet/bv_TableBaiVietDaDuyet");
             return View();
         }
 
@@ -87,13 +87,13 @@ namespace qlCaPhe.Controllers
         /// Hàm tạo view danh mục bài viết bị gở bỏ
         /// </summary>
         /// <returns></returns>
-        public ActionResult bv_TableBaiVietBiGoBo()
+        public ActionResult bv_TableBaiVietBiGoBo(int ?page)
         {
 
             if (xulyChung.duocTruyCap(idOfPage))
                 try
                 {
-                    this.createTableBaiViet(2);
+                    this.createTableBaiViet(2, (page ?? 1), "/BaiViet/bv_TableBaiVietDaDuyet");
                 }
                 catch (Exception ex)
                 {
@@ -105,13 +105,18 @@ namespace qlCaPhe.Controllers
         /// <summary>
         /// Hàm thực hiện tạo table bài viết dựa theo trạng thái
         /// </summary>
-        /// <param name="trangThai"></param>
-        private void createTableBaiViet(int trangThai)
+        /// <param name="trangThai">Trạng thái bài viết cần liệt kê</param>
+        /// <param name="trangHienHanh">Trang hiện tại cần liệt kê</param>
+        /// <param name="url">Đường dẫn đến các trang khác đã phân trang</param>
+        private void createTableBaiViet(int trangThai, int trangHienHanh, string url)
         {
             string htmlTable = "";
             try
             {
-                foreach (baiViet bv in new qlCaPheEntities().baiViets.ToList().Where(b => b.trangThai == trangThai))
+                qlCaPheEntities db = new qlCaPheEntities();
+                int soPhanTu = db.baiViets.Where(s => s.trangThai == trangThai).Count();
+                ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, trangHienHanh, url); //------cấu hình phân trang
+                foreach (baiViet bv in db.baiViets.ToList().Where(b => b.trangThai == trangThai).OrderBy(b => b.tenBaiViet).Skip((trangHienHanh - 1) * createHTML.pageSize).Take(createHTML.pageSize))
                 {
                     htmlTable += "<tr role=\"row\" class=\"odd\">";
                     htmlTable += "      <td>";
