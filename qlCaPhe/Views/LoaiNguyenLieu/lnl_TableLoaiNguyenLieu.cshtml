@@ -36,47 +36,56 @@
                         </div>
                     </div>
                     <div class="body">
-                        <div class="table-responsive">
-                            <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                        <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
 
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <table class="table table-bordered table-striped table-hover js-basic-example dataTable" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
-                                            <thead>
-                                                <tr>
-                                                    <th rowspan="1" width="15%" colspan="1">Tên loại</th>
-                                                    <th rowspan="1" width="35%" colspan="1">Diễn giải</th>
-                                                    <th rowspan="1" width="25%" colspan="1">Ghi chú</th>
-                                                    <th rowspan="1" width="25%" colspan="1"></th>
-                                                </tr>
-                                            </thead>
-                                            <tfoot>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table class="table table-bordered table-striped table-hover js-basic-example dataTable" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                                        <thead>
+                                            <tr>
+                                                <th rowspan="1" width="15%" colspan="1">Tên loại</th>
+                                                <th rowspan="1" width="35%" colspan="1">Diễn giải</th>
+                                                <th rowspan="1" width="25%" colspan="1">Ghi chú</th>
+                                                <th rowspan="1" width="25%" colspan="1"></th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
 
-                                            </tfoot>
-                                            <tbody>
-                                                @Html.Raw(ViewBag.TableData)
-                                                @*<tr role="row" class="odd">
-                                                    <td>Nước ngọt</td>
-                                                    <td>Đóng chai</td>
-                                                    <td>Ghi chú</td>
-                                                    <td>
-                                                        <div class="btn-group open">
-                                                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                                                                Chức năng <span class="caret"></span>
-                                                            </button>
-                                                            <ul class="dropdown-menu" role="menu">
-                                                                <li><a href="#" class="col-blue waves-effect waves-block"><i class="material-icons">mode_edit</i>Chỉnh sửa</a></li>
-                                                                <li><a href="#" class="col-red waves-effect waves-block"><i class="material-icons">delete</i>Xoá bỏ</a></li>
-                                                            </ul>
-                                                        </div>
-                                                    </td>
-                                                </tr>*@
-                                            </tbody>
-                                        </table>
+                                        </tfoot>
+                                        <tbody>
+                                            @Html.Raw(ViewBag.TableData)
+                                            @*<tr role="row" class="odd">
+                                <td>Nước ngọt</td>
+                                <td>Đóng chai</td>
+                                <td>Ghi chú</td>
+                                <td>
+                                    <div class="btn-group open">
+                                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                            Chức năng <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#" class="col-blue waves-effect waves-block"><i class="material-icons">mode_edit</i>Chỉnh sửa</a></li>
+                                            <li><a href="#" class="col-red waves-effect waves-block"><i class="material-icons">delete</i>Xoá bỏ</a></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>*@
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12 pull-right">
+                                    <div class="pull-right" id="DataTables_Table_0_paginate">
+                                        @Html.Raw(ViewBag.PhanTrang)
                                     </div>
                                 </div>
                             </div>
+
                         </div>
+
+
                     </div>
                 </div>
             </div>

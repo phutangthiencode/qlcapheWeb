@@ -61,12 +61,12 @@ namespace qlCaPhe.Controllers
         /// Hàm tạo giao diện danh sách nhà cung cấp đang cung cấp
         /// </summary>
         /// <returns></returns>
-        public ActionResult ncc_TableNhaCungCap()
+        public ActionResult ncc_TableNhaCungCap(int ?page)
         {
             if (xulyChung.duocTruyCap(idOfPage))
                 try
                 {
-                    this.createTableNhaCungCap(true);
+                    this.createTableNhaCungCap(true, (page ?? 1), "/NhaCungCap/ncc_TableNhaCungCap");
                 }
                 catch (Exception ex)
                 {
@@ -78,12 +78,12 @@ namespace qlCaPhe.Controllers
         /// hàm tạo giao diện danh sách nhà cung cấp tạm ngưng sử dụng
         /// </summary>
         /// <returns></returns>
-        public ActionResult ncc_TableNhaCungCapNgung()
+        public ActionResult ncc_TableNhaCungCapNgung(int ?page)
         {
             if (xulyChung.duocTruyCap(idOfPage))
                 try
                 {
-                    this.createTableNhaCungCap(false);
+                    this.createTableNhaCungCap(false, (page ?? 1), "/NhaCungCap/ncc_TableNhaCungCapNgung");
                 }
                 catch (Exception ex)
                 {
@@ -96,12 +96,17 @@ namespace qlCaPhe.Controllers
         /// </summary>
         /// <param name="trangThai">Trạng thái nhà cung cấp cần lấy: 
         ///                          True: còn hợp tác, False: Ngừng hợp tác</param>
-        private void createTableNhaCungCap(bool trangThai)
+        /// <param name="trangHienHanh">Trang hiện tại đang duyệt danh sách</param>
+        /// <param name="url">Đường dẫn đến danh sách tiếp theo</param>
+        private void createTableNhaCungCap(bool trangThai, int trangHienHanh, string url)
         {
             string htmlTable = "";
             try
             {
-                foreach (nhaCungCap ncc in new qlCaPheEntities().nhaCungCaps.ToList().Where(n => n.trangThai == trangThai))
+                qlCaPheEntities db = new qlCaPheEntities();
+                int soPhanTu = db.nhaCungCaps.Where(s => s.trangThai == trangThai).Count();
+                ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, trangHienHanh, url); //------cấu hình phân trang
+                foreach (nhaCungCap ncc in db.nhaCungCaps.ToList().Where(n => n.trangThai == trangThai).Skip((trangHienHanh - 1) * createHTML.pageSize).Take(createHTML.pageSize))
                 {
                     htmlTable += "<tr role=\"row\" class=\"odd\">";
                     htmlTable += "      <td>";

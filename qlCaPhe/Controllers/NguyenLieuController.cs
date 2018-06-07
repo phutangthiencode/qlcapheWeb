@@ -73,11 +73,11 @@ namespace qlCaPhe.Controllers
         /// Trạng thái = true
         /// </summary>
         /// <returns></returns>
-        public ActionResult nl_TableNguyenLieu()
+        public ActionResult nl_TableNguyenLieu(int ?page)
         {
             if (xulyChung.duocTruyCap(idOfPage))
             {
-                this.createTableNguyenLieu(true);
+                this.createTableNguyenLieu(true, (page ?? 1), "/NguyenLieu/nl_TableNguyenLieu");
                 return View();
             } return null;
         }
@@ -86,11 +86,11 @@ namespace qlCaPhe.Controllers
         /// Trạng thái = true
         /// </summary>
         /// <returns></returns>
-        public ActionResult nl_TableNguyenLieuTamNgung()
+        public ActionResult nl_TableNguyenLieuTamNgung(int ?page)
         {
             if (xulyChung.duocTruyCap(idOfPage))
             {
-                this.createTableNguyenLieu(false);
+                this.createTableNguyenLieu(false, (page ?? 1), "/NguyenLieu/nl_TableNguyenLieuTamNgung");
                 return View();
             }
             return null;
@@ -99,13 +99,17 @@ namespace qlCaPhe.Controllers
         /// Hàm tạo bảng nguyên liệu theo trạng thái
         /// </summary>
         /// <param name="trangThai">Trạng thái nguyên liệu cần lấy. True: Đang sử dụng, False: Tạm ngưng</param>
-        private void createTableNguyenLieu(bool trangThai)
+        /// <param name="trangHienHanh">Trang hiện hành cần xem danh sách</param>
+        /// <param name="url">đường dẫn đến trang tiếp theo khi click 1 trang trên danh sách phân trang</param>
+        private void createTableNguyenLieu(bool trangThai, int trangHienHanh, string url)
         {
             string htmlTable = "";
             try
             {
                 qlCaPheEntities db = new qlCaPheEntities();
-                foreach (nguyenLieu nl in db.nguyenLieux.ToList().Where(n => n.trangThai == trangThai).OrderBy(n => n.tenNguyenLieu))
+                int soPhanTu = db.nguyenLieux.Where(n => n.trangThai == trangThai).Count();
+                ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, trangHienHanh, url); //------cấu hình phân trang
+                foreach (nguyenLieu nl in db.nguyenLieux.ToList().Where(n => n.trangThai == trangThai).OrderBy(n => n.tenNguyenLieu).Skip((trangHienHanh - 1) * createHTML.pageSize).Take(createHTML.pageSize))
                 {
                     htmlTable += "<tr role=\"row\" class=\"odd\">";
                     htmlTable += "      <td>";

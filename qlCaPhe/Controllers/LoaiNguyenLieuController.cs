@@ -58,14 +58,18 @@ namespace qlCaPhe.Controllers
         /// Hàm thực hiện tạo giao diện loại nguyên liệu
         /// </summary>
         /// <returns></returns>
-        public ActionResult lnl_TableLoaiNguyenLieu()
+        public ActionResult lnl_TableLoaiNguyenLieu(int ?page)
         {
+            int trangHienHanh = (page ?? 1);
             if (xulyChung.duocTruyCap(idOfPage))
             {
                 string htmlTable = "";
                 try
                 {
-                    foreach (loaiNguyenLieu loai in new qlCaPheEntities().loaiNguyenLieux.ToList())
+                    qlCaPheEntities db = new qlCaPheEntities();
+                    int soPhanTu = db.loaiNguyenLieux.Count();
+                    ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, trangHienHanh, "/LoaiNguyenLieu/lnl_TableLoaiNguyenLieu"); //------cấu hình phân trang
+                    foreach (loaiNguyenLieu loai in db.loaiNguyenLieux.OrderBy(l => l.tenLoai).Skip((trangHienHanh - 1) * createHTML.pageSize).Take(createHTML.pageSize).ToList())
                     {
                         htmlTable += "<tr role=\"row\" class=\"odd\">";
                         htmlTable += "      <td>" + xulyDuLieu.traVeKyTuGoc(loai.tenLoai) + "</td>";
