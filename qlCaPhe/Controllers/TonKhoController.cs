@@ -15,6 +15,10 @@ namespace qlCaPhe.Controllers
         private string idOfPage = "804";
 
         #region KIỂM KHO NEW
+        /// <summary>
+        /// Hàm tạo giao diện cho chức năng kiểm kê kho hàng
+        /// </summary>
+        /// <returns></returns>
         public ActionResult tkho_KiemKho()
         {
             if (xulyChung.duocTruyCap(idOfPage))
@@ -361,14 +365,18 @@ namespace qlCaPhe.Controllers
         /// Hàm tạo giao diện danh sách tất cả lịch sử kiểm kho
         /// </summary>
         /// <returns></returns>
-        public ActionResult tkho_TableTonKho()
+        public ActionResult tkho_TableTonKho(int ?page)
         {
             if (xulyChung.duocTruyCap(idOfPage))
             {
                 string html = "";
                 try
                 {
-                    foreach (TonKho tonKho in new qlCaPheEntities().TonKhoes.ToList().OrderByDescending(c => c.ngayKiem))
+                    int trangHienHanh = (page ?? 1);
+                    qlCaPheEntities db = new qlCaPheEntities();
+                    int soPhanTu = db.TonKhoes.Count();
+                    ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, trangHienHanh, "/TonKho/tkho_TableTonKho"); //------cấu hình phân trang
+                    foreach (TonKho tonKho in db.TonKhoes.ToList().OrderByDescending(c => c.ngayKiem).Skip((trangHienHanh - 1) * createHTML.pageSize).Take(createHTML.pageSize))
                     {
                         html += "<tr role=\"row\" class=\"odd\">";
                         html += "    <td>" + tonKho.maSoKy.ToString() + "</td>";
@@ -393,13 +401,14 @@ namespace qlCaPhe.Controllers
         /// Hàm tạo danh sách nguyên liệu đã kiểm kể trong 1 lịch sử kiểm kê tồn kho
         /// </summary>
         /// <returns></returns>
-        public ActionResult tkho_TableCtTonKho()
+        public ActionResult tkho_TableCtTonKho(int ?page)
         {
             if (xulyChung.duocTruyCap(idOfPage))
             {
                 string html = "";
                 try
                 {
+                    int trangHienHanh = (page ?? 1);
                     string urlAction = (string)Session["urlAction"]; //urlAction có dạng: page=TonKho/tkho_TableCtTonKho|request=maSoKy
                     //-----Xử lý request trong session
                     urlAction = urlAction.Split('|')[1];  //urlAction có dạng: request=maSoKy
@@ -407,7 +416,11 @@ namespace qlCaPhe.Controllers
                     if (urlAction.Length > 0)
                     {
                         int maSoKy = xulyDuLieu.doiChuoiSangInteger(urlAction);
-                        foreach (ctTonKho item in new qlCaPheEntities().ctTonKhoes.Where(c => c.maSoKy == maSoKy).ToList())
+
+                        qlCaPheEntities db = new qlCaPheEntities();
+                        int soPhanTu = db.ctTonKhoes.Where(c => c.maSoKy == maSoKy).Count(); 
+                        ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, trangHienHanh, "/TonKho/tkho_TableCtTonKho"); //------cấu hình phân trang
+                        foreach (ctTonKho item in db.ctTonKhoes.Where(c => c.maSoKy == maSoKy).ToList().Skip((trangHienHanh - 1) * createHTML.pageSize).Take(createHTML.pageSize))
                         {
                             html += "<tr role=\"row\" class=\"odd\">";
                             html += "  <td><b>" + xulyDuLieu.traVeKyTuGoc(item.nguyenLieu.tenNguyenLieu) + "</b></td>";

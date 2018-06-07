@@ -119,14 +119,18 @@ namespace qlCaPhe.Controllers
         /// Hàm tạo giao diện danh sách phiếu nhập kho
         /// </summary>
         /// <returns></returns>
-        public ActionResult nk_TablePhieuNhap()
+        public ActionResult nk_TablePhieuNhap(int ?page)
         {
+            int trangHienHanh = (page ?? 1);
             if (xulyChung.duocTruyCap(idOfPage))
             {
                 string htmlTable = "";
                 try
                 {
-                    foreach (phieuNhapKho phieu in new qlCaPheEntities().phieuNhapKhoes.ToList().OrderBy(p => p.maPhieu).OrderByDescending(p=>p.ngayNhap))
+                    qlCaPheEntities db = new qlCaPheEntities();
+                    int soPhanTu = db.phieuNhapKhoes.Count();
+                    ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, trangHienHanh, "/NhapKho/nk_TablePhieuNhap"); //------cấu hình phân trang
+                    foreach (phieuNhapKho phieu in db.phieuNhapKhoes.ToList().OrderBy(p => p.maPhieu).OrderByDescending(p => p.ngayNhap).Skip((trangHienHanh - 1) * createHTML.pageSize).Take(createHTML.pageSize))
                     {
                         htmlTable += "<tr role=\"row\" class=\"odd\">";
                         htmlTable += "      <td>";

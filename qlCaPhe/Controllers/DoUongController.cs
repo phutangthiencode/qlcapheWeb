@@ -113,11 +113,11 @@ namespace qlCaPhe.Controllers
         /// <returns></returns>
         public ActionResult du_TableDoUong(int ?page)
         {
-            int trangHienHanh = (page ??1);
             if (xulyChung.duocTruyCap(idOfPage))
             {
                 try
                 {
+                    int trangHienHanh = (page ?? 1);
                     string urlAction = (string)Session["urlAction"];
                     string request = urlAction.Split('|')[1]; //-------request có dạng: request=trangThai
                     request = request.Replace("request=", ""); //-------request có dạng trangThai
