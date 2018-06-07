@@ -73,13 +73,14 @@ namespace qlCaPhe.Controllers
         /// Hàm thực hiện tạo giao diện danh sách bàn được phép sử dụng trangThai=1
         /// </summary>
         /// <returns></returns>
-        public ActionResult b_TableBan()
+        public ActionResult b_TableBan(int ?page)
         {
+            int trangHienHanh = (page ?? 1);
             if (xulyChung.duocTruyCap(idOfPage))
             {
                 try
                 {
-                    this.createTableBan(1);
+                    this.createTableBan(1, trangHienHanh, "/Ban/b_TableBan");
                 }
                 catch (Exception ex)
                 {
@@ -92,13 +93,14 @@ namespace qlCaPhe.Controllers
         /// hàm lấy danh sách bàn đang sửa chữa trangThai=2
         /// </summary>
         /// <returns></returns>
-        public ActionResult b_TableBanSuaChua()
+        public ActionResult b_TableBanSuaChua(int ?page)
         {
+            int trangHienHanh = (page ?? 1);
             if (xulyChung.duocTruyCap(idOfPage))
             {
                 try
                 {
-                    this.createTableBan(2);
+                    this.createTableBan(2, trangHienHanh, "/Ban/b_TableBanSuaChua");
                 }
                 catch (Exception ex)
                 {
@@ -111,13 +113,14 @@ namespace qlCaPhe.Controllers
         /// Hàm lấy danh sách bàn bị hủy bỏ TrangThai=0
         /// </summary>
         /// <returns></returns>
-        public ActionResult b_TableBanHuyBo()
+        public ActionResult b_TableBanHuyBo(int? page)
         {
+            int trangHienHanh = (page ?? 1);
             if (xulyChung.duocTruyCap(idOfPage))
             {
                 try
                 {
-                    this.createTableBan(0);
+                    this.createTableBan(0, trangHienHanh, "/Ban/b_TableBanHuyBo");
                 }
                 catch (Exception ex)
                 {
@@ -129,12 +132,15 @@ namespace qlCaPhe.Controllers
         /// <summary>
         /// Hảm thực hiện tạo bảng bàn
         /// </summary>
-        /// <param name="trangThai"></param>
-        private void createTableBan(int trangThai)
+        /// <param name="trangThai">Trạng thái liệt kê danh mục bàn <para/> 1: Bàn được sử dụng, 2: Bàn đang sửa chữa, 0, bàn tạm ngưng</param>
+        private void createTableBan(int trangThai, int trangHienHanh, string url)
         {
             string htmlTable = "";
             qlCaPheEntities db = new qlCaPheEntities();
-            foreach (BanChoNgoi ban in db.BanChoNgois.ToList().Where(b => b.trangThai == trangThai).OrderBy(b=>b.tenBan))
+            int soPhanTu = db.sanPhams.Where(s => s.trangThai == trangThai).Count();
+            ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, trangHienHanh, url); //------cấu hình phân trang
+
+            foreach (BanChoNgoi ban in db.BanChoNgois.ToList().Where(b => b.trangThai == trangThai).OrderBy(b=>b.tenBan).Skip((trangHienHanh - 1) * createHTML.pageSize).Take(createHTML.pageSize))
             {
                 htmlTable += "<tr role=\"row\" class=\"odd\">";
                 htmlTable += "      <td>";
@@ -144,7 +150,6 @@ namespace qlCaPhe.Controllers
                 htmlTable += "          </a>";
                 htmlTable += "      </td>";
                 htmlTable += "      <td>" + xulyDuLieu.traVeKyTuGoc(ban.gioiThieu) + "</td>";
-                //---------Lấy tên khu vực
                 htmlTable += "      <td>" + xulyDuLieu.traVeKyTuGoc(ban.khuVuc.tenKhuVuc) + "</td>";
                 htmlTable += "      <td>" + ban.sucChua.ToString() + " người </td>";
                 htmlTable += "      <td>";

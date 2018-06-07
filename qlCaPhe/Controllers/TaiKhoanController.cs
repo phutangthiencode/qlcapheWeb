@@ -98,8 +98,9 @@ namespace qlCaPhe.Controllers
         /// Hàm tạo giao diện danh sách tài khoản theo trạng thái
         /// </summary>
         /// <returns></returns>
-        public ActionResult tk_TableTaiKhoan()
+        public ActionResult tk_TableTaiKhoan(int ?page)
         {
+            int trangHienHanh = (page ?? 1);
             if (xulyChung.duocTruyCap(idOfPage))
             {
                 string htmlTable = "";
@@ -111,7 +112,13 @@ namespace qlCaPhe.Controllers
                         urlAction = urlAction.Split('|')[1]; urlAction = urlAction.Replace("request=", "");
                         bool trangThai = urlAction.Equals("1") ? true : false; //-----Nếu request là 1 thì trạng thái true và ngược lại
                         this.thietLapThongSoChung(trangThai);
-                        foreach (taiKhoan tk in new qlCaPheEntities().taiKhoans.ToList().Where(t => t.trangThai == trangThai))
+
+                        qlCaPheEntities db = new qlCaPheEntities();
+                        int soPhanTu = db.taiKhoans.Where(t => t.trangThai == trangThai).Count();
+                        ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, trangHienHanh, "/TaiKhoan/tk_TableTaiKhoan");
+
+                        List<taiKhoan> listTaiKhoan = db.taiKhoans.Where(t => t.trangThai == trangThai).OrderBy(t => t.tenDangNhap).Skip((trangHienHanh - 1) * createHTML.pageSize).Take(createHTML.pageSize).ToList();
+                        foreach (taiKhoan tk in listTaiKhoan)
                             htmlTable += this.createRowTable(tk);
                     }
                     else throw new Exception("không có tham số ");

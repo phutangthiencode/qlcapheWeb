@@ -65,29 +65,22 @@ namespace qlCaPhe.Controllers
         /// Hàm thực hiện tạo giao diện danh sách thành viên
         /// </summary>
         /// <returns></returns>
-        public ActionResult tv_TableThanhVien()
+        public ActionResult tv_TableThanhVien(int ?page)
         {
+            int trangHienHanh = (page ?? 1);
             if (xulyChung.duocTruyCap(idOfPage))
             {
                 try
                 {
                     qlCaPheEntities db = new qlCaPheEntities();
-                    var thanhVienList = db.thanhViens.ToList();
+                    int soPhanTu = db.thanhViens.Count();
+                    ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, trangHienHanh, "/ThanhVien/tv_TableThanhVien"); //------cấu hình phân trang
+                    var thanhVienList = db.thanhViens.OrderBy(t=>t.tenTV).Skip((trangHienHanh - 1) * createHTML.pageSize).Take(createHTML.pageSize).ToList();
                     string htmlTable = "";
                     foreach (thanhVien tv in thanhVienList)
                     {
                         htmlTable += "<tr role=\"row\" class=\"odd\">";
-                        htmlTable += "<td>";
-                        //htmlTable += "      <div class=\"col-md-4\" style=\"height:50px;\">";
-                        //if (tv.hinhDD != null)
-                        //    htmlTable += "      <img width=\"50px\" height=\"50px;\" src=\"" + string.Format("data:image/png;base64,{0}", Convert.ToBase64String(tv.hinhDD)) + "\">&nbsp;&nbsp;&nbsp;";
-                        //else
-                        //    htmlTable += "      <img width=\"50px\" height=\"auto;\" src=\"/images/image-gallery/1.jpg\">&nbsp;&nbsp;&nbsp;";
-                        //htmlTable += "      </div>";
-                        htmlTable += "      <div class=\"col-md-8\">";
-                        htmlTable += "<b>" + tv.hoTV + " " + tv.tenTV + "</b>";
-                        htmlTable += "      </div>";
-                        htmlTable += "</td>";
+                        htmlTable += "<td><b>" + tv.hoTV + " " + tv.tenTV + "</b></td>";
                         htmlTable += "<td>" + (tv.gioiTinh == true ? "Nam" : "Nữ") + "</td>";
                         htmlTable += "<td>" + string.Format("{0:dd/MM/yyyy}", tv.ngaySinh) + "</td>";
                         htmlTable += "<td>" + tv.diaChi + "</td>";

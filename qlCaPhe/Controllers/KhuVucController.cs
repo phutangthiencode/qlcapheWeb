@@ -60,14 +60,18 @@ namespace qlCaPhe.Controllers
         /// Hàm tạo giao diện danh sách khu vực
         /// </summary>
         /// <returns></returns>
-        public ActionResult kv_TableKhuVuc()
+        public ActionResult kv_TableKhuVuc(int ?page)
         {
+            int trangHienHanh = (page ?? 1);
             if (xulyChung.duocTruyCap(idOfPage))
             {
                 try
                 {
                     string htmlTable = "";
-                    foreach (khuVuc kv in new qlCaPheEntities().khuVucs.ToList().OrderBy(k => k.tenKhuVuc))
+                    qlCaPheEntities db = new qlCaPheEntities();
+                    int soPhanTu = db.khuVucs.Count();
+                    ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, trangHienHanh, "/KhuVuc/kv_TableKhuVuc"); //------cấu hình phân trang
+                    foreach (khuVuc kv in db.khuVucs.ToList().OrderBy(k => k.tenKhuVuc).Skip((trangHienHanh - 1) * createHTML.pageSize).Take(createHTML.pageSize))
                     {
                         htmlTable += "<tr role=\"row\" class=\"odd\">";
                         htmlTable += "      <td>";

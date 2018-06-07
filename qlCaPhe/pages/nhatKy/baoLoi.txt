@@ -83,3 +83,53 @@ Vị trí: Class: HoaDonController - Function: hd_ThucHienThanhToan
  Lỗi: không nhận được tham số
 ---------------------------------------------------------------
 
+-----------------------6/8/2018 1:03:21 AM----------
+Vị trí: Class: HomeController - Function: Notifications 
+ Lỗi: The underlying provider failed on Open.
+---------------------------------------------------------------
+
+-----------------------6/8/2018 1:03:21 AM----------
+Vị trí: Class: HomeController - Function: Notifications 
+ Lỗi: The underlying provider failed on Open.
+---------------------------------------------------------------
+
+-----------------------6/8/2018 1:08:43 AM----------
+Vị trí: Class: HomeController - Function: Notifications 
+ Lỗi: The underlying provider failed on Open.
+---------------------------------------------------------------
+
+-----------------------6/8/2018 1:08:43 AM----------
+Vị trí: Class: HomeController - Function: Notifications 
+ Lỗi: The underlying provider failed on Open.
+---------------------------------------------------------------
+
+-----------------------6/8/2018 1:08:43 AM----------
+Vị trí: Class: HomeController - Function: Notifications 
+ Lỗi: The underlying provider failed on Open.
+---------------------------------------------------------------
+
+-----------------------6/8/2018 1:08:43 AM----------
+Vị trí: Class: HomeController - Function: Notifications 
+ Lỗi: The underlying provider failed on Open.
+---------------------------------------------------------------
+
+-----------------------6/8/2018 1:08:43 AM----------
+Vị trí: Class: HomeController - Function: Notifications 
+ Lỗi: The underlying provider failed on Open.
+---------------------------------------------------------------
+
+-----------------------6/8/2018 1:21:19 AM----------
+Vị trí: Class: ThanhVienController - Function: tv_TaoMoiThanhVien 
+ Lỗi: The method 'Skip' is only supported for sorted input in LINQ to Entities. The method 'OrderBy' must be called before the method 'Skip'.
+---------------------------------------------------------------
+
+-----------------------6/8/2018 1:21:39 AM----------
+Vị trí: Class: ThanhVienController - Function: tv_TaoMoiThanhVien 
+ Lỗi: The method 'Skip' is only supported for sorted input in LINQ to Entities. The method 'OrderBy' must be called before the method 'Skip'.
+---------------------------------------------------------------
+
+-----------------------6/8/2018 1:21:51 AM----------
+Vị trí: Class: ThanhVienController - Function: tv_TaoMoiThanhVien 
+ Lỗi: The method 'Skip' is only supported for sorted input in LINQ to Entities. The method 'OrderBy' must be called before the method 'Skip'.
+---------------------------------------------------------------
+

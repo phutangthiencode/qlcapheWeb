@@ -38,79 +38,83 @@
                         </div>
                     </div>
                     <div class="body">
-                        <div class="table-responsive">
-                            <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <table class="table table-bordered table-striped table-hover js-basic-example dataTable" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
-                                            <thead>
-                                                <tr>
-                                                    <th width="23%">Họ và tên</th>
-                                                    <th width="8%">Giới tính</th>
-                                                    <th width="10%">Ngày sinh</th>
-                                                    <th width="22%">Địa chỉ</th>
-                                                    <th width="10%">Số điện thoại</th>
-                                                    <th width="12%">Ngày tham gia</th>
-                                                    <th width="15%">Chức năng</th>
-                                                </tr>
-                                            </thead>
-                                            <tfoot>
+                        <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table class="table table-bordered table-striped table-hover js-basic-example dataTable" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                                        <thead>
+                                            <tr>
+                                                <th width="23%">Họ và tên</th>
+                                                <th width="8%">Giới tính</th>
+                                                <th width="10%">Ngày sinh</th>
+                                                <th width="22%">Địa chỉ</th>
+                                                <th width="10%">Số điện thoại</th>
+                                                <th width="12%">Ngày tham gia</th>
+                                                <th width="15%">Chức năng</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
 
-                                            </tfoot>
-                                            <tbody>
-                                                @Html.Raw(ViewBag.TableData) 
-                                                @*<tr role="row" class="odd">
-                                                    <td>
-                                                        <img width="50px" height="auto;" src="/images/image-gallery/1.jpg">
-                                                        Tăng Thiên Phú
-                                                    </td>
-                                                    <td>
-                                                        Nam
-                                                    </td>
-                                                    <td>02/11/1996</td>
-                                                    <td>107/6 Phan Văn Hân, P.17, Q.Bình Thạnh, TP.HCM</td>
-                                                    <td>0165848382</td>
-                                                    <td>
-                                                        <div class="btn-group">
-                                                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                                                Chức năng <span class="caret"></span>
-                                                            </button>
-                                                            <ul class="dropdown-menu" role="menu">
-                                                                <li><a href="#" class="col-blue"><i class="material-icons">mode_edit</i>Chỉnh sửa</a></li>
-                                                                <li><a href="#" class="col-red"><i class="material-icons">delete</i>Xoá bỏ</a></li>
-                                                            </ul>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr role="row" class="odd">
-                                                    <td>
-                                                        <img width="50px" height="auto;" src="/images/image-gallery/1.jpg">
-                                                        Tăng Thiên Phú
-                                                    </td>
-                                                    <td>
-                                                        Nam
-                                                    </td>
-                                                    <td>02/11/1996</td>
-                                                    <td>107/6 Phan Văn Hân, P.17, Q.Bình Thạnh, TP.HCM</td>
-                                                    <td>0165848382</td>
-                                                    <td>
-                                                        <div class="btn-group">
-                                                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                                                Chức năng <span class="caret"></span>
-                                                            </button>
-                                                            <ul class="dropdown-menu" role="menu">
-                                                                <li><a href="#" class="col-blue"><i class="material-icons">mode_edit</i>Chỉnh sửa</a></li>
-                                                                <li><a href="#" class="col-red"><i class="material-icons">delete</i>Xoá bỏ</a></li>
-                                                            </ul>
-                                                        </div>
-                                                    </td>
-                                                </tr>*@
+                                        </tfoot>
+                                        <tbody>
+                                            @Html.Raw(ViewBag.TableData)
+                                            @*<tr role="row" class="odd">
+                                <td>
+                                    <img width="50px" height="auto;" src="/images/image-gallery/1.jpg">
+                                    Tăng Thiên Phú
+                                </td>
+                                <td>
+                                    Nam
+                                </td>
+                                <td>02/11/1996</td>
+                                <td>107/6 Phan Văn Hân, P.17, Q.Bình Thạnh, TP.HCM</td>
+                                <td>0165848382</td>
+                                <td>
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                            Chức năng <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#" class="col-blue"><i class="material-icons">mode_edit</i>Chỉnh sửa</a></li>
+                                            <li><a href="#" class="col-red"><i class="material-icons">delete</i>Xoá bỏ</a></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr role="row" class="odd">
+                                <td>
+                                    <img width="50px" height="auto;" src="/images/image-gallery/1.jpg">
+                                    Tăng Thiên Phú
+                                </td>
+                                <td>
+                                    Nam
+                                </td>
+                                <td>02/11/1996</td>
+                                <td>107/6 Phan Văn Hân, P.17, Q.Bình Thạnh, TP.HCM</td>
+                                <td>0165848382</td>
+                                <td>
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                            Chức năng <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#" class="col-blue"><i class="material-icons">mode_edit</i>Chỉnh sửa</a></li>
+                                            <li><a href="#" class="col-red"><i class="material-icons">delete</i>Xoá bỏ</a></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>*@
 
-                                            </tbody>
-                                        </table>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-7 col-md-7 col-lg-7 col-xs-12 pull-right">
+                                    <div class="pull-right" id="DataTables_Table_0_paginate">
+                                        @Html.Raw(ViewBag.PhanTrang)
                                     </div>
                                 </div>
-                                <div class="row"><div class="col-sm-5"><div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div></div><div class="col-sm-7"><div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate"><ul class="pagination"><li class="paginate_button previous disabled" id="DataTables_Table_0_previous"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0">Previous</a></li><li class="paginate_button active"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0">1</a></li><li class="paginate_button "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="2" tabindex="0">2</a></li><li class="paginate_button "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="3" tabindex="0">3</a></li><li class="paginate_button "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="4" tabindex="0">4</a></li><li class="paginate_button "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="5" tabindex="0">5</a></li><li class="paginate_button "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="6" tabindex="0">6</a></li><li class="paginate_button next" id="DataTables_Table_0_next"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="7" tabindex="0">Next</a></li></ul></div></div></div>
                             </div>
                         </div>
                     </div>
