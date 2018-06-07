@@ -58,14 +58,18 @@ namespace qlCaPhe.Controllers
         /// Hàm thực hiện tạo giao diện danh mục loại đồ uống
         /// </summary>
         /// <returns></returns>
-        public ActionResult ldu_TableLoaiDoUong()
+        public ActionResult ldu_TableLoaiDoUong(int ?page)
         {
+            int trangHienHanh = (page ?? 1);
             if (xulyChung.duocTruyCap(idOfPage))
             {
                 string htmlTable = "";
                 try
                 {
-                    foreach (loaiSanPham loai in new qlCaPheEntities().loaiSanPhams.ToList())
+                    qlCaPheEntities db = new qlCaPheEntities();
+                    int soPhanTu = db.loaiSanPhams.Count();
+                    ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, trangHienHanh, "/LoaiDoUong/ldu_TableLoaiDoUong"); //------cấu hình phân trang
+                    foreach (loaiSanPham loai in db.loaiSanPhams.OrderBy(c => c.tenLoai).Skip((trangHienHanh - 1) * createHTML.pageSize).Take(createHTML.pageSize).ToList())
                     {
                         htmlTable += "<tr role=\"row\" class=\"odd\">";
                         htmlTable += "      <td>" + xulyDuLieu.traVeKyTuGoc(loai.tenLoai) + "</td>";
