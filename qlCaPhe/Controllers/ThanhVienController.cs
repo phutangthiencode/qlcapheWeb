@@ -65,7 +65,7 @@ namespace qlCaPhe.Controllers
         /// Hàm thực hiện tạo giao diện danh sách thành viên
         /// </summary>
         /// <returns></returns>
-        public ActionResult tv_TableThanhVien(int ?page)
+        public ActionResult tv_TableThanhVien(int? page)
         {
             int trangHienHanh = (page ?? 1);
             if (xulyChung.duocTruyCap(idOfPage))
@@ -75,12 +75,17 @@ namespace qlCaPhe.Controllers
                     qlCaPheEntities db = new qlCaPheEntities();
                     int soPhanTu = db.thanhViens.Count();
                     ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, trangHienHanh, "/ThanhVien/tv_TableThanhVien"); //------cấu hình phân trang
-                    var thanhVienList = db.thanhViens.OrderBy(t=>t.tenTV).Skip((trangHienHanh - 1) * createHTML.pageSize).Take(createHTML.pageSize).ToList();
+                    var thanhVienList = db.thanhViens.OrderBy(t => t.tenTV).Skip((trangHienHanh - 1) * createHTML.pageSize).Take(createHTML.pageSize).ToList();
                     string htmlTable = "";
                     foreach (thanhVien tv in thanhVienList)
                     {
                         htmlTable += "<tr role=\"row\" class=\"odd\">";
-                        htmlTable += "<td><b>" + tv.hoTV + " " + tv.tenTV + "</b></td>";
+                        htmlTable += "<td>";
+                        htmlTable += "  <a data-toggle=\"modal\" maTV=\"" + tv.maTV.ToString() + "\" class=\"goiY\">";
+                        htmlTable += "          <b>" + tv.hoTV + " " + tv.tenTV + "</b>";
+                        htmlTable += "      <span class=\"noiDungGoiY-right\">Click để xem hình</span>";
+                        htmlTable += "  </a>";
+                        htmlTable += "</td>";
                         htmlTable += "<td>" + (tv.gioiTinh == true ? "Nam" : "Nữ") + "</td>";
                         htmlTable += "<td>" + string.Format("{0:dd/MM/yyyy}", tv.ngaySinh) + "</td>";
                         htmlTable += "<td>" + tv.diaChi + "</td>";
@@ -102,6 +107,10 @@ namespace qlCaPhe.Controllers
                     ViewBag.TableData = htmlTable;
                     ViewBag.ScriptAjax = createScriptAjax.scriptAjaxXoaDoiTuong("ThanhVien/xoaThanhVien?maTV=");
                     ViewBag.ModalXoa = createHTML.taoCanhBaoXoa("Thành viên");
+                    //----Nhúng script ajax hiển thị hình khi người dùng click vào tên sản phẩm
+                    ViewBag.ScriptAjaxXemChiTiet = createScriptAjax.scriptAjaxXemChiTietKhiClick("goiY", "maTV", "ThanhVien/AjaxXemThanhVienModal?maTV=", "vungChiTiet", "modalChiTiet");
+                    //----Nhúng các tag html cho modal chi tiết
+                    ViewBag.ModalChiTiet = createHTML.taoModalChiTiet("modalChiTiet", "vungChiTiet", 3);
                 }
                 catch (Exception ex)
                 {
@@ -110,6 +119,65 @@ namespace qlCaPhe.Controllers
                 }
             }
             return View();
+        }
+
+        /// <summary>
+        /// Hàm xử lý khi người dùng click vào tên 1 thành viên trong danh sách sẽ hiển thị thông tin thành viên lên modal
+        /// </summary>
+        /// <param name="maTV">Mã thành viên cần xem chi tiết</param>
+        /// <returns>Chuỗi html tạo nên dữ liệu có trên modal</returns>
+        public string AjaxXemThanhVienModal(int maTV)
+        {
+            string kq = "";
+            if (xulyChung.duocTruyCap(idOfPage))
+            {
+                try
+                {
+                    thanhVien tv = new qlCaPheEntities().thanhViens.SingleOrDefault(s => s.maTV == maTV);
+                    if (tv != null)
+                    {
+                        string hoVaTen = xulyDuLieu.traVeKyTuGoc(tv.hoTV) + " " + xulyDuLieu.traVeKyTuGoc(tv.tenTV);
+                        kq += "<div class=\"modal-header\">";
+                        kq += "      <button type=\"button\" class=\"close\" data-dismiss=\"modal\">×</button>";
+                        kq += "      <h3 class=\"modal-title\">Thông tin thành viên \"" + hoVaTen + "\"</h3>";
+                        kq += "</div>";
+                        kq += "<div class=\"modal-body\">";
+                        kq += "     <div class=\"row\">";
+                        kq += "         <div class=\"col-md-7 col-lg-7 col-sm-7 col-xs-12\">";
+                        kq += "              <ul class=\"profile-thanhvien\">";
+                        kq += "                  <li><strong>Họ và tên: </strong>"+hoVaTen+"</li>";
+                        kq += "                  <li><strong>Giới tính:&nbsp;</strong>"+(tv.gioiTinh==true? "Nam" : "Nữ")+"</li>";
+                        kq += "                  <li><strong>Ngày sinh:&nbsp;</strong>"+tv.ngaySinh+"</li>";
+                        kq += "                  <li><strong>Nơi sinh:&nbsp;</strong>"+xulyDuLieu.traVeKyTuGoc(tv.noiSinh)+"</li>";
+                        kq += "                  <li><strong>Địa chỉ:&nbsp;</strong>"+xulyDuLieu.traVeKyTuGoc(tv.diaChi)+"</li>";
+                        kq += "                  <li><strong>Số điện thoại:&nbsp;</strong>"+xulyDuLieu.traVeKyTuGoc(tv.soDT)+" </li>";
+                        kq += "                  <li><strong>Email:&nbsp;</strong>"+xulyDuLieu.traVeKyTuGoc(tv.Email)+" </li>";
+                        kq += "                  <li><strong>Facebook:&nbsp;</strong>"+xulyDuLieu.traVeKyTuGoc(tv.Facebook)+"</li>";
+                        kq += "                  <li><strong>Số CMND:&nbsp;</strong>"+xulyDuLieu.traVeKyTuGoc(tv.soCMND)+"</li>";
+                        kq += "                  <li><strong>Ngày cấp:&nbsp;</strong>"+tv.ngayCap+"</li>";
+                        kq += "                  <li><strong>Nơi cấp:&nbsp;</strong>"+xulyDuLieu.traVeKyTuGoc(tv.noiCap)+"</li>";
+                        kq += "                  <li><strong>Ngày tham gia:&nbsp;</strong>"+tv.ngayThamGia+"</li>";
+                        kq += "                  <li><strong>Ghi chú:&nbsp;</strong>"+xulyDuLieu.traVeKyTuGoc(tv.ghiChu)+"</li>";
+                        kq += "              </ul>";
+                        kq += "        </div>";
+                        kq += "        <div class=\"col-md-5 col-lg-5 col-sm-5 col-xs-12\">";
+                        kq += "              <img src=\""+xulyDuLieu.chuyenByteHinhThanhSrcImage(tv.hinhDD)+"\" style=\"width:100%; height:auto;\" />";
+                        kq += "        </div>";
+                        kq += "</div>";
+                        kq += "<div class=\"modal-footer\">";
+                        kq += "     <div class=\"col-md-8 pull-right\" >";
+                        kq += "           <a task=\"" + xulyChung.taoUrlCoTruyenThamSo("/ThanhVien/tv_ChinhSuaThanhVien", tv.maTV.ToString()) + "\" class=\"guiRequest btn btn-warning waves-effect\"><i class=\"material-icons\">mode_edit</i>Chỉnh sửa</a>";
+                        kq += "         <a class=\"btn btn-default waves-effect\" data-dismiss=\"modal\"><i class=\"material-icons\">close</i>Đóng lại</a>";
+                        kq += "     </div>";
+                        kq += "</div>";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    xulyFile.ghiLoi("Class: ThanhVienController - Function: AjaxXemThanhVienModal", ex.Message);
+                }
+            }
+            return kq;
         }
         #endregion
         #region UPDATE
@@ -310,7 +378,7 @@ namespace qlCaPhe.Controllers
                 {
                     var thanhVien = new qlCaPheEntities().thanhViens.First(n => n.maTV == maTV);
                     if (thanhVien != null)
-                        html=xulyChung.DrawInforThanhVien(thanhVien);
+                        html = xulyChung.DrawInforThanhVien(thanhVien);
                 }
             }
             catch (Exception ex)
@@ -330,7 +398,7 @@ namespace qlCaPhe.Controllers
             try
             {
                 string tenDangNhap = xulyDuLieu.xulyKyTuHTML(param);
-                if(!param.Equals(""))
+                if (!param.Equals(""))
                 {
                     taiKhoan tk = new qlCaPheEntities().taiKhoans.SingleOrDefault(t => t.tenDangNhap.Equals(tenDangNhap));
                     if (tk != null)
@@ -351,7 +419,7 @@ namespace qlCaPhe.Controllers
         {
             ViewBag.rdbNam = "checked";
             ViewBag.hinhDD = "/images/gallery-upload-256.png";
-            pathTempHinhCu =null;
+            pathTempHinhCu = null;
         }
         #endregion
     }

@@ -10,7 +10,7 @@ namespace qlCaPhe.App_Start
     /// </summary>
     public class createHTML
     {
-        public static int pageSize = 5; //-----Thiết lập số lượng phần tử có trên trang
+        public static int pageSize = 10; //-----Thiết lập số lượng phần tử có trên trang
         /// <summary>
         /// hàm thực hiện tạo nội dung thông báo 
         /// </summary>

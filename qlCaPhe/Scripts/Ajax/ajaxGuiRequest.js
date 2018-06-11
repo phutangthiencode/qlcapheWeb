@@ -5,7 +5,7 @@
 });
 
 function vaoTrangCoTruyenThamSoMaHoa(e) {
-    $('.guiRequest').click(function (e) {
+    $("body").on("click", ".guiRequest", function (event) {
         var ts = $(this).attr('task');
         $.ajax({
             url: getDuongDan() + 'Ajax/xulyRequestVaGuiRequest',
