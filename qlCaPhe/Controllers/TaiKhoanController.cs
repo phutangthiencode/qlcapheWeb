@@ -168,7 +168,6 @@ namespace qlCaPhe.Controllers
         /// <summary>
         /// Hàm thực hiện cập nhật lại trạng thái truy cập của 1 tài khoản
         /// </summary>
-        /// <param name="tenTK"></param>
         public ActionResult capNhatTrangThai()
         {
             if (xulyChung.duocCapNhat(idOfPage,"7"))

@@ -133,3 +133,23 @@ Vị trí: Class: ThanhVienController - Function: tv_TaoMoiThanhVien
  Lỗi: The method 'Skip' is only supported for sorted input in LINQ to Entities. The method 'OrderBy' must be called before the method 'Skip'.
 ---------------------------------------------------------------
 
+-----------------------6/11/2018 11:04:15 PM----------
+Vị trí: Class: bProfile - Function: kiemTraDangNhap 
+ Lỗi: The underlying provider failed on Open.
+---------------------------------------------------------------
+
+-----------------------6/11/2018 11:04:45 PM----------
+Vị trí: Class: bProfile - Function: kiemTraDangNhap 
+ Lỗi: The underlying provider failed on Open.
+---------------------------------------------------------------
+
+-----------------------6/12/2018 12:10:14 AM----------
+Vị trí: Class DanhGiaController - Function: mtdg_TableMucTieuDanhGia 
+ Lỗi: Index was outside the bounds of the array.
+---------------------------------------------------------------
+
+-----------------------6/12/2018 12:37:18 AM----------
+Vị trí: Class: DanhGiaController - Function: mtdg_ChinhSuaMucTieuDanhGia_Post 
+ Lỗi: Vui lòng nhập thông tin diễn giải cho mục tiêu <br/>
+---------------------------------------------------------------
+

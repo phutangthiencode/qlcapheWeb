@@ -145,6 +145,20 @@ namespace qlCaPhe.App_Start
             html += "<p class=\"font-bold col-orange \">Chức vụ: " + xulyDuLieu.traVeKyTuGoc(tk.nhomTaiKhoan.tenNhom) + "</p>";
             return html;
         }
+        /// <summary>
+        /// Hàm thực hiện thêm tham số vào session urlAction
+        /// </summary>
+        /// <param name="page">Trang cần chuyển</param>
+        /// <param name="request">Tham số truyền vào trang</param>
+        public static void addSessionUrlAction(string page, string request)
+        {
+            string param = "page=" + page + "|request=" + request;
+            //------Thiết lập lại session
+            HttpContext.Current.Session.Remove("urlAction");
+            HttpContext.Current.Session.Add("urlAction", "");
+            //ssion.Remove("urlAction"); Session.Add("urlAction", "");
+            HttpContext.Current.Session["urlAction"] = param;
+        }
     }
   
     

@@ -4079,7 +4079,6 @@
     <Content Include="Views\NhaCungCap\ncc_TableNhaCungCapNgung.cshtml" />
     <Content Include="Views\NhaCungCap\ncc_ChinhSuaNhaCungCap.cshtml" />
     <Content Include="Views\CaLamViec\ca_ChinhSuaCaLamViec.cshtml" />
-    <Content Include="Views\DanhGia\mtdg_TableMucTieuDanhGiaHuy.cshtml" />
     <Content Include="Views\DanhGia\mtdg_ChinhSuaMucTieuDanhGia.cshtml" />
     <Content Include="Views\BaiViet\bv_TableBaiVietChoDuyet.cshtml" />
     <Content Include="Views\BaiViet\bv_TableBaiVietBiGoBo.cshtml" />

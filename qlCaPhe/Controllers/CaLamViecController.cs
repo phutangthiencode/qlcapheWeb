@@ -105,7 +105,6 @@ namespace qlCaPhe.Controllers
         /// <summary>
         /// Hàm tạo giao diện chỉnh sửa ca làm việc
         /// </summary>
-        /// <param name="maCa"></param>
         /// <returns></returns>
         public ActionResult ca_ChinhSuaCaLamViec()
         {
@@ -172,23 +171,24 @@ namespace qlCaPhe.Controllers
         /// <param name="maCa"></param>
         public void xoaCaLamViec(int maCa)
         {
-            try
-            {
-                qlCaPheEntities db = new qlCaPheEntities();
-                caLamViec caXoa = db.caLamViecs.SingleOrDefault(c => c.maCa == maCa);
-                if (caXoa != null)
+            if (xulyChung.duocCapNhat(idOfPage, "7"))
+                try
                 {
-                    db.caLamViecs.Remove(caXoa);
-                    db.SaveChanges();
+                    qlCaPheEntities db = new qlCaPheEntities();
+                    caLamViec caXoa = db.caLamViecs.SingleOrDefault(c => c.maCa == maCa);
+                    if (caXoa != null)
+                    {
+                        db.caLamViecs.Remove(caXoa);
+                        db.SaveChanges();
+                    }
+                    else
+                        throw new Exception("Ca làm việc có mã " + maCa.ToString() + " không tồn tại để xóa");
                 }
-                else
-                    throw new Exception("Ca làm việc có mã " + maCa.ToString() + " không tồn tại để xóa");
-            }
-            catch (Exception ex)
-            {
-                xulyFile.ghiLoi("Class CaLamViecController - Function:xoaCaLamViec", ex.Message);
-                Response.Redirect(xulyChung.layTenMien() + "/Home/ServerError");
-            }
+                catch (Exception ex)
+                {
+                    xulyFile.ghiLoi("Class CaLamViecController - Function:xoaCaLamViec", ex.Message);
+                    Response.Redirect(xulyChung.layTenMien() + "/Home/ServerError");
+                }
         }
         #endregion
         #region ORTHERS

@@ -42,7 +42,7 @@ namespace qlCaPhe.Controllers
         [HttpPost]
         public ActionResult du_TaoMoiDoUong(sanPham sp, FormCollection f)
         {
-            if (xulyChung.duocCapNhat(idOfPage,"7"))
+            if (xulyChung.duocCapNhat(idOfPage, "7"))
             {
                 string ndThongBao = "";
                 qlCaPheEntities db = new qlCaPheEntities();
@@ -111,7 +111,7 @@ namespace qlCaPhe.Controllers
         /// </summary>
         /// <param name="page">Số trang hiện hành</param>
         /// <returns></returns>
-        public ActionResult du_TableDoUong(int ?page)
+        public ActionResult du_TableDoUong(int? page)
         {
             if (xulyChung.duocTruyCap(idOfPage))
             {
@@ -188,13 +188,13 @@ namespace qlCaPhe.Controllers
             htmlTable += "              </button>";
             htmlTable += "              <ul class=\"dropdown-menu\" role=\"menu\">";
             htmlTable += "                  <li><a task=\"" + xulyChung.taoUrlCoTruyenThamSo("/DoUong/du_ChinhSuaDoUong", sp.maSanPham.ToString()) + "\" class=\"guiRequest col-blue\"><i class=\"material-icons\">mode_edit</i>Chỉnh sửa</a></li>";
-            if(sp.congThucPhaChes.Count()>0)
+            if (sp.congThucPhaChes.Count() > 0)
             {
                 congThucPhaChe ctSanPham = sp.congThucPhaChes.SingleOrDefault(c => c.trangThai == true);
-                if(ctSanPham!=null)
+                if (ctSanPham != null)
                     htmlTable += "                  <li><a maCongThuc=\"" + ctSanPham.maCongThuc.ToString() + "\" class=\"goiYCongThuc col-blue\"><i class=\"material-icons\">search</i>Xem công thức</a></li>";
             }
-                
+
             switch (sp.trangThai) //-----Dựa vào trạng thái để hiện chức năng phù hợp
             {
                 case 0: //---Cho sản phẩm đang chờ duyệt. Cập nhật trạng thái thành 1
@@ -410,23 +410,24 @@ namespace qlCaPhe.Controllers
         /// <param name="maDoUong"></param>
         public void xoaDoUong(int maDoUong)
         {
-            try
-            {
-                qlCaPheEntities db = new qlCaPheEntities();
-                sanPham spXoa = db.sanPhams.SingleOrDefault(s => s.maSanPham == maDoUong);
-                if (spXoa != null)
+            if (xulyChung.duocCapNhat(idOfPage, "7"))
+                try
                 {
-                    db.sanPhams.Remove(spXoa);
-                    db.SaveChanges();
+                    qlCaPheEntities db = new qlCaPheEntities();
+                    sanPham spXoa = db.sanPhams.SingleOrDefault(s => s.maSanPham == maDoUong);
+                    if (spXoa != null)
+                    {
+                        db.sanPhams.Remove(spXoa);
+                        db.SaveChanges();
+                    }
+                    else
+                        throw new Exception("Sản phẩm có mã " + maDoUong + " không tồn tại để xóa");
                 }
-                else
-                    throw new Exception("Sản phẩm có mã " + maDoUong + " không tồn tại để xóa");
-            }
-            catch (Exception ex)
-            {
-                xulyFile.ghiLoi("Class: DoUongController - Function: xoaDoUong", ex.Message);
-                RedirectToAction("ServerError", "Home");
-            }
+                catch (Exception ex)
+                {
+                    xulyFile.ghiLoi("Class: DoUongController - Function: xoaDoUong", ex.Message);
+                    RedirectToAction("ServerError", "Home");
+                }
         }
         #endregion
         #region ORTHERS
@@ -546,7 +547,7 @@ namespace qlCaPhe.Controllers
             //---Script hiện modal công thức pha chế của sản phẩm
             ViewBag.ScriptAjaxXemCongThuc = createScriptAjax.scriptAjaxXemChiTietKhiClick("goiYCongThuc", "maCongThuc", "CongThuc/AjaxXemChiTietCongThuc?maCongThuc=", "vungCongThuc", "modalCongThuc");
             //-----Tạo modal dạng lớn để chứa chi tiết các bước thực hiện của công thức
-            ViewBag.ModalCongThuc= createHTML.taoModalChiTiet("modalCongThuc", "vungCongThuc", 3);
+            ViewBag.ModalCongThuc = createHTML.taoModalChiTiet("modalCongThuc", "vungCongThuc", 3);
         }
 
         /// <summary>
@@ -587,7 +588,7 @@ namespace qlCaPhe.Controllers
             kq += "     <b>Đồ uống " + " &quot;<b>" + xulyDuLieu.traVeKyTuGoc(sp.tenSanPham) + "</b>&quot; đã lưu thành công. </b>";
             kq += "<ul>";
             kq += "   <li> &quot;<a class=\"col-red font-bold\" href=\"/DoUong/RouteDoUongChoDuyet\">Click vào đây </a>&quot; để chuyển đến trang danh sách sản phẩm</li>";
-            kq += "   <li>&quot;<a class=\"col-blue font-bold guiRequest\" task=\""+xulyChung.taoUrlCoTruyenThamSo("/CongThuc/ct_TaoMoiCongThuc", sp.maSanPham.ToString())+"\" >Click vào đây </a>&quot; để chức năng cập nhật công thức pha chế cho sản phẩm ";
+            kq += "   <li>&quot;<a class=\"col-blue font-bold guiRequest\" task=\"" + xulyChung.taoUrlCoTruyenThamSo("/CongThuc/ct_TaoMoiCongThuc", sp.maSanPham.ToString()) + "\" >Click vào đây </a>&quot; để chức năng cập nhật công thức pha chế cho sản phẩm ";
             kq += "</ul>";
             return kq;
         }

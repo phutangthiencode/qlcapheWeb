@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "mtdg_ChinhSuaMucTieuDanhGia";
+    ViewBag.Title = "Chỉnh sửa mục tiêu";
     Layout = "~/Views/Shared/_LayoutTools.cshtml";
 }
 
@@ -14,10 +14,28 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="header">
-                        <h2>
-                            CHỈNH SỬA NỘI DUNG MỤC TIÊU ĐÁNH GIÁ NĂNG LỰC NHÂN VIÊN
-                        </h2>
+                        <div class="row">
+                            <div class="col-md-5 col-lg-5 col-xs-12 col-sm-5">
+                                <i class="material-icons">subject</i>
+                                <span class="font-20">CHỈNH SỬA MỤC TIÊU ĐÁNH GIÁ</span>
+                            </div>
+                            <div class="col-md-7 col-lg-7 col-sm-7 col-xs-12">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" style="float:right">
+                                    <li class="">
+                                        <a href="/DanhGia/mtdg_TaoMoiMucTieuDanhGia">
+                                            <i class="material-icons">add</i> TẠO MỚI MỤC TIÊU ĐÁNH GIÁ
+                                        </a>
+                                    </li>
+                                    <li class="">
+                                        <a href="/DanhGia/RouteTableMucTieuDanhGia">
+                                            <i class="material-icons">list</i> DANH MỤC MỤC TIÊU ĐÁNH GIÁ
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
 
+                        </div>
                     </div>
                     <div class="body">
                         @using (Html.BeginForm())
@@ -57,7 +75,7 @@
                                             <br>
                                             <button type="submit" class="btn btn-primary m-t-15 waves-effect">Lưu lại</button>
                                             <a href="/DanhGia/mtdg_TaoMoiMucTieuDanhGia" class="btn btn-default m-t-15 waves-effect">Reset</a>
-                                            <button type="button" class="btn btn-default m-t-15 waves-effect">Trở lại</button>
+                                            <a href="/DanhGia/RouteTableMucTieuDanhGia" class="btn btn-default m-t-15 waves-effect">Trở lại</a>
                                         </div>
                                     </div>
                         }
