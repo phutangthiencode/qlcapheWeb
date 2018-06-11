@@ -1,14 +1,7 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Đánh giá nhân viên";
     Layout = "~/Views/Shared/_LayoutTools.cshtml";
 }
-<style type="text/css">
-    .media {
-        cursor: pointer;
-    }
-</style>
-
 <section class="content">
     <div class="container-fluid">
         <div class="block-header">
@@ -19,9 +12,28 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="header">
-                        <h2>
-                            ĐÁNH GIÁ NĂNG LỰC NHÂN VIÊN
-                        </h2>
+                        <div class="row">
+                            <div class="col-md-5 col-lg-5 col-xs-12 col-sm-5">
+                                <i class="material-icons">subject</i>
+                                <span class="font-20">ĐÁNH GIÁ NHÂN VIÊN</span>
+                            </div>
+                            <div class="col-md-7 col-lg-7 col-sm-7 col-xs-12">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" style="float:right">
+                                    <li class="active">
+                                        <a href="/DanhGia/dg_TaoMoiDanhGia">
+                                            <i class="material-icons">add</i> ĐÁNH GIÁ
+                                        </a>
+                                    </li>
+                                    <li class="">
+                                        <a href="/DanhGia/dg_TableDanhGiaNhanVien">
+                                            <i class="material-icons">list</i> DANH MỤC ĐÁNH GIÁ
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
                     </div>
                     <div class="body">
                         <div class="card">
@@ -46,7 +58,7 @@
                                             <label for="txtTaiKhoanDanhGia">Người đánh giá</label>
                                             <div class="form-group">
                                                 <div class="form-line">
-                                                    <input type="text" id="txtTaiKhoanDanhGia" disabled class="form-control" 
+                                                    <input type="text" id="txtTaiKhoanDanhGia" disabled class="form-control"
                                                            value="ttphu">
                                                 </div>
                                             </div>
@@ -95,14 +107,14 @@
                                         <tbody>
                                             <tr>
                                                 <td>
-                                                   Mục tiêu 1........
-                                               </td>
+                                                    Mục tiêu 1........
+                                                </td>
                                                 <td>
                                                     <input type="text" id="txtDiemSo" class="form-control" placeholder="Nhập Điểm số đánh giá...">
                                                 </td>
                                                 <td>
                                                     <input type="text" id="txtDienGiai" class="form-control"
-                                                            placeholder="Nhập diễn giải điểm số đã cho....">
+                                                           placeholder="Nhập diễn giải điểm số đã cho....">
                                                 </td>
                                                 <td>
                                                     <button type="button" class="btn btn-primary m-t-15 waves-effect">Đánh giá</button>
@@ -177,10 +189,10 @@
                                                         Mục tiêu 1........
                                                     </td>
                                                     <td>
-                                                       8
+                                                        8
                                                     </td>
                                                     <td>
-                                                        Nhân viên tốt 
+                                                        Nhân viên tốt
                                                     </td>
                                                     <td>
                                                         <button type="button" class="btn btn-danger m-t-15 waves-effect">Đánh giá lại</button>
@@ -338,38 +350,20 @@
             </div>
         </div>
     </div>  <!-- Large Size -->
+
+    <script type="text/javascript">
+
+        //Code xử lý sự kiện click vào nút next tại cart thông tin công thức thực hiện chuyển xuống card chi tiết công thức
+        $("#btnNext").click(function () {
+            $('html,body').animate({
+                scrollTop: $(".buoc").offset().top
+            },
+                'slow');
+        });
+
+    </script>
 </section>
 
-
-
-<script type="text/javascript">
-    //Code xử lý sự kiện hiện hình ảnh đố uống sau khi đã chọn tren dropdownlist
-    $(document).ready(function () {
-        $('#cbbNhanVien').change(function () {
-            var valURL = getDuongDan() + $('#cbbNhanVien').val();
-            $('#hinhNhanVien').attr('src', valURL);
-        });
-    });
-    //Hàm lấy đường dẫn locolhost: http://localhost:54272
-    function getDuongDan() {
-        var kq = window.location.protocol + '//' + window.location.host;
-        return kq + '/';
-    }
-
-    //Code xử lý sự kiện click vào nút next tại cart thông tin công thức thực hiện chuyển xuống card chi tiết công thức
-    $("#btnNext").click(function () {
-        $('html,body').animate({
-            scrollTop: $(".buoc").offset().top
-        },
-            'slow');
-    });
-
-    //Code xử lý sự kiện click vào chọn 1 nguyên liệu trên model thì hiện hình nguyên liệu lên hinhNguyenLieu
-    $('.media').click(function () {
-        var valURL = $(this).attr('urlimg');
-        $('#hinhNguyenLieu').attr('src', valURL);
-    });
-</script>
 
 
 

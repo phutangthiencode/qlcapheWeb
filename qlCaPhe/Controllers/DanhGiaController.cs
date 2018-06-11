@@ -10,7 +10,9 @@ namespace qlCaPhe.Controllers
 {
     public class DanhGiaController : Controller
     {
-        private static string idOfPageMucTieu = "904";
+        private static string idOfPageMucTieu = "903";
+        private static string idOfPageDanhGia= "904";
+
         #region NHÓM HÀM CHO BẢNG MỤC TIÊU ĐÁNH GIÁ
         #region CREATE
         /// <summary>
@@ -340,14 +342,26 @@ namespace qlCaPhe.Controllers
         #endregion
         #endregion
         #region Nhóm hàm cho bảng đánh giá nhân viên
-        public ActionResult DanhGiaNhanVien()
+        /// <summary>
+        /// Hàm tạo giao diện đánh giá nhân viên
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult dg_TaoMoiDanhGia()
         {
-            return View();
+            if(xulyChung.duocTruyCap(idOfPageDanhGia))
+                return View();
+            return null;
         }
 
-        public ActionResult DanhMucDanhGia()
+        /// <summary>
+        /// Hàm tạo giao diện danh mục các đánh giá nhân viên
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult dg_TableDanhGiaNhanVien()
         {
-            return View();
+            if (xulyChung.duocTruyCap(idOfPageDanhGia))
+                return View();
+            return null;
         }
         #endregion
     }

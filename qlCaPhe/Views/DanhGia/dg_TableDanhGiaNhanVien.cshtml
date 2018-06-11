@@ -1,0 +1,209 @@
+﻿@{
+    ViewBag.Title = "Danh mục đánh giá nhân viên";
+    Layout = "~/Views/Shared/_LayoutTools.cshtml";
+}
+
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <h2>Điều phối - Đánh giá > Đánh giá nhân viên > Danh mục đánh giá nhân viên</h2>
+        </div>
+        <!-- Vertical Layout -->
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                        <div class="row">
+                            <div class="col-md-5 col-lg-5 col-xs-12 col-sm-5">
+                                <i class="material-icons">subject</i>
+                                <span class="font-20">DANH MỤC ĐÁNH GIÁ NHÂN VIÊN</span>
+                            </div>
+                            <div class="col-md-7 col-lg-7 col-sm-7 col-xs-12">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" style="float:right">
+                                    <li class="">
+                                        <a href="/DanhGia/dg_TaoMoiDanhGia">
+                                            <i class="material-icons">add</i> ĐÁNH GIÁ
+                                        </a>
+                                    </li>
+                                    <li class="active">
+                                        <a href="/DanhGia/dg_TableDanhGiaNhanVien">
+                                            <i class="material-icons">list</i> DANH MỤC ĐÁNH GIÁ
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="body">
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped table-hover js-basic-example dataTable" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                                <thead>
+                                    <tr>
+                                        <th rowspan="1" colspan="1">Nhân viên</th>
+                                        <th rowspan="1" colspan="1">Ngày đánh giá</th>
+                                        <th rowspan="1" colspan="1">Tổng Điểm số</th>
+                                        <th rowspan="1" colspan="1">Người đánh giá</th>
+                                        <th rowspan="1" colspan="1">Chức năng</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+
+                                </tfoot>
+                                <tbody>
+                                    <tr role="row" class="odd">
+                                        <td>
+                                            Nguyễn Minh Vy
+                                        </td>
+                                        <td>22/11/2017 12:05:45</td>
+                                        <td>80</td>
+                                        <td>ttphu</td>
+                                        <td>
+                                            <button type="button" class="btn btn-info m-t-15 waves-effect"
+                                                    data-toggle="modal" data-target="#modalChiTiet">
+                                                Xem chi tiết
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr role="row" class="odd">
+                                        <td>
+                                            Nguyễn Minh Vy
+                                        </td>
+                                        <td>22/11/2017 12:05:45</td>
+                                        <td>80</td>
+                                        <td>ttphu</td>
+                                        <td>
+                                            <button type="button" class="btn btn-info m-t-15 waves-effect"
+                                                    data-toggle="modal" data-target="#modalChiTiet">
+                                                Xem chi tiết
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr role="row" class="odd">
+                                        <td>
+                                            Nguyễn Minh Vy
+                                        </td>
+                                        <td>22/11/2017 12:05:45</td>
+                                        <td>80</td>
+                                        <td>ttphu</td>
+                                        <td>
+                                            <button type="button" class="btn btn-info m-t-15 waves-effect"
+                                                    data-toggle="modal" data-target="#modalChiTiet">
+                                                Xem chi tiết
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr role="row" class="odd">
+                                        <td>
+                                            Nguyễn Minh Vy
+                                        </td>
+                                        <td>22/11/2017 12:05:45</td>
+                                        <td>80</td>
+                                        <td>ttphu</td>
+                                        <td>
+                                            <button type="button" class="btn btn-info m-t-15 waves-effect"
+                                                    data-toggle="modal" data-target="#modalChiTiet">
+                                                Xem chi tiết
+                                            </button>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12 pull-right">
+                                <div class="pull-right">
+                                    @Html.Raw(ViewBag.PhanTrang)
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #END# Vertical Layout -->
+    </div>
+
+    <!-- Modal cho danh sách chi tiết hoá đơn-->
+    <div class="modal fade" id="modalChiTiet" tabindex="-2" role="dialog" style="display: none;">
+        <div class="modal-dialog modal-lg" style="width:90%" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="largeModalLabel">CHI TIẾT ĐÁNH GIÁ CHO NHÂN VIÊN NGUYỄN MINH VY</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12 col-lg-12">
+                            <div class="card">
+                                <div class="header bg-cyan">
+                                    <h2>
+                                        Danh mục mục tiêu đã đánh giá
+                                    </h2>
+                                </div>
+                                <div class="body table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th width="40%">Mục tiêu</th>
+                                                <th width="15%">Điểm số</th>
+                                                <th width="35%">Diễn giải điểm số</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    Mục tiêu 1........
+                                                </td>
+                                                <td>
+                                                    8
+                                                </td>
+                                                <td>
+                                                    Nhân viên tốt
+                                                </td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Mục tiêu 1........
+                                                </td>
+                                                <td>
+                                                    8
+                                                </td>
+                                                <td>
+                                                    Nhân viên tốt
+                                                </td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Mục tiêu 1........
+                                                </td>
+                                                <td>
+                                                    8
+                                                </td>
+                                                <td>
+                                                    Nhân viên tốt
+                                                </td>
+
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal"><i class="material-icons">exit_to_app</i>Đóng lại</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>  <!-- Modal cho danh sách chi tiết  -->
+</section>
+

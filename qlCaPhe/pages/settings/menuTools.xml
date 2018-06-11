@@ -49,7 +49,7 @@
     <menuItem id="902" idCha="9" name="Điều phối công tác" link="../BangCongTac/bct_TableDieuPhoi" cssClass="" description="" icon="directions_run"></menuItem>
     <menuItem id="903" idCha="9" name="Quản lý mục tiêu đánh giá" link="../DanhGia/RouteTableMucTieuDanhGia" cssClass="" description="" icon="subject"></menuItem>
     <!--<menuItem id="907" idCha="9" name="Danh mục mục tiêu đánh giá" link="../DanhGia/mtdg_TableMucTieuDanhGia" cssClass="" description="" icon=""></menuItem>-->
-    <menuItem id="904" idCha="9" name="Đánh giá nhân viên" link="../DanhGia/DanhGiaNhanVien" cssClass="" description="" icon=""></menuItem>
+    <menuItem id="904" idCha="9" name="Đánh giá nhân viên" link="../DanhGia/dg_TableDanhGiaNhanVien" cssClass="" description="" icon="rate_review"></menuItem>
     <!--<menuItem id="909" idCha="9" name="Danh mục đánh giá nhân viên" link="../DanhGia/DanhMucDanhGia" cssClass="" description="" icon=""></menuItem>-->
   </menuItem>
 
