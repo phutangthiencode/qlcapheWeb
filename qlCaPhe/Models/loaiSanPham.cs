@@ -26,13 +26,4 @@ namespace qlCaPhe.Models
     
         public virtual ICollection<sanPham> sanPhams { get; set; }
     }
-
-
-    public class svLoaiSanPham
-    {
-        public int maLoai { get; set; }
-        public string tenLoai { get; set; }
-        public string dienGiai { get; set; }
-        public string ghiChu { get; set; }
-    }
 }

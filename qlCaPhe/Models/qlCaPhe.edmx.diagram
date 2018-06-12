@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="fe36ce2e4e994bc0a328f1b61877c03c" Name="Diagram1">
+      <Diagram DiagramId="70c6c84738de41acbdf3a02a3103f5a1" Name="Diagram1">
         <EntityTypeShape EntityType="qlCaPheModel.baiViet" Width="1.5" PointX="8.25" PointY="16.625" IsExpanded="true" />
         <EntityTypeShape EntityType="qlCaPheModel.BanChoNgoi" Width="1.5" PointX="11" PointY="12" IsExpanded="true" />
         <EntityTypeShape EntityType="qlCaPheModel.BangGiaoViec" Width="1.5" PointX="8.25" PointY="21" IsExpanded="true" />
@@ -60,8 +60,8 @@
         <AssociationConnector Association="qlCaPheModel.FK__ctCongThu__maNgu__6D9742D9" ManuallyRouted="false" />
         <AssociationConnector Association="qlCaPheModel.FK__ctCungCap__maNgu__4222D4EF" ManuallyRouted="false" />
         <AssociationConnector Association="qlCaPheModel.FK__ctCungCap__maNha__412EB0B6" ManuallyRouted="false" />
-        <AssociationConnector Association="qlCaPheModel.FK__ctDanhGia__maDan__6442E2C9" ManuallyRouted="false" />
-        <AssociationConnector Association="qlCaPheModel.FK__ctDanhGia__maMuc__65370702" ManuallyRouted="false" />
+        <AssociationConnector Association="qlCaPheModel.FK__ctDanhGia__maDan__7CA47C3F" ManuallyRouted="false" />
+        <AssociationConnector Association="qlCaPheModel.FK__ctDanhGia__maMuc__7D98A078" ManuallyRouted="false" />
         <AssociationConnector Association="qlCaPheModel.FK__ctDatBan__maDatB__503BEA1C" ManuallyRouted="false" />
         <AssociationConnector Association="qlCaPheModel.FK__ctHoaDonO__maHoa__3429BB53" ManuallyRouted="false" />
         <AssociationConnector Association="qlCaPheModel.FK__ctHoaDonO__maSan__351DDF8C" ManuallyRouted="false" />

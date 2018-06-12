@@ -290,6 +290,16 @@
     <Compile Include="Models\EditorHTML.cs" />
     <Compile Include="Models\Entities\MenuTools.cs" />
     <Compile Include="Models\Entities\QuyenHan.cs" />
+    <Compile Include="Models\Entities\Services\svBanChoNgoi.cs" />
+    <Compile Include="Models\Entities\Services\svCtHoaDonTam.cs" />
+    <Compile Include="Models\Entities\Services\svCtTonKho.cs" />
+    <Compile Include="Models\Entities\Services\svHoaDonTam.cs" />
+    <Compile Include="Models\Entities\Services\svKhuVuc.cs" />
+    <Compile Include="Models\Entities\Services\svLoaiSanPham.cs" />
+    <Compile Include="Models\Entities\Services\svSanPham.cs" />
+    <Compile Include="Models\Entities\Services\svTaiKhoan.cs" />
+    <Compile Include="Models\Entities\Services\svThanhVien.cs" />
+    <Compile Include="Models\Entities\Services\svThongBao.cs" />
     <Compile Include="Models\Feedback.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
     </Compile>
@@ -3892,6 +3902,11 @@
     <Content Include="plugins\tinymce\skins\lightgray\fonts\tinymce.eot" />
     <Content Include="plugins\tinymce\skins\lightgray\fonts\tinymce.ttf" />
     <Content Include="plugins\tinymce\skins\lightgray\fonts\tinymce.woff" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\FontAwesome.otf" />
     <EntityDeploy Include="Models\qlCaPhe.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>qlCaPhe.Designer.cs</LastGenOutput>
@@ -3909,11 +3924,6 @@
       <DependentUpon>qlCaPhe.edmx</DependentUpon>
       <LastGenOutput>qlCaPhe.cs</LastGenOutput>
     </Content>
-    <Content Include="fonts\fontawesome-webfont.eot" />
-    <Content Include="fonts\fontawesome-webfont.ttf" />
-    <Content Include="fonts\fontawesome-webfont.woff" />
-    <Content Include="fonts\fontawesome-webfont.woff2" />
-    <Content Include="fonts\FontAwesome.otf" />
     <None Include="Properties\PublishProfiles\qlcaphe.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\demo.js" />

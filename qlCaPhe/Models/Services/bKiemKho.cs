@@ -7,10 +7,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Services;
 using qlCaPhe.App_Start;
-using qlCaPhe.Models.Entities;
+using qlCaPhe.Models.Entities.Services;
 using qlCaPhe.Models.Business;
 using qlCaPhe.Models;
 using System.Xml.Serialization;
+
 
 /// <summary>
 /// Summary description for bNhanVien

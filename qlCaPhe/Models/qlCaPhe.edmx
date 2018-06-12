@@ -127,7 +127,7 @@
           <Property Name="maDanhGia" Type="int" Nullable="false" />
           <Property Name="maMucTieu" Type="int" Nullable="false" />
           <Property Name="diemSo" Type="int" />
-          <Property Name="dienGiai" Type="varchar" MaxLength="256" />
+          <Property Name="dienGiai" Type="nvarchar" MaxLength="256" />
         </EntityType>
         <EntityType Name="ctDatBan">
           <Key>
@@ -637,7 +637,7 @@ warning 6002: The table/view 'qlCaPhe.dbo.nhatKy' does not have a primary key de
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ctDanhGia__maDan__6442E2C9">
+        <Association Name="FK__ctDanhGia__maDan__7CA47C3F">
           <End Role="danhGiaNhanVien" Type="Self.danhGiaNhanVien" Multiplicity="1" />
           <End Role="ctDanhGia" Type="Self.ctDanhGia" Multiplicity="*" />
           <ReferentialConstraint>
@@ -649,7 +649,7 @@ warning 6002: The table/view 'qlCaPhe.dbo.nhatKy' does not have a primary key de
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ctDanhGia__maMuc__65370702">
+        <Association Name="FK__ctDanhGia__maMuc__7D98A078">
           <End Role="mucTieuDanhGia" Type="Self.mucTieuDanhGia" Multiplicity="1" />
           <End Role="ctDanhGia" Type="Self.ctDanhGia" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1196,11 +1196,11 @@ warning 6002: The table/view 'qlCaPhe.dbo.nhatKy' does not have a primary key de
             <End Role="nhaCungCap" EntitySet="nhaCungCap" />
             <End Role="ctCungCap" EntitySet="ctCungCap" />
           </AssociationSet>
-          <AssociationSet Name="FK__ctDanhGia__maDan__6442E2C9" Association="Self.FK__ctDanhGia__maDan__6442E2C9">
+          <AssociationSet Name="FK__ctDanhGia__maDan__7CA47C3F" Association="Self.FK__ctDanhGia__maDan__7CA47C3F">
             <End Role="danhGiaNhanVien" EntitySet="danhGiaNhanVien" />
             <End Role="ctDanhGia" EntitySet="ctDanhGia" />
           </AssociationSet>
-          <AssociationSet Name="FK__ctDanhGia__maMuc__65370702" Association="Self.FK__ctDanhGia__maMuc__65370702">
+          <AssociationSet Name="FK__ctDanhGia__maMuc__7D98A078" Association="Self.FK__ctDanhGia__maMuc__7D98A078">
             <End Role="mucTieuDanhGia" EntitySet="mucTieuDanhGia" />
             <End Role="ctDanhGia" EntitySet="ctDanhGia" />
           </AssociationSet>
@@ -1482,9 +1482,9 @@ warning 6002: The table/view 'qlCaPhe.dbo.nhatKy' does not have a primary key de
           <Property Name="maDanhGia" Type="Int32" Nullable="false" />
           <Property Name="maMucTieu" Type="Int32" Nullable="false" />
           <Property Name="diemSo" Type="Int32" />
-          <Property Name="dienGiai" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="danhGiaNhanVien" Relationship="Self.FK__ctDanhGia__maDan__6442E2C9" FromRole="ctDanhGia" ToRole="danhGiaNhanVien" />
-          <NavigationProperty Name="mucTieuDanhGia" Relationship="Self.FK__ctDanhGia__maMuc__65370702" FromRole="ctDanhGia" ToRole="mucTieuDanhGia" />
+          <Property Name="dienGiai" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="danhGiaNhanVien" Relationship="Self.FK__ctDanhGia__maDan__7CA47C3F" FromRole="ctDanhGia" ToRole="danhGiaNhanVien" />
+          <NavigationProperty Name="mucTieuDanhGia" Relationship="Self.FK__ctDanhGia__maMuc__7D98A078" FromRole="ctDanhGia" ToRole="mucTieuDanhGia" />
         </EntityType>
         <EntityType Name="ctDatBan">
           <Key>
@@ -1575,7 +1575,7 @@ warning 6002: The table/view 'qlCaPhe.dbo.nhatKy' does not have a primary key de
           <Property Name="ngayDanhGia" Type="DateTime" Precision="3" />
           <Property Name="taiKhoanDanhGia" Type="String" MaxLength="68" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ghiChu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="ctDanhGias" Relationship="Self.FK__ctDanhGia__maDan__6442E2C9" FromRole="danhGiaNhanVien" ToRole="ctDanhGia" />
+          <NavigationProperty Name="ctDanhGias" Relationship="Self.FK__ctDanhGia__maDan__7CA47C3F" FromRole="danhGiaNhanVien" ToRole="ctDanhGia" />
           <NavigationProperty Name="taiKhoan" Relationship="Self.FK__danhGiaNh__taiKh__5E8A0973" FromRole="danhGiaNhanVien" ToRole="taiKhoan" />
           <NavigationProperty Name="thanhVien" Relationship="Self.FK__danhGiaNha__maTV__5CA1C101" FromRole="danhGiaNhanVien" ToRole="thanhVien" />
         </EntityType>
@@ -1712,7 +1712,7 @@ warning 6002: The table/view 'qlCaPhe.dbo.nhatKy' does not have a primary key de
           <Property Name="dienGiai" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="trangThai" Type="Boolean" />
           <Property Name="ghiChu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="ctDanhGias" Relationship="Self.FK__ctDanhGia__maMuc__65370702" FromRole="mucTieuDanhGia" ToRole="ctDanhGia" />
+          <NavigationProperty Name="ctDanhGias" Relationship="Self.FK__ctDanhGia__maMuc__7D98A078" FromRole="mucTieuDanhGia" ToRole="ctDanhGia" />
         </EntityType>
         <EntityType Name="nguyenLieu">
           <Key>
@@ -2102,7 +2102,7 @@ warning 6002: The table/view 'qlCaPhe.dbo.nhatKy' does not have a primary key de
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ctDanhGia__maDan__6442E2C9">
+        <Association Name="FK__ctDanhGia__maDan__7CA47C3F">
           <End Role="danhGiaNhanVien" Type="Self.danhGiaNhanVien" Multiplicity="1" />
           <End Role="ctDanhGia" Type="Self.ctDanhGia" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2114,7 +2114,7 @@ warning 6002: The table/view 'qlCaPhe.dbo.nhatKy' does not have a primary key de
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ctDanhGia__maMuc__65370702">
+        <Association Name="FK__ctDanhGia__maMuc__7D98A078">
           <End Role="mucTieuDanhGia" Type="Self.mucTieuDanhGia" Multiplicity="1" />
           <End Role="ctDanhGia" Type="Self.ctDanhGia" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2587,11 +2587,11 @@ warning 6002: The table/view 'qlCaPhe.dbo.nhatKy' does not have a primary key de
             <End Role="nhaCungCap" EntitySet="nhaCungCaps" />
             <End Role="ctCungCap" EntitySet="ctCungCaps" />
           </AssociationSet>
-          <AssociationSet Name="FK__ctDanhGia__maDan__6442E2C9" Association="Self.FK__ctDanhGia__maDan__6442E2C9">
+          <AssociationSet Name="FK__ctDanhGia__maDan__7CA47C3F" Association="Self.FK__ctDanhGia__maDan__7CA47C3F">
             <End Role="danhGiaNhanVien" EntitySet="danhGiaNhanViens" />
             <End Role="ctDanhGia" EntitySet="ctDanhGias" />
           </AssociationSet>
-          <AssociationSet Name="FK__ctDanhGia__maMuc__65370702" Association="Self.FK__ctDanhGia__maMuc__65370702">
+          <AssociationSet Name="FK__ctDanhGia__maMuc__7D98A078" Association="Self.FK__ctDanhGia__maMuc__7D98A078">
             <End Role="mucTieuDanhGia" EntitySet="mucTieuDanhGias" />
             <End Role="ctDanhGia" EntitySet="ctDanhGias" />
           </AssociationSet>

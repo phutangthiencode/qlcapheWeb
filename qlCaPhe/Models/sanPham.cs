@@ -38,20 +38,4 @@ namespace qlCaPhe.Models
         public virtual ICollection<lichSuGia> lichSuGias { get; set; }
         public virtual loaiSanPham loaiSanPham { get; set; }
     }
-
-    /// <summary>
-    /// Class dành cho web services
-    /// </summary>
-    public class svSanPham
-    {
-        public int maSanPham { get; set; }
-        public string tenSanPham { get; set; }
-        public int maLoai { get; set; }
-        public string moTa { get; set; }
-        public long donGia { get; set; }
-        public byte[] hinhAnh { get; set; }
-        public int thoiGianPhaChe { get; set; }
-        public int trangThai { get; set; }
-        public string ghiChu { get; set; }
-    }
 }

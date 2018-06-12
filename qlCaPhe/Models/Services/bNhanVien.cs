@@ -11,6 +11,7 @@ using qlCaPhe.Models.Entities;
 using qlCaPhe.Models.Business;
 using qlCaPhe.Models;
 using System.Xml.Serialization;
+using qlCaPhe.Models.Entities.Services;
 
 /// <summary>
 /// Summary description for bNhanVien

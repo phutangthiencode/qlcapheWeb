@@ -122,7 +122,7 @@
     <Property Name="maDanhGia" Type="int" Nullable="false" />
     <Property Name="maMucTieu" Type="int" Nullable="false" />
     <Property Name="diemSo" Type="int" />
-    <Property Name="dienGiai" Type="varchar" MaxLength="256" />
+    <Property Name="dienGiai" Type="nvarchar" MaxLength="256" />
   </EntityType>
   <EntityType Name="ctDatBan">
     <Key>
@@ -632,7 +632,7 @@ warning 6002: The table/view 'qlCaPhe.dbo.nhatKy' does not have a primary key de
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__ctDanhGia__maDan__6442E2C9">
+  <Association Name="FK__ctDanhGia__maDan__7CA47C3F">
     <End Role="danhGiaNhanVien" Type="Self.danhGiaNhanVien" Multiplicity="1" />
     <End Role="ctDanhGia" Type="Self.ctDanhGia" Multiplicity="*" />
     <ReferentialConstraint>
@@ -644,7 +644,7 @@ warning 6002: The table/view 'qlCaPhe.dbo.nhatKy' does not have a primary key de
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__ctDanhGia__maMuc__65370702">
+  <Association Name="FK__ctDanhGia__maMuc__7D98A078">
     <End Role="mucTieuDanhGia" Type="Self.mucTieuDanhGia" Multiplicity="1" />
     <End Role="ctDanhGia" Type="Self.ctDanhGia" Multiplicity="*" />
     <ReferentialConstraint>
@@ -1191,11 +1191,11 @@ warning 6002: The table/view 'qlCaPhe.dbo.nhatKy' does not have a primary key de
       <End Role="nhaCungCap" EntitySet="nhaCungCap" />
       <End Role="ctCungCap" EntitySet="ctCungCap" />
     </AssociationSet>
-    <AssociationSet Name="FK__ctDanhGia__maDan__6442E2C9" Association="Self.FK__ctDanhGia__maDan__6442E2C9">
+    <AssociationSet Name="FK__ctDanhGia__maDan__7CA47C3F" Association="Self.FK__ctDanhGia__maDan__7CA47C3F">
       <End Role="danhGiaNhanVien" EntitySet="danhGiaNhanVien" />
       <End Role="ctDanhGia" EntitySet="ctDanhGia" />
     </AssociationSet>
-    <AssociationSet Name="FK__ctDanhGia__maMuc__65370702" Association="Self.FK__ctDanhGia__maMuc__65370702">
+    <AssociationSet Name="FK__ctDanhGia__maMuc__7D98A078" Association="Self.FK__ctDanhGia__maMuc__7D98A078">
       <End Role="mucTieuDanhGia" EntitySet="mucTieuDanhGia" />
       <End Role="ctDanhGia" EntitySet="ctDanhGia" />
     </AssociationSet>

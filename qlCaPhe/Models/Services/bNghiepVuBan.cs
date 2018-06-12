@@ -7,7 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Services;
 using qlCaPhe.App_Start;
-using qlCaPhe.Models.Entities;
+using qlCaPhe.Models.Entities.Services;
 using qlCaPhe.Models.Business;
 using qlCaPhe.Models;
 using System.Xml.Serialization;
@@ -313,19 +313,6 @@ public class bNghiepVuBan : System.Web.Services.WebService
         try
         {
             this.addListCtHoaDonTam(kq, -2, maBan);//------Lấy tất cả các sản phẩm có trong bảng chi tiết của hóa đơn cần xem
-            //foreach (ctHoaDonTam item in new qlCaPheEntities().ctHoaDonTams.Where(c => c.maBan == maBan).ToList())
-            //{
-            //    svCtHoaDonTam ct = new svCtHoaDonTam();
-            //    ct.donGia = item.donGia;
-            //    ct.maBan = item.maBan;
-            //    ct.maCtTam = item.maCtTam;
-            //    ct.maSP = item.maSP;
-            //    ct.soLuong = item.soLuong;
-            //    ct.trangThaiPhaChe = item.trangThaiPhaChe;
-            //    ct.tenSP = item.sanPham.tenSanPham;
-            //    ct.hinhAnh = item.sanPham.hinhAnh;
-            //    kq.Add(ct);
-            //}
         }
         catch (Exception ex)
         {

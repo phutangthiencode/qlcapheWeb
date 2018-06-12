@@ -24,17 +24,4 @@ namespace qlCaPhe.Models
         public virtual hoaDonTam hoaDonTam { get; set; }
         public virtual sanPham sanPham { get; set; }
     }
-
-    public class svCtHoaDonTam
-    {
-        public int maCtTam { get; set; }
-        public int maBan { get; set; }
-        public int maSP { get; set; }
-        public long donGia { get; set; }
-        public int soLuong { get; set; }
-        public int trangThaiPhaChe { get; set; }
-
-        public string tenSP { get; set; }
-        public byte[] hinhAnh { get; set; }
-    }
 }
