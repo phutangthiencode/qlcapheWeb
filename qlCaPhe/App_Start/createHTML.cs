@@ -155,11 +155,11 @@ namespace qlCaPhe.App_Start
             string kq = "";
             kq += "<div class=\"modal fade in\" id=\"" + idModal + "\" tabindex=\"-3\" role=\"dialog\" style=\"display: none; padding-right: 17px;\">";
             kq += "     <div class=\"row\">";
-            if(loaiModal==1)
+            if (loaiModal == 1)
                 kq += "     <div class=\"modal-dialog modal-sm\" role=\"document\">";
-            else if(loaiModal==2)
+            else if (loaiModal == 2)
                 kq += "     <div class=\"modal-dialog\" role=\"document\">";
-            else if(loaiModal==3)
+            else if (loaiModal == 3)
                 kq += "     <div class=\"modal-dialog modal-lg\" role=\"document\">";
             else //Modal maximun
                 kq += "     <div class=\"modal-dialog modal-lg\" style=\"width:90%\" role=\"document\">";
@@ -181,7 +181,7 @@ namespace qlCaPhe.App_Start
         /// <returns>Chuỗi html danh sách trang</returns>
         public static string taoPhanTrang(int soPhanTu, int soTrangHienHanh, string url)
         {
-            string kq = ""; 
+            string kq = "";
             if (soPhanTu > pageSize)
             {
                 //-----Tính số trang chứa đủ 10 phần tử
@@ -191,17 +191,33 @@ namespace qlCaPhe.App_Start
                     soLuongTrang++;
 
                 //-------Tạo chuỗi html dựa trên số trang đã xác định
-                kq+="<ul class=\"pagination\">";
+                kq += "<ul class=\"pagination\">";
                 //-----Nếu trang hiện hành lớn hơn hoặc bằng 1 thì hiện previous
-                int previousPage = soTrangHienHanh-1;//------Lấy số trang trước đó
+                int previousPage = soTrangHienHanh - 1;//------Lấy số trang trước đó
                 kq += previousPage >= 1 ? "<li class=\"previous\"><a href=\"" + url + "?page=" + previousPage.ToString() + "\">Previous</a></li>" : "";
-                for (int i = 1; i <= soLuongTrang; i++ )
-                    kq += "    <li class=\""+(i==soTrangHienHanh ? " active" : "")+" \"><a href=\""+url+"?page="+i.ToString()+"\">"+i.ToString()+"</a></li>";
+                for (int i = 1; i <= soLuongTrang; i++)
+                    kq += "    <li class=\"" + (i == soTrangHienHanh ? " active" : "") + " \"><a href=\"" + url + "?page=" + i.ToString() + "\">" + i.ToString() + "</a></li>";
                 //------------Cấu hình hiện nút next
                 int nextPage = soTrangHienHanh + 1;
-                kq += soTrangHienHanh < soLuongTrang ?  "<li class=\"next\"><a href=\""+url + "?page=" + nextPage.ToString()+"\">Next</a></li>" : "";
+                kq += soTrangHienHanh < soLuongTrang ? "<li class=\"next\"><a href=\"" + url + "?page=" + nextPage.ToString() + "\">Next</a></li>" : "";
                 kq += "</ul>";
             }
+            return kq;
+        }
+        /// <summary>
+        /// Hàm tạo 1 toast thông báo để hiển thị
+        /// Thông báo được cấu hình hiển thị trong 5s trong javascript
+        /// </summary>
+        /// <param name="noiDung">Nội dung thông báo</param>
+        /// <param name="classMauNen">Class chứa màu nền cho thông báo</param>
+        /// <returns></returns>
+        public static string taoToastThongBao(string noiDung, string classMauNen)
+        {
+            string kq = "";
+            kq += "<div id=\"notify\" class=\"bootstrap-notify-container alert alert-dismissible p-r-35 animated fadeInDown "+classMauNen+"\"";
+            kq += "     style=\"display: none; margin: 0px auto; position: fixed; transition: all 0.5s ease-in-out; z-index: 1031; bottom: 20px; left: 20px;\">";
+            kq += "    <span data-notify=\"message\">"+noiDung+"</span>";
+            kq += "</div>";
             return kq;
         }
     }

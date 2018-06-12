@@ -41,6 +41,10 @@ namespace qlCaPhe
             Session["quyenHan"] = new cartQuyenHan();
             //--Tạo session chứa thông tin chi tiết điều phối
             Session["dieuPhoi"] = new cartDieuPhoi();
+            //--Tạo session chứa object các mục tiêu chưa đánh giá
+            Session["chuaDanhGia"] = new cartMucTieu();
+            //--Tạo session chứa object các mục tiêu đã đánh giá
+            Session["daDanhGia"] = new cartDanhGia();
             //--Tạo session object chứa thông tin người dùng đăng nhập hệ thống
             Session["login"] = new taiKhoan();
         }

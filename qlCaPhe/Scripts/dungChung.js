@@ -94,3 +94,9 @@ function getCurrentPageInRequest() {
         return 1;
     return res;
 }
+
+//-----Hàm hiện thông báo Toast
+function showToastNotify(element) {
+    $(element).fadeIn("slow").delay(5000);//--------Hiện thông báo trong 5s
+    $(element).slideUp(300).fadeOut("slow");
+}

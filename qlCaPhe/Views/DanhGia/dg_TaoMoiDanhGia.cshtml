@@ -2,6 +2,7 @@
     ViewBag.Title = "Đánh giá nhân viên";
     Layout = "~/Views/Shared/_LayoutTools.cshtml";
 }
+@Html.Raw(ViewBag.ScriptAjax)
 <section class="content">
     <div class="container-fluid">
         <div class="block-header">
@@ -36,22 +37,18 @@
                         </div>
                     </div>
                     <div class="body">
-                        <div class="card">
-                            <div class="header bg-red">
-                                <h2>Thông tin nhân viên</h2>
-                            </div>
-                            <div class="body">
-                                <form>
+                        <form action="/DanhGia/dg_TaoMoiDanhGia" method="post">
+                            <div class="card">
+                                <div class="header bg-red">
+                                    <h2>Thông tin nhân viên</h2>
+                                </div>
+                                <div class="body">
                                     <div class="row">
                                         <div class="col-md-7 col-lg-7">
-                                            <label for="cbbNhanVien">Chọn nhân viên</label>
-                                            <select class="form-control show-tick" id="cbbNhanVien">
-                                                <option value="">-- Lựa chọn nhân viên cần đánh giá --</option>
-                                                <option value="images/image-gallery/1.jpg">Nguyễn Minh Vy</option>
-                                                <option value="images/image-gallery/10.jpg">Nguyễn Tú An</option>
-                                                <option value="images/image-gallery/11.jpg">Phan Thị Minh Thư</option>
-                                                <option value="images/image-gallery/12.jpg">Trần Tuấn Mã</option>
-                                                <option value="images/image-gallery/13.jpg">Lê Thanh Ngân</option>
+                                            <label for="cbbThanhVien">Chọn nhân viên</label>
+                                            <select class="form-control show-tick" id="cbbThanhVien" name="cbbThanhVien">
+                                                <option value="-1">-- Lựa chọn nhân viên cần đánh giá --</option>
+                                                @Html.Raw(ViewBag.cbbThanhVien)
                                             </select>
                                             <br /><br />
 
@@ -59,14 +56,14 @@
                                             <div class="form-group">
                                                 <div class="form-line">
                                                     <input type="text" id="txtTaiKhoanDanhGia" disabled class="form-control"
-                                                           value="ttphu">
+                                                           value="@ViewBag.TaiKhoanDanhGia">
                                                 </div>
                                             </div>
 
                                             <label for="txtTenNhom">Ghi chú</label>
                                             <div class="form-group">
                                                 <div class="form-line">
-                                                    <textarea rows="4" id="txtGhiChu" class="form-control no-resize" placeholder="Nhập thêm ghi chú cho nhóm tài khoản"></textarea>
+                                                    <textarea rows="4" id="txtGhiChu" class="form-control no-resize" placeholder="Nhập thêm ghi chú cho nhóm tài khoản" name="txtGhiChu">@ViewBag.txtGhiChu</textarea>
                                                 </div>
                                             </div>
 
@@ -74,8 +71,9 @@
                                         <div class="col-md-4 col-lg-4">
                                             <label for="txtTenNhom">Hình ảnh nhân viên</label>
                                             <br />
-                                            <img id="hinhNhanVien" class='img img-responsive img-thumbnail'
-                                                 src="~/images/user.jpg" width="250px" height="auto" />
+                                            <div id="vungThongTinThanhVien">
+                                                @Html.Raw(ViewBag.VungThongTinThanhVien)
+                                            </div>
                                             <br />
                                         </div>
                                         <div class="col-md-11">
@@ -85,162 +83,65 @@
                                                 <i class="material-icons">arrow_downward</i>
                                             </button>
                                         </div>
-                                    </div><!--row-->
-                                </form>
-                            </div>  <!--body-card-->
-                        </div> <!--card-->
-                        <div class="card buoc">
-                            <div class="header bg-cyan">
-                                <h2>Đánh giá nhân viên</h2>
+                                    </div>
+                                </div>  <!--body-card-->
+                            </div> <!--card-->
+                            <div class="card buoc">
+                                <div class="header bg-blue">
+                                    <h2>Đánh giá nhân viên</h2>
+                                </div>
+                                <div class="body">
+                                    <div class="card" id="js-chuaDanhGia" style="display:none;">
+                                        <div class="header bg-green">
+                                            <h2>Danh sách các mục tiêu cần đánh giá</h2>
+                                        </div>
+                                        <div class="body table-responsive">
+                                            <table class="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th width="20%">Mục tiêu</th>
+                                                        <th width="20%">Diễn giải mục tiêu</th>
+                                                        <th width="15%">Điểm số</th>
+                                                        <th width="35%">Diễn giải</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="js-listMucTieu"></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    <div class="card" id="js-cartDanhGia" style="display:none;">
+                                        <div class="header bg-orange">
+                                            <h2>Danh sách các mục tiêu đã đánh giá</h2>
+                                        </div>
+                                        <div class="body table-responsive">
+                                            <table class="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th width="20%">Mục tiêu</th>
+                                                        <th width="20%">Diễn giải mục tiêu</th>
+                                                        <th width="15%">Điểm số</th>
+                                                        <th width="35%">Diễn giải</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="js-listDanhGia"></tbody>
+                                            </table>
+                                            <button type="button" id="js-btnXoaTatCa" class="btn btn-danger m-t-15 waves-effect">Đánh giá lại tất cả mục tiêu</button>
+                                        </div>
+                                    </div> <!--Cart table danh sách chi tiết-->
+                                </div>  <!--body-card-->
+                            </div> <!--card Bước-->
+
+                            <div class="col-md-7"></div>
+                            <div class="col-md-5">
+                                <br>
+                                <button type="submit" class="btn btn-primary m-t-15 waves-effect">Lưu lại</button>
+                                <a href="/DanhGia/dg_TaoMoiDanhGia" class="btn btn-default m-t-15 waves-effect">Reset</a>
+                                <a href="/DanhGia/dg_TableDanhGiaNhanVien" class="btn btn-default m-t-15 waves-effect">Trở lại</a>
                             </div>
-                            <div class="body">
-                                <form>
-                                    <table class="table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th width="40%">Mục tiêu</th>
-                                                <th width="15%">Điểm số</th>
-                                                <th width="35%">Diễn giải</th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    Mục tiêu 1........
-                                                </td>
-                                                <td>
-                                                    <input type="text" id="txtDiemSo" class="form-control" placeholder="Nhập Điểm số đánh giá...">
-                                                </td>
-                                                <td>
-                                                    <input type="text" id="txtDienGiai" class="form-control"
-                                                           placeholder="Nhập diễn giải điểm số đã cho....">
-                                                </td>
-                                                <td>
-                                                    <button type="button" class="btn btn-primary m-t-15 waves-effect">Đánh giá</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    Mục tiêu 1........
-                                                </td>
-                                                <td>
-                                                    <input type="text" id="txtDiemSo" class="form-control" placeholder="Nhập Điểm số đánh giá...">
-                                                </td>
-                                                <td>
-                                                    <input type="text" id="txtDienGiai" class="form-control"
-                                                           placeholder="Nhập diễn giải điểm số đã cho....">
-                                                </td>
-                                                <td>
-                                                    <button type="button" class="btn btn-primary m-t-15 waves-effect">Đánh giá</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    Mục tiêu 1........
-                                                </td>
-                                                <td>
-                                                    <input type="text" id="txtDiemSo" class="form-control" placeholder="Nhập Điểm số đánh giá...">
-                                                </td>
-                                                <td>
-                                                    <input type="text" id="txtDienGiai" class="form-control"
-                                                           placeholder="Nhập diễn giải điểm số đã cho....">
-                                                </td>
-                                                <td>
-                                                    <button type="button" class="btn btn-primary m-t-15 waves-effect">Đánh giá</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    Mục tiêu 1........
-                                                </td>
-                                                <td>
-                                                    <input type="text" id="txtDiemSo" class="form-control" placeholder="Nhập Điểm số đánh giá...">
-                                                </td>
-                                                <td>
-                                                    <input type="text" id="txtDienGiai" class="form-control"
-                                                           placeholder="Nhập diễn giải điểm số đã cho....">
-                                                </td>
-                                                <td>
-                                                    <button type="button" class="btn btn-primary m-t-15 waves-effect">Đánh giá</button>
-                                                </td>
-                                            </tr>
-
-                                        </tbody>
-                                    </table>
-                                </form>
-                                <div class="card">
-                                    <div class="header">
-                                        <h2>Danh sách các mục tiêu đã đánh giá</h2>
-                                    </div>
-                                    <div class="body table-responsive">
-                                        <table class="table table-hover">
-                                            <thead>
-                                                <tr>
-                                                    <th width="40%">Mục tiêu</th>
-                                                    <th width="15%">Điểm số</th>
-                                                    <th width="35%">Diễn giải</th>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        Mục tiêu 1........
-                                                    </td>
-                                                    <td>
-                                                        8
-                                                    </td>
-                                                    <td>
-                                                        Nhân viên tốt
-                                                    </td>
-                                                    <td>
-                                                        <button type="button" class="btn btn-danger m-t-15 waves-effect">Đánh giá lại</button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        Mục tiêu 1........
-                                                    </td>
-                                                    <td>
-                                                        8
-                                                    </td>
-                                                    <td>
-                                                        Nhân viên tốt
-                                                    </td>
-                                                    <td>
-                                                        <button type="button" class="btn btn-danger m-t-15 waves-effect">Đánh giá lại</button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        Mục tiêu 1........
-                                                    </td>
-                                                    <td>
-                                                        8
-                                                    </td>
-                                                    <td>
-                                                        Nhân viên tốt
-                                                    </td>
-                                                    <td>
-                                                        <button type="button" class="btn btn-danger m-t-15 waves-effect">Đánh giá lại</button>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        <button type="button" class="btn btn-danger m-t-15 waves-effect">Đánh giá lại tất cả mục tiêu</button>
-                                    </div>
-                                </div> <!--Cart table danh sách chi tiết-->
-                            </div>  <!--body-card-->
-                        </div> <!--card Bước-->
-
-                        <div class="col-md-7"></div>
-                        <div class="col-md-5">
-                            <br>
-                            <button type="button" class="btn btn-primary m-t-15 waves-effect">Lưu lại</button>
-                            <button type="button" class="btn btn-default m-t-15 waves-effect">Reset</button>
-                            <button type="button" class="btn btn-default m-t-15 waves-effect">Trở lại</button>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -248,108 +149,6 @@
         <!-- #END# Vertical Layout -->
     </div>
 
-    <!-- Large Size -->
-    <div class="modal fade" id="largeModal" tabindex="-1" role="dialog" style="display: none;">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="largeModalLabel">Lựa chọn nguyên liệu</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="input-group">
-                        <div class="form-line">
-                            <input type="text" id="txtTenNguyenLieuTimKiem" class="form-control" placeholder="Nhập nhập tên nguyên liệu cần tìm">
-                        </div>
-                        <span class="input-group-addon">
-                            <i class="material-icons">search</i>
-                        </span>
-
-                    </div>
-                    <div class="danhMucNguyenLieuTimKiem">
-                        <div class="bs-example" data-example-id="media-alignment">
-                            <div class="media" urlimg="~/images/image-gallery/11.jpg" data-dismiss="modal">
-                                <div class="media-left">
-                                    <a href="javascript:void(0);">
-                                        <img src="~/images/image-gallery/11.jpg" width="64" height="64" />
-                                    </a>
-                                </div>
-                                <div class="media-body">
-                                    <h4 class="media-heading">Cà phê xay nguyên chất</h4>
-                                    <p>
-                                        Chi tiết nguyên liệu Chi tiết nguyên liệu Chi tiết nguyên liệu Chi tiết nguyên liệu
-                                        Chi tiết nguyên liệu Chi tiết nguyên liệu Chi tiết nguyên liệu Chi tiết nguyên liệu
-                                    </p>
-                                    <p>
-                                        Chi tiết nguyên liệu Chi tiết nguyên liệu Chi tiết nguyên liệu Chi tiết nguyên liệu
-                                        Chi tiết nguyên liệu Chi tiết nguyên liệu Chi tiết nguyên liệu Chi tiết nguyên liệu
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="media" urlimg="~/images/image-gallery/12.jpg" data-dismiss="modal">
-                                <div class="media-left">
-                                    <a href="javascript:void(0);">
-                                        <img src="~/images/image-gallery/12.jpg" width="64" height="64" />
-                                    </a>
-                                </div>
-                                <div class="media-body">
-                                    <h4 class="media-heading">Tên nguyên liệu</h4>
-                                    <p>
-                                        Chi tiết nguyên liệu Chi tiết nguyên liệu Chi tiết nguyên liệu Chi tiết nguyên liệu
-                                        Chi tiết nguyên liệu Chi tiết nguyên liệu Chi tiết nguyên liệu Chi tiết nguyên liệu
-                                    </p>
-                                    <p>
-                                        Chi tiết nguyên liệu Chi tiết nguyên liệu Chi tiết nguyên liệu Chi tiết nguyên liệu
-                                        Chi tiết nguyên liệu Chi tiết nguyên liệu Chi tiết nguyên liệu Chi tiết nguyên liệu
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div class="media" urlimg="~/images/image-gallery/13.jpg" data-dismiss="modal">
-                                <div class="media-left">
-                                    <a href="javascript:void(0);">
-                                        <img src="~/images/image-gallery/13.jpg" width="64" height="64" />
-                                    </a>
-                                </div>
-                                <div class="media-body">
-                                    <h4 class="media-heading">Tên nguyên liệu</h4>
-                                    <p>
-                                        Chi tiết nguyên liệu Chi tiết nguyên liệu Chi tiết nguyên liệu Chi tiết nguyên liệu
-                                        Chi tiết nguyên liệu Chi tiết nguyên liệu Chi tiết nguyên liệu Chi tiết nguyên liệu
-                                    </p>
-                                    <p>
-                                        Chi tiết nguyên liệu Chi tiết nguyên liệu Chi tiết nguyên liệu Chi tiết nguyên liệu
-                                        Chi tiết nguyên liệu Chi tiết nguyên liệu Chi tiết nguyên liệu Chi tiết nguyên liệu
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="media" urlimg="~/images/image-gallery/14.jpg" data-dismiss="modal">
-                                <div class="media-left">
-                                    <a href="javascript:void(0);">
-                                        <img src="~/images/image-gallery/14.jpg" width="64" height="64" />
-                                    </a>
-                                </div>
-                                <div class="media-body">
-                                    <h4 class="media-heading">Tên nguyên liệu</h4>
-                                    <p>
-                                        Chi tiết nguyên liệu Chi tiết nguyên liệu Chi tiết nguyên liệu Chi tiết nguyên liệu
-                                        Chi tiết nguyên liệu Chi tiết nguyên liệu Chi tiết nguyên liệu Chi tiết nguyên liệu
-                                    </p>
-                                    <p>
-                                        Chi tiết nguyên liệu Chi tiết nguyên liệu Chi tiết nguyên liệu Chi tiết nguyên liệu
-                                        Chi tiết nguyên liệu Chi tiết nguyên liệu Chi tiết nguyên liệu Chi tiết nguyên liệu
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!--danhMucNguyenLieuTimKiem-->
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">Đóng lại</button>
-                </div>
-            </div>
-        </div>
-    </div>  <!-- Large Size -->
 
     <script type="text/javascript">
 
@@ -360,8 +159,12 @@
             },
                 'slow');
         });
-
     </script>
+
+    <script src="~/Scripts/Ajax/ajaxDanhGia.js"></script>
+
+    @Html.Raw(ViewBag.ThongBao)
+    @Html.Raw(ViewBag.ToastThongBao)
 </section>
 
 

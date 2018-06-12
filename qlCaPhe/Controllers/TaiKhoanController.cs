@@ -317,38 +317,6 @@ namespace qlCaPhe.Controllers
             tk.ghiChu = xulyDuLieu.xulyKyTuHTML(f["txtGhiChu"]);
             if (loi.Length > 0)
                 throw new Exception(loi);
-
-
-
-
-
-            //string loi = "";
-            //string tenDN = f["txtTenDangNhap"];
-            //if (tenDN.Length < 5)
-            //    loi += "Vui lòng nhập tên đăng nhập có ít nhất 5 ký tự";
-            //else
-            //    tk.tenDangNhap = tenDN.Trim().ToLower();
-            //string mk = f["txtMatKhau"];
-            //if (mk.Length <= 8)
-            //    loi += "Vui lòng nhập mật khẩu có ít nhất 8 ký tự";
-            //else
-            //{
-            //    if (!mk.Equals(f["txtXacNhan"]))
-            //        loi += "Mật khẩu không trùng khớp, vui lòng nhập lại <br/>";
-            //    tk.matKhau = xulyMaHoa.Encrypt(mk);
-            //}
-            //int maTV = int.Parse(f["cbbThanhVien"]);
-            //if (maTV <= 0)
-            //    loi += "Vui lòng chọn thành viên";
-            //tk.maTV = maTV;
-            //int maNhomTK = int.Parse(f["cbbNhomTK"]);
-            //if (maNhomTK <= 0)
-            //    loi += "Vui lòng chọn nhóm tài khoản";
-            //tk.maNhomTK = maNhomTK;
-            //tk.trangThai = true;
-            //tk.ghiChu = xulyDuLieu.xulyKyTuHTML(f["txtGhiChu"]);
-            //if (loi.Length > 0)
-            //    throw new Exception(loi);
         }
         /// <summary>
         /// Hàm thực hiện kiểm tra xem tài khoản có bị trùng khi tạo mới

@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using qlCaPhe.Models;
 using qlCaPhe.App_Start;
+using qlCaPhe.App_Start.Cart;
 
 namespace qlCaPhe.Controllers
 {
@@ -348,9 +349,85 @@ namespace qlCaPhe.Controllers
         /// <returns></returns>
         public ActionResult dg_TaoMoiDanhGia()
         {
-            if(xulyChung.duocTruyCap(idOfPageDanhGia))
-                return View();
+            if (xulyChung.duocTruyCap(idOfPageDanhGia))
+            {
+                try
+                {
+                    this.resetSession();
+                    qlCaPheEntities db = new qlCaPheEntities();
+                    this.taoDuLieuComboboxThanhVienDanhGia(db, 0);
+                    taoDanhSachMucTieuDanhGia(db);
+                    this.taoScript();
+                    return View();
+                }
+                catch (Exception ex)
+                {
+                    xulyFile.ghiLoi("Class: DanhGiaController - Function: dg_TaoMoiDanhGia", ex.Message);
+                }
+            }
             return null;
+        }
+        /// <summary>
+        /// Hàm lưu 1 đánh giá của 1 nhân viên vào CSDL
+        /// </summary>
+        /// <param name="f"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult dg_TaoMoiDanhGia(FormCollection f)
+        {
+            if (xulyChung.duocCapNhat(idOfPageDanhGia, "7"))
+            {
+                string ndThongBao = ""; int kqLuu = 0;
+                danhGiaNhanVien danhGiaAdd = new danhGiaNhanVien();
+                try
+                {
+                    qlCaPheEntities db = new qlCaPheEntities();
+                    this.layDuLieuTuViewDanhGia(danhGiaAdd, f, db);
+                    //-----Thêm mới đánh giá vào CSDL
+                    db.danhGiaNhanViens.Add(danhGiaAdd);
+                    kqLuu = db.SaveChanges();
+                    if (kqLuu > 0)
+                    {
+                        this.themChiTietDanhGiaVaoDatabase(db, danhGiaAdd);
+                        ndThongBao = createHTML.taoNoiDungThongBao("Đánh giá nhân viên", xulyDuLieu.traVeKyTuGoc(danhGiaAdd.thanhVien.hoTV) + " " + xulyDuLieu.traVeKyTuGoc(danhGiaAdd.thanhVien.tenTV), "dg_TableDanhGiaNhanVien");
+                        this.resetSession();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ndThongBao = ex.Message;
+                    xulyFile.ghiLoi("Class: DanhGiaController - Function: dg_TaoMoiDanhGia_Post", ex.Message);
+                    this.doDuLieuLenViewDanhGia(danhGiaAdd);
+                }
+                ViewBag.ThongBao = createHTML.taoThongBaoLuu(ndThongBao);
+            }
+            return View();
+        }
+        /// <summary>
+        /// Hàm thực hiện thêm chi tiết đánh giá trong CSDL
+        /// </summary>
+        /// <param name="db"></param>
+        /// <param name="danhGia"></param>
+        private void themChiTietDanhGiaVaoDatabase(qlCaPheEntities db, danhGiaNhanVien danhGia)
+        {
+            try
+            {
+                cartDanhGia cartRate = (cartDanhGia)Session["daDanhGia"];
+                foreach (ctDanhGia ct in cartRate.Info.Values)
+                {
+                    ctDanhGia ctAdd = new ctDanhGia();
+                    ctAdd.diemSo = ct.diemSo;
+                    ctAdd.dienGiai = ct.dienGiai;
+                    ctAdd.maDanhGia = danhGia.maDanhGia;
+                    ctAdd.maMucTieu = ct.maMucTieu;
+                    db.ctDanhGias.Add(ctAdd);
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                xulyFile.ghiLoi("Class: DanhGiaController - Function: themChiTietDanhGiaVaoDatabase", ex.Message);
+            }
         }
 
         /// <summary>
@@ -363,6 +440,261 @@ namespace qlCaPhe.Controllers
                 return View();
             return null;
         }
+
+
+        #region ORTHERS
+        /// <summary>
+        /// Hàm thực hiện load tất cả thành viên lên combobox để đánh giá
+        /// </summary>
+        /// <param name="db"></param>
+        private void taoDuLieuComboboxThanhVienDanhGia(qlCaPheEntities db, int maTV)
+        {
+            //Hiển thị dropdownList lựa chọn thành viên
+            string htmlCbbThanhVien = "";
+            foreach (thanhVien tv in db.thanhViens.ToList())
+            {
+                htmlCbbThanhVien += "<option ";
+                if (tv.maTV == maTV) //--------Tích chọn thành viên nếu trùng mã
+                    htmlCbbThanhVien += " selected ";
+                htmlCbbThanhVien+="class=\"chonTV\" value=\"" + tv.maTV.ToString() + "\" maLay=\"" + tv.maTV.ToString() + "\">" + xulyDuLieu.traVeKyTuGoc(tv.hoTV) + " " + xulyDuLieu.traVeKyTuGoc(tv.tenTV) + "</option>";
+            }
+            ViewBag.cbbThanhVien = htmlCbbThanhVien;
+        }
+        /// <summary>
+        /// Hàm thực hiện reset lại tất cả các giỏ
+        /// </summary>
+        private void resetSession()
+        {
+            Session.Remove("chuaDanhGia"); Session.Remove("daDanhGia");
+            Session.Add("chuaDanhGia", new cartMucTieu()); Session.Add("daDanhGia", new cartDanhGia()); 
+        }
+        /// <summary>
+        /// Hàm thực hiện tạo mục tiêu đánh giá và lưu vào giỏ Trước đánh giá
+        /// </summary>
+        /// <param name="db"></param>
+        private void taoDanhSachMucTieuDanhGia(qlCaPheEntities db)
+        {
+            cartMucTieu cartChuaDanhGia = (cartMucTieu)Session["chuaDanhGia"];
+            foreach (mucTieuDanhGia mucTieu in db.mucTieuDanhGias.Where(t => t.trangThai == true))
+                cartChuaDanhGia.addCart(mucTieu);
+        }
+        /// <summary>
+        /// Hàm lấy dữ liệu từ giao diện Đánh giá nhân viên và gán vào các thuộc tính của object DanhGiaNhanVien
+        /// </summary>
+        /// <param name="danhGiaAdd"></param>
+        /// <param name="f"></param>
+        private void layDuLieuTuViewDanhGia(danhGiaNhanVien danhGiaAdd, FormCollection f, qlCaPheEntities db)
+        {
+            string loi = "";
+            danhGiaAdd.maTV = xulyDuLieu.doiChuoiSangInteger(f["cbbThanhVien"]);
+            if (danhGiaAdd.maTV <= 0)
+                loi += "Vui lòng chọn thành viên cần đánh giá<br/>";
+            danhGiaAdd.ngayDanhGia = DateTime.Now;
+            danhGiaAdd.taiKhoanDanhGia = ((taiKhoan)Session["login"]).tenDangNhap;
+            danhGiaAdd.ghiChu = xulyDuLieu.xulyKyTuHTML(f["txtGhiChu"]);
+            cartDanhGia cartRate = (cartDanhGia)Session["daDanhGia"];
+            if (cartRate.Info.Count == 0)
+                loi += "<i class=\"col-red\">*Chưa đánh giá bất kỳ mục tiêu nào</i>";
+            danhGiaAdd.thanhVien = db.thanhViens.SingleOrDefault(t => t.maTV == danhGiaAdd.maTV);
+            if (loi.Length > 0)
+                throw new Exception(loi);
+        }
+        /// <summary>
+        /// Hàm thực hiện đổ dữ liệu lên giao diện
+        /// </summary>
+        /// <param name="danhGia"></param>
+        /// <param name="db"></param>
+        private void doDuLieuLenViewDanhGia(danhGiaNhanVien danhGia)
+        {
+            try
+            {
+                this.taoScript();
+                qlCaPheEntities db = new qlCaPheEntities();
+                this.taoDuLieuComboboxThanhVienDanhGia(db, danhGia.maTV);
+                ViewBag.txtGhiChu = xulyDuLieu.traVeKyTuGoc(danhGia.ghiChu);
+                if (danhGia.thanhVien.hinhDD != null)
+                    ViewBag.VungThongTinThanhVien = new ThanhVienController().getInfoThanhVienForCreateTaiKhoan(danhGia.maTV);
+            }
+            catch (Exception ex)
+            {
+                xulyFile.ghiLoi("Class: DanhGiaController - Function: doDuLieuLenViewDanhGia", ex.Message);
+            }
+        }
+        /// <summary>
+        /// Hàm nhúng các script ajax lên giao diện
+        /// Và nhúng kèm thông tin tài khoản người đánh giá lên giao diện
+        /// </summary>
+        private void taoScript()
+        {
+            //-----Hiện thông tin thành viên thực hiện đánh giá
+            taiKhoan tkLogin = (taiKhoan)Session["login"];
+            ViewBag.TaiKhoanDanhGia = xulyDuLieu.traVeKyTuGoc(tkLogin.thanhVien.hoTV) + " " + xulyDuLieu.traVeKyTuGoc(tkLogin.thanhVien.tenTV) + " - " + xulyDuLieu.traVeKyTuGoc(tkLogin.tenDangNhap);
+            //Nhúng script ajax lấy thông tin thành viên
+            ViewBag.ScriptAjax = createScriptAjax.scriptGetInfoComboboxClick("cbbThanhVien", "ThanhVien/getInfoThanhVienForCreateTaiKhoan?maTV=", "vungThongTinThanhVien");
+            ViewBag.ToastThongBao = createHTML.taoToastThongBao("Vui lòng nhập đầy đủ thông tin đánh giá", "bg-blue-grey");
+        }
+
+        #endregion
+
+        #region AJAX
+        /// <summary>
+        /// Hàm ajax lấy danh sách các mục tiêu cần đánh giá và hiện lên giao diện
+        /// Các mục tiêu đánh giá được lấy từ giỏ
+        /// </summary>
+        /// <returns>Chuỗi html tạo các dòng dữ liệu mục tiêu</returns>
+        public string AjaxLayDanhSachMucTieu()
+        {
+            string kq = "";
+            try
+            {
+                //--------Lặp qua các mục tiêu còn lại trong giỏ truocDanhGia
+                cartMucTieu cartMucTieu = (cartMucTieu)Session["chuaDanhGia"];
+                foreach (mucTieuDanhGia mucTieu in cartMucTieu.Info.Values)
+                {
+                    kq+="<tr>";
+                    kq += "  <td><b class=\"col-blue\">" + xulyDuLieu.traVeKyTuGoc(mucTieu.tenMucTieu) + "</b></td>";
+                    kq += "  <td>" + xulyDuLieu.traVeKyTuGoc(mucTieu.dienGiai) + "</td>";
+                    kq+="    <td class=\"focused\">";
+                    kq+="        <input type=\"number\" id=\"txtDiemSo"+mucTieu.maMucTieu.ToString()+"\" class=\"form-control\" placeholder=\"Nhập Điểm số đánh giá...\">";
+                    kq+="    </td>";
+                    kq+="    <td>";
+                    kq+="        <input type=\"text\"  id=\"txtDienGiai"+mucTieu.maMucTieu.ToString()+"\" class=\"form-control\" placeholder=\"Nhập diễn giải điểm số đã cho....\">";
+                    kq+="    </td>";
+                    kq+="    <td>";
+                    kq+="        <button type=\"button\" mamt=\""+mucTieu.maMucTieu.ToString()+"\" class=\"js-btnDanhGia btn btn-primary waves-effect\">Đánh giá</button>";
+                    kq+="    </td>";
+                    kq += "</tr>";
+                }
+
+            }
+            catch (Exception ex)
+            {
+                xulyFile.ghiLoi("Class: DanhGiaController - Function: AjaxLayDanhSachMucTieu", ex.Message);
+            }
+            return kq;
+        }
+        /// <summary>
+        /// Hàm Ajax thực hiện xử lý thêm 1 đánh giá mới cho nhân viên
+        /// </summary>
+        /// <param name="param">Chuỗi tham số chứa mục tiêu và thông tin đã đánh giá <para/> param = maMucTieu|diemSo|dienGiai</param>
+        /// <returns>Chuỗi html tạo dữ liệu cho các bảng. Có dạng <para/> DuLieuMucTieuDanhGia|DuLieuDaDanhGia</returns>
+        public string AjaxDanhGiaNhanVien(string param)
+        {
+            try
+            {
+                cartMucTieu cartTarget = (cartMucTieu)Session["chuaDanhGia"];
+                cartDanhGia cartRate = (cartDanhGia)Session["daDanhGia"];
+                if (param.Split('|').Count() == 3) //------Kiểm tra tham số
+                {//------Xử lý tham số
+                    int maMucTieu = xulyDuLieu.doiChuoiSangInteger(param.Split('|')[0]);
+                    int diemSo = xulyDuLieu.doiChuoiSangInteger(param.Split('|')[1]);
+                    string dienGiai = xulyDuLieu.xulyKyTuHTML(param.Split('|')[2]);
+                    //------Lấy mục tiêu đánh giá
+                    mucTieuDanhGia mucTieuSelect = cartTarget.getInfo(maMucTieu);
+                    if (mucTieuSelect != null)
+                    {
+                        //-----Thêm mới mục tiêu vào cart Đánh giá
+                        ctDanhGia ctAdd = new ctDanhGia();
+                        ctAdd.maMucTieu = maMucTieu; ctAdd.diemSo = diemSo; ctAdd.dienGiai = dienGiai; ctAdd.mucTieuDanhGia = mucTieuSelect;
+                        cartRate.addCart(ctAdd); Session["daDanhGia"] = cartRate;
+
+                        //----Xóa mục tiêu đã đánh giá khỏi danh sách chưa đánh giá
+                        cartTarget.removeItem(maMucTieu);
+                        Session["chuaDanhGia"] = cartTarget;
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                xulyFile.ghiLoi("Class: DanhGiaController - Function: AjaxLayDanhSachMucTieu", ex.Message);
+            }
+            return AjaxLayDanhSachMucTieu() + "|" + taoBangMucTieuDaDanhGia();
+        }
+        /// <summary>
+        /// Hàm tạo dữ liệu cho bảng mục tiêu đã đánh giá
+        /// Dự liệu có trên SEssion daDanhGia
+        /// </summary>
+        /// <returns>Chuỗi html tạo dữ liệu cho bảng</returns>
+        public string taoBangMucTieuDaDanhGia()
+        {
+            string kq = "";
+            try
+            {
+                cartDanhGia cartRate = (cartDanhGia)Session["daDanhGia"];
+                foreach (ctDanhGia ct in cartRate.Info.Values)
+                {
+                    kq+="<tr>";
+                    kq+="    <td><b class=\"col-blue\">"+xulyDuLieu.traVeKyTuGoc(ct.mucTieuDanhGia.tenMucTieu)+"</b></td>";
+                    kq+="    <td>"+xulyDuLieu.traVeKyTuGoc(ct.mucTieuDanhGia.dienGiai)+"</td>";
+                    kq+="    <td><b>"+ct.diemSo.ToString()+"</b></td>";
+                    kq+="    <td>"+xulyDuLieu.traVeKyTuGoc(ct.dienGiai)+"</td>";
+                    kq+="    <td><button type=\"button\" mamt=\""+ct.maMucTieu.ToString()+"\" class=\"js-btnDanhGiaLai btn btn-danger m-t-15 waves-effect\">Đánh giá lại</button></td>";
+                    kq += "</tr>";
+                }
+
+            }
+            catch (Exception ex)
+            {
+                xulyFile.ghiLoi("Class: DanhGiaController - Function: AjaxLayDanhSachMucTieu", ex.Message);
+            }
+            return kq;
+        }
+        /// <summary>
+        /// Hàm xử lý sự kiện xóa bỏ 1 đánh giá đã đánh giá khỏi giỏ daDanhGia
+        /// </summary>
+        /// <param name="param">Tham số chứa mã mục tiêu cần loại bỏ</param>
+        /// <returns>Chuỗi html tạo dữ liệu cho các bảng. Có dạng <para/> DuLieuMucTieuDanhGia|DuLieuDaDanhGia</returns>
+        public string AjaxDanhGiaLai(string param)
+        {
+            try
+            {
+                cartMucTieu cartTarget = (cartMucTieu)Session["chuaDanhGia"];
+                cartDanhGia cartRate = (cartDanhGia)Session["daDanhGia"];
+                if (param.Count()>0) //------Kiểm tra tham số
+                {//------Xử lý tham số
+                    int maMucTieu = xulyDuLieu.doiChuoiSangInteger(param.Split('|')[0]);
+                    ctDanhGia ctSelected = cartRate.getInfo(maMucTieu);
+                    if (ctSelected != null)
+                    {
+                        //-----Thêm mới mục tiêu vào cart chưa Đánh giá
+                        mucTieuDanhGia mucTieuAdd = new mucTieuDanhGia();
+                        mucTieuAdd.dienGiai = ctSelected.mucTieuDanhGia.dienGiai; mucTieuAdd.ghiChu = ctSelected.mucTieuDanhGia.ghiChu;
+                        mucTieuAdd.maMucTieu = ctSelected.mucTieuDanhGia.maMucTieu; mucTieuAdd.tenMucTieu = ctSelected.mucTieuDanhGia.tenMucTieu;
+                        mucTieuAdd.trangThai = ctSelected.mucTieuDanhGia.trangThai;
+                        cartTarget.addCart(mucTieuAdd); Session["chuaDanhGia"] = cartTarget;
+
+                        //----Xóa mục tiêu đã đánh giá khỏi danh sách đã đánh giá
+                        cartRate.removeItem(maMucTieu);
+                        Session["daDanhGia"] = cartRate;
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                xulyFile.ghiLoi("Class: DanhGiaController - Function: AjaxDanhGiaLai", ex.Message);
+            }
+            return AjaxLayDanhSachMucTieu() + "|" + taoBangMucTieuDaDanhGia();
+        }
+        /// <summary>
+        /// Hàm thực hiện xóa tất cả các mục tiêu đã đánh giá trong giỏ
+        /// </summary>
+        /// <returns>Chuỗi html tạo danh sách các mục tiêu cần đánh giá</returns>
+        public string AjaxXoaTatCaDanhGia()
+        {
+            try
+            {
+                this.resetSession();
+                this.taoDanhSachMucTieuDanhGia(new qlCaPheEntities());            
+            }
+            catch (Exception ex)
+            {
+                xulyFile.ghiLoi("Class: DanhGiaController - Function: AjaxXoaTatCaDanhGia", ex.Message);
+            }
+            return AjaxLayDanhSachMucTieu() + "|"; //---thêm ký tự để xác định dữ liệu đổ lên bảng
+        }
+        #endregion
         #endregion
     }
 }

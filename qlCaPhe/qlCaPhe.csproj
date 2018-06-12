@@ -163,8 +163,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\Cart\cartDanhGia.cs" />
     <Compile Include="App_Start\Cart\cartDieuPhoi.cs" />
     <Compile Include="App_Start\Cart\cartKiemKho.cs" />
+    <Compile Include="App_Start\Cart\cartMucTieu.cs" />
     <Compile Include="App_Start\Cart\cartQuyenHan.cs" />
     <Compile Include="App_Start\Cart\cartXuatKho.cs" />
     <Compile Include="App_Start\createScriptCarvas.cs" />
@@ -3768,6 +3770,7 @@
     <Content Include="plugins\waitme\waitMe.min.css" />
     <Content Include="plugins\waitme\waitMe.min.js" />
     <Content Include="Scripts\admin.js" />
+    <Content Include="Scripts\Ajax\ajaxDanhGia.js" />
     <Content Include="Scripts\Ajax\ajaxDieuPhoi.js" />
     <Content Include="Scripts\Ajax\ajaxGuiRequest.js" />
     <Content Include="Scripts\Ajax\ajaxLayThongTinThanhVien.js" />
@@ -4038,8 +4041,6 @@
     <Content Include="Views\CaLamViec\ca_TableCaLamViec.cshtml" />
     <Content Include="Views\DanhGia\mtdg_TaoMoiMucTieuDanhGia.cshtml" />
     <Content Include="Views\DanhGia\mtdg_TableMucTieuDanhGia.cshtml" />
-    <Content Include="Views\DanhGia\DanhGiaNhanVien.cshtml" />
-    <Content Include="Views\DanhGia\DanhMucDanhGia.cshtml" />
     <Content Include="Views\BaiViet\bv_TaoMoiBaiViet.cshtml" />
     <Content Include="Views\BaiViet\bv_TableBaiVietDaDuyet.cshtml" />
     <Content Include="Views\Shared\_LayoutPublic.cshtml" />
