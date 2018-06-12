@@ -568,8 +568,85 @@ namespace qlCaPhe.Controllers
             return kq;
         }
         #endregion
+        #region UPDATE
+        /// <summary>
+        /// Hàm tạo giao diện chỉnh sửa đánh giá nhân viên
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult dg_ChinhSuaDanhGia()
+        {
+            if (xulyChung.duocTruyCap(idOfPageDanhGia))
+            {
+                try
+                {
+                    string param = xulyChung.nhanThamSoTrongSession();
+                    int maDanhGia = xulyDuLieu.doiChuoiSangInteger(param);
+                    qlCaPheEntities db = new qlCaPheEntities();
+                    this.resetSession();
+                    danhGiaNhanVien danhGia = db.danhGiaNhanViens.SingleOrDefault(d => d.maDanhGia == maDanhGia);
+                    if (danhGia != null)
+                    {
+                        this.doDuLieuLenViewDanhGia(danhGia);
+                        this.taoGioChinhSuaDanhGia(danhGia, db);
+                    }
+                    else
+                        throw new Exception("Đánh giá có mã " + maDanhGia.ToString() + " không tồn tại để cập nhật");
 
-
+                }
+                catch (Exception ex)
+                {
+                    xulyFile.ghiLoi("Class: DanhGiaController - Function: dg_ChinhSuaDanhGia", ex.Message);
+                    return RedirectToAction("PageNotFound", "Home");
+                }
+            }
+            return View();
+        }
+        /// <summary>
+        /// Hàm chỉnh sửa đánh giá nhân viên trong CSDL
+        /// </summary>
+        /// <param name="f"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult dg_ChinhSuaDanhGia(FormCollection f)
+        {
+            if (xulyChung.duocCapNhat(idOfPageDanhGia, "7"))
+            {
+                string ndThongBao = "";
+                danhGiaNhanVien danhGiaSua = new danhGiaNhanVien();
+                try
+                {
+                    int kqLuu = 0; 
+                    string param = xulyChung.nhanThamSoTrongSession();
+                    int maDanhGia = xulyDuLieu.doiChuoiSangInteger(param);
+                    qlCaPheEntities db = new qlCaPheEntities();
+                    danhGiaSua = db.danhGiaNhanViens.SingleOrDefault(d => d.maDanhGia == maDanhGia);
+                    if (danhGiaSua != null)
+                    {
+                        this.layDuLieuTuViewDanhGia(danhGiaSua, f, db);
+                        //-----Thêm mới đánh giá vào CSDL
+                        db.Entry(danhGiaSua).State = System.Data.Entity.EntityState.Modified;
+                        kqLuu = db.SaveChanges();
+                        if (kqLuu > 0)
+                        {
+                            this.xoaChiTietDanhGia(danhGiaSua.maDanhGia, db);
+                            this.themChiTietDanhGiaVaoDatabase(db, danhGiaSua);
+                            this.resetSession();
+                            return RedirectToAction("dg_TableDanhGiaNhanVien", "DanhGia");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ndThongBao = ex.Message;
+                    this.doDuLieuLenViewDanhGia(danhGiaSua);
+                    xulyFile.ghiLoi("Class: DanhGiaController - Function: dg_ChinhSuaDanhGia_Post", ex.Message);
+                }
+                ViewBag.ThongBao = createHTML.taoThongBaoLuu(ndThongBao);
+            }
+            return View();
+        }
+        #endregion
+        #region DELETE
         /// <summary>
         /// Hàm thực hiện xóa 1 đánh giá khỏi CSDL
         /// </summary>
@@ -583,7 +660,7 @@ namespace qlCaPhe.Controllers
                     danhGiaNhanVien danhGiaXoa = db.danhGiaNhanViens.SingleOrDefault(m => m.maDanhGia == maDanhGia);
                     if (danhGiaXoa != null)
                     {
-                        this.xoaChiTietDanhGia(danhGiaXoa, db);
+                        this.xoaChiTietDanhGia(danhGiaXoa.maDanhGia, db);
                         db.danhGiaNhanViens.Remove(danhGiaXoa);
                         db.SaveChanges();
                         Response.Redirect(xulyChung.layTenMien() + "/DanhGia/dg_TableDanhGiaNhanVien");
@@ -601,11 +678,11 @@ namespace qlCaPhe.Controllers
         /// Hàm thực hiện xóa tất cả chi tiết đánh giá của 1 đánh giá trong CSDL
         /// </summary>
         /// <param name="danhGia"></param>
-        private void xoaChiTietDanhGia(danhGiaNhanVien danhGia, qlCaPheEntities db)
+        private void xoaChiTietDanhGia(int maDanhGia, qlCaPheEntities db)
         {
             try
             {
-                foreach (ctDanhGia ctXoa in danhGia.ctDanhGias)
+                foreach (ctDanhGia ctXoa in db.ctDanhGias.Where(t=>t.maDanhGia == maDanhGia))
                 {
                     db.ctDanhGias.Remove(ctXoa);
                     db.SaveChanges();
@@ -616,7 +693,7 @@ namespace qlCaPhe.Controllers
                 xulyFile.ghiLoi("Class: DanhGiaController - Function: xoaChiTietDanhGia", ex.Message);
             }
         }
-
+        #endregion
         #region ORTHERS
         /// <summary>
         /// Hàm thực hiện load tất cả thành viên lên combobox để đánh giá
@@ -652,6 +729,25 @@ namespace qlCaPhe.Controllers
             cartMucTieu cartChuaDanhGia = (cartMucTieu)Session["chuaDanhGia"];
             foreach (mucTieuDanhGia mucTieu in db.mucTieuDanhGias.Where(t => t.trangThai == true))
                 cartChuaDanhGia.addCart(mucTieu);
+        }
+        /// <summary>
+        /// Hàm thêm dữ liệu đã đánh giá và chưa đánh giá vào các giỏ 
+        /// </summary>
+        /// <param name="db"></param>
+        private void taoGioChinhSuaDanhGia(danhGiaNhanVien danhGia, qlCaPheEntities db)
+        {
+            cartDanhGia cartDanhGia = (cartDanhGia)Session["daDanhGia"];
+            cartMucTieu cartChuaDanhGia = (cartMucTieu)Session["chuaDanhGia"];
+
+            foreach (ctDanhGia ct in danhGia.ctDanhGias)
+                cartDanhGia.addCart(ct);
+
+            foreach (mucTieuDanhGia mucTieu in db.mucTieuDanhGias.Where(t => t.trangThai == true))
+            {
+                //----Kiểm tra mục tiêu này đã đánh giá
+                if(cartDanhGia.getInfo(mucTieu.maMucTieu)==null)
+                    cartChuaDanhGia.addCart(mucTieu);
+            }
         }
         /// <summary>
         /// Hàm lấy dữ liệu từ giao diện Đánh giá nhân viên và gán vào các thuộc tính của object DanhGiaNhanVien

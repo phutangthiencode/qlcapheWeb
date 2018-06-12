@@ -4134,6 +4134,7 @@
     <Content Include="Views\BangCongTac\bct_ChinhSuaDieuPhoi.cshtml" />
     <Content Include="Views\DanhGia\dg_TableDanhGiaNhanVien.cshtml" />
     <Content Include="Views\DanhGia\dg_TaoMoiDanhGia.cshtml" />
+    <Content Include="Views\DanhGia\dg_ChinhSuaDanhGia.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

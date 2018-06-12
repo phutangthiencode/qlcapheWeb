@@ -1,0 +1,176 @@
+﻿
+@{
+    ViewBag.Title = "Chỉnh sửa đánh giá";
+    Layout = "~/Views/Shared/_LayoutTools.cshtml";
+}
+@Html.Raw(ViewBag.ScriptAjax)
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <h2>Điều phối - Đánh giá > Đánh giá nhân viên > Chỉnh sửa đánh giá</h2>
+        </div>
+        <!-- Vertical Layout -->
+        <div class="row clearfix">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="header">
+                        <div class="row">
+                            <div class="col-md-5 col-lg-5 col-xs-12 col-sm-5">
+                                <i class="material-icons">subject</i>
+                                <span class="font-20">CHỈNH SỬA ĐÁNH GIÁ</span>
+                            </div>
+                            <div class="col-md-7 col-lg-7 col-sm-7 col-xs-12">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" style="float:right">
+                                    <li class="">
+                                        <a href="/DanhGia/dg_TaoMoiDanhGia">
+                                            <i class="material-icons">add</i> ĐÁNH GIÁ
+                                        </a>
+                                    </li>
+                                    <li class="">
+                                        <a href="/DanhGia/dg_TableDanhGiaNhanVien">
+                                            <i class="material-icons">list</i> DANH MỤC ĐÁNH GIÁ
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="body">
+                        <form action="/DanhGia/dg_ChinhSuaDanhGia" method="post">
+                            <div class="card">
+                                <div class="header bg-red">
+                                    <h2>Thông tin nhân viên</h2>
+                                </div>
+                                <div class="body">
+                                    <div class="row">
+                                        <div class="col-md-7 col-lg-7">
+                                            <label for="cbbThanhVien">Chọn nhân viên</label>
+                                            <select class="form-control show-tick" id="cbbThanhVien" name="cbbThanhVien">
+                                                <option value="-1">-- Lựa chọn nhân viên cần đánh giá --</option>
+                                                @Html.Raw(ViewBag.cbbThanhVien)
+                                            </select>
+                                            <br /><br />
+
+                                            <label for="txtTaiKhoanDanhGia">Người đánh giá</label>
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <input type="text" id="txtTaiKhoanDanhGia" disabled class="form-control"
+                                                           value="@ViewBag.TaiKhoanDanhGia">
+                                                </div>
+                                            </div>
+
+                                            <label for="txtTenNhom">Ghi chú</label>
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <textarea rows="4" id="txtGhiChu" class="form-control no-resize" placeholder="Nhập thêm ghi chú cho nhóm tài khoản" name="txtGhiChu">@ViewBag.txtGhiChu</textarea>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-4 col-lg-4">
+                                            <label for="txtTenNhom">Hình ảnh nhân viên</label>
+                                            <br />
+                                            <div id="vungThongTinThanhVien">
+                                                @Html.Raw(ViewBag.VungThongTinThanhVien)
+                                            </div>
+                                            <br />
+                                        </div>
+                                        <div class="col-md-11">
+                                        </div>
+                                        <div class="col-md-1">
+                                            <button type="button" id="btnNext" class="btn bg-orange btn-sm btn-circle pull-right">
+                                                <i class="material-icons">arrow_downward</i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>  <!--body-card-->
+                            </div> <!--card-->
+                            <div class="card buoc">
+                                <div class="header bg-blue">
+                                    <h2>Đánh giá nhân viên</h2>
+                                </div>
+                                <div class="body">
+                                    <div class="card" id="js-chuaDanhGia" style="display:none;">
+                                        <div class="header bg-green">
+                                            <h2>Danh sách các mục tiêu cần đánh giá</h2>
+                                        </div>
+                                        <div class="body table-responsive">
+                                            <table class="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th width="20%">Mục tiêu</th>
+                                                        <th width="20%">Diễn giải mục tiêu</th>
+                                                        <th width="15%">Điểm số</th>
+                                                        <th width="35%">Diễn giải</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="js-listMucTieu"></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    <div class="card" id="js-cartDanhGia" style="display:none;">
+                                        <div class="header bg-orange">
+                                            <h2>Danh sách các mục tiêu đã đánh giá</h2>
+                                        </div>
+                                        <div class="body table-responsive">
+                                            <table class="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th width="20%">Mục tiêu</th>
+                                                        <th width="20%">Diễn giải mục tiêu</th>
+                                                        <th width="15%">Điểm số</th>
+                                                        <th width="35%">Diễn giải</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="js-listDanhGia"></tbody>
+                                            </table>
+                                            <button type="button" id="js-btnXoaTatCa" class="btn btn-danger m-t-15 waves-effect">Đánh giá lại tất cả mục tiêu</button>
+                                        </div>
+                                    </div> <!--Cart table danh sách chi tiết-->
+                                </div>  <!--body-card-->
+                            </div> <!--card Bước-->
+
+                            <div class="col-md-7"></div>
+                            <div class="col-md-5">
+                                <br>
+                                <button type="submit" class="btn btn-primary m-t-15 waves-effect">Lưu lại</button>
+                                <a href="/DanhGia/dg_TaoMoiDanhGia" class="btn btn-default m-t-15 waves-effect">Reset</a>
+                                <a href="/DanhGia/dg_TableDanhGiaNhanVien" class="btn btn-default m-t-15 waves-effect">Trở lại</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #END# Vertical Layout -->
+    </div>
+
+
+    <script type="text/javascript">
+
+        //Code xử lý sự kiện click vào nút next tại cart thông tin công thức thực hiện chuyển xuống card chi tiết công thức
+        $("#btnNext").click(function () {
+            $('html,body').animate({
+                scrollTop: $(".buoc").offset().top
+            },
+                'slow');
+        });
+    </script>
+
+    <script src="~/Scripts/Ajax/ajaxDanhGia.js"></script>
+
+    @Html.Raw(ViewBag.ThongBao)
+    @Html.Raw(ViewBag.ToastThongBao)
+</section>
+
+
+
+
+
+
+
