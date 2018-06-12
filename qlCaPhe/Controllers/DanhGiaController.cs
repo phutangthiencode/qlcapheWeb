@@ -431,6 +431,7 @@ namespace qlCaPhe.Controllers
             }
         }
         #endregion
+        #region READ
         /// <summary>
         /// Hàm tạo giao diện danh mục các đánh giá nhân viên
         /// </summary>
@@ -469,7 +470,7 @@ namespace qlCaPhe.Controllers
                     }
                     ViewBag.ScriptAjaxXemChiTiet = createScriptAjax.scriptAjaxXemChiTietKhiClick("js-btnXemChiTiet", "madg", "DanhGia/AjaxXemChiTietDanhGia?maDG=", "vungChiTiet", "modalChiTiet");
                     ViewBag.ModalChiTiet = createHTML.taoModalChiTiet("modalChiTiet", "vungChiTiet", 3);
-                    ViewBag.ScriptAjax = createScriptAjax.scriptAjaxXoaDoiTuong("DanhGia/xoaMotDanhGia=");
+                    ViewBag.ScriptAjax = createScriptAjax.scriptAjaxXoaDoiTuong("DanhGia/xoaMotDanhGia?maDanhGia=");
                     ViewBag.ModalXoa = createHTML.taoCanhBaoXoa("Đánh giá");
                     ViewBag.TableData = htmlTable;
                     return View();
@@ -566,7 +567,55 @@ namespace qlCaPhe.Controllers
             }
             return kq;
         }
+        #endregion
 
+
+        /// <summary>
+        /// Hàm thực hiện xóa 1 đánh giá khỏi CSDL
+        /// </summary>
+        /// <param name="maDanhGia">Mã đánh giá cần xóa</param>
+        public void xoaMotDanhGia(int maDanhGia)
+        {
+            if (xulyChung.duocCapNhat(idOfPageDanhGia, "7"))
+                try
+                {
+                    qlCaPheEntities db = new qlCaPheEntities();
+                    danhGiaNhanVien danhGiaXoa = db.danhGiaNhanViens.SingleOrDefault(m => m.maDanhGia == maDanhGia);
+                    if (danhGiaXoa != null)
+                    {
+                        this.xoaChiTietDanhGia(danhGiaXoa, db);
+                        db.danhGiaNhanViens.Remove(danhGiaXoa);
+                        db.SaveChanges();
+                        Response.Redirect(xulyChung.layTenMien() + "/DanhGia/dg_TableDanhGiaNhanVien");
+                    }
+                    else
+                        throw new Exception("Đánh giá có mã " + maDanhGia.ToString() + " không tồn tại để xóa");
+                }
+                catch (Exception ex)
+                {
+                    xulyFile.ghiLoi("Class: DanhGiaController - Function: xoaMotDanhGia", ex.Message);
+                    Response.Redirect(xulyChung.layTenMien() + "/Home/ServerError");
+                }
+        }
+        /// <summary>
+        /// Hàm thực hiện xóa tất cả chi tiết đánh giá của 1 đánh giá trong CSDL
+        /// </summary>
+        /// <param name="danhGia"></param>
+        private void xoaChiTietDanhGia(danhGiaNhanVien danhGia, qlCaPheEntities db)
+        {
+            try
+            {
+                foreach (ctDanhGia ctXoa in danhGia.ctDanhGias)
+                {
+                    db.ctDanhGias.Remove(ctXoa);
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                xulyFile.ghiLoi("Class: DanhGiaController - Function: xoaChiTietDanhGia", ex.Message);
+            }
+        }
 
         #region ORTHERS
         /// <summary>

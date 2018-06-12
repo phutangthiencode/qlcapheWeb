@@ -1,1 +1,20 @@
-﻿
+﻿-----------------------6/13/2018 12:07:27 AM----------
+Vị trí: Class: DanhGiaController - Function: xoaMotDanhGia 
+ Lỗi: An error occurred while updating the entries. See the inner exception for details.
+---------------------------------------------------------------
+
+-----------------------6/13/2018 12:07:54 AM----------
+Vị trí: Class: DanhGiaController - Function: xoaMotDanhGia 
+ Lỗi: An error occurred while updating the entries. See the inner exception for details.
+---------------------------------------------------------------
+
+-----------------------6/13/2018 12:08:54 AM----------
+Vị trí: Class: DanhGiaController - Function: xoaMotDanhGia 
+ Lỗi: An error occurred while updating the entries. See the inner exception for details.
+---------------------------------------------------------------
+
+-----------------------6/13/2018 12:11:52 AM----------
+Vị trí: Class: DanhGiaController - Function: xoaChiTietDanhGia 
+ Lỗi: Collection was modified; enumeration operation may not execute.
+---------------------------------------------------------------
+
