@@ -343,6 +343,7 @@ namespace qlCaPhe.Controllers
         #endregion
         #endregion
         #region Nhóm hàm cho bảng đánh giá nhân viên
+        #region CREATE
         /// <summary>
         /// Hàm tạo giao diện đánh giá nhân viên
         /// </summary>
@@ -429,16 +430,141 @@ namespace qlCaPhe.Controllers
                 xulyFile.ghiLoi("Class: DanhGiaController - Function: themChiTietDanhGiaVaoDatabase", ex.Message);
             }
         }
-
+        #endregion
         /// <summary>
         /// Hàm tạo giao diện danh mục các đánh giá nhân viên
         /// </summary>
         /// <returns></returns>
-        public ActionResult dg_TableDanhGiaNhanVien()
+        public ActionResult dg_TableDanhGiaNhanVien(int ?page)
         {
             if (xulyChung.duocTruyCap(idOfPageDanhGia))
-                return View();
+            {
+                try
+                {
+                    string htmlTable = ""; int trangHienHanh = (page ?? 1);
+                    qlCaPheEntities db = new qlCaPheEntities();
+                    int soPhanTu = db.danhGiaNhanViens.Count();
+                    ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, trangHienHanh, "/DanhGia/dg_TableDanhGiaNhanVien"); //------cấu hình phân trang
+                    foreach (danhGiaNhanVien danhGia in db.danhGiaNhanViens.ToList().OrderByDescending(s => s.ngayDanhGia).Skip((trangHienHanh - 1) * createHTML.pageSize).Take(createHTML.pageSize))
+                    {
+                        htmlTable+="<tr role=\"row\" class=\"odd\">";
+                        htmlTable+="    <td><b class=\"col-blue\">"+xulyDuLieu.traVeKyTuGoc(danhGia.thanhVien.hoTV) + " " + xulyDuLieu.traVeKyTuGoc(danhGia.thanhVien.tenTV)+"</b></td>";
+                        htmlTable+="    <td>"+danhGia.ngayDanhGia.ToString()+"</td>";
+                        htmlTable+="    <td>"+danhGia.ctDanhGias.Sum(t=>t.diemSo).ToString()+"</td>";
+                        htmlTable+="    <td>"+xulyDuLieu.traVeKyTuGoc(danhGia.taiKhoan.thanhVien.hoTV) + " " + xulyDuLieu.traVeKyTuGoc(danhGia.taiKhoan.thanhVien.tenTV)+"</td>";
+                        htmlTable += "    <td>" + xulyDuLieu.traVeKyTuGoc(danhGia.ghiChu)+ "</td>";
+                        htmlTable += "  <td>";
+                        htmlTable += "           <div class=\"btn-group\">";
+                        htmlTable += "               <button type=\"button\" class=\"btn btn-primary dropdown-toggle\" data-toggle=\"dropdown\" aria-expanded=\"true\">";
+                        htmlTable += "                   Chức năng <span class=\"caret\"></span>";
+                        htmlTable += "               </button>";
+                        htmlTable += "               <ul class=\"dropdown-menu\" role=\"menu\">";
+                        htmlTable += "<li><a madg=\""+danhGia.maDanhGia.ToString()+"\" class=\"js-btnXemChiTiet col-green waves-effect waves-block\"><i class=\"material-icons\">search</i>Xem chi tiết</a></li>";
+                        htmlTable += createTableData.taoNutChinhSua("/DanhGia/dg_ChinhSuaDanhGia", danhGia.maDanhGia.ToString());
+                        htmlTable += createTableData.taoNutXoaBo(danhGia.maDanhGia.ToString());
+                        htmlTable += "               </ul>";
+                        htmlTable += "           </div>";
+                        htmlTable += "  </td>";
+                        htmlTable += "</tr>";
+                    }
+                    ViewBag.ScriptAjaxXemChiTiet = createScriptAjax.scriptAjaxXemChiTietKhiClick("js-btnXemChiTiet", "madg", "DanhGia/AjaxXemChiTietDanhGia?maDG=", "vungChiTiet", "modalChiTiet");
+                    ViewBag.ModalChiTiet = createHTML.taoModalChiTiet("modalChiTiet", "vungChiTiet", 3);
+                    ViewBag.ScriptAjax = createScriptAjax.scriptAjaxXoaDoiTuong("DanhGia/xoaMotDanhGia=");
+                    ViewBag.ModalXoa = createHTML.taoCanhBaoXoa("Đánh giá");
+                    ViewBag.TableData = htmlTable;
+                    return View();
+                }
+                catch (Exception ex)
+                {
+                    xulyFile.ghiLoi("Class DanhGiaController - Function: dg_TableDanhGiaNhanVien", ex.Message);
+                    return RedirectToAction("PageNotFound", "Home");
+                }
+            }
             return null;
+        }
+        /// <summary>
+        /// Hàm xử lý tạo modal xem chi tiết nội dung đã đánh giá của 1 nhân viên
+        /// </summary>
+        /// <param name="maDG">mã đánh giá cần xem</param>
+        /// <returns>Nội dung hiển thị lên modal</returns>
+        public string AjaxXemChiTietDanhGia(int maDG)
+        {
+            string kq = "";
+            if (xulyChung.duocTruyCap(idOfPageDanhGia))
+            {
+                try
+                {
+                    danhGiaNhanVien danhGia = new qlCaPheEntities().danhGiaNhanViens.SingleOrDefault(t => t.maDanhGia == maDG);
+                    if (danhGia != null)
+                    {
+                        kq += "<div class=\"modal-header\">";
+                        kq += "      <button type=\"button\" class=\"close\" data-dismiss=\"modal\">×</button>";
+                        kq += "    <h3 class=\"modal-title\" id=\"largeModalLabel\">XEM CHI TIẾT ĐÁNH GIÁ CỦA \"" + xulyDuLieu.traVeKyTuGoc(danhGia.thanhVien.hoTV) + " " + xulyDuLieu.traVeKyTuGoc(danhGia.thanhVien.tenTV) + "\" </h3>";
+                        kq += "</div>";
+                        kq += "<div class=\"modal-body\">";
+                        kq += "    <div class=\"row\">";
+                        kq += "        <div class=\"col-md-12 col-lg-12\">";
+                        kq += "            <div class=\"card\">";
+                        kq += "                <div class=\"header bg-cyan\">";
+                        kq += "                    <h2>Danh mục các mục tiêu đã đánh giá</h2>";
+                        kq += "                </div>";
+                        kq += "                <div class=\"body table-responsive\">";
+                        kq += this.taoBangChiTietDanhGia(danhGia);
+                        kq += "                </div>";
+                        kq += "            </div>";
+                        kq += "        </div>";
+                        kq += "</div>";
+                        kq += "<div class=\"modal-footer\">";
+                        kq += "    <div class=\"col-md-8 pull-right\">          ";
+                        kq += "        <a class=\"btn btn-default waves-effect\"  data-dismiss=\"modal\"><i class=\"material-icons\">close</i>Đóng lại</a>";
+                        kq += "    </div>";
+                        kq += "</div>";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    xulyFile.ghiLoi("Class DanhGiaController - Function: AjaxXemChiTietDanhGia", ex.Message);
+                }
+            }
+            return kq;
+        }
+        /// <summary>
+        /// Hàm tạo nội dung cho bảng chi tiết đánh giá có trên modal
+        /// </summary>
+        /// <param name="danhGia"></param>
+        /// <returns>Chuỗi html dành cho bảng</returns>
+        private string taoBangChiTietDanhGia(danhGiaNhanVien danhGia)
+        {
+            string kq = "";
+            try
+            {
+                kq+="<table class=\"table table-hover\">";
+                kq+="    <thead>";
+                kq+="        <tr>";
+                kq+="            <th width=\"20%\">Mục tiêu</th>";
+                kq+="            <th width=\"20%\">Diễn giải mục tiêu</th>";
+                kq+="            <th width=\"15%\">Điểm số</th>";
+                kq+="            <th width=\"35%\">Diễn giải điểm số</th>";
+                kq+="        </tr>";
+                kq+="    </thead>";
+                kq+="    <tbody>";
+                foreach (ctDanhGia ct in danhGia.ctDanhGias)
+                {
+                    kq += "        <tr>";
+                    kq += "            <td>"+xulyDuLieu.traVeKyTuGoc(ct.mucTieuDanhGia.tenMucTieu)+"</td>";
+                    kq += "            <td>"+xulyDuLieu.traVeKyTuGoc(ct.mucTieuDanhGia.dienGiai)+"</td>";
+                    kq += "            <td>"+ct.diemSo.ToString()+"</td>";
+                    kq += "            <td>"+xulyDuLieu.traVeKyTuGoc(ct.dienGiai)+"</td>";
+                    kq += "        </tr>";
+                }
+                kq+="    </tbody>";
+                kq += "</table>";
+            }
+            catch (Exception ex)
+            {
+                xulyFile.ghiLoi("Class DanhGiaController - Function: taoBangChiTietDanhGia", ex.Message);
+            }
+            return kq;
         }
 
 
@@ -629,7 +755,7 @@ namespace qlCaPhe.Controllers
                     kq+="    <td>"+xulyDuLieu.traVeKyTuGoc(ct.mucTieuDanhGia.dienGiai)+"</td>";
                     kq+="    <td><b>"+ct.diemSo.ToString()+"</b></td>";
                     kq+="    <td>"+xulyDuLieu.traVeKyTuGoc(ct.dienGiai)+"</td>";
-                    kq+="    <td><button type=\"button\" mamt=\""+ct.maMucTieu.ToString()+"\" class=\"js-btnDanhGiaLai btn btn-danger m-t-15 waves-effect\">Đánh giá lại</button></td>";
+                    kq+="    <td><button type=\"button\" mamt=\""+ct.maMucTieu.ToString()+"\" class=\"js-btnDanhGiaLai btn btn-danger waves-effect\">Đánh giá lại</button></td>";
                     kq += "</tr>";
                 }
 

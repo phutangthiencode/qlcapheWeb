@@ -3,7 +3,8 @@
     Layout = "~/Views/Shared/_LayoutTools.cshtml";
 }
 
-
+@Html.Raw(ViewBag.ScriptAjax)
+@Html.Raw(ViewBag.ScriptAjaxXemChiTiet)
 <section class="content">
     <div class="container-fluid">
         <div class="block-header">
@@ -47,6 +48,7 @@
                                         <th rowspan="1" colspan="1">Ngày đánh giá</th>
                                         <th rowspan="1" colspan="1">Tổng Điểm số</th>
                                         <th rowspan="1" colspan="1">Người đánh giá</th>
+                                        <th rowspan="1" colspan="1">Ghi chú</th>
                                         <th rowspan="1" colspan="1">Chức năng</th>
                                     </tr>
                                 </thead>
@@ -54,63 +56,14 @@
 
                                 </tfoot>
                                 <tbody>
-                                    <tr role="row" class="odd">
-                                        <td>
-                                            Nguyễn Minh Vy
-                                        </td>
+                                    @Html.Raw(ViewBag.TableData)
+                                    @*<tr role="row" class="odd">
+                                        <td>Nguyễn Minh Vy</td>
                                         <td>22/11/2017 12:05:45</td>
                                         <td>80</td>
                                         <td>ttphu</td>
-                                        <td>
-                                            <button type="button" class="btn btn-info m-t-15 waves-effect"
-                                                    data-toggle="modal" data-target="#modalChiTiet">
-                                                Xem chi tiết
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr role="row" class="odd">
-                                        <td>
-                                            Nguyễn Minh Vy
-                                        </td>
-                                        <td>22/11/2017 12:05:45</td>
-                                        <td>80</td>
-                                        <td>ttphu</td>
-                                        <td>
-                                            <button type="button" class="btn btn-info m-t-15 waves-effect"
-                                                    data-toggle="modal" data-target="#modalChiTiet">
-                                                Xem chi tiết
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr role="row" class="odd">
-                                        <td>
-                                            Nguyễn Minh Vy
-                                        </td>
-                                        <td>22/11/2017 12:05:45</td>
-                                        <td>80</td>
-                                        <td>ttphu</td>
-                                        <td>
-                                            <button type="button" class="btn btn-info m-t-15 waves-effect"
-                                                    data-toggle="modal" data-target="#modalChiTiet">
-                                                Xem chi tiết
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr role="row" class="odd">
-                                        <td>
-                                            Nguyễn Minh Vy
-                                        </td>
-                                        <td>22/11/2017 12:05:45</td>
-                                        <td>80</td>
-                                        <td>ttphu</td>
-                                        <td>
-                                            <button type="button" class="btn btn-info m-t-15 waves-effect"
-                                                    data-toggle="modal" data-target="#modalChiTiet">
-                                                Xem chi tiết
-                                            </button>
-                                        </td>
-                                    </tr>
-
+                                        <td><button type="button" class="btn btn-info waves-effect" data-toggle="modal" data-target="#modalChiTiet">Xem chi tiết</button></td>
+                                    </tr>*@
                                 </tbody>
                             </table>
                         </div>
@@ -130,80 +83,9 @@
         <!-- #END# Vertical Layout -->
     </div>
 
-    <!-- Modal cho danh sách chi tiết hoá đơn-->
-    <div class="modal fade" id="modalChiTiet" tabindex="-2" role="dialog" style="display: none;">
-        <div class="modal-dialog modal-lg" style="width:90%" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title" id="largeModalLabel">CHI TIẾT ĐÁNH GIÁ CHO NHÂN VIÊN NGUYỄN MINH VY</h3>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-12 col-lg-12">
-                            <div class="card">
-                                <div class="header bg-cyan">
-                                    <h2>
-                                        Danh mục mục tiêu đã đánh giá
-                                    </h2>
-                                </div>
-                                <div class="body table-responsive">
-                                    <table class="table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th width="40%">Mục tiêu</th>
-                                                <th width="15%">Điểm số</th>
-                                                <th width="35%">Diễn giải điểm số</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    Mục tiêu 1........
-                                                </td>
-                                                <td>
-                                                    8
-                                                </td>
-                                                <td>
-                                                    Nhân viên tốt
-                                                </td>
-
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    Mục tiêu 1........
-                                                </td>
-                                                <td>
-                                                    8
-                                                </td>
-                                                <td>
-                                                    Nhân viên tốt
-                                                </td>
-
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    Mục tiêu 1........
-                                                </td>
-                                                <td>
-                                                    8
-                                                </td>
-                                                <td>
-                                                    Nhân viên tốt
-                                                </td>
-
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal"><i class="material-icons">exit_to_app</i>Đóng lại</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>  <!-- Modal cho danh sách chi tiết  -->
+    <!-- Modal cho danh sách chi tiết hoá đơn-->    
+    @Html.Raw(ViewBag.ModalChiTiet)
+    @*modal Xóa*@
+    @Html.Raw(ViewBag.ModalXoa)
 </section>
 
