@@ -21,7 +21,10 @@ namespace qlCaPhe.Controllers
         public ActionResult bv_TaoMoiBaiViet()
         {
             if (xulyChung.duocTruyCap(idOfPage))
+            {
                 ViewBag.HinhDD = "/images/image-gallery/1.jpg";
+                xulyChung.ghiNhatKyDtb(1, "Tạo mới bài viết");
+            }
             return View();
         }
         /// <summary>

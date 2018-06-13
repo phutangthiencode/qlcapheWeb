@@ -6,6 +6,8 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Web;
 using qlCaPhe.Models;
+using System.Net;
+using System.Net.Sockets;
 
 namespace qlCaPhe.App_Start
 {
@@ -159,6 +161,157 @@ namespace qlCaPhe.App_Start
             //ssion.Remove("urlAction"); Session.Add("urlAction", "");
             HttpContext.Current.Session["urlAction"] = param;
         }
+
+        #region Nhóm hàm phục vụ ghi nhật ký sử dụng
+        /// <summary>
+        /// Hàm thực hiện thêm nhật ký vào CSDL
+        /// </summary>
+        /// <param name="status">Trạng thái thực hiện <para/> 1..4: Truy cập, Thêm, Xóa, Sửa</param>
+        /// <param name="noiDung">Nội dung, chức năng thực hiện</param>
+        public static void ghiNhatKyDtb(int status, string noiDung)
+        {
+            try
+            {
+                taiKhoan tkLogin = (taiKhoan)new HttpSessionStateWrapper(HttpContext.Current.Session)["login"];
+                nhatKy nkAdd = new nhatKy();
+                nkAdd.tenDangNhap = tkLogin.tenDangNhap;
+                nkAdd.thoiDiem = DateTime.Now;
+                nkAdd.IP = getLocalIPAddress();
+                System.Web.HttpBrowserCapabilities browser = HttpContext.Current.Request.Browser;
+                nkAdd.trinhDuyet = browser.Browser;
+                nkAdd.OS = GetUserPlatform(HttpContext.Current.Request);
+                nkAdd.chucNang = getChucNang(status) + noiDung;
+                //----Thêm nhật ký vào CSDL
+                qlCaPheEntities db = new qlCaPheEntities();
+                db.nhatKies.Add(nkAdd);
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                xulyFile.ghiLoi("Class: xulyChung - Function: ghiNhatKy", ex.Message);
+            }
+        }
+        /// <summary>
+        /// Hàm lấy địa chi ip của người dùng truy cập
+        /// </summary>
+        /// <returns></returns>
+        private static string getLocalIPAddress()
+        {
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (var ip in host.AddressList)
+            {
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    return ip.ToString();
+                }
+            }
+            throw new Exception("No network adapters with an IPv4 address in the system!");
+        }
+        /// <summary>
+        /// Hàm lấy OS người dùng truy cập
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        private static string GetUserPlatform(HttpRequest request)
+        {
+            var ua = request.UserAgent;
+
+            if (ua.Contains("Android"))
+                return string.Format("Android {0}", GetMobileVersion(ua, "Android"));
+
+            if (ua.Contains("iPad"))
+                return string.Format("iPad OS {0}", GetMobileVersion(ua, "OS"));
+
+            if (ua.Contains("iPhone"))
+                return string.Format("iPhone OS {0}", GetMobileVersion(ua, "OS"));
+
+            if (ua.Contains("Linux") && ua.Contains("KFAPWI"))
+                return "Kindle Fire";
+
+            if (ua.Contains("RIM Tablet") || (ua.Contains("BB") && ua.Contains("Mobile")))
+                return "Black Berry";
+
+            if (ua.Contains("Windows Phone"))
+                return string.Format("Windows Phone {0}", GetMobileVersion(ua, "Windows Phone"));
+
+            if (ua.Contains("Mac OS"))
+                return "Mac OS";
+
+            if (ua.Contains("Windows NT 5.1") || ua.Contains("Windows NT 5.2"))
+                return "Windows XP";
+
+            if (ua.Contains("Windows NT 6.0"))
+                return "Windows Vista";
+
+            if (ua.Contains("Windows NT 6.1"))
+                return "Windows 7";
+
+            if (ua.Contains("Windows NT 6.2"))
+                return "Windows 8";
+
+            if (ua.Contains("Windows NT 6.3"))
+                return "Windows 8.1";
+
+            if (ua.Contains("Windows NT 10"))
+                return "Windows 10";
+
+            //fallback to basic platform:
+            return request.Browser.Platform + (ua.Contains("Mobile") ? " Mobile " : "");
+        }
+        /// <summary>
+        /// Hàm lấy OS thiết bị di động
+        /// </summary>
+        /// <param name="userAgent"></param>
+        /// <param name="device"></param>
+        /// <returns></returns>
+        private static string GetMobileVersion(string userAgent, string device)
+        {
+            var temp = userAgent.Substring(userAgent.IndexOf(device) + device.Length).TrimStart();
+            var version = string.Empty;
+
+            foreach (var character in temp)
+            {
+                var validCharacter = false;
+                int test = 0;
+
+                if (Int32.TryParse(character.ToString(), out test))
+                {
+                    version += character;
+                    validCharacter = true;
+                }
+
+                if (character == '.' || character == '_')
+                {
+                    version += '.';
+                    validCharacter = true;
+                }
+
+                if (validCharacter == false)
+                    break;
+            }
+
+            return version;
+        }
+
+        /// <summary>
+        /// Hàm xác định chức năng thực hiện của người dùng
+        /// </summary>
+        /// <param name="status">Trạng thái thực hiện trên chức năng</param>
+        /// <returns></returns>
+        private static string getChucNang(int status)
+        {
+            string kq = "( ";
+            switch (status)
+            {
+                case 1: kq += "Truy cập"; break;
+                case 2: kq += "Thêm mới"; break;
+                case 3: kq += "Xóa bỏ"; break;
+                case 4: kq += "Chỉnh sửa"; break;
+            }
+            kq += " ) ";
+            return kq;
+        }
+        #endregion
     }
   
     

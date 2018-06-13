@@ -28,3 +28,13 @@ Vị trí: Class: DanhGiaController - Function: dg_ChinhSuaDanhGia_Post
  Lỗi: <i class="col-red">*Chưa đánh giá bất kỳ mục tiêu nào</i>
 ---------------------------------------------------------------
 
+-----------------------6/13/2018 4:02:09 PM----------
+Vị trí: Class: xulyChung - Function: ghiNhatKy 
+ Lỗi: Unable to update the EntitySet 'nhatKy' because it has a DefiningQuery and no <InsertFunction> element exists in the <ModificationFunctionMapping> element to support the current operation.
+---------------------------------------------------------------
+
+-----------------------6/13/2018 4:03:55 PM----------
+Vị trí: Class: xulyChung - Function: ghiNhatKy 
+ Lỗi: Unable to update the EntitySet 'nhatKy' because it has a DefiningQuery and no <InsertFunction> element exists in the <ModificationFunctionMapping> element to support the current operation.
+---------------------------------------------------------------
+
