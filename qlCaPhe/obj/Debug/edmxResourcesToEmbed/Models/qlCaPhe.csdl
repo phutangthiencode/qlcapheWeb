@@ -414,6 +414,19 @@
     <NavigationProperty Name="ctCungCaps" Relationship="Self.FK__ctCungCap__maNha__412EB0B6" FromRole="nhaCungCap" ToRole="ctCungCap" />
     <NavigationProperty Name="ctPhieuNhapKhoes" Relationship="Self.FK__ctPhieuNh__maNha__2057CCD0" FromRole="nhaCungCap" ToRole="ctPhieuNhapKho" />
   </EntityType>
+  <EntityType Name="nhatKy">
+    <Key>
+      <PropertyRef Name="maNhatKy" />
+    </Key>
+    <Property Name="maNhatKy" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="tenDangNhap" Type="String" MaxLength="68" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="thoiDiem" Type="DateTime" Precision="3" />
+    <Property Name="IP" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="trinhDuyet" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="OS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="chucNang" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="taiKhoan" Relationship="Self.FK__nhatKy__tenDangN__035179CE" FromRole="nhatKy" ToRole="taiKhoan" />
+  </EntityType>
   <EntityType Name="nhomTaiKhoan">
     <Key>
       <PropertyRef Name="maNhomTK" />
@@ -513,10 +526,10 @@
     <NavigationProperty Name="hoaDonOrders1" Relationship="Self.FK__hoaDonOrd__nguoi__2AA05119" FromRole="taiKhoan" ToRole="hoaDonOrder" />
     <NavigationProperty Name="hoaDonTams" Relationship="Self.FK__hoaDonTam__nguoi__12C8C788" FromRole="taiKhoan" ToRole="hoaDonTam" />
     <NavigationProperty Name="lichSuGias" Relationship="Self.FK__lichSuGia__nguoi__075714DC" FromRole="taiKhoan" ToRole="lichSuGia" />
+    <NavigationProperty Name="nhatKies" Relationship="Self.FK__nhatKy__tenDangN__035179CE" FromRole="taiKhoan" ToRole="nhatKy" />
     <NavigationProperty Name="nhomTaiKhoan" Relationship="Self.FK__taiKhoan__maNhom__117F9D94" FromRole="taiKhoan" ToRole="nhomTaiKhoan" />
     <NavigationProperty Name="phieuNhapKhoes" Relationship="Self.FK__phieuNhap__nguoi__5165187F" FromRole="taiKhoan" ToRole="phieuNhapKho" />
     <NavigationProperty Name="phieuXuatKhoes" Relationship="Self.FK__phieuXuat__nguoi__6383C8BA" FromRole="taiKhoan" ToRole="phieuXuatKho" />
-    <NavigationProperty Name="nhatKy" Relationship="Self.FK__nhatKy__tenDangN__719CDDE7" FromRole="taiKhoan" ToRole="nhatKy" />
     <NavigationProperty Name="thanhVien" Relationship="Self.FK__taiKhoan__maTV__108B795B" FromRole="taiKhoan" ToRole="thanhVien" />
     <NavigationProperty Name="thongBaos" Relationship="Self.FK__thongBao__taiKho__64CCF2AE" FromRole="taiKhoan" ToRole="thongBao" />
     <NavigationProperty Name="TonKhoes" Relationship="Self.FK__TonKho__nguoiKie__4EDDB18F" FromRole="taiKhoan" ToRole="TonKho" />
@@ -567,18 +580,6 @@
     <Property Name="ghiChu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="ctTonKhoes" Relationship="Self.FK__ctTonKho__maSoKy__5B438874" FromRole="TonKho" ToRole="ctTonKho" />
     <NavigationProperty Name="taiKhoan" Relationship="Self.FK__TonKho__nguoiKie__4EDDB18F" FromRole="TonKho" ToRole="taiKhoan" />
-  </EntityType>
-  <EntityType Name="nhatKy">
-    <Key>
-      <PropertyRef Name="tenDangNhap" />
-    </Key>
-    <Property Name="tenDangNhap" Type="String" MaxLength="68" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="thoiDiem" Type="DateTime" Precision="3" />
-    <Property Name="IP" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="trinhDuyet" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="OS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="chucNang" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="taiKhoan" Relationship="Self.FK__nhatKy__tenDangN__719CDDE7" FromRole="nhatKy" ToRole="taiKhoan" />
   </EntityType>
   <Association Name="FK__baiViet__nguoiTa__6DCC4D03">
     <End Role="taiKhoan" Type="Self.taiKhoan" Multiplicity="1" />
@@ -1060,6 +1061,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK__nhatKy__tenDangN__035179CE">
+    <End Role="taiKhoan" Type="Self.taiKhoan" Multiplicity="1" />
+    <End Role="nhatKy" Type="Self.nhatKy" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="taiKhoan">
+        <PropertyRef Name="tenDangNhap" />
+      </Principal>
+      <Dependent Role="nhatKy">
+        <PropertyRef Name="tenDangNhap" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__taiKhoan__maNhom__117F9D94">
     <End Role="nhomTaiKhoan" Type="Self.nhomTaiKhoan" Multiplicity="1" />
     <End Role="taiKhoan" Type="Self.taiKhoan" Multiplicity="*" />
@@ -1093,18 +1106,6 @@
       </Principal>
       <Dependent Role="phieuXuatKho">
         <PropertyRef Name="nguoiLapPhieu" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK__nhatKy__tenDangN__719CDDE7">
-    <End Role="taiKhoan" Type="Self.taiKhoan" Multiplicity="1" />
-    <End Role="nhatKy" Type="Self.nhatKy" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="taiKhoan">
-        <PropertyRef Name="tenDangNhap" />
-      </Principal>
-      <Dependent Role="nhatKy">
-        <PropertyRef Name="tenDangNhap" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -1174,6 +1175,7 @@
     <EntitySet Name="mucTieuDanhGias" EntityType="Self.mucTieuDanhGia" />
     <EntitySet Name="nguyenLieux" EntityType="Self.nguyenLieu" />
     <EntitySet Name="nhaCungCaps" EntityType="Self.nhaCungCap" />
+    <EntitySet Name="nhatKies" EntityType="Self.nhatKy" />
     <EntitySet Name="nhomTaiKhoans" EntityType="Self.nhomTaiKhoan" />
     <EntitySet Name="phieuNhapKhoes" EntityType="Self.phieuNhapKho" />
     <EntitySet Name="phieuXuatKhoes" EntityType="Self.phieuXuatKho" />
@@ -1184,7 +1186,6 @@
     <EntitySet Name="thanhViens" EntityType="Self.thanhVien" />
     <EntitySet Name="thongBaos" EntityType="Self.thongBao" />
     <EntitySet Name="TonKhoes" EntityType="Self.TonKho" />
-    <EntitySet Name="nhatKies" EntityType="Self.nhatKy" />
     <AssociationSet Name="FK__baiViet__nguoiTa__6DCC4D03" Association="Self.FK__baiViet__nguoiTa__6DCC4D03">
       <End Role="taiKhoan" EntitySet="taiKhoans" />
       <End Role="baiViet" EntitySet="baiViets" />
@@ -1345,6 +1346,10 @@
       <End Role="loaiSanPham" EntitySet="loaiSanPhams" />
       <End Role="sanPham" EntitySet="sanPhams" />
     </AssociationSet>
+    <AssociationSet Name="FK__nhatKy__tenDangN__035179CE" Association="Self.FK__nhatKy__tenDangN__035179CE">
+      <End Role="taiKhoan" EntitySet="taiKhoans" />
+      <End Role="nhatKy" EntitySet="nhatKies" />
+    </AssociationSet>
     <AssociationSet Name="FK__taiKhoan__maNhom__117F9D94" Association="Self.FK__taiKhoan__maNhom__117F9D94">
       <End Role="nhomTaiKhoan" EntitySet="nhomTaiKhoans" />
       <End Role="taiKhoan" EntitySet="taiKhoans" />
@@ -1356,10 +1361,6 @@
     <AssociationSet Name="FK__phieuXuat__nguoi__6383C8BA" Association="Self.FK__phieuXuat__nguoi__6383C8BA">
       <End Role="taiKhoan" EntitySet="taiKhoans" />
       <End Role="phieuXuatKho" EntitySet="phieuXuatKhoes" />
-    </AssociationSet>
-    <AssociationSet Name="FK__nhatKy__tenDangN__719CDDE7" Association="Self.FK__nhatKy__tenDangN__719CDDE7">
-      <End Role="taiKhoan" EntitySet="taiKhoans" />
-      <End Role="nhatKy" EntitySet="nhatKies" />
     </AssociationSet>
     <AssociationSet Name="FK__taiKhoan__maTV__108B795B" Association="Self.FK__taiKhoan__maTV__108B795B">
       <End Role="thanhVien" EntitySet="thanhViens" />

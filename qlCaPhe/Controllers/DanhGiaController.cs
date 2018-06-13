@@ -23,7 +23,10 @@ namespace qlCaPhe.Controllers
         public ActionResult mtdg_TaoMoiMucTieuDanhGia()
         {
             if (xulyChung.duocTruyCap(idOfPageMucTieu))
+            {
+                xulyChung.ghiNhatKyDtb(1, "Tạo mới mục tiêu đánh giá");
                 return View();
+            }
             return null;
         }
         /// <summary>
@@ -37,15 +40,19 @@ namespace qlCaPhe.Controllers
         {
             if (xulyChung.duocCapNhat(idOfPageMucTieu, "7"))
             {
-                string ndThongBao = "";
+                string ndThongBao = ""; int kqLuu = 0;
                 try
                 {
                     this.layDuLieuTuViewMucTieuDanhGia(mucTieu, f);
                     qlCaPheEntities db = new qlCaPheEntities();
                     mucTieu.trangThai = true;
                     db.mucTieuDanhGias.Add(mucTieu);
-                    db.SaveChanges();
-                    ndThongBao = createHTML.taoNoiDungThongBao("Mục tiêu", xulyDuLieu.traVeKyTuGoc(mucTieu.tenMucTieu), "mtdg_TableMucTieuDanhGia");
+                    kqLuu=db.SaveChanges();
+                    if (kqLuu > 0)
+                    {
+                        ndThongBao = createHTML.taoNoiDungThongBao("Mục tiêu", xulyDuLieu.traVeKyTuGoc(mucTieu.tenMucTieu), "mtdg_TableMucTieuDanhGia");
+                        xulyChung.ghiNhatKyDtb(2, ndThongBao);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -67,6 +74,7 @@ namespace qlCaPhe.Controllers
         public ActionResult RouteTableMucTieuDanhGia()
         {
             xulyChung.addSessionUrlAction("mtdg_TableMucTieuDanhGia", "1");
+            xulyChung.ghiNhatKyDtb(1, "Danh mục mục tiêu đánh giá còn sử dụng");
             return RedirectToAction("mtdg_TableMucTieuDanhGia");
         }
         /// <summary>
@@ -76,6 +84,7 @@ namespace qlCaPhe.Controllers
         public ActionResult RouteTableMucTieuDanhGiaBiHuy()
         {
             xulyChung.addSessionUrlAction("mtdg_TableMucTieuDanhGia", "2");
+            xulyChung.ghiNhatKyDtb(1, "Danh mục mục tiêu đánh giá bị hủy bỏ");
             return RedirectToAction("mtdg_TableMucTieuDanhGia");
         }
 
@@ -172,6 +181,7 @@ namespace qlCaPhe.Controllers
             {
                 try
                 {
+                    int kqLuu = 0;
                     string urlAction = (string)Session["urlAction"];
                     string request = urlAction.Split('|')[1]; //-------request có dạng: request=maDanhGia
                     request = request.Replace("request=", ""); //-------request có dạng maDanhGia
@@ -183,11 +193,15 @@ namespace qlCaPhe.Controllers
                         bool trangThaiCu = (bool)mucTieuSua.trangThai; //Lưu lại trạng thái cũ để chuyển đến trang tương ứng
                         mucTieuSua.trangThai = !trangThaiCu;
                         db.Entry(mucTieuSua).State = System.Data.Entity.EntityState.Modified;
-                        db.SaveChanges();
-                        if (trangThaiCu)//Chuyển đến danh sách mục tiêu hợp lệ
-                            Response.Redirect(xulyChung.layTenMien() + "/DanhGia/RouteTableMucTieuDanhGia");
-                        else
-                            Response.Redirect(xulyChung.layTenMien() + "/DanhGia/RouteTableMucTieuDanhGiaBiHuy");
+                        kqLuu=  db.SaveChanges();
+                        if (kqLuu > 0)
+                        {
+                            xulyChung.ghiNhatKyDtb(4, "Cập nhật trạng thái mục tiêu đánh giá \" " + xulyDuLieu.traVeKyTuGoc(mucTieuSua.tenMucTieu) + " \"");
+                            if (trangThaiCu)//Chuyển đến danh sách mục tiêu hợp lệ
+                                Response.Redirect(xulyChung.layTenMien() + "/DanhGia/RouteTableMucTieuDanhGia");
+                            else
+                                Response.Redirect(xulyChung.layTenMien() + "/DanhGia/RouteTableMucTieuDanhGiaBiHuy");
+                        }
                     }
                     else
                         throw new Exception("Mục tiêu đánh giá có mã " + maMucTieu.ToString() + " cần cập nhật không tồn tại");
@@ -213,7 +227,10 @@ namespace qlCaPhe.Controllers
                     int maMucTieu = xulyDuLieu.doiChuoiSangInteger(param);
                     mucTieuDanhGia mucTieuSua = new qlCaPheEntities().mucTieuDanhGias.SingleOrDefault(m => m.maMucTieu == maMucTieu);
                     if (mucTieuSua != null)
+                    {
                         this.doDuLieuLenViewMucTieuDanhGia(mucTieuSua);
+                        xulyChung.ghiNhatKyDtb(1, "Chỉnh sửa mục tiêu đánh giá\" " + xulyDuLieu.traVeKyTuGoc(mucTieuSua.tenMucTieu) + " \"");
+                    }
                     else
                         throw new Exception("Mục tiêu đánh giá có mã " + maMucTieu.ToString() + " không tồn tại để cập nhật");
                 }
@@ -234,8 +251,8 @@ namespace qlCaPhe.Controllers
         {
             if (xulyChung.duocCapNhat(idOfPageMucTieu, "7"))
             {
-                qlCaPheEntities db = new qlCaPheEntities();
-                mucTieuDanhGia mucTieuSua = new mucTieuDanhGia();
+                int kqLuu = 0;
+                qlCaPheEntities db = new qlCaPheEntities(); mucTieuDanhGia mucTieuSua = new mucTieuDanhGia();
                 try
                 {
                     int maMucTieu = Convert.ToInt32(f["txtMaMucTieu"]);
@@ -245,8 +262,12 @@ namespace qlCaPhe.Controllers
                         this.layDuLieuTuViewMucTieuDanhGia(mucTieuSua, f);
                         mucTieuSua.trangThai = true;
                         db.Entry(mucTieuSua).State = System.Data.Entity.EntityState.Modified;
-                        db.SaveChanges();
-                        return RedirectToAction("RouteTableMucTieuDanhGia");
+                        kqLuu=db.SaveChanges();
+                        if (kqLuu > 0)
+                        {
+                            xulyChung.ghiNhatKyDtb(4, "Mục tiêu đánh giá \" " + xulyDuLieu.traVeKyTuGoc(mucTieuSua.tenMucTieu) + " \"");
+                            return RedirectToAction("RouteTableMucTieuDanhGia");
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -270,17 +291,22 @@ namespace qlCaPhe.Controllers
             if (xulyChung.duocCapNhat(idOfPageMucTieu, "7"))
                 try
                 {
+                    int kqLuu = 0;
                     qlCaPheEntities db = new qlCaPheEntities();
                     mucTieuDanhGia mucTieuXoa = db.mucTieuDanhGias.SingleOrDefault(m => m.maMucTieu == maMucTieu);
                     if (mucTieuXoa != null)
                     {
                         bool trangThai = (bool)mucTieuXoa.trangThai;//Lưu lại trạng thái để chuyển đến trang danh sách nhà cung cấp trước đó
                         db.mucTieuDanhGias.Remove(mucTieuXoa);
-                        db.SaveChanges();
-                        if (trangThai)//Chuyển đến danh sách mục tiêu hợp lệ
-                            Response.Redirect(xulyChung.layTenMien() + "/DanhGia/RouteTableMucTieuDanhGia");
-                        else
-                            Response.Redirect(xulyChung.layTenMien() + "/DanhGia/RouteTableMucTieuDanhGiaBiHuy");
+                        kqLuu=db.SaveChanges();
+                        if (kqLuu > 0)
+                        {
+                            xulyChung.ghiNhatKyDtb(3, "Mục tiêu đánh giá\"" + xulyDuLieu.traVeKyTuGoc(mucTieuXoa.tenMucTieu) + " \"");
+                            if (trangThai)//Chuyển đến danh sách mục tiêu hợp lệ
+                                Response.Redirect(xulyChung.layTenMien() + "/DanhGia/RouteTableMucTieuDanhGia");
+                            else
+                                Response.Redirect(xulyChung.layTenMien() + "/DanhGia/RouteTableMucTieuDanhGiaBiHuy");
+                        }
                     }
                     else
                         throw new Exception("Mục tiêu đánh giá có mã " + maMucTieu.ToString() + " không tồn tại để xóa");
@@ -359,6 +385,7 @@ namespace qlCaPhe.Controllers
                     this.taoDuLieuComboboxThanhVienDanhGia(db, 0);
                     taoDanhSachMucTieuDanhGia(db);
                     this.taoScript();
+                    xulyChung.ghiNhatKyDtb(1, "Tạo mới đánh giá");
                     return View();
                 }
                 catch (Exception ex)
@@ -392,6 +419,7 @@ namespace qlCaPhe.Controllers
                         this.themChiTietDanhGiaVaoDatabase(db, danhGiaAdd);
                         ndThongBao = createHTML.taoNoiDungThongBao("Đánh giá nhân viên", xulyDuLieu.traVeKyTuGoc(danhGiaAdd.thanhVien.hoTV) + " " + xulyDuLieu.traVeKyTuGoc(danhGiaAdd.thanhVien.tenTV), "dg_TableDanhGiaNhanVien");
                         this.resetSession();
+                        xulyChung.ghiNhatKyDtb(2, ndThongBao);
                     }
                 }
                 catch (Exception ex)
@@ -473,6 +501,7 @@ namespace qlCaPhe.Controllers
                     ViewBag.ScriptAjax = createScriptAjax.scriptAjaxXoaDoiTuong("DanhGia/xoaMotDanhGia?maDanhGia=");
                     ViewBag.ModalXoa = createHTML.taoCanhBaoXoa("Đánh giá");
                     ViewBag.TableData = htmlTable;
+                    xulyChung.ghiNhatKyDtb(1, "Danh mục đánh giá nhân viên");
                     return View();
                 }
                 catch (Exception ex)
@@ -520,6 +549,7 @@ namespace qlCaPhe.Controllers
                         kq += "        <a class=\"btn btn-default waves-effect\"  data-dismiss=\"modal\"><i class=\"material-icons\">close</i>Đóng lại</a>";
                         kq += "    </div>";
                         kq += "</div>";
+                        xulyChung.ghiNhatKyDtb(5, "Chi tiết đánh giá của \"" + xulyDuLieu.traVeKyTuGoc(danhGia.thanhVien.hoTV + " " + danhGia.thanhVien.tenTV) + " \"");
                     }
                 }
                 catch (Exception ex)
@@ -588,6 +618,7 @@ namespace qlCaPhe.Controllers
                     {
                         this.doDuLieuLenViewDanhGia(danhGia);
                         this.taoGioChinhSuaDanhGia(danhGia, db);
+                        xulyChung.ghiNhatKyDtb(1, "Chỉnh sửa đánh giá của \" " + xulyDuLieu.traVeKyTuGoc(danhGia.thanhVien.hoTV + " " + danhGia.thanhVien.tenTV) + " \"");
                     }
                     else
                         throw new Exception("Đánh giá có mã " + maDanhGia.ToString() + " không tồn tại để cập nhật");
@@ -631,6 +662,7 @@ namespace qlCaPhe.Controllers
                             this.xoaChiTietDanhGia(danhGiaSua.maDanhGia, db);
                             this.themChiTietDanhGiaVaoDatabase(db, danhGiaSua);
                             this.resetSession();
+                            xulyChung.ghiNhatKyDtb(4, "Đánh giá của \" " + xulyDuLieu.traVeKyTuGoc(danhGiaSua.thanhVien.hoTV + " " + danhGiaSua.thanhVien.tenTV) + " \"");
                             return RedirectToAction("dg_TableDanhGiaNhanVien", "DanhGia");
                         }
                     }
@@ -656,14 +688,20 @@ namespace qlCaPhe.Controllers
             if (xulyChung.duocCapNhat(idOfPageDanhGia, "7"))
                 try
                 {
+                    int kqLuu = 0; string ndNhatKy = "";
                     qlCaPheEntities db = new qlCaPheEntities();
                     danhGiaNhanVien danhGiaXoa = db.danhGiaNhanViens.SingleOrDefault(m => m.maDanhGia == maDanhGia);
                     if (danhGiaXoa != null)
                     {
+                        ndNhatKy = "Đánh giá của \"" + xulyDuLieu.traVeKyTuGoc(danhGiaXoa.thanhVien.hoTV + " " + danhGiaXoa.thanhVien.tenTV) + " \"";
                         this.xoaChiTietDanhGia(danhGiaXoa.maDanhGia, db);
                         db.danhGiaNhanViens.Remove(danhGiaXoa);
-                        db.SaveChanges();
-                        Response.Redirect(xulyChung.layTenMien() + "/DanhGia/dg_TableDanhGiaNhanVien");
+                        kqLuu=db.SaveChanges();
+                        if (kqLuu > 0)
+                        {
+                            xulyChung.ghiNhatKyDtb(3, ndNhatKy);
+                            Response.Redirect(xulyChung.layTenMien() + "/DanhGia/dg_TableDanhGiaNhanVien");
+                        }
                     }
                     else
                         throw new Exception("Đánh giá có mã " + maDanhGia.ToString() + " không tồn tại để xóa");

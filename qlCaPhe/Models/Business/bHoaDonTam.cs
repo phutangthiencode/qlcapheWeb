@@ -32,6 +32,8 @@ namespace qlCaPhe.Models.Business
                 hoaDonAdd.nguoiPhucVu = tenDangNhap;
                 db.hoaDonTams.Add(hoaDonAdd);
                 kq = db.SaveChanges();
+                if(kq>0)
+                    xulyChung.ghiNhatKyDtb(2, "Đã tiếp nhận bàn");
             }
             catch (Exception ex)
             {

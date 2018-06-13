@@ -376,6 +376,19 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="nhatKies">
+      <EntityTypeMapping TypeName="qlCaPheModel.nhatKy">
+        <MappingFragment StoreEntitySet="nhatKy">
+          <ScalarProperty Name="maNhatKy" ColumnName="maNhatKy" />
+          <ScalarProperty Name="tenDangNhap" ColumnName="tenDangNhap" />
+          <ScalarProperty Name="thoiDiem" ColumnName="thoiDiem" />
+          <ScalarProperty Name="IP" ColumnName="IP" />
+          <ScalarProperty Name="trinhDuyet" ColumnName="trinhDuyet" />
+          <ScalarProperty Name="OS" ColumnName="OS" />
+          <ScalarProperty Name="chucNang" ColumnName="chucNang" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="nhomTaiKhoans">
       <EntityTypeMapping TypeName="qlCaPheModel.nhomTaiKhoan">
         <MappingFragment StoreEntitySet="nhomTaiKhoan">
@@ -504,18 +517,6 @@
           <ScalarProperty Name="tongTien" ColumnName="tongTien" />
           <ScalarProperty Name="nguoiKiem" ColumnName="nguoiKiem" />
           <ScalarProperty Name="ghiChu" ColumnName="ghiChu" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="nhatKies">
-      <EntityTypeMapping TypeName="qlCaPheModel.nhatKy">
-        <MappingFragment StoreEntitySet="nhatKy">
-          <ScalarProperty Name="tenDangNhap" ColumnName="tenDangNhap" />
-          <ScalarProperty Name="thoiDiem" ColumnName="thoiDiem" />
-          <ScalarProperty Name="IP" ColumnName="IP" />
-          <ScalarProperty Name="trinhDuyet" ColumnName="trinhDuyet" />
-          <ScalarProperty Name="OS" ColumnName="OS" />
-          <ScalarProperty Name="chucNang" ColumnName="chucNang" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

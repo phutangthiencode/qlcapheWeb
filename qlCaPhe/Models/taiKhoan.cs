@@ -25,6 +25,7 @@ namespace qlCaPhe.Models
             this.hoaDonOrders1 = new HashSet<hoaDonOrder>();
             this.hoaDonTams = new HashSet<hoaDonTam>();
             this.lichSuGias = new HashSet<lichSuGia>();
+            this.nhatKies = new HashSet<nhatKy>();
             this.phieuNhapKhoes = new HashSet<phieuNhapKho>();
             this.phieuXuatKhoes = new HashSet<phieuXuatKho>();
             this.thongBaos = new HashSet<thongBao>();
@@ -47,10 +48,10 @@ namespace qlCaPhe.Models
         public virtual ICollection<hoaDonOrder> hoaDonOrders1 { get; set; }
         public virtual ICollection<hoaDonTam> hoaDonTams { get; set; }
         public virtual ICollection<lichSuGia> lichSuGias { get; set; }
+        public virtual ICollection<nhatKy> nhatKies { get; set; }
         public virtual nhomTaiKhoan nhomTaiKhoan { get; set; }
         public virtual ICollection<phieuNhapKho> phieuNhapKhoes { get; set; }
         public virtual ICollection<phieuXuatKho> phieuXuatKhoes { get; set; }
-        public virtual nhatKy nhatKy { get; set; }
         public virtual thanhVien thanhVien { get; set; }
         public virtual ICollection<thongBao> thongBaos { get; set; }
         public virtual ICollection<TonKho> TonKhoes { get; set; }

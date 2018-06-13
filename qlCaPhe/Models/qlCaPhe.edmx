@@ -359,12 +359,11 @@
           <Property Name="trangThai" Type="bit" Nullable="false" />
           <Property Name="ghiChu" Type="ntext" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'qlCaPhe.dbo.nhatKy' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="nhatKy">
           <Key>
-            <PropertyRef Name="tenDangNhap" />
+            <PropertyRef Name="maNhatKy" />
           </Key>
+          <Property Name="maNhatKy" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="tenDangNhap" Type="varchar" MaxLength="68" Nullable="false" />
           <Property Name="thoiDiem" Type="datetime" />
           <Property Name="IP" Type="varchar" MaxLength="20" />
@@ -937,9 +936,9 @@ warning 6002: The table/view 'qlCaPhe.dbo.nhatKy' does not have a primary key de
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__nhatKy__tenDangN__719CDDE7">
+        <Association Name="FK__nhatKy__tenDangN__035179CE">
           <End Role="taiKhoan" Type="Self.taiKhoan" Multiplicity="1" />
-          <End Role="nhatKy" Type="Self.nhatKy" Multiplicity="0..1" />
+          <End Role="nhatKy" Type="Self.nhatKy" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="taiKhoan">
               <PropertyRef Name="tenDangNhap" />
@@ -1128,6 +1127,7 @@ warning 6002: The table/view 'qlCaPhe.dbo.nhatKy' does not have a primary key de
           <EntitySet Name="mucTieuDanhGia" EntityType="Self.mucTieuDanhGia" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="nguyenLieu" EntityType="Self.nguyenLieu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="nhaCungCap" EntityType="Self.nhaCungCap" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="nhatKy" EntityType="Self.nhatKy" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="nhomTaiKhoan" EntityType="Self.nhomTaiKhoan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="phieuNhapKho" EntityType="Self.phieuNhapKho" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="phieuXuatKho" EntityType="Self.phieuXuatKho" Schema="dbo" store:Type="Tables" />
@@ -1138,16 +1138,6 @@ warning 6002: The table/view 'qlCaPhe.dbo.nhatKy' does not have a primary key de
           <EntitySet Name="thanhVien" EntityType="Self.thanhVien" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="thongBao" EntityType="Self.thongBao" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TonKho" EntityType="Self.TonKho" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="nhatKy" EntityType="Self.nhatKy" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [nhatKy].[tenDangNhap] AS [tenDangNhap], 
-    [nhatKy].[thoiDiem] AS [thoiDiem], 
-    [nhatKy].[IP] AS [IP], 
-    [nhatKy].[trinhDuyet] AS [trinhDuyet], 
-    [nhatKy].[OS] AS [OS], 
-    [nhatKy].[chucNang] AS [chucNang]
-    FROM [dbo].[nhatKy] AS [nhatKy]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK__baiViet__nguoiTa__6DCC4D03" Association="Self.FK__baiViet__nguoiTa__6DCC4D03">
             <End Role="taiKhoan" EntitySet="taiKhoan" />
             <End Role="baiViet" EntitySet="baiViet" />
@@ -1296,7 +1286,7 @@ warning 6002: The table/view 'qlCaPhe.dbo.nhatKy' does not have a primary key de
             <End Role="loaiNguyenLieu" EntitySet="loaiNguyenLieu" />
             <End Role="nguyenLieu" EntitySet="nguyenLieu" />
           </AssociationSet>
-          <AssociationSet Name="FK__nhatKy__tenDangN__719CDDE7" Association="Self.FK__nhatKy__tenDangN__719CDDE7">
+          <AssociationSet Name="FK__nhatKy__tenDangN__035179CE" Association="Self.FK__nhatKy__tenDangN__035179CE">
             <End Role="taiKhoan" EntitySet="taiKhoan" />
             <End Role="nhatKy" EntitySet="nhatKy" />
           </AssociationSet>
@@ -1756,6 +1746,19 @@ warning 6002: The table/view 'qlCaPhe.dbo.nhatKy' does not have a primary key de
           <NavigationProperty Name="ctCungCaps" Relationship="Self.FK__ctCungCap__maNha__412EB0B6" FromRole="nhaCungCap" ToRole="ctCungCap" />
           <NavigationProperty Name="ctPhieuNhapKhoes" Relationship="Self.FK__ctPhieuNh__maNha__2057CCD0" FromRole="nhaCungCap" ToRole="ctPhieuNhapKho" />
         </EntityType>
+        <EntityType Name="nhatKy">
+          <Key>
+            <PropertyRef Name="maNhatKy" />
+          </Key>
+          <Property Name="maNhatKy" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tenDangNhap" Type="String" MaxLength="68" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="thoiDiem" Type="DateTime" Precision="3" />
+          <Property Name="IP" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="trinhDuyet" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="chucNang" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="taiKhoan" Relationship="Self.FK__nhatKy__tenDangN__035179CE" FromRole="nhatKy" ToRole="taiKhoan" />
+        </EntityType>
         <EntityType Name="nhomTaiKhoan">
           <Key>
             <PropertyRef Name="maNhomTK" />
@@ -1855,10 +1858,10 @@ warning 6002: The table/view 'qlCaPhe.dbo.nhatKy' does not have a primary key de
           <NavigationProperty Name="hoaDonOrders1" Relationship="Self.FK__hoaDonOrd__nguoi__2AA05119" FromRole="taiKhoan" ToRole="hoaDonOrder" />
           <NavigationProperty Name="hoaDonTams" Relationship="Self.FK__hoaDonTam__nguoi__12C8C788" FromRole="taiKhoan" ToRole="hoaDonTam" />
           <NavigationProperty Name="lichSuGias" Relationship="Self.FK__lichSuGia__nguoi__075714DC" FromRole="taiKhoan" ToRole="lichSuGia" />
+          <NavigationProperty Name="nhatKies" Relationship="Self.FK__nhatKy__tenDangN__035179CE" FromRole="taiKhoan" ToRole="nhatKy" />
           <NavigationProperty Name="nhomTaiKhoan" Relationship="Self.FK__taiKhoan__maNhom__117F9D94" FromRole="taiKhoan" ToRole="nhomTaiKhoan" />
           <NavigationProperty Name="phieuNhapKhoes" Relationship="Self.FK__phieuNhap__nguoi__5165187F" FromRole="taiKhoan" ToRole="phieuNhapKho" />
           <NavigationProperty Name="phieuXuatKhoes" Relationship="Self.FK__phieuXuat__nguoi__6383C8BA" FromRole="taiKhoan" ToRole="phieuXuatKho" />
-          <NavigationProperty Name="nhatKy" Relationship="Self.FK__nhatKy__tenDangN__719CDDE7" FromRole="taiKhoan" ToRole="nhatKy" />
           <NavigationProperty Name="thanhVien" Relationship="Self.FK__taiKhoan__maTV__108B795B" FromRole="taiKhoan" ToRole="thanhVien" />
           <NavigationProperty Name="thongBaos" Relationship="Self.FK__thongBao__taiKho__64CCF2AE" FromRole="taiKhoan" ToRole="thongBao" />
           <NavigationProperty Name="TonKhoes" Relationship="Self.FK__TonKho__nguoiKie__4EDDB18F" FromRole="taiKhoan" ToRole="TonKho" />
@@ -1909,18 +1912,6 @@ warning 6002: The table/view 'qlCaPhe.dbo.nhatKy' does not have a primary key de
           <Property Name="ghiChu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ctTonKhoes" Relationship="Self.FK__ctTonKho__maSoKy__5B438874" FromRole="TonKho" ToRole="ctTonKho" />
           <NavigationProperty Name="taiKhoan" Relationship="Self.FK__TonKho__nguoiKie__4EDDB18F" FromRole="TonKho" ToRole="taiKhoan" />
-        </EntityType>
-        <EntityType Name="nhatKy">
-          <Key>
-            <PropertyRef Name="tenDangNhap" />
-          </Key>
-          <Property Name="tenDangNhap" Type="String" MaxLength="68" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="thoiDiem" Type="DateTime" Precision="3" />
-          <Property Name="IP" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="trinhDuyet" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="OS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="chucNang" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="taiKhoan" Relationship="Self.FK__nhatKy__tenDangN__719CDDE7" FromRole="nhatKy" ToRole="taiKhoan" />
         </EntityType>
         <Association Name="FK__baiViet__nguoiTa__6DCC4D03">
           <End Role="taiKhoan" Type="Self.taiKhoan" Multiplicity="1" />
@@ -2402,6 +2393,18 @@ warning 6002: The table/view 'qlCaPhe.dbo.nhatKy' does not have a primary key de
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__nhatKy__tenDangN__035179CE">
+          <End Role="taiKhoan" Type="Self.taiKhoan" Multiplicity="1" />
+          <End Role="nhatKy" Type="Self.nhatKy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="taiKhoan">
+              <PropertyRef Name="tenDangNhap" />
+            </Principal>
+            <Dependent Role="nhatKy">
+              <PropertyRef Name="tenDangNhap" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__taiKhoan__maNhom__117F9D94">
           <End Role="nhomTaiKhoan" Type="Self.nhomTaiKhoan" Multiplicity="1" />
           <End Role="taiKhoan" Type="Self.taiKhoan" Multiplicity="*" />
@@ -2435,18 +2438,6 @@ warning 6002: The table/view 'qlCaPhe.dbo.nhatKy' does not have a primary key de
             </Principal>
             <Dependent Role="phieuXuatKho">
               <PropertyRef Name="nguoiLapPhieu" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__nhatKy__tenDangN__719CDDE7">
-          <End Role="taiKhoan" Type="Self.taiKhoan" Multiplicity="1" />
-          <End Role="nhatKy" Type="Self.nhatKy" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="taiKhoan">
-              <PropertyRef Name="tenDangNhap" />
-            </Principal>
-            <Dependent Role="nhatKy">
-              <PropertyRef Name="tenDangNhap" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2516,6 +2507,7 @@ warning 6002: The table/view 'qlCaPhe.dbo.nhatKy' does not have a primary key de
           <EntitySet Name="mucTieuDanhGias" EntityType="Self.mucTieuDanhGia" />
           <EntitySet Name="nguyenLieux" EntityType="Self.nguyenLieu" />
           <EntitySet Name="nhaCungCaps" EntityType="Self.nhaCungCap" />
+          <EntitySet Name="nhatKies" EntityType="Self.nhatKy" />
           <EntitySet Name="nhomTaiKhoans" EntityType="Self.nhomTaiKhoan" />
           <EntitySet Name="phieuNhapKhoes" EntityType="Self.phieuNhapKho" />
           <EntitySet Name="phieuXuatKhoes" EntityType="Self.phieuXuatKho" />
@@ -2526,7 +2518,6 @@ warning 6002: The table/view 'qlCaPhe.dbo.nhatKy' does not have a primary key de
           <EntitySet Name="thanhViens" EntityType="Self.thanhVien" />
           <EntitySet Name="thongBaos" EntityType="Self.thongBao" />
           <EntitySet Name="TonKhoes" EntityType="Self.TonKho" />
-          <EntitySet Name="nhatKies" EntityType="Self.nhatKy" />
           <AssociationSet Name="FK__baiViet__nguoiTa__6DCC4D03" Association="Self.FK__baiViet__nguoiTa__6DCC4D03">
             <End Role="taiKhoan" EntitySet="taiKhoans" />
             <End Role="baiViet" EntitySet="baiViets" />
@@ -2687,6 +2678,10 @@ warning 6002: The table/view 'qlCaPhe.dbo.nhatKy' does not have a primary key de
             <End Role="loaiSanPham" EntitySet="loaiSanPhams" />
             <End Role="sanPham" EntitySet="sanPhams" />
           </AssociationSet>
+          <AssociationSet Name="FK__nhatKy__tenDangN__035179CE" Association="Self.FK__nhatKy__tenDangN__035179CE">
+            <End Role="taiKhoan" EntitySet="taiKhoans" />
+            <End Role="nhatKy" EntitySet="nhatKies" />
+          </AssociationSet>
           <AssociationSet Name="FK__taiKhoan__maNhom__117F9D94" Association="Self.FK__taiKhoan__maNhom__117F9D94">
             <End Role="nhomTaiKhoan" EntitySet="nhomTaiKhoans" />
             <End Role="taiKhoan" EntitySet="taiKhoans" />
@@ -2698,10 +2693,6 @@ warning 6002: The table/view 'qlCaPhe.dbo.nhatKy' does not have a primary key de
           <AssociationSet Name="FK__phieuXuat__nguoi__6383C8BA" Association="Self.FK__phieuXuat__nguoi__6383C8BA">
             <End Role="taiKhoan" EntitySet="taiKhoans" />
             <End Role="phieuXuatKho" EntitySet="phieuXuatKhoes" />
-          </AssociationSet>
-          <AssociationSet Name="FK__nhatKy__tenDangN__719CDDE7" Association="Self.FK__nhatKy__tenDangN__719CDDE7">
-            <End Role="taiKhoan" EntitySet="taiKhoans" />
-            <End Role="nhatKy" EntitySet="nhatKies" />
           </AssociationSet>
           <AssociationSet Name="FK__taiKhoan__maTV__108B795B" Association="Self.FK__taiKhoan__maTV__108B795B">
             <End Role="thanhVien" EntitySet="thanhViens" />
@@ -3148,6 +3139,19 @@ warning 6002: The table/view 'qlCaPhe.dbo.nhatKy' does not have a primary key de
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="nhatKies">
+            <EntityTypeMapping TypeName="qlCaPheModel.nhatKy">
+              <MappingFragment StoreEntitySet="nhatKy">
+                <ScalarProperty Name="maNhatKy" ColumnName="maNhatKy" />
+                <ScalarProperty Name="tenDangNhap" ColumnName="tenDangNhap" />
+                <ScalarProperty Name="thoiDiem" ColumnName="thoiDiem" />
+                <ScalarProperty Name="IP" ColumnName="IP" />
+                <ScalarProperty Name="trinhDuyet" ColumnName="trinhDuyet" />
+                <ScalarProperty Name="OS" ColumnName="OS" />
+                <ScalarProperty Name="chucNang" ColumnName="chucNang" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="nhomTaiKhoans">
             <EntityTypeMapping TypeName="qlCaPheModel.nhomTaiKhoan">
               <MappingFragment StoreEntitySet="nhomTaiKhoan">
@@ -3276,18 +3280,6 @@ warning 6002: The table/view 'qlCaPhe.dbo.nhatKy' does not have a primary key de
                 <ScalarProperty Name="tongTien" ColumnName="tongTien" />
                 <ScalarProperty Name="nguoiKiem" ColumnName="nguoiKiem" />
                 <ScalarProperty Name="ghiChu" ColumnName="ghiChu" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="nhatKies">
-            <EntityTypeMapping TypeName="qlCaPheModel.nhatKy">
-              <MappingFragment StoreEntitySet="nhatKy">
-                <ScalarProperty Name="tenDangNhap" ColumnName="tenDangNhap" />
-                <ScalarProperty Name="thoiDiem" ColumnName="thoiDiem" />
-                <ScalarProperty Name="IP" ColumnName="IP" />
-                <ScalarProperty Name="trinhDuyet" ColumnName="trinhDuyet" />
-                <ScalarProperty Name="OS" ColumnName="OS" />
-                <ScalarProperty Name="chucNang" ColumnName="chucNang" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

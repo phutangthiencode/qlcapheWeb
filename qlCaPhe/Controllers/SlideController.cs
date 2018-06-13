@@ -19,7 +19,10 @@ namespace qlCaPhe.Controllers
         public ActionResult sl_TaoMoiSlideShow()
         {
             if (xulyChung.duocTruyCap(idOfPage))
+            {
                 this.resetDuLieu();
+                xulyChung.ghiNhatKyDtb(1, "Tạo mới slideshow");
+            }
             return View();
         }
         /// <summary>
@@ -31,15 +34,19 @@ namespace qlCaPhe.Controllers
         {
             if (xulyChung.duocCapNhat(idOfPage, "7"))
             {
-                string ndThongBao = "";
+                string ndThongBao = ""; int kqLuu = 0;
                 try
                 {
                     qlCaPheEntities db = new qlCaPheEntities();
                     this.layDuLieuTuView(s, f);
                     db.slides.Add(s);
-                    db.SaveChanges();
-                    ndThongBao = createHTML.taoNoiDungThongBao("Slideshow", s.maSlide.ToString(), "sl_TableSlideShow?trangThai=false");
-                    this.resetDuLieu();
+                    kqLuu = db.SaveChanges();
+                    if (kqLuu > 0)
+                    {
+                        ndThongBao = createHTML.taoNoiDungThongBao("Slideshow", s.maSlide.ToString(), "sl_TableSlideShow?trangThai=false");
+                        this.resetDuLieu();
+                        xulyChung.ghiNhatKyDtb(2, ndThongBao);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -77,6 +84,7 @@ namespace qlCaPhe.Controllers
                 ViewBag.TableData = htmlTable;
                 ViewBag.ScriptAjax = createScriptAjax.scriptAjaxXoaDoiTuong("Slide/xoaSlide?maSlide=");
                 ViewBag.ModalXoa = createHTML.taoCanhBaoXoa("SlideShow");
+                xulyChung.ghiNhatKyDtb(1, "Danh mục slideshow");
             }
             return View();
         }
@@ -124,6 +132,7 @@ namespace qlCaPhe.Controllers
         {
             try
             {
+                int kqLuu = 0;
                 string param = xulyChung.nhanThamSoTrongSession();
                 if (param.Length > 0)
                 {
@@ -135,11 +144,15 @@ namespace qlCaPhe.Controllers
                         bool trangThaiCu = (bool)slideSua.trangThai; //Lưu lại trạng thái cũ để chuyển đến danh sách tương ứng
                         slideSua.trangThai = !trangThaiCu;//Cập nhật trạng thái ngược với trạng thái cũ
                         db.Entry(slideSua).State = System.Data.Entity.EntityState.Modified;
-                        db.SaveChanges();
-                        if (trangThaiCu)
-                            Response.Redirect(xulyChung.layTenMien() + "/Slide/sl_TableSlideShow?trangThai=true");
-                        else
-                            Response.Redirect(xulyChung.layTenMien() + "/Slide/sl_TableSlideShow?trangThai=false");
+                        kqLuu = db.SaveChanges();
+                        if (kqLuu > 0)
+                        {
+                            xulyChung.ghiNhatKyDtb(4, "Cập nhật trạng thái slideshow\" " + slideSua.maSlide.ToString() + " \"");
+                            if (trangThaiCu)
+                                Response.Redirect(xulyChung.layTenMien() + "/Slide/sl_TableSlideShow?trangThai=true");
+                            else
+                                Response.Redirect(xulyChung.layTenMien() + "/Slide/sl_TableSlideShow?trangThai=false");
+                        }
                     }
                     else
                         throw new Exception("Slide có mã " + maSlide + " không tồn tại để cập nhật");
@@ -169,7 +182,10 @@ namespace qlCaPhe.Controllers
                         this.resetDuLieu();
                         slide slideSua = new qlCaPheEntities().slides.SingleOrDefault(s => s.maSlide == maSlide);
                         if (slideSua != null)
+                        {
                             this.doDuLieuLenView(slideSua);
+                            xulyChung.ghiNhatKyDtb(1, "Chỉnh sửa slideshow\" " + slideSua.maSlide.ToString() + " \"");
+                        }
                         else
                             return RedirectToAction("PageNotFound", "Home");
                     }
@@ -191,7 +207,7 @@ namespace qlCaPhe.Controllers
         {
             if (xulyChung.duocCapNhat(idOfPage, "7"))
             {
-                string ndThongBao = "";
+                string ndThongBao = ""; int kqLuu = 0;
                 slide slideSua = new slide();
                 try
                 {
@@ -203,8 +219,12 @@ namespace qlCaPhe.Controllers
                         this.doDuLieuLenView(slideSua);
                         this.layDuLieuTuView(slideSua, f);
                         db.Entry(slideSua).State = System.Data.Entity.EntityState.Modified;
-                        db.SaveChanges();
-                        return RedirectToAction("sl_TableSlideShow", new { trangThai = false }); //Chuyển đến trang danh sách slideshow không hiển thị khi thành công
+                        kqLuu = db.SaveChanges();
+                        if (kqLuu > 0)
+                        {
+                            xulyChung.ghiNhatKyDtb(4, "Chỉnh sửa slideshow\" " + slideSua.maSlide.ToString() + " \"");
+                            return RedirectToAction("sl_TableSlideShow", new { trangThai = false }); //Chuyển đến trang danh sách slideshow không hiển thị khi thành công
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -228,12 +248,15 @@ namespace qlCaPhe.Controllers
         {
             try
             {
+                int kqLuu = 0;
                 qlCaPheEntities db = new qlCaPheEntities();
                 slide slideXoa = db.slides.SingleOrDefault(s => s.maSlide == maSlide);
                 if (slideXoa != null)
                 {
                     db.slides.Remove(slideXoa);
-                    db.SaveChanges();
+                    kqLuu = db.SaveChanges();
+                    if (kqLuu > 0)
+                        xulyChung.ghiNhatKyDtb(3, "Slide show \"" + slideXoa.maSlide.ToString() + " \"");
                 }
                 else
                     throw new Exception("Slide có mã " + maSlide.ToString() + " không tồn tại để xóa");

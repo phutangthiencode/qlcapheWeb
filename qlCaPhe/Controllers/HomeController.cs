@@ -10,7 +10,6 @@ using System.IO;
 using System.Xml.Linq;
 using System.Xml;
 using qlCaPhe.Models.Entities;
-using qlCaPhe.Models.Business;
 using System.Collections;
 
 
@@ -50,6 +49,7 @@ namespace qlCaPhe.Controllers
             {
                 taiKhoan tkLogin = new qlCaPheEntities().taiKhoans.SingleOrDefault(t => t.tenDangNhap == tenDangNhap);
                 Session["login"] = tkLogin;
+                xulyChung.ghiNhatKyDtb(1, tkLogin.tenDangNhap + " đã truy cập vào hệ thống ");
                 if (!tkLogin.nhomTaiKhoan.trangMacDinh.Equals(""))
                     return Redirect(xulyDuLieu.traVeKyTuGoc(tkLogin.nhomTaiKhoan.trangMacDinh));
                 return RedirectToAction("Index", "Tools_VungLamViec");
@@ -82,6 +82,7 @@ namespace qlCaPhe.Controllers
             xulyDuLieu.chuyenByteArrayThanhHinhAndSave(tkLogin.thanhVien.hinhDD, Server.MapPath("~/pages/temp/thanhVien/hinhAnhCu"));
             //Lưu lại đường dẫn hình ảnh cũ
             pathTempHinhCu = Server.MapPath("~/pages/temp/thanhVien/hinhAnhCu.png");
+            xulyChung.ghiNhatKyDtb(1, "Trang chỉnh sửa cá nhân");
             return View(tkLogin);
         }
 
@@ -176,6 +177,7 @@ namespace qlCaPhe.Controllers
                     {
                         thongBao = "Lưu thông tin thành công";
                         tkLogin.thanhVien = tvSua;
+                        xulyChung.ghiNhatKyDtb(4, "Thông tin cá nhân");
                     }
                 }
                 else

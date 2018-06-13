@@ -354,12 +354,11 @@
     <Property Name="trangThai" Type="bit" Nullable="false" />
     <Property Name="ghiChu" Type="ntext" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'qlCaPhe.dbo.nhatKy' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="nhatKy">
     <Key>
-      <PropertyRef Name="tenDangNhap" />
+      <PropertyRef Name="maNhatKy" />
     </Key>
+    <Property Name="maNhatKy" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="tenDangNhap" Type="varchar" MaxLength="68" Nullable="false" />
     <Property Name="thoiDiem" Type="datetime" />
     <Property Name="IP" Type="varchar" MaxLength="20" />
@@ -932,9 +931,9 @@ warning 6002: The table/view 'qlCaPhe.dbo.nhatKy' does not have a primary key de
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__nhatKy__tenDangN__719CDDE7">
+  <Association Name="FK__nhatKy__tenDangN__035179CE">
     <End Role="taiKhoan" Type="Self.taiKhoan" Multiplicity="1" />
-    <End Role="nhatKy" Type="Self.nhatKy" Multiplicity="0..1" />
+    <End Role="nhatKy" Type="Self.nhatKy" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="taiKhoan">
         <PropertyRef Name="tenDangNhap" />
@@ -1123,6 +1122,7 @@ warning 6002: The table/view 'qlCaPhe.dbo.nhatKy' does not have a primary key de
     <EntitySet Name="mucTieuDanhGia" EntityType="Self.mucTieuDanhGia" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="nguyenLieu" EntityType="Self.nguyenLieu" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="nhaCungCap" EntityType="Self.nhaCungCap" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="nhatKy" EntityType="Self.nhatKy" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="nhomTaiKhoan" EntityType="Self.nhomTaiKhoan" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="phieuNhapKho" EntityType="Self.phieuNhapKho" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="phieuXuatKho" EntityType="Self.phieuXuatKho" Schema="dbo" store:Type="Tables" />
@@ -1133,16 +1133,6 @@ warning 6002: The table/view 'qlCaPhe.dbo.nhatKy' does not have a primary key de
     <EntitySet Name="thanhVien" EntityType="Self.thanhVien" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="thongBao" EntityType="Self.thongBao" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TonKho" EntityType="Self.TonKho" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="nhatKy" EntityType="Self.nhatKy" store:Type="Tables" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [nhatKy].[tenDangNhap] AS [tenDangNhap], 
-    [nhatKy].[thoiDiem] AS [thoiDiem], 
-    [nhatKy].[IP] AS [IP], 
-    [nhatKy].[trinhDuyet] AS [trinhDuyet], 
-    [nhatKy].[OS] AS [OS], 
-    [nhatKy].[chucNang] AS [chucNang]
-    FROM [dbo].[nhatKy] AS [nhatKy]</DefiningQuery>
-    </EntitySet>
     <AssociationSet Name="FK__baiViet__nguoiTa__6DCC4D03" Association="Self.FK__baiViet__nguoiTa__6DCC4D03">
       <End Role="taiKhoan" EntitySet="taiKhoan" />
       <End Role="baiViet" EntitySet="baiViet" />
@@ -1291,7 +1281,7 @@ warning 6002: The table/view 'qlCaPhe.dbo.nhatKy' does not have a primary key de
       <End Role="loaiNguyenLieu" EntitySet="loaiNguyenLieu" />
       <End Role="nguyenLieu" EntitySet="nguyenLieu" />
     </AssociationSet>
-    <AssociationSet Name="FK__nhatKy__tenDangN__719CDDE7" Association="Self.FK__nhatKy__tenDangN__719CDDE7">
+    <AssociationSet Name="FK__nhatKy__tenDangN__035179CE" Association="Self.FK__nhatKy__tenDangN__035179CE">
       <End Role="taiKhoan" EntitySet="taiKhoan" />
       <End Role="nhatKy" EntitySet="nhatKy" />
     </AssociationSet>

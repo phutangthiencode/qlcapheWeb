@@ -18,8 +18,11 @@ namespace qlCaPhe.Controllers
         /// <returns></returns>
         public ActionResult kh_TaoMoiKhoHang()
         {
-            if(xulyChung.duocTruyCap(idOfPage))
+            if (xulyChung.duocTruyCap(idOfPage))
+            {
+                xulyChung.ghiNhatKyDtb(1, "Tạo mới kho hàng");
                 return View();
+            }
             return null;
         }
         /// <summary>
@@ -31,14 +34,18 @@ namespace qlCaPhe.Controllers
         {
             if (xulyChung.duocCapNhat(idOfPage,"7"))
             {
-                string ndThongBao = "";
+                string ndThongBao = ""; int kqLuu = 0;
                 try
                 {
                     qlCaPheEntities db = new qlCaPheEntities();
                     this.layDuLieuTuView(kh, f);
                     db.khoHangs.Add(kh);
-                    db.SaveChanges();
-                    ndThongBao = createHTML.taoNoiDungThongBao("Kho hàng", xulyDuLieu.traVeKyTuGoc(kh.tenKhoHang), "kh_TableKhoHang");
+                    kqLuu=db.SaveChanges();
+                    if (kqLuu > 0)
+                    {
+                        ndThongBao = createHTML.taoNoiDungThongBao("Kho hàng", xulyDuLieu.traVeKyTuGoc(kh.tenKhoHang), "kh_TableKhoHang");
+                        xulyChung.ghiNhatKyDtb(2, ndThongBao);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -90,6 +97,7 @@ namespace qlCaPhe.Controllers
                         htmlTable += "          </div>";
                         htmlTable += "      </td>";
                         htmlTable += "</tr>";
+                        xulyChung.ghiNhatKyDtb(1, "Danh mục kho hàng");
                     }
                 }
                 catch (Exception ex)
@@ -128,6 +136,7 @@ namespace qlCaPhe.Controllers
                     ViewBag.ScriptMap = createScriptAjax.taoScriptNhungBanDo(xulyDuLieu.traVeKyTuGoc(khLay.kinhDo), xulyDuLieu.traVeKyTuGoc(khLay.viDo), data, content);
                     //-----Hiện thông tin kho hàng lên title
                     ViewBag.TenKhoHang = xulyDuLieu.traVeKyTuGoc(khLay.tenKhoHang);
+                    xulyChung.ghiNhatKyDtb(1, "Địa điểm kho hàng trên bản đồ");
                 }
                 catch (Exception ex)
                 {
@@ -150,6 +159,7 @@ namespace qlCaPhe.Controllers
         {
             try
             {
+                int kqLuu = 0;
                 string param = xulyChung.nhanThamSoTrongSession();
                 if (param.Length > 0)
                 {
@@ -160,8 +170,12 @@ namespace qlCaPhe.Controllers
                     {
                         khoHangSua.trangThai = !khoHangSua.trangThai;
                         db.Entry(khoHangSua).State = System.Data.Entity.EntityState.Modified;
-                        db.SaveChanges();
-                        Response.Redirect(xulyChung.layTenMien() + "/KhoHang/kh_TableKhoHang");
+                        kqLuu=db.SaveChanges();
+                        if (kqLuu > 0)
+                        {
+                            xulyChung.ghiNhatKyDtb(4, "Cập nhật trạng thái kho hàng\" " + xulyDuLieu.traVeKyTuGoc(khoHangSua.tenKhoHang) + " \"");
+                            Response.Redirect(xulyChung.layTenMien() + "/KhoHang/kh_TableKhoHang");
+                        }
                     }
                     else
                         throw new Exception("Kho hàng có mã " + maKhoHang.ToString() + " không tồn tại trong hệ thống để cập nhật");
@@ -191,7 +205,10 @@ namespace qlCaPhe.Controllers
                         int maKhoHang = xulyDuLieu.doiChuoiSangInteger(param);
                         khoHang khoHangSua = new qlCaPheEntities().khoHangs.SingleOrDefault(kh => kh.maKhoHang == maKhoHang);
                         if (khoHangSua != null)
+                        {
                             this.doDuLieuLenGiaoDien(khoHangSua);
+                            xulyChung.ghiNhatKyDtb(1, "Chỉnh sửa kho hàng\" " + xulyDuLieu.traVeKyTuGoc(khoHangSua.tenKhoHang) + " \"");
+                        }
                         else
                             throw new Exception("Kho hàng có mã " + maKhoHang.ToString() + " không tồn tại để cập nhật");
                     }
@@ -220,6 +237,7 @@ namespace qlCaPhe.Controllers
                 khoHang khoHangSua = new khoHang();
                 try
                 {
+                    int kqLuu = 0;
                     qlCaPheEntities db = new qlCaPheEntities();
                     int maKhoHang = xulyDuLieu.doiChuoiSangInteger(f["txtMaKH"]);
                     khoHangSua = db.khoHangs.SingleOrDefault(kh => kh.maKhoHang == maKhoHang);
@@ -227,8 +245,12 @@ namespace qlCaPhe.Controllers
                     {
                         this.layDuLieuTuView(khoHangSua, f);
                         db.Entry(khoHangSua).State = System.Data.Entity.EntityState.Modified;
-                        db.SaveChanges();
-                        return RedirectToAction("kh_TableKhoHang");
+                        kqLuu=db.SaveChanges();
+                        if (kqLuu > 0)
+                        {
+                            xulyChung.ghiNhatKyDtb(4, "Kho hàng\" " + xulyDuLieu.traVeKyTuGoc(khoHangSua.tenKhoHang) + " \"");
+                            return RedirectToAction("kh_TableKhoHang");
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -251,12 +273,15 @@ namespace qlCaPhe.Controllers
         {
             try
             {
+                int kqLuu = 0;
                 qlCaPheEntities db = new qlCaPheEntities();
                 khoHang khoHangXoa = db.khoHangs.SingleOrDefault(kh => kh.maKhoHang == maKhoHang);
                 if (khoHangXoa != null)
                 {
                     db.khoHangs.Remove(khoHangXoa);
-                    db.SaveChanges();
+                    kqLuu=db.SaveChanges();
+                    if(kqLuu>0)
+                        xulyChung.ghiNhatKyDtb(3, "Kho hàng \"" + xulyDuLieu.traVeKyTuGoc(khoHangXoa.tenKhoHang) + " \"");
                 }
                 else
                     throw new Exception("kho hàng có mã " + maKhoHang.ToString() + " không tồn tại để xóa bỏ");

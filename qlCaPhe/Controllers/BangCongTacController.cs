@@ -27,6 +27,7 @@ namespace qlCaPhe.Controllers
                     this.resetData();
                     this.taoDuLieuChoCbb(new qlCaPheEntities(), 0);
                     ViewBag.ScriptAjax = createScriptAjax.scriptGetInfoComboboxClick("cbbThanhVien", "ThanhVien/AjaxGetInforThanhVienByTaiKhoan?param=", "vungThanhVien");
+                    xulyChung.ghiNhatKyDtb(1, "Tạo mới điều phối");
                 }
                 catch (Exception ex)
                 {
@@ -61,6 +62,7 @@ namespace qlCaPhe.Controllers
                         this.themCtBangGiaoViecVaoDatabase(bgv, db);
                         ndThongBao = createHTML.taoNoiDungThongBao("Phân công cho thành viên", xulyDuLieu.traVeKyTuGoc(bgv.tenDangNhap), "bct_TableDieuPhoi");
                         this.taoDuLieuChoCbb(db, 0);
+                        xulyChung.ghiNhatKyDtb(2, ndThongBao);
                     }
                 }
                 catch (Exception ex)
@@ -100,7 +102,6 @@ namespace qlCaPhe.Controllers
             }
         }
         #endregion
-
         #region READ
         /// <summary>
         /// Hàm tạo giao diện danh mục phân công công tác cho nhân viên
@@ -147,6 +148,7 @@ namespace qlCaPhe.Controllers
                     ViewBag.ScriptAjaxXemChiTiet = createScriptAjax.scriptAjaxXemChiTietKhiClick("goiY", "task", "BangCongTac/AjaxXemChiTietDieuPhoi?param=", "vungChiTiet", "modalChiTiet");
                     //----Nhúng các tag html cho modal chi tiết
                     ViewBag.ModalChiTiet = createHTML.taoModalChiTiet("modalChiTiet", "vungChiTiet", 2);
+                    xulyChung.ghiNhatKyDtb(1, "Danh mục bảng điều phối công tác");
                 }
                 catch (Exception ex)
                 {
@@ -158,7 +160,6 @@ namespace qlCaPhe.Controllers
             return View();
         }
         #endregion
-
         #region UPDATE
         /// <summary>
         /// Hàm thực hiện cập nhật trạng thái của 1 công tác.
@@ -171,6 +172,7 @@ namespace qlCaPhe.Controllers
             {
                 if (xulyChung.duocCapNhat(idOfPage, "7"))
                 {
+                    int kqLuu = 0;
                     string param = xulyChung.nhanThamSoTrongSession(); //param = maBang
                     if (param.Length > 0)
                     {
@@ -181,7 +183,9 @@ namespace qlCaPhe.Controllers
                         {
                             bgv.trangThai = !bgv.trangThai;
                             db.Entry(bgv).State = System.Data.Entity.EntityState.Modified;
-                            db.SaveChanges();
+                            kqLuu=    db.SaveChanges();
+                            if(kqLuu>0)
+                                xulyChung.ghiNhatKyDtb(4, "Cập nhật trạng thái điều phối của\" " + xulyDuLieu.traVeKyTuGoc(bgv.tenDangNhap) + " \"");
                         }
                         else
                             throw new Exception("Bảng công tác có mã " + maBang.ToString() + " không tồn tại để cập nhật");
@@ -220,6 +224,7 @@ namespace qlCaPhe.Controllers
                             this.doDuLieuLenView(bgv, db);
                             //----Chèn script ajax hiện thông tin thành viên khi người dùng click chọn trên combobox
                             ViewBag.ScriptAjax = createScriptAjax.scriptGetInfoComboboxClick("cbbThanhVien", "ThanhVien/AjaxGetInforThanhVienByTaiKhoan?param=", "vungThanhVien");
+                            xulyChung.ghiNhatKyDtb(1, "Chỉnh sửa điều phối của \" " + xulyDuLieu.traVeKyTuGoc(bgv.tenDangNhap) + " \"");
                         }
                         else throw new Exception("Bảng giao việc không tồn tại để cập nhật");
                     }
@@ -267,6 +272,7 @@ namespace qlCaPhe.Controllers
                                 //-------Cập nhật bảng chi tiết. THỰC HIỆN XÓA DỮ LIỆU TRONG BẢNG CHI TIẾT VÀ TẠO MỚI LẠI
                                 this.xoaChiTietDieuPhoi(db, listChiTiet);
                                 this.themCtBangGiaoViecVaoDatabase(bgv, db);
+                                xulyChung.ghiNhatKyDtb(4, "Điều phối công tác của \" " + xulyDuLieu.traVeKyTuGoc(bgv.tenDangNhap) + " \"");
                                 return RedirectToAction("bct_TableDieuPhoi");
                             }
                         }
@@ -285,7 +291,6 @@ namespace qlCaPhe.Controllers
             return View();
         }
         #endregion
-
         #region DELETE
         /// <summary>
         /// Hàm thực hiện xóa 1 điều phối khỏi CSDL
@@ -298,7 +303,7 @@ namespace qlCaPhe.Controllers
             {
                 if (xulyChung.duocCapNhat(idOfPage, "7"))
                 {
-                    int maXoa = xulyDuLieu.doiChuoiSangInteger(maBang);
+                    int maXoa = xulyDuLieu.doiChuoiSangInteger(maBang); int kqLuu = 0;
                     if (maXoa > 0)
                     {
                         qlCaPheEntities db = new qlCaPheEntities();
@@ -310,11 +315,12 @@ namespace qlCaPhe.Controllers
                             int soLuongChiTiet = listChiTiet.Count, chiTietDaXoa = 0;
                             if (listChiTiet.Count > 0)
                                 chiTietDaXoa = xoaChiTietDieuPhoi(db, listChiTiet);
-                            //----Nếu đã xóa hết chi tiết thì xóa bảng DieuPhoi
                             if (soLuongChiTiet == chiTietDaXoa)
-                            {
+                            {   //----Nếu đã xóa hết chi tiết thì xóa bảng DieuPhoi
                                 db.BangGiaoViecs.Remove(bgv);
-                                db.SaveChanges();
+                                kqLuu= db.SaveChanges();
+                                if(kqLuu>0)
+                                    xulyChung.ghiNhatKyDtb(3, "Điều phối của  \"" + xulyDuLieu.traVeKyTuGoc(bgv.tenDangNhap) + " \"");
                             }
                         }
                         else throw new Exception("Bảng giao việc cần xóa không tồn tại");
@@ -345,7 +351,6 @@ namespace qlCaPhe.Controllers
             return kq;
         }
         #endregion
-
         #region ORTHERS
         /// <summary>
         /// Hàm thực hiện xóa dữ liệu trong session
@@ -464,7 +469,6 @@ namespace qlCaPhe.Controllers
             }
         }
         #endregion
-
         #region AJAX
         #region NHÓM HÀM XỬ LÝ LỰA CHỌN CA LÀM VIỆC CẦN ĐIỀU PHỐI
 

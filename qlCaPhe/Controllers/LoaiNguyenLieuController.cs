@@ -18,8 +18,11 @@ namespace qlCaPhe.Controllers
         /// <returns></returns>
         public ActionResult lnl_TaoMoiLoaiNguyenLieu()
         {
-            if(xulyChung.duocTruyCap(idOfPage))
+            if (xulyChung.duocTruyCap(idOfPage))
+            {
+                xulyChung.ghiNhatKyDtb(1, "Tạo mới loại nguyên liệu");
                 return View();
+            }
             return null;
         }
         /// <summary>
@@ -31,15 +34,19 @@ namespace qlCaPhe.Controllers
         {
             if (xulyChung.duocCapNhat(idOfPage, "7"))
             {
-                string ndThongBao = "";
+                string ndThongBao = ""; int kqLuu = 0;
                 try
                 {
                     qlCaPheEntities db = new qlCaPheEntities();
                     this.layDuLieuTuView(loai, f);
                     this.kiemTraTenLoaiTrung(loai.tenLoai, db);
                     db.loaiNguyenLieux.Add(loai);
-                    db.SaveChanges();
-                    ndThongBao = createHTML.taoNoiDungThongBao("Loại nguyên liệu", xulyDuLieu.traVeKyTuGoc(loai.tenLoai), "lnl_TableLoaiNguyenLieu");
+                    kqLuu=db.SaveChanges();
+                    if (kqLuu > 0)
+                    {
+                        ndThongBao = createHTML.taoNoiDungThongBao("Loại nguyên liệu", xulyDuLieu.traVeKyTuGoc(loai.tenLoai), "lnl_TableLoaiNguyenLieu");
+                        xulyChung.ghiNhatKyDtb(2, ndThongBao);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -91,6 +98,7 @@ namespace qlCaPhe.Controllers
                     ViewBag.ScriptAjax = createScriptAjax.scriptAjaxXoaDoiTuong("LoaiNguyenLieu/xoaLoaiNguyenLieu?maLoai=");
                     ViewBag.ModalXoa = createHTML.taoCanhBaoXoa("Loại nguyên liệu");
                     ViewBag.TableData = htmlTable;
+                    xulyChung.ghiNhatKyDtb(1, "Danh mục loại nguyên liệu");
                 }
                 catch (Exception ex)
                 {
@@ -119,7 +127,10 @@ namespace qlCaPhe.Controllers
                         int maLoai = xulyDuLieu.doiChuoiSangInteger(param);
                         loaiNguyenLieu loaiSua = new qlCaPheEntities().loaiNguyenLieux.SingleOrDefault(l => l.maLoai == maLoai);
                         if (loaiSua != null)
+                        {
                             this.doDuLieuLenView(loaiSua);
+                            xulyChung.ghiNhatKyDtb(1, "Chỉnh sửa loại nguyên liệu\" " + xulyDuLieu.traVeKyTuGoc(loaiSua.tenLoai) + " \"");
+                        }
                         else
                             throw new Exception("Loại nguyên liệu có mã " + maLoai.ToString() + " không tồn tại để cập nhật");
                     }
@@ -144,7 +155,7 @@ namespace qlCaPhe.Controllers
         {
             if (xulyChung.duocCapNhat(idOfPage, "7"))
             {
-                string ndThongBao = "";
+                string ndThongBao = ""; int kqLuu = 0;
                 loaiNguyenLieu loaiSua = new loaiNguyenLieu();
                 try
                 {
@@ -155,8 +166,12 @@ namespace qlCaPhe.Controllers
                     {
                         this.layDuLieuTuView(loaiSua, f);
                         db.Entry(loaiSua).State = System.Data.Entity.EntityState.Modified;
-                        db.SaveChanges();
-                        return RedirectToAction("lnl_TableLoaiNguyenLieu");
+                        kqLuu=db.SaveChanges();
+                        if (kqLuu > 0)
+                        {
+                            xulyChung.ghiNhatKyDtb(4, "Loại nguyên liệu \" " + xulyDuLieu.traVeKyTuGoc(loaiSua.tenLoai) + " \"");
+                            return RedirectToAction("lnl_TableLoaiNguyenLieu");
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -179,12 +194,14 @@ namespace qlCaPhe.Controllers
         {
             try
             {
-                qlCaPheEntities db = new qlCaPheEntities();
+                qlCaPheEntities db = new qlCaPheEntities(); int kqLuu = 0;
                 loaiNguyenLieu loaiXoa = db.loaiNguyenLieux.Single(l => l.maLoai == maLoai);
                 if (loaiXoa != null)
                 {
                     db.loaiNguyenLieux.Remove(loaiXoa);
-                    db.SaveChanges();
+                    kqLuu=db.SaveChanges();
+                    if(kqLuu>0)
+                        xulyChung.ghiNhatKyDtb(3, "Loại nguyên liệu\"" + xulyDuLieu.traVeKyTuGoc(loaiXoa.tenLoai) + " \"");
                 }
                 else
                     throw new Exception("Loại nguyên liệu có mã " + maLoai.ToString() + " không tồn tại để xóa");

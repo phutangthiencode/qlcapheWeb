@@ -27,6 +27,7 @@ namespace qlCaPhe.Controllers
                     this.taoDuLieuChoCbbKhoHang(db);
                     this.taoDuLieuChoCbbNhaCungCap(db);
                     this.resetData();
+                    xulyChung.ghiNhatKyDtb(1, "Tạo mới nhập kho");
                 }
                 catch (Exception ex)
                 {
@@ -41,17 +42,21 @@ namespace qlCaPhe.Controllers
         {
             if (xulyChung.duocCapNhat(idOfPage, "7"))
             {
-                string ndThongBao = "";
+                string ndThongBao = ""; int kqLuu = 0;
                 qlCaPheEntities db = new qlCaPheEntities();
                 try
                 {
                     this.layDuLieuTrenView(phieu, f);
                     db.phieuNhapKhoes.Add(phieu);
-                    db.SaveChanges();
-                    //----Thêm dữ liệu vào bảng chi tiết và bảng tồn kho
-                    this.themctPhieuNhapKhoTrongDatabase(phieu.maPhieu, db);
-                    ndThongBao = createHTML.taoNoiDungThongBao("Phiếu nhập kho", phieu.maPhieu.ToString(), "/NhapKho/nk_TablePhieuNhap");
-                    this.resetData();
+                    kqLuu=db.SaveChanges();
+                    if (kqLuu > 0)
+                    {
+                        //----Thêm dữ liệu vào bảng chi tiết và bảng tồn kho
+                        this.themctPhieuNhapKhoTrongDatabase(phieu.maPhieu, db);
+                        ndThongBao = createHTML.taoNoiDungThongBao("Phiếu nhập kho", phieu.maPhieu.ToString(), "/NhapKho/nk_TablePhieuNhap");
+                        this.resetData();
+                        xulyChung.ghiNhatKyDtb(2, ndThongBao);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -166,6 +171,7 @@ namespace qlCaPhe.Controllers
                 ViewBag.ScriptAjaxXemChiTiet = createScriptAjax.scriptAjaxXemChiTietKhiClick("goiY", "maPhieu", "NhapKho/AjaxLayChiTietPhieu?maPhieu=", "idVungChiTiet", "modalChiTietPhieu");
                 ViewBag.ScriptAjax = createScriptAjax.scriptAjaxXoaDoiTuong("NhapKho/AjaxXoaPhieuNhap?maPhieu=");
                 ViewBag.ModalXoa = createHTML.taoCanhBaoXoa("Phiếu nhập hàng");
+                xulyChung.ghiNhatKyDtb(1, "Danh mục phiếu nhập kho");
             }
             return View();
         }
@@ -284,6 +290,7 @@ namespace qlCaPhe.Controllers
                     kq += "         <button type=\"button\" class=\"btn btn-default waves-effect\" data-dismiss=\"modal\"><i class=\"material-icons\">exit_to_app</i>Đóng lại</button>";
                     kq += "     </div>";
                     kq += "</div>";
+                    xulyChung.ghiNhatKyDtb(5, "Chi tiết phiếu nhập kho \"" + phieuNhap.maPhieu.ToString() +" \"");
                 }
             }
             return kq;
@@ -370,6 +377,7 @@ namespace qlCaPhe.Controllers
                                 cart.addCart(ct);
                                 Session["ctNhapKho"] = cart;
                             }
+                            xulyChung.ghiNhatKyDtb(1, "Chỉnh sửa phiếu nhập kho có mã \" " + phieu.maPhieu.ToString() + " \"");
                         }
                     }
                     else throw new Exception("không nhận được tham số");
@@ -394,8 +402,8 @@ namespace qlCaPhe.Controllers
         {
             if (xulyChung.duocCapNhat(idOfPage, "7"))
             {
-                qlCaPheEntities db = new qlCaPheEntities();
-                phieuNhapKho phieuSua = new phieuNhapKho();
+                int kqLuu = 0;
+                qlCaPheEntities db = new qlCaPheEntities(); phieuNhapKho phieuSua = new phieuNhapKho();
                 try
                 {
                     int maPhieuSua = xulyDuLieu.doiChuoiSangInteger(f["txtMaPhieu"]);
@@ -404,13 +412,17 @@ namespace qlCaPhe.Controllers
                     {
                         this.layDuLieuTrenView(phieuSua, f);
                         db.Entry(phieuSua).State = System.Data.Entity.EntityState.Modified;
-                        db.SaveChanges();
-                        //-------Xóa tất cả dữ liệu trong chi tiết và tạo lại
-                        this.xoaChiTietTrongDatabase(phieuSua.maPhieu, db);
-                        //-------Thêm lại dữ liệu cho bảng chi tiết
-                        this.themctPhieuNhapKhoTrongDatabase(phieuSua.maPhieu, db);
-                        this.resetData();
-                        return RedirectToAction("nk_TablePhieuNhap");
+                        kqLuu=db.SaveChanges();
+                        if (kqLuu > 0)
+                        {
+                            //-------Xóa tất cả dữ liệu trong chi tiết và tạo lại
+                            this.xoaChiTietTrongDatabase(phieuSua.maPhieu, db);
+                            //-------Thêm lại dữ liệu cho bảng chi tiết
+                            this.themctPhieuNhapKhoTrongDatabase(phieuSua.maPhieu, db);
+                            this.resetData();
+                            xulyChung.ghiNhatKyDtb(4, "Phiếu nhập kho có mã  \" " + phieuSua.maPhieu.ToString() + " \"");
+                            return RedirectToAction("nk_TablePhieuNhap");
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -461,6 +473,7 @@ namespace qlCaPhe.Controllers
         {
             try
             {
+                int kqLuu = 0;
                 qlCaPheEntities db = new qlCaPheEntities();
                 phieuNhapKho phieuXoa = db.phieuNhapKhoes.SingleOrDefault(p => p.maPhieu == maPhieu);
                 if (phieuXoa != null)
@@ -468,7 +481,9 @@ namespace qlCaPhe.Controllers
                     this.xoaChiTietTrongDatabase(phieuXoa.maKho, db);
                     //--Xóa tất cả dữ liệu trong chi tiết trước.
                     db.phieuNhapKhoes.Remove(phieuXoa);
-                    db.SaveChanges();
+                    kqLuu=db.SaveChanges();
+                    if(kqLuu>0)
+                        xulyChung.ghiNhatKyDtb(3, "Phiếu nhập kho có mã là \"" + phieuXoa.maPhieu.ToString() + " \"");
                 }
             }
             catch (Exception ex)

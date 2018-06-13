@@ -24,6 +24,7 @@ namespace qlCaPhe.Controllers
                 try
                 {
                     taoDuLieuChoCbb(new qlCaPheEntities());
+                    xulyChung.ghiNhatKyDtb(1, "Tạo mới bàn - chổ ngồi");
                 }
                 catch (Exception ex)
                 {
@@ -41,7 +42,7 @@ namespace qlCaPhe.Controllers
         {
             if (xulyChung.duocCapNhat(idOfPage, "7"))
             {
-                string ndThongBao = "";
+                string ndThongBao = ""; int kqLuu = 0;
                 qlCaPheEntities db = new qlCaPheEntities();
                 try
                 {
@@ -49,10 +50,14 @@ namespace qlCaPhe.Controllers
                     kiemTraTenBanTrung(db, ban.tenBan);
                     ban.trangThai = 1; //Thiết lập trạng thái bàn đang sử dụng
                     db.BanChoNgois.Add(ban);
-                    db.SaveChanges();
-                    ndThongBao = createHTML.taoNoiDungThongBao("Bàn", xulyDuLieu.traVeKyTuGoc(ban.tenBan), "b_TableBan");
-                    this.resetDuLieu();
-                    this.taoDuLieuChoCbb(db);
+                    kqLuu=  db.SaveChanges();
+                    if (kqLuu > 0)
+                    {
+                        ndThongBao = createHTML.taoNoiDungThongBao("Bàn", xulyDuLieu.traVeKyTuGoc(ban.tenBan), "b_TableBan");
+                        this.resetDuLieu();
+                        this.taoDuLieuChoCbb(db);
+                        xulyChung.ghiNhatKyDtb(2, ndThongBao);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -81,6 +86,7 @@ namespace qlCaPhe.Controllers
                 try
                 {
                     this.createTableBan(1, trangHienHanh, "/Ban/b_TableBan");
+                    xulyChung.ghiNhatKyDtb(1, "Danh mục bàn đang sử dụng");
                 }
                 catch (Exception ex)
                 {
@@ -101,6 +107,7 @@ namespace qlCaPhe.Controllers
                 try
                 {
                     this.createTableBan(2, trangHienHanh, "/Ban/b_TableBanSuaChua");
+                    xulyChung.ghiNhatKyDtb(1, "Danh mục bàn đang sửa chữa");
                 }
                 catch (Exception ex)
                 {
@@ -121,6 +128,7 @@ namespace qlCaPhe.Controllers
                 try
                 {
                     this.createTableBan(0, trangHienHanh, "/Ban/b_TableBanHuyBo");
+                    xulyChung.ghiNhatKyDtb(1, "Danh mục bàn bị hủy bỏ");
                 }
                 catch (Exception ex)
                 {
@@ -240,7 +248,7 @@ namespace qlCaPhe.Controllers
                 //----Kiểm tra trạng thái. Chỉ nhận và cập nhật 1 trong 3 trạng thái
                 if (trangThai == 0 || trangThai == 1 || trangThai == 2)
                 {
-                    qlCaPheEntities db = new qlCaPheEntities();
+                    qlCaPheEntities db = new qlCaPheEntities(); int kqLuu = 0;
                     //---Lấy bàn cần cập nhật
                     var banSua = db.BanChoNgois.SingleOrDefault(b => b.maBan == maBan);
                     if (banSua != null)
@@ -248,12 +256,16 @@ namespace qlCaPhe.Controllers
                         int ttTemp = (int)banSua.trangThai;//-----Biến lưu lại trạng thái của bàn trước khi cập nhật để khi cập nhật xong sẽ chuyển về giao diện danh mục trước đó
                         banSua.trangThai = trangThai;
                         db.Entry(banSua).State = System.Data.Entity.EntityState.Modified;
-                        db.SaveChanges();
-                        //----Dựa vào trạng thái bàn trước đó để chuyển đến giao diện bàn tương ứng
-                        if (ttTemp == 1)
-                            return RedirectToAction("b_TableBan");
-                        else if (ttTemp == 2)
-                            return RedirectToAction("b_TableBanSuaChua");
+                        kqLuu= db.SaveChanges();
+                        if (kqLuu > 0)
+                        {
+                            xulyChung.ghiNhatKyDtb(4, "Cập nhật trạng thái bàn \" " + xulyDuLieu.traVeKyTuGoc(banSua.tenBan) + " \"");
+                            //----Dựa vào trạng thái bàn trước đó để chuyển đến giao diện bàn tương ứng
+                            if (ttTemp == 1)
+                                return RedirectToAction("b_TableBan");
+                            else if (ttTemp == 2)
+                                return RedirectToAction("b_TableBanSuaChua");
+                        }
                     }
                     else
                         throw new Exception("Bàn chổ ngồi có mã'"+maBan.ToString()+"' không tồn tại để cập nhật");
@@ -289,7 +301,10 @@ namespace qlCaPhe.Controllers
                         qlCaPheEntities db = new qlCaPheEntities();
                         BanChoNgoi banSua = db.BanChoNgois.SingleOrDefault(b => b.maBan == maBan);
                         if (banSua != null)
+                        {
                             this.doDuLieuLenView(banSua, db);
+                            xulyChung.ghiNhatKyDtb(1, "Chỉnh sửa bàn \" " + xulyDuLieu.traVeKyTuGoc(banSua.tenBan) + " \"");
+                        }
                         else
                             throw new Exception("Bàn có mã '" + maBan.ToString() + "' không tồn tại để thực hiện cập nhật");
                     }
@@ -312,8 +327,8 @@ namespace qlCaPhe.Controllers
         {
             if (xulyChung.duocCapNhat(idOfPage, "7"))
             {
-                BanChoNgoi banSua = new BanChoNgoi();
-                qlCaPheEntities db = new qlCaPheEntities();
+                int kqLuu = 0;
+                BanChoNgoi banSua = new BanChoNgoi(); qlCaPheEntities db = new qlCaPheEntities();
                 try
                 {
                     int maBan = Convert.ToInt32(f["txtMaBan"]);
@@ -324,15 +339,19 @@ namespace qlCaPhe.Controllers
                     if (banSua.tenBan != tenBanCu) //-----Nếu tên bàn có thay đổi thì kiểm tra tên bàn đã có tồn tại chưa
                         this.kiemTraTenBanTrung(db, banSua.tenBan);
                     db.Entry(banSua).State = System.Data.Entity.EntityState.Modified;
-                    db.SaveChanges();
-                    this.resetDuLieu();
-                    //---Dựa vào trạng thái bàn cập nhật hiện tại để chuyển đến giao diện tương ứng
-                    if (banSua.trangThai == 0)
-                        return RedirectToAction("b_TableBanHuyBo");
-                    else if (banSua.trangThai == 1)
-                        return RedirectToAction("b_TableBan");
-                    else if (banSua.trangThai == 2)
-                        return RedirectToAction("b_TableBanSuaChua");
+                    kqLuu= db.SaveChanges();
+                    if (kqLuu > 0)
+                    {
+                        this.resetDuLieu();
+                        xulyChung.ghiNhatKyDtb(4, "Bàn \" " + xulyDuLieu.traVeKyTuGoc(banSua.tenBan) + " \"");
+                        //---Dựa vào trạng thái bàn cập nhật hiện tại để chuyển đến giao diện tương ứng
+                        if (banSua.trangThai == 0)
+                            return RedirectToAction("b_TableBanHuyBo");
+                        else if (banSua.trangThai == 1)
+                            return RedirectToAction("b_TableBan");
+                        else if (banSua.trangThai == 2)
+                            return RedirectToAction("b_TableBanSuaChua");
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -355,12 +374,15 @@ namespace qlCaPhe.Controllers
         {
             try
             {
+                int kqLuu = 0;
                 qlCaPheEntities db = new qlCaPheEntities();
                 var banXoa = db.BanChoNgois.SingleOrDefault(b => b.maBan == maBan);
                 if (banXoa != null)
                 {
                     db.BanChoNgois.Remove(banXoa);
-                    db.SaveChanges();
+                    kqLuu=db.SaveChanges();
+                    if(kqLuu>0)
+                        xulyChung.ghiNhatKyDtb(3, "Bàn \"" + xulyDuLieu.traVeKyTuGoc(banXoa.tenBan) + " \"");
                 }
                 else
                     throw new Exception("Bàn có mã số '" + maBan.ToString() + "' không tồn tại để xóa");

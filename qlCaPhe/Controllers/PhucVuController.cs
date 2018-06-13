@@ -16,7 +16,7 @@ namespace qlCaPhe.Controllers
         /// Hàm lấy danh sách bàn có sản phẩm đã pha chế.
         /// </summary>
         /// <returns></returns>
-        public string AjaxLayDanhSachBanCanPhucVu(int ?page)
+        public string AjaxLayDanhSachBanCanPhucVu(int? page)
         {
             string html = ""; int trangHienHanh = (page ?? 1); int soPhanTu = 0;
             if (xulyChung.duocCapNhat(idOfPage, "7"))
@@ -64,6 +64,7 @@ namespace qlCaPhe.Controllers
             {
                 //-------Tạo modal xem chi tiết các sản phẩm đã order trong ctHoaDonTam
                 ViewBag.ModalChiTiet = createHTML.taoModalChiTiet("modalChiTiet", "vungChiTiet", 2);
+                xulyChung.ghiNhatKyDtb(1, "Danh mục bàn cần phục vụ");
                 return View();
             }
             return null;
@@ -111,6 +112,7 @@ namespace qlCaPhe.Controllers
                     htmlDetails += "        <a class=\"btn btn-default waves-effect\"  data-dismiss=\"modal\"><i class=\"material-icons\">close</i>Đóng lại</a>";
                     htmlDetails += "    </div>";
                     htmlDetails += "</div>";
+                    xulyChung.ghiNhatKyDtb(5, "Chi tiết sản phẩm của bàn \"" + xulyDuLieu.traVeKyTuGoc(hoaDon.BanChoNgoi.tenBan) + " \"");
                 }
             }
             catch (Exception ex)
@@ -138,7 +140,7 @@ namespace qlCaPhe.Controllers
             html += "   </thead>";
             html += "   <tbody>";
             //-------Lặp qua danh sách các món trong ctHoaDonTam chưa pha chế
-            foreach (ctHoaDonTam ct in hoaDon.ctHoaDonTams.Where(c=>c.trangThaiPhaChe==2).ToList())
+            foreach (ctHoaDonTam ct in hoaDon.ctHoaDonTams.Where(c => c.trangThaiPhaChe == 2).ToList())
             {
                 html += "       <tr>";
                 html += "           <td>";
@@ -185,6 +187,7 @@ namespace qlCaPhe.Controllers
                         hdSua.trangthaiphucVu = -1;//------Cập nhật bàn sang trạng thái chờ order tiếp theo
                         db.Entry(hdSua).State = System.Data.Entity.EntityState.Modified;
                         db.SaveChanges();
+                        xulyChung.ghiNhatKyDtb(4, "Đã bàn giao sản phẩm cho bàn \" " + xulyDuLieu.traVeKyTuGoc(hdSua.BanChoNgoi.tenBan) + " \"");
                     }
                     //-----reset session
                     Session["urlAction"] = "";
@@ -196,5 +199,5 @@ namespace qlCaPhe.Controllers
             }
             return AjaxLayDanhSachBanCanPhucVu(1);
         }
-	}
+    }
 }

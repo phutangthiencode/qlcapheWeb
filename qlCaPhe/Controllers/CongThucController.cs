@@ -26,8 +26,11 @@ namespace qlCaPhe.Controllers
                 int maSanPham = this.xuLyRequestLayMaSanPham();
                 sanPham sp = new qlCaPheEntities().sanPhams.SingleOrDefault(s => s.maSanPham == maSanPham);
                 if (sp != null)
+                {
                     //------Gán hình ảnh của sản phẩm lên giao diện
                     ViewBag.hinhSP = xulyDuLieu.chuyenByteHinhThanhSrcImage(sp.hinhAnh);
+                    xulyChung.ghiNhatKyDtb(1, "Thêm mới công thức cho \" "+xulyDuLieu.traVeKyTuGoc(sp.tenSanPham)+" \"");
+                }
             }
             catch (Exception ex)
             {
@@ -45,7 +48,7 @@ namespace qlCaPhe.Controllers
         [HttpPost]
         public ActionResult ct_TaoMoiCongThuc(congThucPhaChe ct, FormCollection f)
         {
-            string ndThongBao = "";
+            string ndThongBao = ""; int kqLuu = 0;
             qlCaPheEntities db = new qlCaPheEntities();
             try
             {
@@ -56,10 +59,14 @@ namespace qlCaPhe.Controllers
                 this.themLichSuGiaVaoDatabase(db, f);
                 //---Insert table congThucPhaChe
                 db.congThucPhaChes.Add(ct);
-                db.SaveChanges();
-                //---Insert table ctCongThuc
-                this.themChiTietVaoDatabase(ct.maCongThuc, db);
-                ndThongBao = createHTML.taoNoiDungThongBao("Công thức pha chế", xulyDuLieu.traVeKyTuGoc(ct.tenCongThuc), "/CongThuc/ct_TableCongThuc");
+               kqLuu= db.SaveChanges();
+               if (kqLuu > 0)
+               {
+                   //---Insert table ctCongThuc
+                   this.themChiTietVaoDatabase(ct.maCongThuc, db);
+                   ndThongBao = createHTML.taoNoiDungThongBao("Công thức pha chế", xulyDuLieu.traVeKyTuGoc(ct.tenCongThuc), "/CongThuc/ct_TableCongThuc");
+                   xulyChung.ghiNhatKyDtb(2, ndThongBao);
+               }
             }
             catch (Exception ex)
             {
@@ -170,20 +177,25 @@ namespace qlCaPhe.Controllers
         /// Hàm tạo giao diện danh sách công thức của 1 sản phẩm
         /// </summary>
         /// <returns></returns>
-        public ActionResult ct_TableCongThuc()
+        public ActionResult ct_TableCongThuc(int ?page)
         {
             string htmlTable = "";
             try
             {
                 int maSanPham = this.xuLyRequestLayMaSanPham();
+                int trangHienHanh = (page ?? 1);
                 qlCaPheEntities db = new qlCaPheEntities();
                 sanPham sp = db.sanPhams.SingleOrDefault(s => s.maSanPham == maSanPham);
                 if (sp != null)
                 {
+                    int soPhanTu = sp.congThucPhaChes.Count();
+                    ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, trangHienHanh, "/CongThuc/ct_TableCongThuc"); //------cấu hình phân trang
+
+                    htmlTable += this.taoBangDanhSachCongThuc(sp, trangHienHanh);
                     ViewBag.TitleTenSanPham = xulyDuLieu.traVeKyTuGoc(sp.tenSanPham);
-                    htmlTable += this.taoBangDanhSachCongThuc(sp);
                     this.thietLapThongSoChung();
                     ViewBag.HrefTaoCongThuc = xulyChung.taoUrlCoTruyenThamSo("CongThuc/ct_TaoMoiCongThuc", maSanPham.ToString());
+                    xulyChung.ghiNhatKyDtb(1, "Danh mục công thức pha chể của \" "+xulyDuLieu.traVeKyTuGoc(sp.tenSanPham)+" \"");
                 }
             }
             catch (Exception ex)
@@ -199,11 +211,11 @@ namespace qlCaPhe.Controllers
         /// </summary>
         /// <param name="sp">Công thức cho sản phẩm</param>
         /// <returns></returns>
-        private string taoBangDanhSachCongThuc(sanPham sp)
+        private string taoBangDanhSachCongThuc(sanPham sp, int trangHienHanh)
         {
             string htmlTable = "";
             //--------Duyệt qua danh sách công thức của sản phẩm. Được order theo trạng thái đang sử dụng lên trước
-            foreach (congThucPhaChe ct in sp.congThucPhaChes.ToList().OrderByDescending(t => t.trangThai))
+            foreach (congThucPhaChe ct in sp.congThucPhaChes.ToList().OrderByDescending(t => t.trangThai).Skip((trangHienHanh - 1) * createHTML.pageSize).Take(createHTML.pageSize))
             {
                 htmlTable += "<tr role=\"row\" class=\"odd\">";
                 htmlTable += "      <td>";
@@ -246,7 +258,10 @@ namespace qlCaPhe.Controllers
             {
                 congThucPhaChe congThuc = new qlCaPheEntities().congThucPhaChes.SingleOrDefault(c => c.maCongThuc == maCongThuc);
                 if (congThuc != null)
+                {
                     kq += htmlModalChiTietCongThuc(congThuc);
+                    xulyChung.ghiNhatKyDtb(5, "Công thức pha chế của \"" + xulyDuLieu.traVeKyTuGoc(congThuc.sanPham.tenSanPham)+ " \"");
+                }
             }
             catch (Exception ex)
             {
@@ -583,6 +598,7 @@ namespace qlCaPhe.Controllers
                             cart.addCart(ct);
                             Session["congThuc"] = cart;
                         }
+                        xulyChung.ghiNhatKyDtb(1, "Chỉnh sửa công thức pha chế của \" " + xulyDuLieu.traVeKyTuGoc(ctSua.sanPham.tenSanPham) + " \"");
                     }
                 }
                 else throw new Exception("không nhận được tham số");
@@ -602,8 +618,8 @@ namespace qlCaPhe.Controllers
         [HttpPost]
         public ActionResult ct_ChinhSuaCongThuc(FormCollection f)
         {
-            qlCaPheEntities db = new qlCaPheEntities();
-            congThucPhaChe ctSua = new congThucPhaChe();
+            int kqLuu = 0;
+            qlCaPheEntities db = new qlCaPheEntities(); congThucPhaChe ctSua = new congThucPhaChe();
             try
             {
                 int maCT = xulyDuLieu.doiChuoiSangInteger(f["txtMaCongThuc"]);
@@ -617,13 +633,17 @@ namespace qlCaPhe.Controllers
                     //-------Cập nhât lịch sử giá
                     this.themLichSuGiaVaoDatabase(db, f);
                     db.Entry(ctSua).State = System.Data.Entity.EntityState.Modified;
-                    db.SaveChanges();
-                    //-----Tiến hành xóa những chi tiết công thức và thêm lại
-                    this.xoaChiTiet(ctSua.maCongThuc, db);
-                    this.themChiTietVaoDatabase(ctSua.maCongThuc, db);
-                    //Xóa session
-                    Session.Remove("congThuc");
-                    return RedirectToAction("ct_TableCongThuc");
+                    kqLuu=  db.SaveChanges();
+                    if (kqLuu > 0)
+                    {
+                        xulyChung.ghiNhatKyDtb(4, "Công thức pha chế của \" " + xulyDuLieu.traVeKyTuGoc(ctSua.sanPham.tenSanPham) + " \"");
+                        //-----Tiến hành xóa những chi tiết công thức và thêm lại
+                        this.xoaChiTiet(ctSua.maCongThuc, db);
+                        this.themChiTietVaoDatabase(ctSua.maCongThuc, db);
+                        //Xóa session
+                        Session.Remove("congThuc");
+                        return RedirectToAction("ct_TableCongThuc");
+                    }
                 }
             }
             catch (Exception ex)
@@ -646,7 +666,7 @@ namespace qlCaPhe.Controllers
         {
             try
             {
-                string param = xulyChung.nhanThamSoTrongSession();
+                string param = xulyChung.nhanThamSoTrongSession(); int kqLuu = 0;
                 if (param.Length > 0)
                 {
                     int maCongThuc = xulyDuLieu.doiChuoiSangInteger(param);
@@ -659,10 +679,14 @@ namespace qlCaPhe.Controllers
                         congThucSua.trangThai = !trangThaiCu;//Cập nhật trạng thái ngược với trạng thái cũ
                         congThucSua.nguoiDuyet = ((taiKhoan)Session["login"]).tenDangNhap;
                         db.Entry(congThucSua).State = System.Data.Entity.EntityState.Modified;
-                        db.SaveChanges();
-                        //-------Thiết lập lại session để chuyển đến danh sách đúng nhất
-                        Session["urlAction"] = "page=/CongThuc/ct_TableCongThuc|request=" + congThucSua.maSanPham.ToString();
-                        Response.Redirect(xulyChung.layTenMien() + "/CongThuc/ct_TableCongThuc");
+                        kqLuu=  db.SaveChanges();
+                        if (kqLuu > 0)
+                        {
+                            xulyChung.ghiNhatKyDtb(4, "Cập nhật trạng thái công thức pha chế của \" " + xulyDuLieu.traVeKyTuGoc(congThucSua.sanPham.tenSanPham) + " \"");
+                            //-------Thiết lập lại session để chuyển đến danh sách đúng nhất
+                            Session["urlAction"] = "page=/CongThuc/ct_TableCongThuc|request=" + congThucSua.maSanPham.ToString();
+                            Response.Redirect(xulyChung.layTenMien() + "/CongThuc/ct_TableCongThuc");
+                        }
                     }
                     else
                         throw new Exception("Slide có mã " + maCongThuc + " không tồn tại để cập nhật");
@@ -699,6 +723,7 @@ namespace qlCaPhe.Controllers
         {
             try
             {
+                int kqLuu = 0;
                 qlCaPheEntities db = new qlCaPheEntities();
                 congThucPhaChe ctXoa = db.congThucPhaChes.SingleOrDefault(c => c.maCongThuc == maCongThuc);
                 if (ctXoa != null)
@@ -707,7 +732,9 @@ namespace qlCaPhe.Controllers
                     this.xoaChiTiet(ctXoa.maCongThuc, db);
                     //------Tiến hành xóa công thức
                     db.congThucPhaChes.Remove(ctXoa);
-                    db.SaveChanges();
+                    kqLuu=db.SaveChanges();
+                    if(kqLuu>0)
+                        xulyChung.ghiNhatKyDtb(3, "Công thức pha chế của \"" + xulyDuLieu.traVeKyTuGoc(ctXoa.sanPham.tenSanPham) + " \"");
                 }
                 else
                     throw new Exception("Công thức có mã " + maCongThuc.ToString() + " không tồn tại để xóa bỏ");

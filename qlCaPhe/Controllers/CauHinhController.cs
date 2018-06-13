@@ -25,7 +25,10 @@ namespace qlCaPhe.Controllers
                     this.resetDuLieu();
                     cauHinh chSua = new qlCaPheEntities().cauHinhs.First();
                     if (chSua != null)
+                    {
                         this.doDuLieuLenView(chSua);
+                        xulyChung.ghiNhatKyDtb(1, "Thiết lập thông số chung");
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -45,7 +48,7 @@ namespace qlCaPhe.Controllers
 
             if (xulyChung.duocCapNhat(idOfPage, "7"))
             {
-                string ndthongBao = "";
+                string ndthongBao = ""; int kqLuu = 0;
                 cauHinh chSua = new cauHinh();
                 qlCaPheEntities db = new qlCaPheEntities();
                 try
@@ -54,9 +57,13 @@ namespace qlCaPhe.Controllers
                     this.doDuLieuLenView(chSua);
                     this.layDuLieuTuView(chSua, f, fileUpload);
                     db.Entry(chSua).State = System.Data.Entity.EntityState.Modified;
-                    db.SaveChanges();
-                    ndthongBao = "Cấu hình website thành công";
-                    this.resetDuLieu();
+                    kqLuu=db.SaveChanges();
+                    if (kqLuu > 0)
+                    {
+                        ndthongBao = "Cấu hình website thành công";
+                        this.resetDuLieu();
+                        xulyChung.ghiNhatKyDtb(4, ndthongBao);
+                    }
                 }
                 catch (Exception ex)
                 {

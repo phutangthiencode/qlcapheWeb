@@ -24,6 +24,7 @@ namespace qlCaPhe.Controllers
                 taoDuLieuChoCbb(new qlCaPheEntities());
                 //Nhúng script ajax lấy thông tin thành viên
                 ViewBag.ScriptAjax = createScriptAjax.scriptGetInfoComboboxClick("cbbThanhVien", "ThanhVien/getInfoThanhVienForCreateTaiKhoan?maTV=", "vungThongTin");
+                xulyChung.ghiNhatKyDtb(1, "Tạo mới tài khoản");
             }
             return View();
         }
@@ -36,17 +37,21 @@ namespace qlCaPhe.Controllers
         [HttpPost]
         public ActionResult tk_TaoMoiTaiKhoan(FormCollection f, taiKhoan tk)
         {
-            if (xulyChung.duocCapNhat(idOfPage,"7"))
+            if (xulyChung.duocCapNhat(idOfPage, "7"))
             {
-                string noiDungTB = "";
+                string noiDungTB = ""; int kqLuu = 0;
                 qlCaPheEntities db = new qlCaPheEntities();
                 try
                 {
                     layDuLieuTuView(f, tk);
                     kiemTraTaiKhoanTrung(db, tk.tenDangNhap);
                     db.taiKhoans.Add(tk);
-                    db.SaveChanges();
-                    noiDungTB = createHTML.taoNoiDungThongBao("Tài khoản", tk.tenDangNhap, "/TaiKhoan/tk_TableTaiKhoan?trangThai=true");
+                    kqLuu = db.SaveChanges();
+                    if (kqLuu > 0)
+                    {
+                        noiDungTB = createHTML.taoNoiDungThongBao("Tài khoản", tk.tenDangNhap, "/TaiKhoan/tk_TableTaiKhoan?trangThai=true");
+                        xulyChung.ghiNhatKyDtb(2, noiDungTB);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -83,6 +88,7 @@ namespace qlCaPhe.Controllers
         public ActionResult RouteTaiKhoanHoatDong()
         {
             cauHinhSession("tk_TableTaiKhoan", "1");
+            xulyChung.ghiNhatKyDtb(1, "Danh mục tài khoản còn hoạt động");
             return RedirectToAction("tk_TableTaiKhoan");
         }
         /// <summary>
@@ -92,13 +98,14 @@ namespace qlCaPhe.Controllers
         public ActionResult RouteTaiKhoanCamTruyCap()
         {
             cauHinhSession("tk_TableTaiKhoan", "0");
+            xulyChung.ghiNhatKyDtb(1, "Danh mục tài khoản cấm hoạt động");
             return RedirectToAction("tk_TableTaiKhoan");
         }
         /// <summary>
         /// Hàm tạo giao diện danh sách tài khoản theo trạng thái
         /// </summary>
         /// <returns></returns>
-        public ActionResult tk_TableTaiKhoan(int ?page)
+        public ActionResult tk_TableTaiKhoan(int? page)
         {
             int trangHienHanh = (page ?? 1);
             if (xulyChung.duocTruyCap(idOfPage))
@@ -170,10 +177,11 @@ namespace qlCaPhe.Controllers
         /// </summary>
         public ActionResult capNhatTrangThai()
         {
-            if (xulyChung.duocCapNhat(idOfPage,"7"))
+            if (xulyChung.duocCapNhat(idOfPage, "7"))
             {
                 try
                 {
+                    int kqLuu = 0;
                     string urlAction = (string)Session["urlAction"];
                     if (urlAction.Length > 0)
                     {
@@ -184,11 +192,15 @@ namespace qlCaPhe.Controllers
                         //Thực hiện cập nhật trạng thái ngược với trạng thái hiện hành
                         taiKhoanSua.trangThai = !trangThaiCu;
                         db.Entry(taiKhoanSua).State = System.Data.Entity.EntityState.Modified;
-                        db.SaveChanges();
-                        if (trangThaiCu == true) //-------Chuyển đến danh sách tài khoản còn hoạt động
-                            return RedirectToAction("RouteTaiKhoanHoatDong");
-                        else
-                            return RedirectToAction("RouteTaiKhoanCamTruyCap");
+                        kqLuu = db.SaveChanges();
+                        if (kqLuu > 0)
+                        {
+                            xulyChung.ghiNhatKyDtb(4, "Cập nhật trạng thái của tài khoản \" " + xulyDuLieu.traVeKyTuGoc(tenTK) + " \"");
+                            if (trangThaiCu == true) //-------Chuyển đến danh sách tài khoản còn hoạt động
+                                return RedirectToAction("RouteTaiKhoanHoatDong");
+                            else
+                                return RedirectToAction("RouteTaiKhoanCamTruyCap");
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -206,7 +218,7 @@ namespace qlCaPhe.Controllers
         /// <returns></returns>
         public ActionResult tk_ChinhSuaTaiKhoan()
         {
-            if (xulyChung.duocCapNhat(idOfPage,"7"))
+            if (xulyChung.duocCapNhat(idOfPage, "7"))
             {
                 try
                 {
@@ -220,6 +232,7 @@ namespace qlCaPhe.Controllers
                         {
                             this.doDuLieuLenView(tkSua);
                             this.taoDuLieuCbbChinhSua(db, tkSua.maTV, tkSua.maNhomTK);
+                            xulyChung.ghiNhatKyDtb(1, "Chỉnh sửa tài khoản \" " + xulyDuLieu.traVeKyTuGoc(tkSua.tenDangNhap) + " \"");
                         }
                         else throw new Exception("Tài khoản " + tenTK + " không tồn tại");
                     }
@@ -242,7 +255,7 @@ namespace qlCaPhe.Controllers
         [HttpPost]
         public ActionResult tk_ChinhSuaTaiKhoan(FormCollection f)
         {
-            string ndThongBao = "";
+            string ndThongBao = ""; int kqLuu = 0;
             taiKhoan taiKhoanSua = new taiKhoan();
             qlCaPheEntities db = new qlCaPheEntities();
             try
@@ -251,8 +264,12 @@ namespace qlCaPhe.Controllers
                 taiKhoanSua = db.taiKhoans.Single(n => n.tenDangNhap == tenTK);
                 this.layDuLieuTuView(f, taiKhoanSua);
                 db.Entry(taiKhoanSua).State = System.Data.Entity.EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("RouteTaiKhoanHoatDong");
+                kqLuu = db.SaveChanges();
+                if (kqLuu > 0)
+                {
+                    xulyChung.ghiNhatKyDtb(4, "Tài khoản \" " + xulyDuLieu.traVeKyTuGoc(taiKhoanSua.tenDangNhap) + " \"");
+                    return RedirectToAction("RouteTaiKhoanHoatDong");
+                }
             }
             catch (Exception ex)
             {
@@ -275,11 +292,14 @@ namespace qlCaPhe.Controllers
         {
             try
             {
+                int kqLuu = 0;
                 qlCaPheEntities db = new qlCaPheEntities();
                 var taiKhoanXoa = db.taiKhoans.First(tk => tk.tenDangNhap == tenTK);
                 //------------------KIỂM TRA SESSION TRÁNH XÓA TÀI KHOẢN ĐANG ĐĂNG NHẬP
                 db.taiKhoans.Remove(taiKhoanXoa);
-                db.SaveChanges();
+                kqLuu = db.SaveChanges();
+                if (kqLuu > 0)
+                    xulyChung.ghiNhatKyDtb(3, "Tài khoản \"" + xulyDuLieu.traVeKyTuGoc(taiKhoanXoa.tenDangNhap) + " \"");
             }
             catch (Exception ex)
             {

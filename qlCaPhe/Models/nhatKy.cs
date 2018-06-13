@@ -14,6 +14,7 @@ namespace qlCaPhe.Models
     
     public partial class nhatKy
     {
+        public int maNhatKy { get; set; }
         public string tenDangNhap { get; set; }
         public Nullable<System.DateTime> thoiDiem { get; set; }
         public string IP { get; set; }

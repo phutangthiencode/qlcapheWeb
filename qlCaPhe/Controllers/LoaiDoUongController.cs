@@ -18,8 +18,11 @@ namespace qlCaPhe.Controllers
         /// <returns></returns>
         public ActionResult ldu_TaoMoiLoaiDoUong()
         {
-            if(xulyChung.duocTruyCap(idOfPage))
+            if (xulyChung.duocTruyCap(idOfPage))
+            {
+                xulyChung.ghiNhatKyDtb(1, "Tạo mới loại đồ uống");
                 return View();
+            }
             return null;
         }
         /// <summary>
@@ -31,16 +34,20 @@ namespace qlCaPhe.Controllers
         [HttpPost]
         public ActionResult ldu_TaoMoiLoaiDoUong(loaiSanPham loai, FormCollection f)
         {
-            if (xulyChung.duocCapNhat(idOfPage,"7"))
+            if (xulyChung.duocCapNhat(idOfPage, "7"))
             {
-                string ndThongBao = "";
+                string ndThongBao = ""; int kqLuu = 0;
                 try
                 {
                     qlCaPheEntities db = new qlCaPheEntities();
                     this.layDuLieuTuView(loai, f);
                     db.loaiSanPhams.Add(loai);
-                    db.SaveChanges();
-                    ndThongBao = createHTML.taoNoiDungThongBao("Loại đồ uống", xulyDuLieu.traVeKyTuGoc(loai.tenLoai), "ldu_TableLoaiDoUong");
+                    kqLuu = db.SaveChanges();
+                    if (kqLuu > 0)
+                    {
+                        ndThongBao = createHTML.taoNoiDungThongBao("Loại đồ uống", xulyDuLieu.traVeKyTuGoc(loai.tenLoai), "ldu_TableLoaiDoUong");
+                        xulyChung.ghiNhatKyDtb(2, ndThongBao);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -58,7 +65,7 @@ namespace qlCaPhe.Controllers
         /// Hàm thực hiện tạo giao diện danh mục loại đồ uống
         /// </summary>
         /// <returns></returns>
-        public ActionResult ldu_TableLoaiDoUong(int ?page)
+        public ActionResult ldu_TableLoaiDoUong(int? page)
         {
             int trangHienHanh = (page ?? 1);
             if (xulyChung.duocTruyCap(idOfPage))
@@ -97,6 +104,7 @@ namespace qlCaPhe.Controllers
                 ViewBag.TableData = htmlTable;
                 ViewBag.ScriptAjax = createScriptAjax.scriptAjaxXoaDoiTuong("LoaiDoUong/xoaLoaiDoUong?maLoai=");
                 ViewBag.ModalXoa = createHTML.taoCanhBaoXoa("Loại đồ uống");
+                xulyChung.ghiNhatKyDtb(1, "Danh mục loại đồ uống");
             }
             return View();
         }
@@ -119,7 +127,10 @@ namespace qlCaPhe.Controllers
                         int maLoai = xulyDuLieu.doiChuoiSangInteger(param);
                         loaiSanPham loai = new qlCaPheEntities().loaiSanPhams.SingleOrDefault(l => l.maLoai == maLoai);
                         if (loai != null)
+                        {
                             this.doDuLieuLienView(loai);
+                            xulyChung.ghiNhatKyDtb(1, "Chỉnh sửa loại đồ uống\" " + xulyDuLieu.traVeKyTuGoc(loai.tenLoai) + " \"");
+                        }
                         else
                             throw new Exception("Loại sản phẩm có mã " + maLoai.ToString() + " không tồn tại để cập nhật");
                     }
@@ -144,7 +155,7 @@ namespace qlCaPhe.Controllers
         {
             if (xulyChung.duocCapNhat(idOfPage, "7"))
             {
-                string ndThongBao = "";
+                string ndThongBao = ""; int kqLuu = 0;
                 loaiSanPham loaiSua = new loaiSanPham();
                 try
                 {
@@ -155,8 +166,12 @@ namespace qlCaPhe.Controllers
                     {
                         this.layDuLieuTuView(loaiSua, f);
                         db.Entry(loaiSua).State = System.Data.Entity.EntityState.Modified;
-                        db.SaveChanges();
-                        return RedirectToAction("ldu_TableLoaiDoUong");
+                        kqLuu = db.SaveChanges();
+                        if (kqLuu > 0)
+                        {
+                            xulyChung.ghiNhatKyDtb(4, " Loại bài viết \" " + xulyDuLieu.traVeKyTuGoc(loaiSua.tenLoai) + " \"");
+                            return RedirectToAction("ldu_TableLoaiDoUong");
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -179,12 +194,15 @@ namespace qlCaPhe.Controllers
         {
             try
             {
+                int kqLuu = 0;
                 qlCaPheEntities db = new qlCaPheEntities();
                 loaiSanPham loaiXoa = db.loaiSanPhams.SingleOrDefault(l => l.maLoai == maLoai);
                 if (loaiXoa != null)
                 {
                     db.loaiSanPhams.Remove(loaiXoa);
-                    db.SaveChanges();
+                    kqLuu = db.SaveChanges();
+                    if (kqLuu > 0)
+                        xulyChung.ghiNhatKyDtb(3, "Loại sản phẩm \"" + xulyDuLieu.traVeKyTuGoc(loaiXoa.tenLoai) + " \"");
                 }
                 else
                     throw new Exception("Loại sản phẩm có mã " + maLoai.ToString() + " không tồn tại trong hệ thống");
@@ -203,7 +221,7 @@ namespace qlCaPhe.Controllers
         /// <param name="f"></param>
         private void layDuLieuTuView(loaiSanPham loai, FormCollection f)
         {
-            string loi = ""; 
+            string loi = "";
             loai.tenLoai = xulyDuLieu.xulyKyTuHTML(f["txtTenLoai"]);
             if (loai.tenLoai.Length <= 0)
                 loi += "Vui lòng nhập tên loại sản phẩm <br/>";

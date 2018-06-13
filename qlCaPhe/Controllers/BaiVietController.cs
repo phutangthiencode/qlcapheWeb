@@ -38,7 +38,7 @@ namespace qlCaPhe.Controllers
         [ValidateInput(false)]
         public ActionResult bv_TaoMoiBaiViet(baiViet bv, FormCollection f, HttpPostedFileBase fileUpload)
         {
-            string ndThongBao = "";
+            string ndThongBao = ""; int kqLuu = 0;
             if (xulyChung.duocCapNhat(idOfPage, "7"))
             {
                 try
@@ -49,9 +49,13 @@ namespace qlCaPhe.Controllers
                     bv.nguoiTao = ((taiKhoan)Session["login"]).tenDangNhap;
                     bv.hienTrangChu = false;
                     db.baiViets.Add(bv);
-                    db.SaveChanges();
-                    ndThongBao = createHTML.taoNoiDungThongBao("Bài viết", xulyDuLieu.traVeKyTuGoc(bv.tenBaiViet), "bv_TableBaiVietChoDuyet");
-                    ViewBag.HinhDD = "/images/image-gallery/1.jpg";
+                    kqLuu= db.SaveChanges();
+                    if (kqLuu > 0)
+                    {
+                        ndThongBao = createHTML.taoNoiDungThongBao("Bài viết", xulyDuLieu.traVeKyTuGoc(bv.tenBaiViet), "bv_TableBaiVietChoDuyet");
+                        ViewBag.HinhDD = "/images/image-gallery/1.jpg";
+                        xulyChung.ghiNhatKyDtb(2, ndThongBao);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -72,7 +76,10 @@ namespace qlCaPhe.Controllers
         public ActionResult bv_TableBaiVietDaDuyet(int ?page)
         {
             if (xulyChung.duocTruyCap(idOfPage))
-                this.createTableBaiViet(1, (page??1),"/BaiViet/bv_TableBaiVietDaDuyet");
+            {
+                xulyChung.ghiNhatKyDtb(1, "Danh mục bài viết đã duyệt");
+                this.createTableBaiViet(1, (page ?? 1), "/BaiViet/bv_TableBaiVietDaDuyet");
+            }
             return View();
         }
         /// <summary>
@@ -82,7 +89,10 @@ namespace qlCaPhe.Controllers
         public ActionResult bv_TableBaiVietChoDuyet(int ?page)
         {
             if (xulyChung.duocTruyCap(idOfPage))
-                this.createTableBaiViet(0, (page ?? 1), "/BaiViet/bv_TableBaiVietDaDuyet");
+            {
+                xulyChung.ghiNhatKyDtb(1, "Danh mục bài viết chờ duyệt");
+                this.createTableBaiViet(0, (page ?? 1), "/BaiViet/bv_TableBaiVietChoDuyet");
+            }
             return View();
         }
 
@@ -96,6 +106,7 @@ namespace qlCaPhe.Controllers
             if (xulyChung.duocTruyCap(idOfPage))
                 try
                 {
+                    xulyChung.ghiNhatKyDtb(1, "Danh mục bài viết bị gở bỏ");
                     this.createTableBaiViet(2, (page ?? 1), "/BaiViet/bv_TableBaiVietDaDuyet");
                 }
                 catch (Exception ex)
@@ -204,6 +215,7 @@ namespace qlCaPhe.Controllers
                         htmlDetails += "    </button>";
                         htmlDetails += "</div>";
                         htmlDetails += "</div>";
+                        xulyChung.ghiNhatKyDtb(5, "Xem bài viết \" "+xulyDuLieu.traVeKyTuGoc(bv.tenBaiViet)+" \"");
                     }
                 }
                 catch (Exception ex)
@@ -230,7 +242,10 @@ namespace qlCaPhe.Controllers
                         int maBV = xulyDuLieu.doiChuoiSangInteger(param);
                         baiViet bvSua = new qlCaPheEntities().baiViets.SingleOrDefault(b => b.maBaiViet == maBV);
                         if (bvSua != null)
+                        {
                             this.doDuLieuLenView(bvSua);
+                            xulyChung.ghiNhatKyDtb(1, "Chỉnh sửa bài viết \" " + xulyDuLieu.traVeKyTuGoc(bvSua.tenBaiViet) + " \"");
+                        }
                         else
                             throw new Exception("Bài viết cần chỉnh sửa không tồn tại");
                     }
@@ -252,7 +267,7 @@ namespace qlCaPhe.Controllers
         [ValidateInput(false)]
         public ActionResult bv_ChinhSuaBaiViet(FormCollection f, HttpPostedFileBase fileUpload)
         {
-            string ndThongBao = "";
+            string ndThongBao = ""; int kqLuu = 0;
             if (xulyChung.duocCapNhat(idOfPage, "7"))
             {
                 baiViet bvSua = new baiViet();
@@ -266,8 +281,12 @@ namespace qlCaPhe.Controllers
                         this.doDuLieuLenView(bvSua);
                         this.layDuLieuTuView(bvSua, f, fileUpload);
                         db.Entry(bvSua).State = System.Data.Entity.EntityState.Modified;
-                        db.SaveChanges();
-                        return RedirectToAction("bv_TableBaiVietChoDuyet");
+                        kqLuu=db.SaveChanges();
+                        if (kqLuu > 0)
+                        {
+                            xulyChung.ghiNhatKyDtb(4, "Bài viết \" " + xulyDuLieu.traVeKyTuGoc(bvSua.tenBaiViet) + " \"");
+                            return RedirectToAction("bv_TableBaiVietChoDuyet");
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -288,6 +307,7 @@ namespace qlCaPhe.Controllers
             if (xulyChung.duocCapNhat(idOfPage, "7"))
                 try
                 {
+                    int kqLuu = 0;
                     string param = xulyChung.nhanThamSoTrongSession(); //----param = maBV&trangThai
                     if (param.Length > 0)
                     {
@@ -295,22 +315,25 @@ namespace qlCaPhe.Controllers
                         int trangThai = xulyDuLieu.doiChuoiSangInteger(param.Split('&')[1]);
                         if (trangThai == 1 || trangThai == 2) //Chỉ chấp nhận tham số trạng thái cập nhật là 1 hoặc 2
                         {
-                            qlCaPheEntities db = new qlCaPheEntities();
-                            baiViet bvSua = db.baiViets.SingleOrDefault(b => b.maBaiViet == maBV);
+                            qlCaPheEntities db = new qlCaPheEntities(); baiViet bvSua = db.baiViets.SingleOrDefault(b => b.maBaiViet == maBV);
                             if (bvSua != null)
                             {
                                 int trangThaiCu = (int)bvSua.trangThai; //Lưu lại trạng thái cũ để chuyển đến danh sách tương ứng
-                                if (trangThai == 1) //Nếu là 1 thì cập nhật thêm ngày đăng
+                                if (trangThai == 1) //Nếu là đã duyệt thì cập nhật thêm ngày đăng
                                     bvSua.ngayDang = DateTime.Now;
                                 bvSua.trangThai = trangThai;
                                 db.Entry(bvSua).State = System.Data.Entity.EntityState.Modified;
-                                db.SaveChanges();
-                                if (trangThaiCu == 0)//Chuyển đến danh sách bài viết chờ duyệt
-                                    Response.Redirect(xulyChung.layTenMien() + "/BaiViet/bv_TableBaiVietChoDuyet");
-                                else if (trangThaiCu == 1)//Chuyển đến danh sách bài viết đã duyệt.
-                                    Response.Redirect(xulyChung.layTenMien() + "/BaiViet/bv_TableBaiVietDaDuyet");
-                                else if (trangThaiCu == 2) //Chuyển đến danh sách bài viết bị gở
-                                    Response.Redirect(xulyChung.layTenMien() + "/BaiViet/bv_TableBaiVietBiGoBo");
+                                kqLuu= db.SaveChanges();
+                                if (kqLuu > 0)
+                                {
+                                    xulyChung.ghiNhatKyDtb(4, "Cập nhật trạng thái bài viết \" "+xulyDuLieu.traVeKyTuGoc(bvSua.tenBaiViet)+" \"");
+                                    if (trangThaiCu == 0)//Chuyển đến danh sách bài viết chờ duyệt
+                                        Response.Redirect(xulyChung.layTenMien() + "/BaiViet/bv_TableBaiVietChoDuyet");
+                                    else if (trangThaiCu == 1)//Chuyển đến danh sách bài viết đã duyệt.
+                                        Response.Redirect(xulyChung.layTenMien() + "/BaiViet/bv_TableBaiVietDaDuyet");
+                                    else if (trangThaiCu == 2) //Chuyển đến danh sách bài viết bị gở
+                                        Response.Redirect(xulyChung.layTenMien() + "/BaiViet/bv_TableBaiVietBiGoBo");
+                                }
                             }
                             else
                                 throw new Exception("Bài viết cần cập nhật không tồn tại");
@@ -337,12 +360,14 @@ namespace qlCaPhe.Controllers
         {
             try
             {
-                qlCaPheEntities db = new qlCaPheEntities();
+                qlCaPheEntities db = new qlCaPheEntities(); int kqLuu = 0;
                 baiViet bv = db.baiViets.SingleOrDefault(b => b.maBaiViet == maBV);
                 if (bv != null)
                 {
                     db.baiViets.Remove(bv);
-                    db.SaveChanges();
+                    kqLuu=db.SaveChanges();
+                    if (kqLuu > 0) 
+                        xulyChung.ghiNhatKyDtb(3, "Bài viết \"" + xulyDuLieu.traVeKyTuGoc(bv.tenBaiViet)+ " \"");
                 }
                 else
                     throw new Exception("Bài viết có mã " + maBV.ToString() + " không tồn tại để xóa");

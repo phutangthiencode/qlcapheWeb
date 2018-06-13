@@ -166,7 +166,7 @@ namespace qlCaPhe.App_Start
         /// <summary>
         /// Hàm thực hiện thêm nhật ký vào CSDL
         /// </summary>
-        /// <param name="status">Trạng thái thực hiện <para/> 1..4: Truy cập, Thêm, Xóa, Sửa</param>
+        /// <param name="status">Trạng thái thực hiện <para/> 1..5: Truy cập, Thêm, Xóa, Sửa, Xem</param>
         /// <param name="noiDung">Nội dung, chức năng thực hiện</param>
         public static void ghiNhatKyDtb(int status, string noiDung)
         {
@@ -180,7 +180,7 @@ namespace qlCaPhe.App_Start
                 System.Web.HttpBrowserCapabilities browser = HttpContext.Current.Request.Browser;
                 nkAdd.trinhDuyet = browser.Browser;
                 nkAdd.OS = GetUserPlatform(HttpContext.Current.Request);
-                nkAdd.chucNang = getChucNang(status) + noiDung;
+                nkAdd.chucNang = getChucNang(status) + xulyDuLieu.xulyKyTuHTML(noiDung);
                 //----Thêm nhật ký vào CSDL
                 qlCaPheEntities db = new qlCaPheEntities();
                 db.nhatKies.Add(nkAdd);
@@ -307,6 +307,8 @@ namespace qlCaPhe.App_Start
                 case 2: kq += "Thêm mới"; break;
                 case 3: kq += "Xóa bỏ"; break;
                 case 4: kq += "Chỉnh sửa"; break;
+                case 5: kq += "Xem"; break;
+                default: kq += ""; break;
             }
             kq += " ) ";
             return kq;

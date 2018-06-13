@@ -24,6 +24,7 @@ namespace qlCaPhe.Controllers
                 try
                 {
                     taoDuLieuChoCbb(new qlCaPheEntities());
+                    xulyChung.ghiNhatKyDtb(1, "Tạo mới nguyên liệu");
                 }
                 catch (Exception ex)
                 {
@@ -42,16 +43,20 @@ namespace qlCaPhe.Controllers
 
             if (xulyChung.duocCapNhat(idOfPage, "7"))
             {
-                string ndThongBao = "";
+                string ndThongBao = ""; int kqLuu = 0;
                 qlCaPheEntities db = new qlCaPheEntities();
                 try
                 {
                     this.layDuLieuTuView(nl, f);
                     nl.trangThai = true;
                     db.nguyenLieux.Add(nl);
-                    db.SaveChanges();
-                    ndThongBao = createHTML.taoNoiDungThongBao("Nguyên liệu", xulyDuLieu.traVeKyTuGoc(nl.tenNguyenLieu), "nl_TableNguyenLieu");
-                    this.resetDuLieu();
+                    kqLuu = db.SaveChanges();
+                    if (kqLuu > 0)
+                    {
+                        ndThongBao = createHTML.taoNoiDungThongBao("Nguyên liệu", xulyDuLieu.traVeKyTuGoc(nl.tenNguyenLieu), "nl_TableNguyenLieu");
+                        this.resetDuLieu();
+                        xulyChung.ghiNhatKyDtb(2, ndThongBao);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -73,11 +78,12 @@ namespace qlCaPhe.Controllers
         /// Trạng thái = true
         /// </summary>
         /// <returns></returns>
-        public ActionResult nl_TableNguyenLieu(int ?page)
+        public ActionResult nl_TableNguyenLieu(int? page)
         {
             if (xulyChung.duocTruyCap(idOfPage))
             {
                 this.createTableNguyenLieu(true, (page ?? 1), "/NguyenLieu/nl_TableNguyenLieu");
+                xulyChung.ghiNhatKyDtb(1, "Danh mục nguyên liệu đang sử dụng");
                 return View();
             } return null;
         }
@@ -86,11 +92,12 @@ namespace qlCaPhe.Controllers
         /// Trạng thái = true
         /// </summary>
         /// <returns></returns>
-        public ActionResult nl_TableNguyenLieuTamNgung(int ?page)
+        public ActionResult nl_TableNguyenLieuTamNgung(int? page)
         {
             if (xulyChung.duocTruyCap(idOfPage))
             {
                 this.createTableNguyenLieu(false, (page ?? 1), "/NguyenLieu/nl_TableNguyenLieuTamNgung");
+                xulyChung.ghiNhatKyDtb(1, "Danh mục nguyên liệu tạm ngưng sử dụng");
                 return View();
             }
             return null;
@@ -188,7 +195,7 @@ namespace qlCaPhe.Controllers
             string kq = "";
             try
             {
-                List<nguyenLieu> listNguyenLieu = new qlCaPheEntities().nguyenLieux.Where(n => n.tenNguyenLieu.StartsWith(tenNL) && n.trangThai==true).ToList();
+                List<nguyenLieu> listNguyenLieu = new qlCaPheEntities().nguyenLieux.Where(n => n.tenNguyenLieu.StartsWith(tenNL) && n.trangThai == true).ToList();
                 if (listNguyenLieu.Count() > 0)
                     foreach (nguyenLieu nl in listNguyenLieu)
                     {
@@ -261,7 +268,10 @@ namespace qlCaPhe.Controllers
                         qlCaPheEntities db = new qlCaPheEntities();
                         nguyenLieu nlSua = db.nguyenLieux.SingleOrDefault(n => n.maNguyenLieu == maNguyenLieu);
                         if (nlSua != null)
+                        {
                             this.doDuLieuLenView(nlSua, db);
+                            xulyChung.ghiNhatKyDtb(1, "Chỉnh sửa nguyên liệu \" " + xulyDuLieu.traVeKyTuGoc(nlSua.tenNguyenLieu) + " \"");
+                        }
                         else
                             throw new Exception("Nguyên liệu có mã " + maNguyenLieu + " không tồn tại để truy cập cập nhật");
                     }
@@ -287,8 +297,8 @@ namespace qlCaPhe.Controllers
         {
             if (xulyChung.duocCapNhat(idOfPage, "7"))
             {
-                nguyenLieu nlSua = new nguyenLieu();
-                qlCaPheEntities db = new qlCaPheEntities();
+                int kqLuu = 0;
+                nguyenLieu nlSua = new nguyenLieu(); qlCaPheEntities db = new qlCaPheEntities();
                 try
                 {
                     int maNguyenLieu = Convert.ToInt32(f["txtMaNguyenLieu"]);
@@ -297,13 +307,17 @@ namespace qlCaPhe.Controllers
                     {
                         this.layDuLieuTuView(nlSua, f);
                         db.Entry(nlSua).State = System.Data.Entity.EntityState.Modified;
-                        db.SaveChanges();
-                        this.resetDuLieu();
-                        //---Dựa vào trạng thái để chuyển đến trang tương ứng
-                        if (nlSua.trangThai)
-                            return RedirectToAction("nl_TableNguyenLieu");
-                        else
-                            return RedirectToAction("nl_TableNguyenLieuTamNgung");
+                        kqLuu = db.SaveChanges();
+                        if (kqLuu > 0)
+                        {
+                            xulyChung.ghiNhatKyDtb(4, "Nguyên liệu \" " + xulyDuLieu.traVeKyTuGoc(nlSua.tenNguyenLieu) + " \"");
+                            this.resetDuLieu();
+                            //---Dựa vào trạng thái để chuyển đến trang tương ứng
+                            if (nlSua.trangThai)
+                                return RedirectToAction("nl_TableNguyenLieu");
+                            else
+                                return RedirectToAction("nl_TableNguyenLieuTamNgung");
+                        }
                     }
                     else
                         throw new Exception("Nguyên liệu cần cập nhật không tồn tại");
@@ -329,6 +343,7 @@ namespace qlCaPhe.Controllers
         {
             try
             {
+                int kqLuu = 0;
                 string param = xulyChung.nhanThamSoTrongSession();
                 if (param.Length > 0)
                 {
@@ -340,11 +355,15 @@ namespace qlCaPhe.Controllers
                         bool trangThaiCu = nlSua.trangThai;//Lưu lại trạng thái cũ để chuyển đến trang tương ứng
                         nlSua.trangThai = !trangThaiCu;//Cập nhật trạng thái ngược lại với trạng thái cũ. Nếu true thì thành false và ngược lại
                         db.Entry(nlSua).State = System.Data.Entity.EntityState.Modified;
-                        db.SaveChanges();
-                        if (trangThaiCu == true)//Chuyển đến danh sách sản phẩm đang sử dụng
-                            Response.Redirect(xulyChung.layTenMien() + "/NguyenLieu/nl_TableNguyenLieu");
-                        else
-                            Response.Redirect(xulyChung.layTenMien() + "/NguyenLieu/nl_TableNguyenLieuTamNgung");
+                        kqLuu = db.SaveChanges();
+                        if (kqLuu > 0)
+                        {
+                            xulyChung.ghiNhatKyDtb(4, "Cập nhật trạng thái nguyên liệu \" " + xulyDuLieu.traVeKyTuGoc(nlSua.tenNguyenLieu) + " \"");
+                            if (trangThaiCu == true)//Chuyển đến danh sách sản phẩm đang sử dụng
+                                Response.Redirect(xulyChung.layTenMien() + "/NguyenLieu/nl_TableNguyenLieu");
+                            else
+                                Response.Redirect(xulyChung.layTenMien() + "/NguyenLieu/nl_TableNguyenLieuTamNgung");
+                        }
                     }
                     else
                         throw new Exception("Nguyên liệu có mã " + maNguyenLieu + " cần cập nhật không tồn tại");
@@ -367,12 +386,15 @@ namespace qlCaPhe.Controllers
         {
             try
             {
+                int kqLuu = 0;
                 qlCaPheEntities db = new qlCaPheEntities();
                 nguyenLieu nlXoa = db.nguyenLieux.Single(nl => nl.maNguyenLieu == maNguyenLieu);
                 if (nlXoa != null)
                 {
                     db.nguyenLieux.Remove(nlXoa);
-                    db.SaveChanges();
+                    kqLuu = db.SaveChanges();
+                    if (kqLuu > 0)
+                        xulyChung.ghiNhatKyDtb(3, "Nguyên liệu \"" + xulyDuLieu.traVeKyTuGoc(nlXoa.tenNguyenLieu) + " \"");
                 }
                 else
                     throw new Exception("Nguyên liệu có mã " + maNguyenLieu + " không tồn tại để xóa bỏ");

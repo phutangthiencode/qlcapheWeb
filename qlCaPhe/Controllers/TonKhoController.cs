@@ -35,6 +35,7 @@ namespace qlCaPhe.Controllers
                         cartTruoc.addCart(item);
                         Session["kiemKho"] = cartTruoc;
                     }
+                    xulyChung.ghiNhatKyDtb(1, "Kiểm kho");
                 }
                 catch (Exception ex)
                 {
@@ -75,6 +76,7 @@ namespace qlCaPhe.Controllers
                         themChiTietTonKho(tonKho.maSoKy, cartSau, db);
                         ndThongBao = createHTML.taoNoiDungThongBao("Kiểm kê kho", tonKho.maSoKy.ToString(), "tkho_TableTonKho");
                         this.xoaSession();
+                        xulyChung.ghiNhatKyDtb(2, ndThongBao);
                     }
                 }
                 catch (Exception ex)
@@ -165,6 +167,7 @@ namespace qlCaPhe.Controllers
                 kq += "             <div class=\"pull-right\"><b>Người kiểm</b><br /><br /><br /><b>" + xulyDuLieu.traVeKyTuGoc(tkLogin.thanhVien.hoTV) + " " + xulyDuLieu.traVeKyTuGoc(tkLogin.thanhVien.tenTV) + "</b>";
                 kq += "             </div>";
                 kq += "         </div>";
+                xulyChung.ghiNhatKyDtb(5, "Nguyên liệu tồn kho ngày \"" + DateTime.Now.ToString() + " \"");
             }
             catch (Exception ex)
             {
@@ -365,7 +368,7 @@ namespace qlCaPhe.Controllers
         /// Hàm tạo giao diện danh sách tất cả lịch sử kiểm kho
         /// </summary>
         /// <returns></returns>
-        public ActionResult tkho_TableTonKho(int ?page)
+        public ActionResult tkho_TableTonKho(int? page)
         {
             if (xulyChung.duocTruyCap(idOfPage))
             {
@@ -386,6 +389,7 @@ namespace qlCaPhe.Controllers
                         html += "    <td><a task=\"" + xulyChung.taoUrlCoTruyenThamSo("TonKho/tkho_TableCtTonKho", tonKho.maSoKy.ToString()) + "\"  class=\"guiRequest btn btn-info waves-effect\">Xem chi tiết </a></td>";
                         html += "</tr>";
                     }
+                    xulyChung.ghiNhatKyDtb(1, "Danh mục lịch sử kiểm kho");
                 }
                 catch (Exception ex)
                 {
@@ -401,7 +405,7 @@ namespace qlCaPhe.Controllers
         /// Hàm tạo danh sách nguyên liệu đã kiểm kể trong 1 lịch sử kiểm kê tồn kho
         /// </summary>
         /// <returns></returns>
-        public ActionResult tkho_TableCtTonKho(int ?page)
+        public ActionResult tkho_TableCtTonKho(int? page)
         {
             if (xulyChung.duocTruyCap(idOfPage))
             {
@@ -418,7 +422,7 @@ namespace qlCaPhe.Controllers
                         int maSoKy = xulyDuLieu.doiChuoiSangInteger(urlAction);
 
                         qlCaPheEntities db = new qlCaPheEntities();
-                        int soPhanTu = db.ctTonKhoes.Where(c => c.maSoKy == maSoKy).Count(); 
+                        int soPhanTu = db.ctTonKhoes.Where(c => c.maSoKy == maSoKy).Count();
                         ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, trangHienHanh, "/TonKho/tkho_TableCtTonKho"); //------cấu hình phân trang
                         foreach (ctTonKho item in db.ctTonKhoes.Where(c => c.maSoKy == maSoKy).ToList().Skip((trangHienHanh - 1) * createHTML.pageSize).Take(createHTML.pageSize))
                         {
@@ -433,6 +437,7 @@ namespace qlCaPhe.Controllers
                             html += "</tr>";
                         }
                         ViewBag.MaSoKy = maSoKy.ToString();
+                        xulyChung.ghiNhatKyDtb(1, "Chi tiết kiểm kho kỳ \" " + maSoKy.ToString() + " \"");
                     }
                     else throw new Exception("không nhận được tham số");
                 }
@@ -463,13 +468,14 @@ namespace qlCaPhe.Controllers
                     {
                         string donViTinh = xulyDuLieu.traVeKyTuGoc(item.nguyenLieu.donViPhaChe);
                         htmlTable += "<tr role=\"row\" class=\"odd\">";
-                        htmlTable += "    <td><b>"+xulyDuLieu.traVeKyTuGoc(item.nguyenLieu.tenNguyenLieu)+"</b></td>";
-                        htmlTable += "    <td>"+item.donGia.ToString()+"</td>";
-                        htmlTable += "    <td class=\"col-green\"><b>"+item.soLuongDauKy.ToString()+ " (" + donViTinh + ")</b></td>";
+                        htmlTable += "    <td><b>" + xulyDuLieu.traVeKyTuGoc(item.nguyenLieu.tenNguyenLieu) + "</b></td>";
+                        htmlTable += "    <td>" + item.donGia.ToString() + "</td>";
+                        htmlTable += "    <td class=\"col-green\"><b>" + item.soLuongDauKy.ToString() + " (" + donViTinh + ")</b></td>";
                         htmlTable += "    <td class=\"col-blue\"><b>" + item.soLuongCuoiKyLyThuyet.ToString() + " (" + donViTinh + ")</b></td>";
                         htmlTable += "    <td class=\"col-red\"><b>" + item.soLuongThucTe.ToString() + " (" + donViTinh + ")</b></td>";
                         htmlTable += "</tr>";
                     }
+                    xulyChung.ghiNhatKyDtb(1, "Danh mục tồn kho thực tế");
                 }
                 catch (Exception ex)
                 {

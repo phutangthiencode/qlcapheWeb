@@ -18,8 +18,11 @@ namespace qlCaPhe.Controllers
         /// <returns></returns>
         public ActionResult kv_TaoMoiKhuVuc()
         {
-            if(xulyChung.duocTruyCap(idOfPage))
+            if (xulyChung.duocTruyCap(idOfPage))
+            {
+                xulyChung.ghiNhatKyDtb(1, "Tạo mới khu vực");
                 return View();
+            }
             return null;
         }
         /// <summary>
@@ -33,14 +36,18 @@ namespace qlCaPhe.Controllers
         {
             if (xulyChung.duocCapNhat(idOfPage, "7"))
             {
-                string ndThongBao = "";
+                string ndThongBao = ""; int kqLuu = 0;
                 try
                 {
                     qlCaPheEntities db = new qlCaPheEntities();
                     this.layDuLieuTuGiaoDien(f, kv);
                     db.khuVucs.Add(kv);
-                    db.SaveChanges();
-                    ndThongBao = createHTML.taoNoiDungThongBao("Khu vực", xulyDuLieu.traVeKyTuGoc(kv.tenKhuVuc), "kv_TableKhuVuc");
+                    kqLuu=db.SaveChanges();
+                    if (kqLuu > 0)
+                    {
+                        ndThongBao = createHTML.taoNoiDungThongBao("Khu vực", xulyDuLieu.traVeKyTuGoc(kv.tenKhuVuc), "kv_TableKhuVuc");
+                        xulyChung.ghiNhatKyDtb(2, ndThongBao);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -93,6 +100,7 @@ namespace qlCaPhe.Controllers
                         htmlTable += "      </td>";
                         htmlTable += "</tr>";
                     }
+                    xulyChung.ghiNhatKyDtb(1, "Danh mục khu vực");
                     ViewBag.TableData = htmlTable;
                     ViewBag.ScriptAjax = createScriptAjax.scriptAjaxXoaDoiTuong("KhuVuc/xoaKhuVuc?maKV=");
                     ViewBag.ModalXoa = createHTML.taoCanhBaoXoa("Khu vực");
@@ -128,7 +136,10 @@ namespace qlCaPhe.Controllers
                         int maKV = xulyDuLieu.doiChuoiSangInteger(urlAction);
                         khuVuc khuVucSua = new qlCaPheEntities().khuVucs.SingleOrDefault(kv => kv.maKhuVuc == maKV);
                         if (khuVucSua != null)
+                        {
                             this.doDuLieuLenGiaoDien(khuVucSua);
+                            xulyChung.ghiNhatKyDtb(1, "Chỉnh sửa khu vực \" " + xulyDuLieu.traVeKyTuGoc(khuVucSua.tenKhuVuc) + " \"");
+                        }
                         else
                             throw new Exception("Khu vực có mã '" + maKV.ToString() + "' không tồn tại để chỉnh sửa");
                     }
@@ -152,7 +163,7 @@ namespace qlCaPhe.Controllers
         {
             if (xulyChung.duocCapNhat(idOfPage, "7"))
             {
-                khuVuc khuVucSua = new khuVuc();
+                khuVuc khuVucSua = new khuVuc(); int kqLuu = 0;
                 try
                 {
                     qlCaPheEntities db = new qlCaPheEntities();
@@ -162,8 +173,12 @@ namespace qlCaPhe.Controllers
                     {
                         this.layDuLieuTuGiaoDien(f, khuVucSua);
                         db.Entry(khuVucSua).State = System.Data.Entity.EntityState.Modified;
-                        db.SaveChanges();
-                        return RedirectToAction("kv_TableKhuVuc");
+                        kqLuu=db.SaveChanges();
+                        if (kqLuu > 0)
+                        {
+                            xulyChung.ghiNhatKyDtb(4, "Khu vực \" " + xulyDuLieu.traVeKyTuGoc(khuVucSua.tenKhuVuc) + " \"");
+                            return RedirectToAction("kv_TableKhuVuc");
+                        }
                     }
                     else
                         throw new Exception("Khu vực có mã '" + maKV.ToString() + "' không tồn tại để chỉnh sửa");
@@ -187,12 +202,14 @@ namespace qlCaPhe.Controllers
         {
             try
             {
-                qlCaPheEntities db = new qlCaPheEntities();
+                qlCaPheEntities db = new qlCaPheEntities(); int kqLuu = 0;
                 var khuVucXoa = db.khuVucs.Single(kv => kv.maKhuVuc == maKV);
                 if (khuVucXoa != null)
                 {
                     db.khuVucs.Remove(khuVucXoa);
-                    db.SaveChanges();
+                    kqLuu=db.SaveChanges();
+                    if(kqLuu>0)
+                        xulyChung.ghiNhatKyDtb(3, "Khu vực \"" + xulyDuLieu.traVeKyTuGoc(khuVucXoa.tenKhuVuc) + " \"");
                 }
                 else
                     throw new Exception("Khu vực có mã '" + maKV.ToString() + "' không tồn tại để xóa");

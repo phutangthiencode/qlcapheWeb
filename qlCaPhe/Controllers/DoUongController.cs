@@ -24,6 +24,7 @@ namespace qlCaPhe.Controllers
                 try
                 {
                     taoDuLieuChoCbbTao(new qlCaPheEntities());
+                    xulyChung.ghiNhatKyDtb(1, "Tạo mới sản phẩm - đồ uống");
                 }
                 catch (Exception ex)
                 {
@@ -44,16 +45,20 @@ namespace qlCaPhe.Controllers
         {
             if (xulyChung.duocCapNhat(idOfPage, "7"))
             {
-                string ndThongBao = "";
+                string ndThongBao = ""; int kqLuu = 0;
                 qlCaPheEntities db = new qlCaPheEntities();
                 try
                 {
                     this.layDuLieuTuView(sp, f);
                     db.sanPhams.Add(sp);
-                    db.SaveChanges();
-                    ndThongBao = this.htmlTaoNoiDungThongBaoLuu(sp);
-                    this.resetDuLieu();
-                    this.taoDuLieuChoCbbTao(db);
+                    kqLuu=db.SaveChanges();
+                    if (kqLuu > 0)
+                    {
+                        ndThongBao = this.htmlTaoNoiDungThongBaoLuu(sp);
+                        this.resetDuLieu();
+                        this.taoDuLieuChoCbbTao(db);
+                        xulyChung.ghiNhatKyDtb(2, ndThongBao);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -89,6 +94,7 @@ namespace qlCaPhe.Controllers
         {
             //---------Thêm tham số vào session. TRẠNG THÁI ĐỒ UỐNG ĐƯỢC PHÉP BÁN
             cauHinhSession("du_TableDoUong", "1");
+            xulyChung.ghiNhatKyDtb(1, "Danh mục sản phẩm được phép bán");
             return RedirectToAction("du_TableDoUong");
         }
 
@@ -96,6 +102,7 @@ namespace qlCaPhe.Controllers
         {
             //---------Thêm tham số vào session. TRẠNG THÁI ĐỒ UỐNG ĐƯỢC PHÉP BÁN
             cauHinhSession("du_TableDoUong", "0");
+            xulyChung.ghiNhatKyDtb(1, "Danh mục sản phẩm chờ kiểm duyệt");
             return RedirectToAction("du_TableDoUong");
         }
 
@@ -103,6 +110,7 @@ namespace qlCaPhe.Controllers
         {
             //---------Thêm tham số vào session. TRẠNG THÁI ĐỒ UỐNG ĐƯỢC PHÉP BÁN
             cauHinhSession("du_TableDoUong", "2");
+            xulyChung.ghiNhatKyDtb(1, "Danh mục sản phẩm được hủy");
             return RedirectToAction("du_TableDoUong");
         }
 
@@ -286,6 +294,7 @@ namespace qlCaPhe.Controllers
             {
                 try
                 {
+                    int kqLuu = 0;
                     string urlAction = (string)Session["urlAction"];
                     if (urlAction.Length > 0)
                     {
@@ -303,11 +312,15 @@ namespace qlCaPhe.Controllers
                                 int ttTemp = spSua.trangThai; //Lưu lại trạng thái tạm trước khi cập nhật để chuyển đến danh sách sản phẩm với trạng thái cũ
                                 spSua.trangThai = trangThai;
                                 db.Entry(spSua).State = System.Data.Entity.EntityState.Modified;
-                                db.SaveChanges();
-                                if (ttTemp == 1)
-                                    return RedirectToAction("RouteDoUongDuocBan");
-                                else if (ttTemp == 2)
-                                    return RedirectToAction("RouteDoUongDaHuy");
+                                kqLuu= db.SaveChanges();
+                                if (kqLuu > 0)
+                                {
+                                    xulyChung.ghiNhatKyDtb(4, "Cập nhật trạng thái sản phẩm\" " + xulyDuLieu.traVeKyTuGoc(spSua.tenSanPham) + " \"");
+                                    if (ttTemp == 1)
+                                        return RedirectToAction("RouteDoUongDuocBan");
+                                    else if (ttTemp == 2)
+                                        return RedirectToAction("RouteDoUongDaHuy");
+                                }
                             }
                             else throw new Exception("Sản phẩm có mã " + maDoUong.ToString() + " không tồn tại để cập nhật");
                         }
@@ -349,6 +362,7 @@ namespace qlCaPhe.Controllers
                         {
                             this.doDuLieuLenView(spSua, db);
                             ViewBag.ScriptCavasLichSuGia = this.scriptBieuDoLichSuGia(spSua);
+                            xulyChung.ghiNhatKyDtb(1, "Chỉnh sửa sản phẩm \" " + xulyDuLieu.traVeKyTuGoc(spSua.tenSanPham) + " \"");
                         }
                         else
                             throw new Exception("Sản phẩm có mã " + maDoUong.ToString() + " không tồn tại để cập nhật");
@@ -375,8 +389,8 @@ namespace qlCaPhe.Controllers
         {
             if (xulyChung.duocCapNhat(idOfPage, "7"))
             {
-                sanPham spSua = new sanPham();
-                qlCaPheEntities db = new qlCaPheEntities();
+                int kqLuu = 0;
+                sanPham spSua = new sanPham(); qlCaPheEntities db = new qlCaPheEntities();
                 try
                 {
                     int maSP = Convert.ToInt32(f["txtMaDoUong"]);
@@ -386,9 +400,13 @@ namespace qlCaPhe.Controllers
                         this.layDuLieuTuView(spSua, f);
                         spSua.trangThai = 0; //Set lại trạng thái của sản phẩm là chưa duyệt
                         db.Entry(spSua).State = System.Data.Entity.EntityState.Modified;
-                        db.SaveChanges();
-                        this.resetDuLieu();
-                        return RedirectToAction("RouteDoUongChoDuyet");
+                        kqLuu=db.SaveChanges();
+                        if (kqLuu > 0)
+                        {
+                            this.resetDuLieu();
+                            xulyChung.ghiNhatKyDtb(4, "Sản phẩm \" " + xulyDuLieu.traVeKyTuGoc(spSua.tenSanPham) + " \"");
+                            return RedirectToAction("RouteDoUongChoDuyet");
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -413,12 +431,15 @@ namespace qlCaPhe.Controllers
             if (xulyChung.duocCapNhat(idOfPage, "7"))
                 try
                 {
+                    int kqLuu = 0;
                     qlCaPheEntities db = new qlCaPheEntities();
                     sanPham spXoa = db.sanPhams.SingleOrDefault(s => s.maSanPham == maDoUong);
                     if (spXoa != null)
                     {
                         db.sanPhams.Remove(spXoa);
-                        db.SaveChanges();
+                        kqLuu=db.SaveChanges();
+                        if(kqLuu>0)
+                            xulyChung.ghiNhatKyDtb(3, "Sản phẩm \"" + xulyDuLieu.traVeKyTuGoc(spXoa.tenSanPham) + " \"");
                     }
                     else
                         throw new Exception("Sản phẩm có mã " + maDoUong + " không tồn tại để xóa");

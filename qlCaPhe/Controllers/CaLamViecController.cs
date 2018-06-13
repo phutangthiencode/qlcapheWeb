@@ -19,7 +19,10 @@ namespace qlCaPhe.Controllers
         public ActionResult ca_TaoMoiCaLamViec()
         {
             if (xulyChung.duocTruyCap(idOfPage))
+            {
                 this.taoDuLieuChoCbb();
+                xulyChung.ghiNhatKyDtb(1, "Tạo mới ca làm việc");
+            }
             return View();
         }
         /// <summary>
@@ -31,15 +34,19 @@ namespace qlCaPhe.Controllers
         {
             if (xulyChung.duocCapNhat(idOfPage, "7"))
             {
-                string ndThongBao = "";
+                string ndThongBao = ""; int kqLuu = 0;
                 try
                 {
                     this.taoDuLieuChoCbb();
                     this.layDuLieuTuView(ca, f);
                     qlCaPheEntities db = new qlCaPheEntities();
                     db.caLamViecs.Add(ca);
-                    db.SaveChanges();
-                    ndThongBao = createHTML.taoNoiDungThongBao("Ca làm việc", xulyDuLieu.traVeKyTuGoc(ca.tenCa), "ca_TableCaLamViec");
+                    kqLuu=db.SaveChanges();
+                    if (kqLuu > 0)
+                    {
+                        ndThongBao = createHTML.taoNoiDungThongBao("Ca làm việc", xulyDuLieu.traVeKyTuGoc(ca.tenCa), "ca_TableCaLamViec");
+                        xulyChung.ghiNhatKyDtb(2, ndThongBao);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -97,6 +104,7 @@ namespace qlCaPhe.Controllers
                 ViewBag.TableData = htmlTable;
                 ViewBag.ScriptAjax = createScriptAjax.scriptAjaxXoaDoiTuong("CaLamViec/xoaCaLamViec?maCa=");
                 ViewBag.ModalXoa = createHTML.taoCanhBaoXoa("Ca làm việc");
+                xulyChung.ghiNhatKyDtb(1, "Danh mục ca làm việc");
             }
             return View();
         }
@@ -117,7 +125,10 @@ namespace qlCaPhe.Controllers
                         int maCa = xulyDuLieu.doiChuoiSangInteger(param);
                         caLamViec caSua = new qlCaPheEntities().caLamViecs.SingleOrDefault(c => c.maCa == maCa);
                         if (caSua != null)
+                        {
                             this.doDuLieuLenView(caSua);
+                            xulyChung.ghiNhatKyDtb(1, "Chỉnh sửa ca làm việc\" " + xulyDuLieu.traVeKyTuGoc(caSua.tenCa) + " \"");
+                        }
                         else
                             return RedirectToAction("PageNotFound", "Home");
                     }
@@ -144,14 +155,18 @@ namespace qlCaPhe.Controllers
                 qlCaPheEntities db = new qlCaPheEntities();
                 try
                 {
-                    int maCa = Convert.ToInt32(f["txtMaCa"]);
+                    int maCa = Convert.ToInt32(f["txtMaCa"]); int kqLuu= 0;
                     caSua = db.caLamViecs.SingleOrDefault(c => c.maCa == maCa);
                     if (caSua != null)
                     {
                         this.layDuLieuTuView(caSua, f);
                         db.Entry(caSua).State = System.Data.Entity.EntityState.Modified;
-                        db.SaveChanges();
-                        return RedirectToAction("ca_TableCaLamViec");
+                        kqLuu= db.SaveChanges();
+                        if (kqLuu > 0)
+                        {
+                            xulyChung.ghiNhatKyDtb(4, "Ca làm việc\" " + xulyDuLieu.traVeKyTuGoc(caSua.tenCa) + " \"");
+                            return RedirectToAction("ca_TableCaLamViec");
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -174,12 +189,14 @@ namespace qlCaPhe.Controllers
             if (xulyChung.duocCapNhat(idOfPage, "7"))
                 try
                 {
-                    qlCaPheEntities db = new qlCaPheEntities();
+                    qlCaPheEntities db = new qlCaPheEntities(); int kqLuu = 0;
                     caLamViec caXoa = db.caLamViecs.SingleOrDefault(c => c.maCa == maCa);
                     if (caXoa != null)
                     {
                         db.caLamViecs.Remove(caXoa);
-                        db.SaveChanges();
+                        kqLuu=db.SaveChanges();
+                        if(kqLuu>0)
+                            xulyChung.ghiNhatKyDtb(3, "Ca làm việc \"" + xulyDuLieu.traVeKyTuGoc(caXoa.tenCa) + " \"");
                     }
                     else
                         throw new Exception("Ca làm việc có mã " + maCa.ToString() + " không tồn tại để xóa");

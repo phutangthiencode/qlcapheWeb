@@ -23,7 +23,10 @@ namespace qlCaPhe.Controllers
         public ActionResult ntk_TaoMoiNhomTK()
         {
             if (xulyChung.duocTruyCap("201"))
+            {
+                xulyChung.ghiNhatKyDtb(1, "Tạo mới nhóm tài khoản");
                 return View();
+            }
             return null;
         }
         /// <summary>
@@ -35,14 +38,18 @@ namespace qlCaPhe.Controllers
         {
             if (xulyChung.duocCapNhat("201", "7"))
             {
-                string noiDungTB = "";
+                string noiDungTB = ""; int kqLuu = 0;
                 try
                 {
                     qlCaPheEntities db = new qlCaPheEntities();
                     layDuLieuTuView(nhomTK, f);
                     db.nhomTaiKhoans.Add(nhomTK);
-                    db.SaveChanges();
-                    noiDungTB = createHTML.taoNoiDungThongBao("Nhóm Tài Khoản", xulyDuLieu.traVeKyTuGoc(nhomTK.tenNhom), "ntk_TableNhomTK");
+                    kqLuu = db.SaveChanges();
+                    if (kqLuu > 0)
+                    {
+                        noiDungTB = createHTML.taoNoiDungThongBao("Nhóm Tài Khoản", xulyDuLieu.traVeKyTuGoc(nhomTK.tenNhom), "ntk_TableNhomTK");
+                        xulyChung.ghiNhatKyDtb(2, noiDungTB);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -94,6 +101,7 @@ namespace qlCaPhe.Controllers
                     ViewBag.TableData = htmlTable;
                     ViewBag.ModalXoa = createHTML.taoCanhBaoXoa("Nhóm tài khoản");
                     ViewBag.ScriptAjax = createScriptAjax.scriptAjaxXoaDoiTuong("NhomTaiKhoan/ntk_XoaNhomTaiKhoan?maNhom=");
+                    xulyChung.ghiNhatKyDtb(1, "Danh mục nhóm tài khoản");
                     return View(nhomTK);
                 }
             }
@@ -121,8 +129,12 @@ namespace qlCaPhe.Controllers
                         string thamSo = urlAction.Split('|')[1];
                         int maNhomTK = xulyDuLieu.doiChuoiSangInteger(thamSo.Replace("request=", ""));
                         var nhomTK = new qlCaPheEntities().nhomTaiKhoans.First(n => n.maNhomTK == maNhomTK);
-                        this.doDuLieuLenView(nhomTK);
-                        return View(nhomTK);
+                        if (nhomTK != null)
+                        {
+                            this.doDuLieuLenView(nhomTK);
+                            xulyChung.ghiNhatKyDtb(1, "Chỉnh sửa nhóm tài khoản \" " + xulyDuLieu.traVeKyTuGoc(nhomTK.tenNhom) + " \"");
+                            return View(nhomTK);
+                        }
                     }
                     else
                         throw new Exception("không nhận được tham số");
@@ -146,7 +158,7 @@ namespace qlCaPhe.Controllers
         {
             if (xulyChung.duocCapNhat("201", "7"))
             {
-                string ndThongBao = "";
+                string ndThongBao = ""; int kqLuu = 0;
                 nhomTaiKhoan nhomSua = new nhomTaiKhoan();
                 try
                 {
@@ -155,8 +167,12 @@ namespace qlCaPhe.Controllers
                     nhomSua = db.nhomTaiKhoans.Single(n => n.maNhomTK == maNhom);
                     this.layDuLieuTuView(nhomSua, f);
                     db.Entry(nhomSua).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("ntk_TableNhomTK");
+                    kqLuu = db.SaveChanges();
+                    if (kqLuu > 0)
+                    {
+                        xulyChung.ghiNhatKyDtb(4, "Nhóm tài khoản \" " + xulyDuLieu.traVeKyTuGoc(nhomSua.tenNhom) + " \"");
+                        return RedirectToAction("ntk_TableNhomTK");
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -179,10 +195,16 @@ namespace qlCaPhe.Controllers
         {
             try
             {
+                int kqLuu = 0;
                 qlCaPheEntities db = new qlCaPheEntities();
                 var nhomXoa = db.nhomTaiKhoans.First(n => n.maNhomTK == maNhom);
-                db.nhomTaiKhoans.Remove(nhomXoa);
-                db.SaveChanges();
+                if (nhomXoa != null)
+                {
+                    db.nhomTaiKhoans.Remove(nhomXoa);
+                    kqLuu = db.SaveChanges();
+                    if (kqLuu > 0)
+                        xulyChung.ghiNhatKyDtb(3, "Nhóm tài khoản \"" + xulyDuLieu.traVeKyTuGoc(nhomXoa.tenNhom) + " \"");
+                }
             }
             catch (Exception ex)
             {
@@ -202,7 +224,7 @@ namespace qlCaPhe.Controllers
             if (x.tenNhom.Length <= 0)
                 loi += "Vui lòng nhập tên nhóm tài khoản <br/>";
             x.dienGiai = xulyDuLieu.xulyKyTuHTML(f["txtDienGiai"]);
-            if(x.dienGiai.Length<=0)
+            if (x.dienGiai.Length <= 0)
                 loi += "Vui lòng nhập thông tin diễn giải cho nhóm tài khoản<br/>";
             x.trangMacDinh = xulyDuLieu.xulyKyTuHTML(f["txtTrangMacDinh"]);
             x.ghiChu = xulyDuLieu.xulyKyTuHTML(f["txtGhiChu"]);

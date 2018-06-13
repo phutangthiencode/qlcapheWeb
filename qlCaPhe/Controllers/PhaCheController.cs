@@ -17,7 +17,7 @@ namespace qlCaPhe.Controllers
         /// Hàm lấy danh sách bàn đang chờ pha chế
         /// </summary>
         /// <returns></returns>
-        public string AjaxLayDanhSachBanCanPhaChe(int ?page)
+        public string AjaxLayDanhSachBanCanPhaChe(int? page)
         {
             string html = ""; int trangHienHanh = (page ?? 1); int soPhanTu = 0;
             if (xulyChung.duocCapNhat(idOfPage, "7"))
@@ -67,6 +67,7 @@ namespace qlCaPhe.Controllers
             {
                 //-------Tạo modal xem chi tiết hóa đơn
                 ViewBag.ModalChiTiet = createHTML.taoModalChiTiet("modalChiTiet", "vungChiTiet", 2);
+                xulyChung.ghiNhatKyDtb(1, "Danh mục pha chế theo bàn");
                 return View();
             }
             return null;
@@ -195,6 +196,7 @@ namespace qlCaPhe.Controllers
             {
                 try
                 {
+                    int kqLuu = 0;
                     string param = xulyChung.nhanThamSoTrongSession();//param = maBan
                     if (param.Length > 0)
                     {
@@ -209,8 +211,12 @@ namespace qlCaPhe.Controllers
                             //-----Cập nhật trạng thái thành pha chế
                             hoaDon.trangthaiphucVu = 1;
                             db.Entry(hoaDon).State = System.Data.Entity.EntityState.Modified;
-                            db.SaveChanges();
-                            this.insertNewPhieuXuatKho(maBan, db);
+                            kqLuu = db.SaveChanges();
+                            if (kqLuu > 0)
+                            {
+                                this.insertNewPhieuXuatKho(maBan, db);
+                                xulyChung.ghiNhatKyDtb(1, "Tiếp nhận pha chế");
+                            }
                         }
                     }
                     else throw new Exception("không nhận được tham số");
@@ -286,7 +292,7 @@ namespace qlCaPhe.Controllers
             {
                 //--------Lặp qua danh sách sản phẩm trong hóa đơn theo trạng thái cần lấy
                 int indexHoaDonTam = 0;
-                LapLaiDanhSachOrder: //-------Làm móc để xác định vị trí cần chạy tiếp theo
+            LapLaiDanhSachOrder: //-------Làm móc để xác định vị trí cần chạy tiếp theo
                 ctHoaDonTam ctTam = new ctHoaDonTam();
                 foreach (ctHoaDonTam ct in db.ctHoaDonTams.Where(c => c.maBan == maBan && c.trangThaiPhaChe == trangThai).ToList().Skip(indexHoaDonTam))
                 {
@@ -294,9 +300,9 @@ namespace qlCaPhe.Controllers
                     indexHoaDonTam++;
                     break;
                 }
-                if (ctTam.maCtTam>0)
+                if (ctTam.maCtTam > 0)
                 {
-                    html+=   ganDuLieuChiTietHoaDon(ctTam);
+                    html += ganDuLieuChiTietHoaDon(ctTam);
                     goto LapLaiDanhSachOrder; //-----Lặp lại lấy danh sách sản phẩm tiếp theo trong hóa đơn
                 }
             }
@@ -332,13 +338,13 @@ namespace qlCaPhe.Controllers
             {
                 if (new bSanPham().kiemTraSanPhamKhaThi(ct.sanPham))
                     html += "    <td><button type=\"button\" maCt=\"" + ct.maCtTam.ToString() + "\"  class=\"btnPhaChe btn btn-success btn-circle waves-effect waves-circle waves-float\"><i class=\"material-icons\">send</i></button></td>";
-                else 
+                else
                     html += "    <td><button type=\"button\" maCt=\"" + ct.maCtTam.ToString() + "\"  class=\"btnThayThe btn btn-warning btn-circle waves-effect waves-circle waves-float\"><i class=\"material-icons\">undo</i></button></td>";
             }
             else if (ct.trangThaiPhaChe == 1) //----Trạng thái đã pha chế --- CÓ CHỨC NĂNG CẬP NHẬT TRẠNG THÁI PHA CHẾ XONG HOẶC XEM CÔNG THỨC
             {
-                congThucPhaChe ctSanPham = ct.sanPham.congThucPhaChes.SingleOrDefault(c=>c.trangThai == true);
-                if(ctSanPham!=null) //-----Tạo nút xem công thức
+                congThucPhaChe ctSanPham = ct.sanPham.congThucPhaChes.SingleOrDefault(c => c.trangThai == true);
+                if (ctSanPham != null) //-----Tạo nút xem công thức
                     html += "    <td><button type=\"button\" maCongThuc=\"" + ctSanPham.maCongThuc.ToString() + "\"  class=\"btnXemCongThuc btn btn-info btn-circle waves-effect waves-circle waves-float\"><i class=\"material-icons\">info_outline</i></button></td>";
                 else
                     html += "   <td></td>";
@@ -411,6 +417,7 @@ namespace qlCaPhe.Controllers
                         db.Entry(ctSua).State = System.Data.Entity.EntityState.Modified;
                         db.SaveChanges();
                         html += this.taoBangSanPham(ctSua.maBan); //--Tải lại danh sách tất cả sản phầm
+                        xulyChung.ghiNhatKyDtb(2, "Pha chế cho sản phẩm \" " + xulyDuLieu.traVeKyTuGoc(ctSua.sanPham.tenSanPham) + " \"");
                     }
                 }
                 catch (Exception ex)
@@ -450,6 +457,7 @@ namespace qlCaPhe.Controllers
                         //------------Trả về bảng danh sách sản phẩm
                         kq += this.taoBangSanPham(ctSua.maBan);
                         this.taoThongBao(db, hdSua.nguoiPhucVu, "Thay thế \"" + xulyDuLieu.traVeKyTuGoc(ctSua.sanPham.tenSanPham) + "\" tại Bàn \"" + xulyDuLieu.traVeKyTuGoc(hdSua.BanChoNgoi.tenBan) + "\"");
+                        xulyChung.ghiNhatKyDtb(4, "Đề xuất thay thế sản phẩm");
                     }
                 }
                 catch (Exception ex)
@@ -500,6 +508,7 @@ namespace qlCaPhe.Controllers
             string kq = "";
             try
             {
+                int kqLuu = 0;
                 qlCaPheEntities db = new qlCaPheEntities();
                 ctHoaDonTam ctSua = db.ctHoaDonTams.SingleOrDefault(c => c.maCtTam == maCt);
                 if (ctSua != null)
@@ -507,8 +516,12 @@ namespace qlCaPhe.Controllers
                     //----Cập nhật trạng thái hoàn tất pha chế cho sản phẩm này.
                     ctSua.trangThaiPhaChe = 2;
                     db.Entry(ctSua).State = System.Data.Entity.EntityState.Modified;
-                    db.SaveChanges();
-                    kq += this.taoBangSanPham(ctSua.maBan); //--Tải lại danh sách sản phầm
+                    kqLuu = db.SaveChanges();
+                    if (kqLuu > 0)
+                    {
+                        kq += this.taoBangSanPham(ctSua.maBan); //--Tải lại danh sách sản phầm
+                        xulyChung.ghiNhatKyDtb(4, "Pha chế hoàn tất cho sản phẩm tại bàn \" " + xulyDuLieu.traVeKyTuGoc(ctSua.hoaDonTam.BanChoNgoi.tenBan) + " \"");
+                    }
                 }
             }
             catch (Exception ex)
@@ -530,7 +543,7 @@ namespace qlCaPhe.Controllers
                 try
                 {
                     //-----Nhận mã hóa đơn cần cập nhật từ SEssion
-                    int maHoaDonSua = this.layThamSoTrongSession(0);
+                    int maHoaDonSua = this.layThamSoTrongSession(0); int kqLuu = 0;
                     if (maHoaDonSua > 0)
                     {
                         qlCaPheEntities db = new qlCaPheEntities();
@@ -544,8 +557,12 @@ namespace qlCaPhe.Controllers
                                 hoaDonSua.ghiChu = xulyDuLieu.xulyKyTuHTML(f["txtGhiChu"]);
                                 hoaDonSua.trangthaiphucVu = 2; //Trạng thái đã pha chế - Chờ giao
                                 db.Entry(hoaDonSua).State = System.Data.Entity.EntityState.Modified;
-                                db.SaveChanges();
-                                taoThongBao(db, hoaDonSua.taiKhoan.tenDangNhap, "Bàn \"" + xulyDuLieu.traVeKyTuGoc(hoaDonSua.BanChoNgoi.tenBan) + "\" đã pha chế");
+                                kqLuu = db.SaveChanges();
+                                if (kqLuu > 0)
+                                {
+                                    taoThongBao(db, hoaDonSua.taiKhoan.tenDangNhap, "Bàn \"" + xulyDuLieu.traVeKyTuGoc(hoaDonSua.BanChoNgoi.tenBan) + "\" đã pha chế");
+                                    xulyChung.ghiNhatKyDtb(4, "Hoàn tất pha chế cho bàn \" " + xulyDuLieu.traVeKyTuGoc(hoaDonSua.BanChoNgoi.tenBan) + " \"");
+                                }
                             }
                         }
                     }
@@ -567,9 +584,9 @@ namespace qlCaPhe.Controllers
         /// <returns>True: Tất cả sản phẩm Đã pha chế hoàn tất <para/> False: Còn sản phẩm đang pha chế</returns>
         public bool kiemTraPhaCheHoanTat(List<ctHoaDonTam> list)
         {
-            int flagCheck =0; //-Biến cờ để xác định
+            int flagCheck = 0; //-Biến cờ để xác định
             foreach (ctHoaDonTam ct in list)
-                if(ct.trangThaiPhaChe==2 || ct.trangThaiPhaChe==3 || ct.trangThaiPhaChe == 4) //-----Nếu đã xử lý sản phẩm thì ....
+                if (ct.trangThaiPhaChe == 2 || ct.trangThaiPhaChe == 3 || ct.trangThaiPhaChe == 4) //-----Nếu đã xử lý sản phẩm thì ....
                     flagCheck++; //-----Cộng dồn những sản phẩm đã pha chế hoàn tất
             if (flagCheck == list.Count) //-----Nếu số lượng sản phẩm đã hoàn tất bằng với số sản phẩm trong hóa đơn. 
                 return true; //---Sản phẩm đã pha chế hết.
@@ -617,7 +634,7 @@ namespace qlCaPhe.Controllers
                 db.phieuXuatKhoes.Add(phieuXuatAdd);
                 db.SaveChanges();
                 //--------Gán lại mã phiếu vào session để xác định phiếu cần thêm nguyên liệu xuất
-                Session["urlAction"] = "page=tv_ChinhSuaThanhVien|request?maBan=" + maBan.ToString()+ "&maPhieu=" + phieuXuatAdd.maPhieu.ToString(); ;
+                Session["urlAction"] = "page=tv_ChinhSuaThanhVien|request?maBan=" + maBan.ToString() + "&maPhieu=" + phieuXuatAdd.maPhieu.ToString(); ;
             }
             catch (Exception ex)
             {
@@ -642,11 +659,11 @@ namespace qlCaPhe.Controllers
                 {
                     long tongTienCapNhat = 0; //------Biến nhận tổng số tiền xuất nguyên liệu để cập nhật cho phiếu
                     //----------Lặp qua từng nguyên liệu trong công thức pha chế sản phẩm
-                    foreach (ctCongThuc ctCongThuc in congThucSanPham.ctCongThucs.Where(c=>c.maNguyenLieu>0).ToList())
+                    foreach (ctCongThuc ctCongThuc in congThucSanPham.ctCongThucs.Where(c => c.maNguyenLieu > 0).ToList())
                     {
                         //---------Lấy thông tin chi tiết để xem nguyên đang duyệt có trong phiếu chưa
-                        ctPhieuXuatKho ctXuat = db.ctPhieuXuatKhoes.SingleOrDefault(c=>c.maPhieu == maPhieuXuat && c.maNguyenLieu == ctCongThuc.maNguyenLieu);
-                        if(ctXuat==null) //--------Chưa có nguyên liệu này trong phiếu => tạo mới
+                        ctPhieuXuatKho ctXuat = db.ctPhieuXuatKhoes.SingleOrDefault(c => c.maPhieu == maPhieuXuat && c.maNguyenLieu == ctCongThuc.maNguyenLieu);
+                        if (ctXuat == null) //--------Chưa có nguyên liệu này trong phiếu => tạo mới
                         {
                             ctXuat = new ctPhieuXuatKho();
                             ctXuat.maPhieu = maPhieuXuat;
@@ -684,21 +701,21 @@ namespace qlCaPhe.Controllers
             try
             {
                 //------Nhận tham số là mã phiếu từ session
-            int maPhieu = this.layThamSoTrongSession(1);
-            phieuXuatKho phieuSua = db.phieuXuatKhoes.SingleOrDefault(p => p.maPhieu == maPhieu);
-            if (phieuSua != null)
-            {
-                phieuSua.tongTien = tongTien;
-                db.Entry(phieuSua).State = System.Data.Entity.EntityState.Modified;
-                db.SaveChanges();
-            }
-            else throw new Exception(" không thể cập nhật tổng tiền cho phiếu xuất");
+                int maPhieu = this.layThamSoTrongSession(1);
+                phieuXuatKho phieuSua = db.phieuXuatKhoes.SingleOrDefault(p => p.maPhieu == maPhieu);
+                if (phieuSua != null)
+                {
+                    phieuSua.tongTien = tongTien;
+                    db.Entry(phieuSua).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
+                }
+                else throw new Exception(" không thể cập nhật tổng tiền cho phiếu xuất");
             }
             catch (Exception ex)
             {
                 xulyFile.ghiLoi("Class: PhaCheController - Function: updateTongTienPhieuXuatKho", ex.Message);
             }
-            
+
         }
         /// <summary>
         /// Hàm lấy 1 tham số từ trong Session
@@ -710,7 +727,7 @@ namespace qlCaPhe.Controllers
             int kq = 0;
             int[] mangThamSo = new int[2];
             //------Dữ liệu trong session có dạng: page=pc_ThucHienPhaCheTheoBan|request?maBan=MABAN&maPhieu=MAPHIEU
-            string param = (string) Session["urlAction"];
+            string param = (string)Session["urlAction"];
             param = param.Split('|')[1]; //-------param = request?maBan=MABAN&maPhieu=MAPHIEU
             param = param.Replace("request?", ""); //------param = maBan=MABAN&maPhieu=MAPHIEU
             //---------Lấy mã bàn (mã hóa đơn tạm
@@ -723,7 +740,7 @@ namespace qlCaPhe.Controllers
             mangThamSo[1] = xulyDuLieu.doiChuoiSangInteger(strMaPhieu); //-------Gán mã phiếu vào vị trí thứ 2 trong mảng
             kq = mangThamSo[index];
             return kq;
-        } 
+        }
         #endregion
     }
 }

@@ -56,6 +56,7 @@ namespace qlCaPhe.Models
         public virtual DbSet<mucTieuDanhGia> mucTieuDanhGias { get; set; }
         public virtual DbSet<nguyenLieu> nguyenLieux { get; set; }
         public virtual DbSet<nhaCungCap> nhaCungCaps { get; set; }
+        public virtual DbSet<nhatKy> nhatKies { get; set; }
         public virtual DbSet<nhomTaiKhoan> nhomTaiKhoans { get; set; }
         public virtual DbSet<phieuNhapKho> phieuNhapKhoes { get; set; }
         public virtual DbSet<phieuXuatKho> phieuXuatKhoes { get; set; }
@@ -66,7 +67,6 @@ namespace qlCaPhe.Models
         public virtual DbSet<thanhVien> thanhViens { get; set; }
         public virtual DbSet<thongBao> thongBaos { get; set; }
         public virtual DbSet<TonKho> TonKhoes { get; set; }
-        public virtual DbSet<nhatKy> nhatKies { get; set; }
     
         public virtual int getNextIdentify(string tenTable)
         {

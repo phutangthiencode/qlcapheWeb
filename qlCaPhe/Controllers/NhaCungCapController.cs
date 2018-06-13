@@ -19,7 +19,10 @@ namespace qlCaPhe.Controllers
         public ActionResult ncc_TaoMoiNhaCungCap()
         {
             if (xulyChung.duocTruyCap(idOfPage))
+            {
+                xulyChung.ghiNhatKyDtb(1, "Tạo mới nhà cung cấp");
                 this.resetDuLieu();
+            }
             return View();
         }
         /// <summary>
@@ -31,16 +34,20 @@ namespace qlCaPhe.Controllers
         {
             if (xulyChung.duocCapNhat(idOfPage, "7"))
             {
-                string ndThongBao = "";
+                string ndThongBao = ""; int kqLuu = 0;
                 qlCaPheEntities db = new qlCaPheEntities();
                 try
                 {
                     this.layDuLieuTuView(ncc, f);
                     ncc.trangThai = true;
                     db.nhaCungCaps.Add(ncc);
-                    db.SaveChanges();
-                    ndThongBao = createHTML.taoNoiDungThongBao("Nhà cung cấp", xulyDuLieu.traVeKyTuGoc(ncc.tenNhaCC), "ncc_TableNhaCungCap");
-                    this.resetDuLieu();
+                    kqLuu = db.SaveChanges();
+                    if (kqLuu > 0)
+                    {
+                        ndThongBao = createHTML.taoNoiDungThongBao("Nhà cung cấp", xulyDuLieu.traVeKyTuGoc(ncc.tenNhaCC), "ncc_TableNhaCungCap");
+                        xulyChung.ghiNhatKyDtb(2, ndThongBao);
+                        this.resetDuLieu();
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -61,12 +68,13 @@ namespace qlCaPhe.Controllers
         /// Hàm tạo giao diện danh sách nhà cung cấp đang cung cấp
         /// </summary>
         /// <returns></returns>
-        public ActionResult ncc_TableNhaCungCap(int ?page)
+        public ActionResult ncc_TableNhaCungCap(int? page)
         {
             if (xulyChung.duocTruyCap(idOfPage))
                 try
                 {
                     this.createTableNhaCungCap(true, (page ?? 1), "/NhaCungCap/ncc_TableNhaCungCap");
+                    xulyChung.ghiNhatKyDtb(1, "Danh mục nhà cung cấp");
                 }
                 catch (Exception ex)
                 {
@@ -78,12 +86,13 @@ namespace qlCaPhe.Controllers
         /// hàm tạo giao diện danh sách nhà cung cấp tạm ngưng sử dụng
         /// </summary>
         /// <returns></returns>
-        public ActionResult ncc_TableNhaCungCapNgung(int ?page)
+        public ActionResult ncc_TableNhaCungCapNgung(int? page)
         {
             if (xulyChung.duocTruyCap(idOfPage))
                 try
                 {
                     this.createTableNhaCungCap(false, (page ?? 1), "/NhaCungCap/ncc_TableNhaCungCapNgung");
+                    xulyChung.ghiNhatKyDtb(1, "Danh mục nhà cung cấp tạm ngưng cung cấp");
                 }
                 catch (Exception ex)
                 {
@@ -162,9 +171,9 @@ namespace qlCaPhe.Controllers
         public void capNhatTrangThai()
         {
             if (xulyChung.duocCapNhat(idOfPage, "7"))
-            {
                 try
                 {
+                    int kqLuu = 0;
                     string param = xulyChung.nhanThamSoTrongSession();
                     if (param.Length > 0)
                     {
@@ -176,11 +185,15 @@ namespace qlCaPhe.Controllers
                             bool trangThaiCu = nccSua.trangThai;//Lưu lại trạng thái cũ để chuyển đến trang tương ứng
                             nccSua.trangThai = !nccSua.trangThai;
                             db.Entry(nccSua).State = System.Data.Entity.EntityState.Modified;
-                            db.SaveChanges();
-                            if (trangThaiCu)//Chuyển đến danh sách nhà cung cấp còn cung cấp
-                                Response.Redirect(xulyChung.layTenMien() + "/NhaCungCap/ncc_TableNhaCungCap");
-                            else
-                                Response.Redirect(xulyChung.layTenMien() + "/NhaCungCap/ncc_TableNhaCungCapNgung");
+                            kqLuu = db.SaveChanges();
+                            if (kqLuu > 0)
+                            {
+                                xulyChung.ghiNhatKyDtb(4, "Cập nhật trạng thái nhà cung cấp \" " + xulyDuLieu.traVeKyTuGoc(nccSua.tenNhaCC) + " \"");
+                                if (trangThaiCu)//Chuyển đến danh sách nhà cung cấp còn cung cấp
+                                    Response.Redirect(xulyChung.layTenMien() + "/NhaCungCap/ncc_TableNhaCungCap");
+                                else
+                                    Response.Redirect(xulyChung.layTenMien() + "/NhaCungCap/ncc_TableNhaCungCapNgung");
+                            }
                         }
                         else
                             throw new Exception("Nhà cung cấp có mã " + maNhaCC.ToString() + " cần cập nhật không tồn tại");
@@ -192,7 +205,6 @@ namespace qlCaPhe.Controllers
                     xulyFile.ghiLoi("Class: NhaCungCapController - Function: capNhatTrangThai", ex.Message);
                     Response.Redirect(xulyChung.layTenMien() + "/Home/ServerError");
                 }
-            }
         }
         /// <summary>
         /// hàm tạo giao diện chình sửa thông tin nhà cung cấp
@@ -211,7 +223,10 @@ namespace qlCaPhe.Controllers
                         this.resetDuLieu();
                         nhaCungCap nccSua = new qlCaPheEntities().nhaCungCaps.SingleOrDefault(n => n.maNhaCC == maNhaCC);
                         if (nccSua != null)
+                        {
+                            xulyChung.ghiNhatKyDtb(1, "Chỉnh sửa nhà cung cấp \" " + xulyDuLieu.traVeKyTuGoc(nccSua.tenNhaCC) + " \"");
                             this.doDuLieuLenView(nccSua);
+                        }
                         else
                             throw new Exception("Nhà cung cấp có mã " + maNhaCC.ToString() + " không tồn tại để cập nhật");
                     }
@@ -234,8 +249,8 @@ namespace qlCaPhe.Controllers
         {
             if (xulyChung.duocCapNhat(idOfPage, "7"))
             {
-                qlCaPheEntities db = new qlCaPheEntities();
-                nhaCungCap nccSua = new nhaCungCap();
+                int kqLuu = 0;
+                qlCaPheEntities db = new qlCaPheEntities(); nhaCungCap nccSua = new nhaCungCap();
                 try
                 {
                     int maNhaCC = Convert.ToInt32(f["txtMaNhaCungCap"]);
@@ -244,13 +259,17 @@ namespace qlCaPhe.Controllers
                     {
                         this.layDuLieuTuView(nccSua, f);
                         db.Entry(nccSua).State = System.Data.Entity.EntityState.Modified;
-                        db.SaveChanges();
-                        this.resetDuLieu();
-                        //------Dựa vào trạng thái của nhà cung cấp đã chỉnh sửa để chuyển đến giao diện tương ứng
-                        if (nccSua.trangThai)
-                            return RedirectToAction("ncc_TableNhaCungCap");
-                        else
-                            return RedirectToAction("ncc_TableNhaCungCapNgung");
+                        kqLuu = db.SaveChanges();
+                        if (kqLuu > 0)
+                        {
+                            xulyChung.ghiNhatKyDtb(4, "Nhà cung cấp \" " + xulyDuLieu.traVeKyTuGoc(nccSua.tenNhaCC) + " \"");
+                            this.resetDuLieu();
+                            //------Dựa vào trạng thái của nhà cung cấp đã chỉnh sửa để chuyển đến giao diện tương ứng
+                            if (nccSua.trangThai)
+                                return RedirectToAction("ncc_TableNhaCungCap");
+                            else
+                                return RedirectToAction("ncc_TableNhaCungCapNgung");
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -274,17 +293,22 @@ namespace qlCaPhe.Controllers
         {
             try
             {
+                int kqLuu = 0;
                 qlCaPheEntities db = new qlCaPheEntities();
                 nhaCungCap nccXoa = db.nhaCungCaps.SingleOrDefault(n => n.maNhaCC == maNhaCC);
                 if (nccXoa != null)
                 {
                     bool trangThai = nccXoa.trangThai;//Lưu lại trạng thái để chuyển đến trang danh sách nhà cung cấp trước đó
                     db.nhaCungCaps.Remove(nccXoa);
-                    db.SaveChanges();
-                    if (trangThai)//Chuyển đến danh sách nhà cung cấp còn cung cấp
-                        Response.Redirect(xulyChung.layTenMien() + "/NhaCungCap/ncc_TableNhaCungCap");
-                    else
-                        Response.Redirect(xulyChung.layTenMien() + "/NhaCungCap/ncc_TableNhaCungCapNgung");
+                    kqLuu = db.SaveChanges();
+                    if (kqLuu > 0)
+                    {
+                        xulyChung.ghiNhatKyDtb(4, "Nhà cung cấp \"" + xulyDuLieu.traVeKyTuGoc(nccXoa.tenNhaCC) + " \"");
+                        if (trangThai)//Chuyển đến danh sách nhà cung cấp còn cung cấp
+                            Response.Redirect(xulyChung.layTenMien() + "/NhaCungCap/ncc_TableNhaCungCap");
+                        else
+                            Response.Redirect(xulyChung.layTenMien() + "/NhaCungCap/ncc_TableNhaCungCapNgung");
+                    }
                 }
                 else
                     throw new Exception("Nhà cung cấp có mã " + maNhaCC.ToString() + " không tồn tại để xóa");

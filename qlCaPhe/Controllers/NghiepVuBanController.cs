@@ -27,6 +27,7 @@ namespace qlCaPhe.Controllers
                     qlCaPheEntities db = new qlCaPheEntities();
                     this.taoDuLieuChoCbbKhuVuc(db);
                     this.resetData();
+                    xulyChung.ghiNhatKyDtb(1, "Quản lý bán hàng tại quán");
                 }
                 catch (Exception ex)
                 {
@@ -580,11 +581,9 @@ namespace qlCaPhe.Controllers
                     hoaDonTam hoaDonCu = db.hoaDonTams.SingleOrDefault(h => h.maBan == maBanCu);
                     //-----Nếu chưa có bàn
                     if (hoaDonCu == null)
-                        //this.AddHoaDonTamDatabase(db, maBanMoi);
                         bHoaDonTam.themMoiHoaDonTam(db, maBanMoi, ((taiKhoan)Session["login"]).tenDangNhap);
                     else
                         //-----BÀN CŨ ĐANG SỬ DỤNG. cho phép ĐỔI BÀN
-                        //    this.UpdateHoaDonTamDatabase(db, hoaDonCu, maBanMoi);
                         bHoaDonTam.capNhatHoaDonTam(db, hoaDonCu, maBanMoi);
                 }
                 catch (Exception ex)
@@ -714,8 +713,11 @@ namespace qlCaPhe.Controllers
                                 //---KqLuu tăng lên sau mỗi lần cập nhật thành công
                                 kqLuu += bNghiepVu.themChiTietHoaDonTam(maBan, ctSession.maSP, ctSession.donGia, ctSession.soLuong, ctSession.trangThaiPhaChe);
                             //----Nếu kqLuu lớn hơn số lần thêm chi tiết thành công và số lần cập nhật trạng thái
-                            if(kqLuu>soLuongItem)
+                            if (kqLuu > soLuongItem)
+                            {
                                 this.resetData();//Xóa tất cả dữ liệu trong session
+                                xulyChung.ghiNhatKyDtb(2, "Nhận đặt hàng tại bàn");
+                            }
                         }
                     }
                 }
@@ -772,6 +774,7 @@ namespace qlCaPhe.Controllers
             {
                 try
                 {
+                    int kqLuu = 0;
                     qlCaPheEntities db = new qlCaPheEntities();
                     ctHoaDonTam ctTam = db.ctHoaDonTams.SingleOrDefault(c => c.maCtTam == param);
                     if (ctTam != null)
@@ -780,7 +783,8 @@ namespace qlCaPhe.Controllers
                         hoaDonTam hoaDon = ctTam.hoaDonTam;
                         //----Xóa dữ liệu
                         db.ctHoaDonTams.Remove(ctTam);
-                        db.SaveChanges();
+                        kqLuu=db.SaveChanges();
+                        xulyChung.ghiNhatKyDtb(3, "Một sản phẩm tại hóa đơn có mã \" "+ctTam.hoaDonTam.maBan+" \"");
                         this.UpdateTongTienHoaDonTamDatabase(db, hoaDon);
                         //------Cập nhật tổng tiền
                         this.luuTongTienVaoSession(hoaDon);
@@ -808,61 +812,6 @@ namespace qlCaPhe.Controllers
             Session["hoaDonTam"] = tongTien;
         }
         #endregion
-
-        /// <summary>
-        /// Hàm CẬP NHẬT LẠI BÀN CHO HÓA ĐƠN TẠM <para />
-        /// Khi ĐỔI BÀN
-        /// </summary>
-        /// <param name="db"></param>
-        /// <param name="hoaDonCu">Object chứa các giá trị của hóa đơn cũ</param>
-        /// <param name="maBanMoi">Mã bàn mới cần cập nhật sang</param>
-        //private void UpdateHoaDonTamDatabase(qlCaPheEntities db, hoaDonTam hoaDonCu, int maBanMoi)
-        //{
-        //    //thiết lập lại các thuộc tính của bàn mới
-        //    hoaDonTam hoaDonMoi = new hoaDonTam();
-        //    hoaDonMoi.ghiChu = hoaDonCu.ghiChu;
-        //    hoaDonMoi.ngayLap = hoaDonCu.ngayLap;
-        //    hoaDonMoi.nguoiPhucVu = hoaDonCu.nguoiPhucVu;
-        //    hoaDonMoi.thoiDiemDen = hoaDonCu.thoiDiemDen;
-        //    hoaDonMoi.tongTien = hoaDonCu.tongTien;
-        //    hoaDonMoi.trangThaiHoadon = hoaDonCu.trangThaiHoadon;
-        //    hoaDonMoi.trangthaiphucVu = hoaDonCu.trangthaiphucVu;
-        //    hoaDonMoi.maBan = maBanMoi;
-        //    db.hoaDonTams.Add(hoaDonMoi);
-        //    db.SaveChanges();
-        //    //----Update tất chi tiết từ bàn cũ sang bàn mới
-        //    foreach (ctHoaDonTam ct in hoaDonCu.ctHoaDonTams.ToList())
-        //    {
-        //        ct.maBan = maBanMoi;
-        //        db.Entry(ct).State = System.Data.Entity.EntityState.Modified;
-        //        db.SaveChanges();
-        //    }
-        //    //------Dọn bàn cũ
-        //    db.hoaDonTams.Remove(hoaDonCu);
-        //    db.SaveChanges();
-        //}
-        /// <summary>
-        /// Hàm thêm mới 1 hóa đơn khi tiếp nhận bàn vào Database
-        /// </summary>
-        /// <param name="db"></param>
-        /// <param name="maBanMoi"></param>
-        //private void AddHoaDonTamDatabase(qlCaPheEntities db, int maBanMoi)
-        //{
-        //    //-----Kiểm tra bàn có tồn tại trong bảng tạm không trước khi thêm
-        //    hoaDonTam hoaDonAdd = db.hoaDonTams.SingleOrDefault(h => h.maBan == maBanMoi);
-        //    //-----Nếu chưa tồn tại thì cho thêm
-        //    if (hoaDonAdd == null)
-        //    {
-        //        hoaDonAdd = new hoaDonTam();
-        //        hoaDonAdd.maBan = maBanMoi;
-        //        hoaDonAdd.trangThaiHoadon = 0;//-----Thiết lập trạng thái hóa đơn 0 - VỪA VÀO BÀN
-        //        hoaDonAdd.trangthaiphucVu = -1;//------Thiết lập trạng thái phục vụ - Trước khi nhận order
-        //        hoaDonAdd.thoiDiemDen = DateTime.Now;
-        //        hoaDonAdd.nguoiPhucVu = ((taiKhoan)Session["login"]).tenDangNhap;
-        //        db.hoaDonTams.Add(hoaDonAdd);
-        //        db.SaveChanges();
-        //    }
-        //}
         /// <summary>
         /// Hàm cập nhật lại tổng tiền của 1 hóa đơn tạm
         /// </summary>

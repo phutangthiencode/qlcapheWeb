@@ -26,6 +26,7 @@ namespace qlCaPhe.Controllers
                 {
                     this.taoDuLieuChoCbbKhoHang(new qlCaPheEntities());
                     this.resetSession();
+                    xulyChung.ghiNhatKyDtb(1, "Tạo mới phiếu xuất kho");
                 }
                 catch (Exception ex)
                 {
@@ -44,18 +45,22 @@ namespace qlCaPhe.Controllers
         {
             if (xulyChung.duocCapNhat(idOfPage, "7"))
             {
-                string ndThongBao = "";
+                string ndThongBao = ""; int kqLuu = 0;
                 qlCaPheEntities db = new qlCaPheEntities();
                 try
                 {
                     this.layDuLieuTrenView(phieu, f);
                     db.phieuXuatKhoes.Add(phieu);
-                    db.SaveChanges();
-                    //----------Thêm chi tiết phiếu xuất kho
-                    this.insertCtXuatKhoAndUpdateTonKho(phieu.maPhieu, db);
-                    ndThongBao = createHTML.taoNoiDungThongBao("Phiếu xuất kho", phieu.maPhieu.ToString(), "xk_TableXuatKho");
-                    this.taoDuLieuChoCbbKhoHang(db);
-                    this.resetSession();
+                    kqLuu = db.SaveChanges();
+                    if (kqLuu > 0)
+                    {
+                        //----------Thêm chi tiết phiếu xuất kho
+                        this.insertCtXuatKhoAndUpdateTonKho(phieu.maPhieu, db);
+                        ndThongBao = createHTML.taoNoiDungThongBao("Phiếu xuất kho", phieu.maPhieu.ToString(), "xk_TableXuatKho");
+                        this.taoDuLieuChoCbbKhoHang(db);
+                        this.resetSession();
+                        xulyChung.ghiNhatKyDtb(2, ndThongBao);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -98,7 +103,7 @@ namespace qlCaPhe.Controllers
         /// Hàm tạo giao diện và gán danh sách phiếu xuất kho
         /// </summary>
         /// <returns></returns>
-        public ActionResult xk_TableXuatKho(int ?page)
+        public ActionResult xk_TableXuatKho(int? page)
         {
             int trangHienHanh = (page ?? 1);
             if (xulyChung.duocTruyCap(idOfPage))
@@ -145,6 +150,7 @@ namespace qlCaPhe.Controllers
                 ViewBag.ScriptAjaxXemChiTiet = createScriptAjax.scriptAjaxXemChiTietKhiClick("goiY", "maPhieu", "XuatKho/AjaxLayChiTietPhieu?maPhieu=", "idVungChiTiet", "modalChiTietPhieu");
                 ViewBag.ScriptAjax = createScriptAjax.scriptAjaxXoaDoiTuong("XuatKho/AjaxXoaPhieuXuat?maPhieu=");
                 ViewBag.ModalXoa = createHTML.taoCanhBaoXoa("Phiếu xuất kho");
+                xulyChung.ghiNhatKyDtb(1, "Danh mục phiếu xuất kho");
             }
             return View();
         }
@@ -214,6 +220,8 @@ namespace qlCaPhe.Controllers
                     kq += "         <button type=\"button\" class=\"btn btn-default waves-effect\" data-dismiss=\"modal\"><i class=\"material-icons\">exit_to_app</i>Đóng lại</button>";
                     kq += "     </div>";
                     kq += "</div>";
+                    xulyChung.ghiNhatKyDtb(5, "Chi tiết phiếu xuất kho có mã \"" + phieu.maPhieu.ToString() + " \"");
+
                 }
             }
             return kq;
@@ -274,6 +282,7 @@ namespace qlCaPhe.Controllers
         {
             try
             {
+                int kqLuu = 0;
                 qlCaPheEntities db = new qlCaPheEntities();
                 phieuXuatKho phieuXoa = db.phieuXuatKhoes.SingleOrDefault(p => p.maPhieu == maPhieu);
                 if (phieuXoa != null)
@@ -281,7 +290,9 @@ namespace qlCaPhe.Controllers
                     this.xoaChiTietTrongDatabase(phieuXoa.maKho, db);
                     //--Xóa tất cả dữ liệu trong chi tiết trước.
                     db.phieuXuatKhoes.Remove(phieuXoa);
-                    db.SaveChanges();
+                    kqLuu = db.SaveChanges();
+                    if (kqLuu > 0)
+                        xulyChung.ghiNhatKyDtb(3, "Phiếu xuất kho có mã \"" + phieuXoa.maPhieu.ToString() + " \"");
                 }
             }
             catch (Exception ex)

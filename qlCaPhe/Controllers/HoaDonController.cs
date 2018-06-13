@@ -21,8 +21,11 @@ namespace qlCaPhe.Controllers
         /// <returns></returns>
         public ActionResult hd_TableHoaDonChoThanhToan()
         {
-            if(xulyChung.duocTruyCap(idOfPage))
+            if (xulyChung.duocTruyCap(idOfPage))
+            {
+                xulyChung.ghiNhatKyDtb(1, "Danh mục hóa đơn chờ thanh toán");
                 return View();
+            }
             return null;
         }
         /// <summary>
@@ -75,6 +78,7 @@ namespace qlCaPhe.Controllers
                     //--------Lấy thông tin hóa đơn
                     int maBan = this.layMaBanTuSession();
                     hoaDonThanhToan = new qlCaPheEntities().hoaDonTams.SingleOrDefault(s => s.maBan == maBan);
+                    xulyChung.ghiNhatKyDtb(1, "Thực hiện thanh toán cho hóa đơn được lập vào \" " + xulyDuLieu.traVeKyTuGoc(hoaDonThanhToan.ngayLap.ToString()) + " \"");
                 }
                 catch (Exception ex)
                 {
@@ -95,7 +99,7 @@ namespace qlCaPhe.Controllers
         /// <returns></returns>
         public ActionResult hd_ThucHienThanhToan(FormCollection f)
         {
-            string modal = "";
+            string modal = ""; int kqLuu = 0;
             hoaDonTam hoaDonThanhToan = new hoaDonTam(); hoaDonOrder hoaDonAdd = new hoaDonOrder();
             if (xulyChung.duocCapNhat(idOfPage, "7"))
             {
@@ -115,6 +119,7 @@ namespace qlCaPhe.Controllers
                             this.InsertCtHoaDonOrder(hoaDonAdd, hoaDonThanhToan.ctHoaDonTams.ToList(), db);
                             //--------Cập nhật trạng thái hóa đơn tạm thành 3 ĐÃ thanh toán => chờ reset
                             this.UpdateHoaDonTam(hoaDonThanhToan, db);
+                            xulyChung.ghiNhatKyDtb(2, "Thêm mới hóa đơn có mã \" "+hoaDonAdd.maHoaDon.ToString()+ " \"");
                         }
                     }
                     modal = this.taoModalInBill(hoaDonAdd, db, f);
@@ -380,6 +385,7 @@ namespace qlCaPhe.Controllers
                 {
                     //-------Lấy danh sách tất cả hóa đơn
                     ViewBag.TableData = this.layDanhSachHoaDon(4, page);
+                    xulyChung.ghiNhatKyDtb(1, "Danh mục tất cả hóa đơn");
                 }
                 catch (Exception ex)
                 {
@@ -399,6 +405,7 @@ namespace qlCaPhe.Controllers
                 try
                 {
                     ViewBag.TableData = this.layDanhSachHoaDon(1, page);
+                    xulyChung.ghiNhatKyDtb(1, "Danh mục hóa đơn có trong ngày");
                 }
                 catch (Exception ex)
                 {
@@ -418,6 +425,7 @@ namespace qlCaPhe.Controllers
                 try
                 {
                     ViewBag.TableData = this.layDanhSachHoaDon(3, page);
+                    xulyChung.ghiNhatKyDtb(1, "Danh mục hóa đơn trong tuần");
                 }
                 catch (Exception ex)
                 {
@@ -534,6 +542,7 @@ namespace qlCaPhe.Controllers
                         htmlDetails += "        <a class=\"btn btn-default waves-effect\"  data-dismiss=\"modal\"><i class=\"material-icons\">close</i>Đóng lại</a>";
                         htmlDetails += "    </div>";
                         htmlDetails += "</div>";
+                        xulyChung.ghiNhatKyDtb(5, "Chi tiết hóa đơn \"" + hoaDon.maHoaDon.ToString()+ " \"");
                     }
                 }
                 catch (Exception ex)
@@ -578,33 +587,7 @@ namespace qlCaPhe.Controllers
             html += "</table>";
             return html;
         }
-
-        /// <summary>
-        /// Hàm tạo giao diện in hóa đơn 
-        /// </summary>
-        /// <returns></returns>
-        //public ActionResult hd_InBill(int maHoaDon, long tienMat, long tienTra)
-        //{
-        //    string kq = "";
-        //    try
-        //    {
-        //         qlCaPheEntities db = new qlCaPheEntities();
-        //        hoaDonOrder hoaDon = db.hoaDonOrders.SingleOrDefault(s => s.maHoaDon == maHoaDon);
-        //        if (hoaDon != null)
-        //        {
-        //            cauHinh cauHinh = db.cauHinhs.First(); 
-        //            kq += "            <div class=\"modal-body\">";
-        //            kq += this.scriptTaoHoaDon(hoaDon, cauHinh, tienMat, tienTra);
-        //            kq += "            </div>";
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return RedirectToAction("PageNotFound", "Home");
-        //    }
-        //    ViewBag.Data = kq;
-        //    return View();
-        //}
+                
         #endregion
 
         #region THỐNG KÊ
@@ -616,6 +599,7 @@ namespace qlCaPhe.Controllers
         /// <returns></returns>
         public ActionResult hd_ThongKeHoaDon(int loaiThongKe)
         {
+            xulyChung.ghiNhatKyDtb(1, "Thông kê hóa đơn");
             return View();
         }
         #endregion

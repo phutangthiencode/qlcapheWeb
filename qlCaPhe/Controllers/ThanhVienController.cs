@@ -25,6 +25,7 @@ namespace qlCaPhe.Controllers
             if (xulyChung.duocTruyCap(idOfPage))
             {
                 this.resetDuLieuTrenView();
+                xulyChung.ghiNhatKyDtb(1, "Tạo mới thành viên");
             }
             return View();
         }
@@ -37,16 +38,20 @@ namespace qlCaPhe.Controllers
         {
             if (xulyChung.duocCapNhat(idOfPage, "7"))
             {
-                string ndThongBao = "";
+                string ndThongBao = ""; int kqLuu = 0;
                 thanhVien tv = new thanhVien();
                 try
                 {
                     qlCaPheEntities db = new qlCaPheEntities();
                     layDuLieuTuView(tv, f, fileUpload);
                     db.thanhViens.Add(tv);
-                    db.SaveChanges();
-                    ndThongBao = createHTML.taoNoiDungThongBao("Thành viên", xulyDuLieu.traVeKyTuGoc(tv.hoTV + " " + tv.tenTV), "tv_TableThanhVien");
-                    this.resetDuLieuTrenView();
+                    kqLuu = db.SaveChanges();
+                    if (kqLuu > 0)
+                    {
+                        ndThongBao = createHTML.taoNoiDungThongBao("Thành viên", xulyDuLieu.traVeKyTuGoc(tv.hoTV + " " + tv.tenTV), "tv_TableThanhVien");
+                        this.resetDuLieuTrenView();
+                        xulyChung.ghiNhatKyDtb(2, ndThongBao);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -111,6 +116,7 @@ namespace qlCaPhe.Controllers
                     ViewBag.ScriptAjaxXemChiTiet = createScriptAjax.scriptAjaxXemChiTietKhiClick("goiY", "maTV", "ThanhVien/AjaxXemThanhVienModal?maTV=", "vungChiTiet", "modalChiTiet");
                     //----Nhúng các tag html cho modal chi tiết
                     ViewBag.ModalChiTiet = createHTML.taoModalChiTiet("modalChiTiet", "vungChiTiet", 3);
+                    xulyChung.ghiNhatKyDtb(1, "Danh mục thành viên");
                 }
                 catch (Exception ex)
                 {
@@ -145,23 +151,23 @@ namespace qlCaPhe.Controllers
                         kq += "     <div class=\"row\">";
                         kq += "         <div class=\"col-md-7 col-lg-7 col-sm-7 col-xs-12\">";
                         kq += "              <ul class=\"profile-thanhvien\">";
-                        kq += "                  <li><strong>Họ và tên: </strong>"+hoVaTen+"</li>";
-                        kq += "                  <li><strong>Giới tính:&nbsp;</strong>"+(tv.gioiTinh==true? "Nam" : "Nữ")+"</li>";
-                        kq += "                  <li><strong>Ngày sinh:&nbsp;</strong>"+tv.ngaySinh+"</li>";
-                        kq += "                  <li><strong>Nơi sinh:&nbsp;</strong>"+xulyDuLieu.traVeKyTuGoc(tv.noiSinh)+"</li>";
-                        kq += "                  <li><strong>Địa chỉ:&nbsp;</strong>"+xulyDuLieu.traVeKyTuGoc(tv.diaChi)+"</li>";
-                        kq += "                  <li><strong>Số điện thoại:&nbsp;</strong>"+xulyDuLieu.traVeKyTuGoc(tv.soDT)+" </li>";
-                        kq += "                  <li><strong>Email:&nbsp;</strong>"+xulyDuLieu.traVeKyTuGoc(tv.Email)+" </li>";
-                        kq += "                  <li><strong>Facebook:&nbsp;</strong>"+xulyDuLieu.traVeKyTuGoc(tv.Facebook)+"</li>";
-                        kq += "                  <li><strong>Số CMND:&nbsp;</strong>"+xulyDuLieu.traVeKyTuGoc(tv.soCMND)+"</li>";
-                        kq += "                  <li><strong>Ngày cấp:&nbsp;</strong>"+tv.ngayCap+"</li>";
-                        kq += "                  <li><strong>Nơi cấp:&nbsp;</strong>"+xulyDuLieu.traVeKyTuGoc(tv.noiCap)+"</li>";
-                        kq += "                  <li><strong>Ngày tham gia:&nbsp;</strong>"+tv.ngayThamGia+"</li>";
-                        kq += "                  <li><strong>Ghi chú:&nbsp;</strong>"+xulyDuLieu.traVeKyTuGoc(tv.ghiChu)+"</li>";
+                        kq += "                  <li><strong>Họ và tên: </strong>" + hoVaTen + "</li>";
+                        kq += "                  <li><strong>Giới tính:&nbsp;</strong>" + (tv.gioiTinh == true ? "Nam" : "Nữ") + "</li>";
+                        kq += "                  <li><strong>Ngày sinh:&nbsp;</strong>" + tv.ngaySinh + "</li>";
+                        kq += "                  <li><strong>Nơi sinh:&nbsp;</strong>" + xulyDuLieu.traVeKyTuGoc(tv.noiSinh) + "</li>";
+                        kq += "                  <li><strong>Địa chỉ:&nbsp;</strong>" + xulyDuLieu.traVeKyTuGoc(tv.diaChi) + "</li>";
+                        kq += "                  <li><strong>Số điện thoại:&nbsp;</strong>" + xulyDuLieu.traVeKyTuGoc(tv.soDT) + " </li>";
+                        kq += "                  <li><strong>Email:&nbsp;</strong>" + xulyDuLieu.traVeKyTuGoc(tv.Email) + " </li>";
+                        kq += "                  <li><strong>Facebook:&nbsp;</strong>" + xulyDuLieu.traVeKyTuGoc(tv.Facebook) + "</li>";
+                        kq += "                  <li><strong>Số CMND:&nbsp;</strong>" + xulyDuLieu.traVeKyTuGoc(tv.soCMND) + "</li>";
+                        kq += "                  <li><strong>Ngày cấp:&nbsp;</strong>" + tv.ngayCap + "</li>";
+                        kq += "                  <li><strong>Nơi cấp:&nbsp;</strong>" + xulyDuLieu.traVeKyTuGoc(tv.noiCap) + "</li>";
+                        kq += "                  <li><strong>Ngày tham gia:&nbsp;</strong>" + tv.ngayThamGia + "</li>";
+                        kq += "                  <li><strong>Ghi chú:&nbsp;</strong>" + xulyDuLieu.traVeKyTuGoc(tv.ghiChu) + "</li>";
                         kq += "              </ul>";
                         kq += "        </div>";
                         kq += "        <div class=\"col-md-5 col-lg-5 col-sm-5 col-xs-12\">";
-                        kq += "              <img src=\""+xulyDuLieu.chuyenByteHinhThanhSrcImage(tv.hinhDD)+"\" style=\"width:100%; height:auto;\" />";
+                        kq += "              <img src=\"" + xulyDuLieu.chuyenByteHinhThanhSrcImage(tv.hinhDD) + "\" style=\"width:100%; height:auto;\" />";
                         kq += "        </div>";
                         kq += "</div>";
                         kq += "<div class=\"modal-footer\">";
@@ -170,6 +176,7 @@ namespace qlCaPhe.Controllers
                         kq += "         <a class=\"btn btn-default waves-effect\" data-dismiss=\"modal\"><i class=\"material-icons\">close</i>Đóng lại</a>";
                         kq += "     </div>";
                         kq += "</div>";
+                        xulyChung.ghiNhatKyDtb(5, "Chi tiết thành viên \"" + hoVaTen + " \"");
                     }
                 }
                 catch (Exception ex)
@@ -204,6 +211,7 @@ namespace qlCaPhe.Controllers
                         {
                             this.resetDuLieuTrenView();
                             this.doDuLieuLenView(thanhVienSua);
+                            xulyChung.ghiNhatKyDtb(1, "Chỉnh sửa thành viên \" " + xulyDuLieu.traVeKyTuGoc(thanhVienSua.hoTV + " " + thanhVienSua.tenTV) + " \"");
                         }
                         else
                             throw new Exception("Thành viên cần cập nhật không tồn tại");
@@ -230,7 +238,7 @@ namespace qlCaPhe.Controllers
         {
             if (xulyChung.duocCapNhat(idOfPage, "7"))
             {
-                thanhVien thanhVienSua = new thanhVien();
+                thanhVien thanhVienSua = new thanhVien(); int kqLuu = 0;
                 try
                 {
                     int maTV = Int32.Parse(f["txtMaTV"]);
@@ -240,9 +248,13 @@ namespace qlCaPhe.Controllers
                     {
                         this.layDuLieuTuView(thanhVienSua, f, fileUpload);
                         db.Entry(thanhVienSua).State = EntityState.Modified;
-                        db.SaveChanges();
-                        this.resetDuLieuTrenView();
-                        return RedirectToAction("tv_TableThanhVien");
+                        kqLuu = db.SaveChanges();
+                        if (kqLuu > 0)
+                        {
+                            this.resetDuLieuTrenView();
+                            xulyChung.ghiNhatKyDtb(4, "Thành viên \" " + xulyDuLieu.traVeKyTuGoc(thanhVienSua.hoTV + " " + thanhVienSua.tenTV) + " \"");
+                            return RedirectToAction("tv_TableThanhVien");
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -264,10 +276,13 @@ namespace qlCaPhe.Controllers
         {
             try
             {
+                int kqLuu = 0;
                 qlCaPheEntities db = new qlCaPheEntities();
                 var thanhVienXoa = db.thanhViens.First(tv => tv.maTV == maTV);
                 db.thanhViens.Remove(thanhVienXoa);
-                db.SaveChanges();
+                kqLuu = db.SaveChanges();
+                if (kqLuu > 0)
+                    xulyChung.ghiNhatKyDtb(3, "Thành viên \"" + xulyDuLieu.traVeKyTuGoc(thanhVienXoa.hoTV + " " + thanhVienXoa.tenTV) + " \"");
             }
             catch (Exception ex)
             {

@@ -20,7 +20,7 @@
                         <div class="row">
                             <div class="col-md-5 col-lg-5 col-xs-12 col-sm-5">
                                 <i class="material-icons">transform</i>
-                                <span class="font-20">QUẢN LÝ CÔNG THỨC PHA CHẾ "@ViewBag.TitleTenSanPham"</span>
+                                <span class="font-20">QUẢN LÝ CÔNG THỨC PHA CHẾ @ViewBag.TitleTenSanPham</span>
                             </div>
                             <div class="col-md-7 col-lg-7 col-sm-7 col-xs-12">
                                 <!-- Nav tabs -->
@@ -45,7 +45,7 @@
                             <li role="presentation" class="@ViewBag.Style2"><a href="/CongThuc/ct_TableCongThuc?trangThai=false"><i class="material-icons">clear</i>Danh mục công thức ngưng sử dụng</a></li>
                         </ul>*@
                         <div class="table-responsive">
-                            <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                            <div class="dataTables_wrapper form-inline dt-bootstrap">
 
                                 <div class="row">
                                     <div class="col-sm-12">
@@ -92,7 +92,14 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                </div><div class="row"><div class="col-sm-5"><div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div></div><div class="col-sm-7"><div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate"><ul class="pagination"><li class="paginate_button previous disabled" id="DataTables_Table_0_previous"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0">Previous</a></li><li class="paginate_button active"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0">1</a></li><li class="paginate_button "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="2" tabindex="0">2</a></li><li class="paginate_button "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="3" tabindex="0">3</a></li><li class="paginate_button "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="4" tabindex="0">4</a></li><li class="paginate_button "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="5" tabindex="0">5</a></li><li class="paginate_button "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="6" tabindex="0">6</a></li><li class="paginate_button next" id="DataTables_Table_0_next"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="7" tabindex="0">Next</a></li></ul></div></div></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12 pull-right">
+                                        <div class="pull-right" id="DataTables_Table_0_paginate">
+                                            @Html.Raw(ViewBag.PhanTrang)
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
