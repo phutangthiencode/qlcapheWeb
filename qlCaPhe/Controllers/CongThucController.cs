@@ -29,7 +29,7 @@ namespace qlCaPhe.Controllers
                 {
                     //------Gán hình ảnh của sản phẩm lên giao diện
                     ViewBag.hinhSP = xulyDuLieu.chuyenByteHinhThanhSrcImage(sp.hinhAnh);
-                    xulyChung.ghiNhatKyDtb(1, "Thêm mới công thức cho \" "+xulyDuLieu.traVeKyTuGoc(sp.tenSanPham)+" \"");
+                    xulyChung.ghiNhatKyDtb(1, "Thêm mới công thức cho \" " + xulyDuLieu.traVeKyTuGoc(sp.tenSanPham) + " \"");
                 }
             }
             catch (Exception ex)
@@ -54,19 +54,19 @@ namespace qlCaPhe.Controllers
             {
                 int maSP = this.xuLyRequestLayMaSanPham();
                 this.layDuLieuTuViewCongThuc(ct, f);
-                ct.sanPham = db.sanPhams.SingleOrDefault(s=>s.maSanPham==maSP);
+                ct.sanPham = db.sanPhams.SingleOrDefault(s => s.maSanPham == maSP);
                 //---Insert table lichSuGia
                 this.themLichSuGiaVaoDatabase(db, f);
                 //---Insert table congThucPhaChe
                 db.congThucPhaChes.Add(ct);
-               kqLuu= db.SaveChanges();
-               if (kqLuu > 0)
-               {
-                   //---Insert table ctCongThuc
-                   this.themChiTietVaoDatabase(ct.maCongThuc, db);
-                   ndThongBao = createHTML.taoNoiDungThongBao("Công thức pha chế", xulyDuLieu.traVeKyTuGoc(ct.tenCongThuc), "/CongThuc/ct_TableCongThuc");
-                   xulyChung.ghiNhatKyDtb(2, ndThongBao);
-               }
+                kqLuu = db.SaveChanges();
+                if (kqLuu > 0)
+                {
+                    //---Insert table ctCongThuc
+                    this.themChiTietVaoDatabase(ct.maCongThuc, db);
+                    ndThongBao = createHTML.taoNoiDungThongBao("Công thức pha chế", xulyDuLieu.traVeKyTuGoc(ct.tenCongThuc), "/CongThuc/ct_TableCongThuc");
+                    xulyChung.ghiNhatKyDtb(2, "Công thức pha chế của \" " + xulyDuLieu.traVeKyTuGoc(ct.sanPham.tenSanPham) + " \"");
+                }
             }
             catch (Exception ex)
             {
@@ -146,7 +146,7 @@ namespace qlCaPhe.Controllers
             {
                 xulyFile.ghiLoi("Class CongThucController - Function: themChiTietVaoDatabase", ex.Message);
             }
-            
+
         }
         /// <summary>
         /// Hàm thực hiện ajax thêm các bước vào bảng và thực hiện lấy danh sách các bước có trong cart đổ lên giao diện
@@ -177,7 +177,7 @@ namespace qlCaPhe.Controllers
         /// Hàm tạo giao diện danh sách công thức của 1 sản phẩm
         /// </summary>
         /// <returns></returns>
-        public ActionResult ct_TableCongThuc(int ?page)
+        public ActionResult ct_TableCongThuc(int? page)
         {
             string htmlTable = "";
             try
@@ -195,7 +195,7 @@ namespace qlCaPhe.Controllers
                     ViewBag.TitleTenSanPham = xulyDuLieu.traVeKyTuGoc(sp.tenSanPham);
                     this.thietLapThongSoChung();
                     ViewBag.HrefTaoCongThuc = xulyChung.taoUrlCoTruyenThamSo("CongThuc/ct_TaoMoiCongThuc", maSanPham.ToString());
-                    xulyChung.ghiNhatKyDtb(1, "Danh mục công thức pha chể của \" "+xulyDuLieu.traVeKyTuGoc(sp.tenSanPham)+" \"");
+                    xulyChung.ghiNhatKyDtb(1, "Danh mục công thức pha chể của \" " + xulyDuLieu.traVeKyTuGoc(sp.tenSanPham) + " \"");
                 }
             }
             catch (Exception ex)
@@ -260,7 +260,7 @@ namespace qlCaPhe.Controllers
                 if (congThuc != null)
                 {
                     kq += htmlModalChiTietCongThuc(congThuc);
-                    xulyChung.ghiNhatKyDtb(5, "Công thức pha chế của \"" + xulyDuLieu.traVeKyTuGoc(congThuc.sanPham.tenSanPham)+ " \"");
+                    xulyChung.ghiNhatKyDtb(5, "Công thức pha chế của \"" + xulyDuLieu.traVeKyTuGoc(congThuc.sanPham.tenSanPham) + " \"");
                 }
             }
             catch (Exception ex)
@@ -633,7 +633,7 @@ namespace qlCaPhe.Controllers
                     //-------Cập nhât lịch sử giá
                     this.themLichSuGiaVaoDatabase(db, f);
                     db.Entry(ctSua).State = System.Data.Entity.EntityState.Modified;
-                    kqLuu=  db.SaveChanges();
+                    kqLuu = db.SaveChanges();
                     if (kqLuu > 0)
                     {
                         xulyChung.ghiNhatKyDtb(4, "Công thức pha chế của \" " + xulyDuLieu.traVeKyTuGoc(ctSua.sanPham.tenSanPham) + " \"");
@@ -679,7 +679,7 @@ namespace qlCaPhe.Controllers
                         congThucSua.trangThai = !trangThaiCu;//Cập nhật trạng thái ngược với trạng thái cũ
                         congThucSua.nguoiDuyet = ((taiKhoan)Session["login"]).tenDangNhap;
                         db.Entry(congThucSua).State = System.Data.Entity.EntityState.Modified;
-                        kqLuu=  db.SaveChanges();
+                        kqLuu = db.SaveChanges();
                         if (kqLuu > 0)
                         {
                             xulyChung.ghiNhatKyDtb(4, "Cập nhật trạng thái công thức pha chế của \" " + xulyDuLieu.traVeKyTuGoc(congThucSua.sanPham.tenSanPham) + " \"");
@@ -732,8 +732,8 @@ namespace qlCaPhe.Controllers
                     this.xoaChiTiet(ctXoa.maCongThuc, db);
                     //------Tiến hành xóa công thức
                     db.congThucPhaChes.Remove(ctXoa);
-                    kqLuu=db.SaveChanges();
-                    if(kqLuu>0)
+                    kqLuu = db.SaveChanges();
+                    if (kqLuu > 0)
                         xulyChung.ghiNhatKyDtb(3, "Công thức pha chế của \"" + xulyDuLieu.traVeKyTuGoc(ctXoa.sanPham.tenSanPham) + " \"");
                 }
                 else

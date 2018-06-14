@@ -45,7 +45,7 @@ namespace qlCaPhe.Controllers
                     {
                         ndThongBao = createHTML.taoNoiDungThongBao("Slideshow", s.maSlide.ToString(), "sl_TableSlideShow?trangThai=false");
                         this.resetDuLieu();
-                        xulyChung.ghiNhatKyDtb(2, ndThongBao);
+                        xulyChung.ghiNhatKyDtb(2, "Chỉnh sửa slideshow\" " + s.maSlide.ToString() + " \"");
                     }
                 }
                 catch (Exception ex)

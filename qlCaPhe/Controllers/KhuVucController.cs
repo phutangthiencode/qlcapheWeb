@@ -46,7 +46,7 @@ namespace qlCaPhe.Controllers
                     if (kqLuu > 0)
                     {
                         ndThongBao = createHTML.taoNoiDungThongBao("Khu vực", xulyDuLieu.traVeKyTuGoc(kv.tenKhuVuc), "kv_TableKhuVuc");
-                        xulyChung.ghiNhatKyDtb(2, ndThongBao);
+                        xulyChung.ghiNhatKyDtb(2, "Khu vực \" " + xulyDuLieu.traVeKyTuGoc(kv.tenKhuVuc) + " \"");
                     }
                 }
                 catch (Exception ex)

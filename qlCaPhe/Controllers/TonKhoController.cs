@@ -76,7 +76,7 @@ namespace qlCaPhe.Controllers
                         themChiTietTonKho(tonKho.maSoKy, cartSau, db);
                         ndThongBao = createHTML.taoNoiDungThongBao("Kiểm kê kho", tonKho.maSoKy.ToString(), "tkho_TableTonKho");
                         this.xoaSession();
-                        xulyChung.ghiNhatKyDtb(2, ndThongBao);
+                        xulyChung.ghiNhatKyDtb(2, "Kiểm kê kho \" " + tonKho.maSoKy.ToString() + " \"");
                     }
                 }
                 catch (Exception ex)

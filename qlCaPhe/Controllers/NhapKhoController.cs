@@ -48,14 +48,14 @@ namespace qlCaPhe.Controllers
                 {
                     this.layDuLieuTrenView(phieu, f);
                     db.phieuNhapKhoes.Add(phieu);
-                    kqLuu=db.SaveChanges();
+                    kqLuu = db.SaveChanges();
                     if (kqLuu > 0)
                     {
                         //----Thêm dữ liệu vào bảng chi tiết và bảng tồn kho
                         this.themctPhieuNhapKhoTrongDatabase(phieu.maPhieu, db);
                         ndThongBao = createHTML.taoNoiDungThongBao("Phiếu nhập kho", phieu.maPhieu.ToString(), "/NhapKho/nk_TablePhieuNhap");
                         this.resetData();
-                        xulyChung.ghiNhatKyDtb(2, ndThongBao);
+                        xulyChung.ghiNhatKyDtb(2, "Phiếu nhập kho có mã  \" " + phieu.maPhieu.ToString() + " \"");
                     }
                 }
                 catch (Exception ex)
@@ -88,7 +88,7 @@ namespace qlCaPhe.Controllers
                 db.ctPhieuNhapKhoes.Add(ctAdd);
                 db.SaveChanges();
                 //---------Cập nhật nguyên liệu vào tồn kho
-              //  this.insertNguyenLieuVaoTonKhoDauKy(ctAdd.maNguyenLieu, ctAdd.soLuongNhap, ctAdd.donGiaNhap, db);
+                //  this.insertNguyenLieuVaoTonKhoDauKy(ctAdd.maNguyenLieu, ctAdd.soLuongNhap, ctAdd.donGiaNhap, db);
             }
 
         }
@@ -124,7 +124,7 @@ namespace qlCaPhe.Controllers
         /// Hàm tạo giao diện danh sách phiếu nhập kho
         /// </summary>
         /// <returns></returns>
-        public ActionResult nk_TablePhieuNhap(int ?page)
+        public ActionResult nk_TablePhieuNhap(int? page)
         {
             int trangHienHanh = (page ?? 1);
             if (xulyChung.duocTruyCap(idOfPage))
@@ -202,7 +202,7 @@ namespace qlCaPhe.Controllers
                     kq += xulyDuLieu.traVeKyTuGoc(ct.nguyenLieu.tenNguyenLieu);
                     kq += "             </td>";
                     kq += "             <td>" + xulyDuLieu.traVeKyTuGoc(ct.nhaCungCap.tenNhaCC) + "</td>";
-                    kq += "             <td>" + bNguyenLieu.chuyenDoiDonViNhoSangLon(ct.soLuongNhap,ct.nguyenLieu).ToString() + " " + xulyDuLieu.traVeKyTuGoc(ct.nguyenLieu.donViHienThi) + "</td>";
+                    kq += "             <td>" + bNguyenLieu.chuyenDoiDonViNhoSangLon(ct.soLuongNhap, ct.nguyenLieu).ToString() + " " + xulyDuLieu.traVeKyTuGoc(ct.nguyenLieu.donViHienThi) + "</td>";
                     kq += "             <td>" + ct.donGiaNhap.ToString() + "</td>";
                     kq += "             <td>";
                     //-----------Lấy mã nguyên liệu làm key trong list session để xác định chi tiết cần xóa
@@ -290,7 +290,7 @@ namespace qlCaPhe.Controllers
                     kq += "         <button type=\"button\" class=\"btn btn-default waves-effect\" data-dismiss=\"modal\"><i class=\"material-icons\">exit_to_app</i>Đóng lại</button>";
                     kq += "     </div>";
                     kq += "</div>";
-                    xulyChung.ghiNhatKyDtb(5, "Chi tiết phiếu nhập kho \"" + phieuNhap.maPhieu.ToString() +" \"");
+                    xulyChung.ghiNhatKyDtb(5, "Chi tiết phiếu nhập kho \"" + phieuNhap.maPhieu.ToString() + " \"");
                 }
             }
             return kq;
@@ -326,7 +326,7 @@ namespace qlCaPhe.Controllers
                     kq += "     </div>";
                     kq += "     <div class=\"col-lg-1 col-md-1 col-sm-1 col-xs-6\">";
                     kq += "         <br>";
-                    kq += "         <label for=\"txtSoLuongNhap\" id=\"donViTinh\"><b>"+xulyDuLieu.traVeKyTuGoc(nl.donViHienThi)+"</b></label>";
+                    kq += "         <label for=\"txtSoLuongNhap\" id=\"donViTinh\"><b>" + xulyDuLieu.traVeKyTuGoc(nl.donViHienThi) + "</b></label>";
                     kq += "     </div>";
                     kq += "     <div class=\"col-lg-6 col-md-6 col-sm-6 col-xs-6\">";
                     kq += "         <label for=\"txtDonGiaNhap\">Đơn giá:</label>";
@@ -412,7 +412,7 @@ namespace qlCaPhe.Controllers
                     {
                         this.layDuLieuTrenView(phieuSua, f);
                         db.Entry(phieuSua).State = System.Data.Entity.EntityState.Modified;
-                        kqLuu=db.SaveChanges();
+                        kqLuu = db.SaveChanges();
                         if (kqLuu > 0)
                         {
                             //-------Xóa tất cả dữ liệu trong chi tiết và tạo lại
@@ -481,8 +481,8 @@ namespace qlCaPhe.Controllers
                     this.xoaChiTietTrongDatabase(phieuXoa.maKho, db);
                     //--Xóa tất cả dữ liệu trong chi tiết trước.
                     db.phieuNhapKhoes.Remove(phieuXoa);
-                    kqLuu=db.SaveChanges();
-                    if(kqLuu>0)
+                    kqLuu = db.SaveChanges();
+                    if (kqLuu > 0)
                         xulyChung.ghiNhatKyDtb(3, "Phiếu nhập kho có mã là \"" + phieuXoa.maPhieu.ToString() + " \"");
                 }
             }
@@ -555,7 +555,7 @@ namespace qlCaPhe.Controllers
             chiTiet.maNhaCC = maNhaCC;
             if (chiTiet.maNhaCC <= 0)
                 loi += "Vui lòng chọn nhà cung cấp cho nguyên liệu này <br/>";
-            
+
             //------Gán các giá trị references nguyenLieu, nhaCungCap cho chi tiết
             chiTiet.nhaCungCap = db.nhaCungCaps.SingleOrDefault(s => s.maNhaCC == chiTiet.maNhaCC);
             chiTiet.nguyenLieu = db.nguyenLieux.SingleOrDefault(s => s.maNguyenLieu == chiTiet.maNguyenLieu);

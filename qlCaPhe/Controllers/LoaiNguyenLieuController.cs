@@ -41,11 +41,11 @@ namespace qlCaPhe.Controllers
                     this.layDuLieuTuView(loai, f);
                     this.kiemTraTenLoaiTrung(loai.tenLoai, db);
                     db.loaiNguyenLieux.Add(loai);
-                    kqLuu=db.SaveChanges();
+                    kqLuu = db.SaveChanges();
                     if (kqLuu > 0)
                     {
                         ndThongBao = createHTML.taoNoiDungThongBao("Loại nguyên liệu", xulyDuLieu.traVeKyTuGoc(loai.tenLoai), "lnl_TableLoaiNguyenLieu");
-                        xulyChung.ghiNhatKyDtb(2, ndThongBao);
+                        xulyChung.ghiNhatKyDtb(2, "Loại nguyên liệu \" " + xulyDuLieu.traVeKyTuGoc(loai.tenLoai) + " \"");
                     }
                 }
                 catch (Exception ex)
@@ -65,7 +65,7 @@ namespace qlCaPhe.Controllers
         /// Hàm thực hiện tạo giao diện loại nguyên liệu
         /// </summary>
         /// <returns></returns>
-        public ActionResult lnl_TableLoaiNguyenLieu(int ?page)
+        public ActionResult lnl_TableLoaiNguyenLieu(int? page)
         {
             int trangHienHanh = (page ?? 1);
             if (xulyChung.duocTruyCap(idOfPage))
@@ -166,7 +166,7 @@ namespace qlCaPhe.Controllers
                     {
                         this.layDuLieuTuView(loaiSua, f);
                         db.Entry(loaiSua).State = System.Data.Entity.EntityState.Modified;
-                        kqLuu=db.SaveChanges();
+                        kqLuu = db.SaveChanges();
                         if (kqLuu > 0)
                         {
                             xulyChung.ghiNhatKyDtb(4, "Loại nguyên liệu \" " + xulyDuLieu.traVeKyTuGoc(loaiSua.tenLoai) + " \"");
@@ -199,8 +199,8 @@ namespace qlCaPhe.Controllers
                 if (loaiXoa != null)
                 {
                     db.loaiNguyenLieux.Remove(loaiXoa);
-                    kqLuu=db.SaveChanges();
-                    if(kqLuu>0)
+                    kqLuu = db.SaveChanges();
+                    if (kqLuu > 0)
                         xulyChung.ghiNhatKyDtb(3, "Loại nguyên liệu\"" + xulyDuLieu.traVeKyTuGoc(loaiXoa.tenLoai) + " \"");
                 }
                 else

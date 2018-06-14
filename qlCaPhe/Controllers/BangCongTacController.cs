@@ -62,7 +62,7 @@ namespace qlCaPhe.Controllers
                         this.themCtBangGiaoViecVaoDatabase(bgv, db);
                         ndThongBao = createHTML.taoNoiDungThongBao("Phân công cho thành viên", xulyDuLieu.traVeKyTuGoc(bgv.tenDangNhap), "bct_TableDieuPhoi");
                         this.taoDuLieuChoCbb(db, 0);
-                        xulyChung.ghiNhatKyDtb(2, ndThongBao);
+                        xulyChung.ghiNhatKyDtb(2, "Điều phối công tác của \" " + xulyDuLieu.traVeKyTuGoc(bgv.tenDangNhap) + " \"");
                     }
                 }
                 catch (Exception ex)

@@ -1,0 +1,113 @@
+﻿@{
+    ViewBag.Title = "Nhật ký truy cập";
+    Layout = "~/Views/Shared/_LayoutTools.cshtml";
+}
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <h2>Cấu hình - Nhật ký > Nhật ký truy cập</h2>
+        </div>
+        <!-- Vertical Layout -->
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>NHẬT KÝ TRUY CẬP CỦA CÁC THÀNH VIÊN</h2>
+                    </div>
+                    <div class="body">
+
+                        <div class="row">
+                            <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
+                                <label for="cbbTaiKhoan">Theo thành viên</label>
+                                <select class="form-control show-tick" name="cbbTaiKhoan" id="cbbTaiKhoan">
+                                    <option value="-1">--Lựa chọn tài khoản thành viên--</option>
+                                    @Html.Raw(ViewBag.cbbTaiKhoan)
+                                </select>
+                            </div>
+                            
+                            <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                <label for="cbbTaiKhoan">Theo ngày</label>
+
+                                <div class="row clearfix">
+                                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input class="form-control ngayValidate" id="txtStartDate" max="2018-06-14" min="1899-01-01" name="txtStartDay" type="date" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                        <label class="col-grey">Đến</label>
+                                    </div>
+                                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input class="form-control ngayValidate" id="txtEndDate" max="2018-06-14" min="1899-01-01" name="txtStartDay" type="date" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-2 col-lg-2">
+                                <button class="btn btn-primary m-t-20">Liệt kê</button>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="card">
+                                <div class="header bg-blue">
+                                    <h2>DANH MỤC NHẬT KÝ TRUY CẬP</h2>
+                                </div>
+                                <div class="body">
+
+                                    <div class="row">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                                <thead>
+                                                    <tr>
+                                                        <th width="20%">Tài khoản</th>
+                                                        <th width="18%">Thời điểm</th>
+                                                        <th width="10%">IP</th>
+                                                        <th width="10%">Trình duyệt</th>
+                                                        <th width="10%">OS</th>
+                                                        <th width="30%">Chức năng</th>
+                                                    </tr>
+                                                </thead>
+                                                <tfoot>
+
+                                                </tfoot>
+                                                <tbody id="js-vungDanhSach">
+                                                    @Html.Raw(ViewBag.TableData)
+                                                    @*<tr role="row" class="odd">
+                                                        <td>ttphu</td>
+                                                        <td>27/11/2017 11:39:34</td>
+                                                        <td>154.123.010.111</td>
+                                                        <td>Chrome 54</td>
+                                                        <td>Windows 10 Creator</td>
+                                                        <td>http://localhost:54272/NhapKho/TaoMoiPhieuNhap</td>
+                                                    </tr>*@
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12 pull-right">
+                                            <div class="pull-right" id="DataTables_Table_0_paginate">
+                                                @Html.Raw(ViewBag.PhanTrang)
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #END# Vertical Layout -->
+    </div>
+</section>

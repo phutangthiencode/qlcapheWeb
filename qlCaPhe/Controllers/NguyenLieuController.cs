@@ -55,7 +55,7 @@ namespace qlCaPhe.Controllers
                     {
                         ndThongBao = createHTML.taoNoiDungThongBao("Nguyên liệu", xulyDuLieu.traVeKyTuGoc(nl.tenNguyenLieu), "nl_TableNguyenLieu");
                         this.resetDuLieu();
-                        xulyChung.ghiNhatKyDtb(2, ndThongBao);
+                        xulyChung.ghiNhatKyDtb(2, "Nguyên liệu \" " + xulyDuLieu.traVeKyTuGoc(nl.tenNguyenLieu) + " \"");
                     }
                 }
                 catch (Exception ex)

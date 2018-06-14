@@ -59,7 +59,7 @@ namespace qlCaPhe.Controllers
                         ndThongBao = createHTML.taoNoiDungThongBao("Phiếu xuất kho", phieu.maPhieu.ToString(), "xk_TableXuatKho");
                         this.taoDuLieuChoCbbKhoHang(db);
                         this.resetSession();
-                        xulyChung.ghiNhatKyDtb(2, ndThongBao);
+                        xulyChung.ghiNhatKyDtb(2, "Phiếu xuất kho \" " + phieu.maPhieu.ToString() + " \"");
                     }
                 }
                 catch (Exception ex)

@@ -45,7 +45,7 @@ namespace qlCaPhe.Controllers
                     if (kqLuu > 0)
                     {
                         ndThongBao = createHTML.taoNoiDungThongBao("Nhà cung cấp", xulyDuLieu.traVeKyTuGoc(ncc.tenNhaCC), "ncc_TableNhaCungCap");
-                        xulyChung.ghiNhatKyDtb(2, ndThongBao);
+                        xulyChung.ghiNhatKyDtb(2, "Nhà cung cấp \" " + xulyDuLieu.traVeKyTuGoc(ncc.tenNhaCC) + " \"");
                         this.resetDuLieu();
                     }
                 }

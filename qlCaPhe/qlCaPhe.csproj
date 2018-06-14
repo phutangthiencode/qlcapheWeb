@@ -4096,7 +4096,6 @@
     <Content Include="Views\BaiViet\bv_ChinhSuaBaiViet.cshtml" />
     <Content Include="Views\PhanHoi\TablePhanHoi.cshtml" />
     <Content Include="Views\CauHinh\ch_ThietLapThongSoChung.cshtml" />
-    <Content Include="Views\NhatKy\NhatKyTruyCap.cshtml" />
     <Content Include="Views\Slide\sl_TaoMoiSlideShow.cshtml" />
     <Content Include="Views\Slide\sl_TableSlideShow.cshtml" />
     <Content Include="Views\Slide\sl_ChinhSuaSlideShow.cshtml" />
@@ -4135,6 +4134,7 @@
     <Content Include="Views\DanhGia\dg_TableDanhGiaNhanVien.cshtml" />
     <Content Include="Views\DanhGia\dg_TaoMoiDanhGia.cshtml" />
     <Content Include="Views\DanhGia\dg_ChinhSuaDanhGia.cshtml" />
+    <Content Include="Views\NhatKy\nky_NhatKyTruyCap.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

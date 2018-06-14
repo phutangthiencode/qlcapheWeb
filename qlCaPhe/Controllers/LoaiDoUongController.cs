@@ -46,7 +46,7 @@ namespace qlCaPhe.Controllers
                     if (kqLuu > 0)
                     {
                         ndThongBao = createHTML.taoNoiDungThongBao("Loại đồ uống", xulyDuLieu.traVeKyTuGoc(loai.tenLoai), "ldu_TableLoaiDoUong");
-                        xulyChung.ghiNhatKyDtb(2, ndThongBao);
+                        xulyChung.ghiNhatKyDtb(2, " Loại bài viết \" " + xulyDuLieu.traVeKyTuGoc(loai.tenLoai) + " \"");
                     }
                 }
                 catch (Exception ex)

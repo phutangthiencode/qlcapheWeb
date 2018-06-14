@@ -50,7 +50,7 @@ namespace qlCaPhe.Controllers
                     {
                         ndThongBao = createHTML.taoNoiDungThongBao("Thành viên", xulyDuLieu.traVeKyTuGoc(tv.hoTV + " " + tv.tenTV), "tv_TableThanhVien");
                         this.resetDuLieuTrenView();
-                        xulyChung.ghiNhatKyDtb(2, ndThongBao);
+                        xulyChung.ghiNhatKyDtb(2, "Thành viên \" " + xulyDuLieu.traVeKyTuGoc(tv.hoTV + " " + tv.tenTV) + " \"");
                     }
                 }
                 catch (Exception ex)

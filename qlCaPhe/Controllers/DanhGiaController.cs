@@ -12,7 +12,7 @@ namespace qlCaPhe.Controllers
     public class DanhGiaController : Controller
     {
         private static string idOfPageMucTieu = "903";
-        private static string idOfPageDanhGia= "904";
+        private static string idOfPageDanhGia = "904";
 
         #region NHÓM HÀM CHO BẢNG MỤC TIÊU ĐÁNH GIÁ
         #region CREATE
@@ -47,11 +47,11 @@ namespace qlCaPhe.Controllers
                     qlCaPheEntities db = new qlCaPheEntities();
                     mucTieu.trangThai = true;
                     db.mucTieuDanhGias.Add(mucTieu);
-                    kqLuu=db.SaveChanges();
+                    kqLuu = db.SaveChanges();
                     if (kqLuu > 0)
                     {
                         ndThongBao = createHTML.taoNoiDungThongBao("Mục tiêu", xulyDuLieu.traVeKyTuGoc(mucTieu.tenMucTieu), "mtdg_TableMucTieuDanhGia");
-                        xulyChung.ghiNhatKyDtb(2, ndThongBao);
+                        xulyChung.ghiNhatKyDtb(2, "Mục tiêu đánh giá \" " + xulyDuLieu.traVeKyTuGoc(mucTieu.tenMucTieu) + " \"");
                     }
                 }
                 catch (Exception ex)
@@ -193,7 +193,7 @@ namespace qlCaPhe.Controllers
                         bool trangThaiCu = (bool)mucTieuSua.trangThai; //Lưu lại trạng thái cũ để chuyển đến trang tương ứng
                         mucTieuSua.trangThai = !trangThaiCu;
                         db.Entry(mucTieuSua).State = System.Data.Entity.EntityState.Modified;
-                        kqLuu=  db.SaveChanges();
+                        kqLuu = db.SaveChanges();
                         if (kqLuu > 0)
                         {
                             xulyChung.ghiNhatKyDtb(4, "Cập nhật trạng thái mục tiêu đánh giá \" " + xulyDuLieu.traVeKyTuGoc(mucTieuSua.tenMucTieu) + " \"");
@@ -262,7 +262,7 @@ namespace qlCaPhe.Controllers
                         this.layDuLieuTuViewMucTieuDanhGia(mucTieuSua, f);
                         mucTieuSua.trangThai = true;
                         db.Entry(mucTieuSua).State = System.Data.Entity.EntityState.Modified;
-                        kqLuu=db.SaveChanges();
+                        kqLuu = db.SaveChanges();
                         if (kqLuu > 0)
                         {
                             xulyChung.ghiNhatKyDtb(4, "Mục tiêu đánh giá \" " + xulyDuLieu.traVeKyTuGoc(mucTieuSua.tenMucTieu) + " \"");
@@ -298,7 +298,7 @@ namespace qlCaPhe.Controllers
                     {
                         bool trangThai = (bool)mucTieuXoa.trangThai;//Lưu lại trạng thái để chuyển đến trang danh sách nhà cung cấp trước đó
                         db.mucTieuDanhGias.Remove(mucTieuXoa);
-                        kqLuu=db.SaveChanges();
+                        kqLuu = db.SaveChanges();
                         if (kqLuu > 0)
                         {
                             xulyChung.ghiNhatKyDtb(3, "Mục tiêu đánh giá\"" + xulyDuLieu.traVeKyTuGoc(mucTieuXoa.tenMucTieu) + " \"");
@@ -419,7 +419,7 @@ namespace qlCaPhe.Controllers
                         this.themChiTietDanhGiaVaoDatabase(db, danhGiaAdd);
                         ndThongBao = createHTML.taoNoiDungThongBao("Đánh giá nhân viên", xulyDuLieu.traVeKyTuGoc(danhGiaAdd.thanhVien.hoTV) + " " + xulyDuLieu.traVeKyTuGoc(danhGiaAdd.thanhVien.tenTV), "dg_TableDanhGiaNhanVien");
                         this.resetSession();
-                        xulyChung.ghiNhatKyDtb(2, ndThongBao);
+                        xulyChung.ghiNhatKyDtb(2, "Đánh giá của \" " + xulyDuLieu.traVeKyTuGoc(danhGiaAdd.thanhVien.hoTV + " " + danhGiaAdd.thanhVien.tenTV) + " \"");
                     }
                 }
                 catch (Exception ex)
@@ -464,7 +464,7 @@ namespace qlCaPhe.Controllers
         /// Hàm tạo giao diện danh mục các đánh giá nhân viên
         /// </summary>
         /// <returns></returns>
-        public ActionResult dg_TableDanhGiaNhanVien(int ?page)
+        public ActionResult dg_TableDanhGiaNhanVien(int? page)
         {
             if (xulyChung.duocTruyCap(idOfPageDanhGia))
             {
@@ -476,19 +476,19 @@ namespace qlCaPhe.Controllers
                     ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, trangHienHanh, "/DanhGia/dg_TableDanhGiaNhanVien"); //------cấu hình phân trang
                     foreach (danhGiaNhanVien danhGia in db.danhGiaNhanViens.ToList().OrderByDescending(s => s.ngayDanhGia).Skip((trangHienHanh - 1) * createHTML.pageSize).Take(createHTML.pageSize))
                     {
-                        htmlTable+="<tr role=\"row\" class=\"odd\">";
-                        htmlTable+="    <td><b class=\"col-blue\">"+xulyDuLieu.traVeKyTuGoc(danhGia.thanhVien.hoTV) + " " + xulyDuLieu.traVeKyTuGoc(danhGia.thanhVien.tenTV)+"</b></td>";
-                        htmlTable+="    <td>"+danhGia.ngayDanhGia.ToString()+"</td>";
-                        htmlTable+="    <td>"+danhGia.ctDanhGias.Sum(t=>t.diemSo).ToString()+"</td>";
-                        htmlTable+="    <td>"+xulyDuLieu.traVeKyTuGoc(danhGia.taiKhoan.thanhVien.hoTV) + " " + xulyDuLieu.traVeKyTuGoc(danhGia.taiKhoan.thanhVien.tenTV)+"</td>";
-                        htmlTable += "    <td>" + xulyDuLieu.traVeKyTuGoc(danhGia.ghiChu)+ "</td>";
+                        htmlTable += "<tr role=\"row\" class=\"odd\">";
+                        htmlTable += "    <td><b class=\"col-blue\">" + xulyDuLieu.traVeKyTuGoc(danhGia.thanhVien.hoTV) + " " + xulyDuLieu.traVeKyTuGoc(danhGia.thanhVien.tenTV) + "</b></td>";
+                        htmlTable += "    <td>" + danhGia.ngayDanhGia.ToString() + "</td>";
+                        htmlTable += "    <td>" + danhGia.ctDanhGias.Sum(t => t.diemSo).ToString() + "</td>";
+                        htmlTable += "    <td>" + xulyDuLieu.traVeKyTuGoc(danhGia.taiKhoan.thanhVien.hoTV) + " " + xulyDuLieu.traVeKyTuGoc(danhGia.taiKhoan.thanhVien.tenTV) + "</td>";
+                        htmlTable += "    <td>" + xulyDuLieu.traVeKyTuGoc(danhGia.ghiChu) + "</td>";
                         htmlTable += "  <td>";
                         htmlTable += "           <div class=\"btn-group\">";
                         htmlTable += "               <button type=\"button\" class=\"btn btn-primary dropdown-toggle\" data-toggle=\"dropdown\" aria-expanded=\"true\">";
                         htmlTable += "                   Chức năng <span class=\"caret\"></span>";
                         htmlTable += "               </button>";
                         htmlTable += "               <ul class=\"dropdown-menu\" role=\"menu\">";
-                        htmlTable += "<li><a madg=\""+danhGia.maDanhGia.ToString()+"\" class=\"js-btnXemChiTiet col-green waves-effect waves-block\"><i class=\"material-icons\">search</i>Xem chi tiết</a></li>";
+                        htmlTable += "<li><a madg=\"" + danhGia.maDanhGia.ToString() + "\" class=\"js-btnXemChiTiet col-green waves-effect waves-block\"><i class=\"material-icons\">search</i>Xem chi tiết</a></li>";
                         htmlTable += createTableData.taoNutChinhSua("/DanhGia/dg_ChinhSuaDanhGia", danhGia.maDanhGia.ToString());
                         htmlTable += createTableData.taoNutXoaBo(danhGia.maDanhGia.ToString());
                         htmlTable += "               </ul>";
@@ -569,26 +569,26 @@ namespace qlCaPhe.Controllers
             string kq = "";
             try
             {
-                kq+="<table class=\"table table-hover\">";
-                kq+="    <thead>";
-                kq+="        <tr>";
-                kq+="            <th width=\"20%\">Mục tiêu</th>";
-                kq+="            <th width=\"20%\">Diễn giải mục tiêu</th>";
-                kq+="            <th width=\"15%\">Điểm số</th>";
-                kq+="            <th width=\"35%\">Diễn giải điểm số</th>";
-                kq+="        </tr>";
-                kq+="    </thead>";
-                kq+="    <tbody>";
+                kq += "<table class=\"table table-hover\">";
+                kq += "    <thead>";
+                kq += "        <tr>";
+                kq += "            <th width=\"20%\">Mục tiêu</th>";
+                kq += "            <th width=\"20%\">Diễn giải mục tiêu</th>";
+                kq += "            <th width=\"15%\">Điểm số</th>";
+                kq += "            <th width=\"35%\">Diễn giải điểm số</th>";
+                kq += "        </tr>";
+                kq += "    </thead>";
+                kq += "    <tbody>";
                 foreach (ctDanhGia ct in danhGia.ctDanhGias)
                 {
                     kq += "        <tr>";
-                    kq += "            <td>"+xulyDuLieu.traVeKyTuGoc(ct.mucTieuDanhGia.tenMucTieu)+"</td>";
-                    kq += "            <td>"+xulyDuLieu.traVeKyTuGoc(ct.mucTieuDanhGia.dienGiai)+"</td>";
-                    kq += "            <td>"+ct.diemSo.ToString()+"</td>";
-                    kq += "            <td>"+xulyDuLieu.traVeKyTuGoc(ct.dienGiai)+"</td>";
+                    kq += "            <td>" + xulyDuLieu.traVeKyTuGoc(ct.mucTieuDanhGia.tenMucTieu) + "</td>";
+                    kq += "            <td>" + xulyDuLieu.traVeKyTuGoc(ct.mucTieuDanhGia.dienGiai) + "</td>";
+                    kq += "            <td>" + ct.diemSo.ToString() + "</td>";
+                    kq += "            <td>" + xulyDuLieu.traVeKyTuGoc(ct.dienGiai) + "</td>";
                     kq += "        </tr>";
                 }
-                kq+="    </tbody>";
+                kq += "    </tbody>";
                 kq += "</table>";
             }
             catch (Exception ex)
@@ -646,7 +646,7 @@ namespace qlCaPhe.Controllers
                 danhGiaNhanVien danhGiaSua = new danhGiaNhanVien();
                 try
                 {
-                    int kqLuu = 0; 
+                    int kqLuu = 0;
                     string param = xulyChung.nhanThamSoTrongSession();
                     int maDanhGia = xulyDuLieu.doiChuoiSangInteger(param);
                     qlCaPheEntities db = new qlCaPheEntities();
@@ -696,7 +696,7 @@ namespace qlCaPhe.Controllers
                         ndNhatKy = "Đánh giá của \"" + xulyDuLieu.traVeKyTuGoc(danhGiaXoa.thanhVien.hoTV + " " + danhGiaXoa.thanhVien.tenTV) + " \"";
                         this.xoaChiTietDanhGia(danhGiaXoa.maDanhGia, db);
                         db.danhGiaNhanViens.Remove(danhGiaXoa);
-                        kqLuu=db.SaveChanges();
+                        kqLuu = db.SaveChanges();
                         if (kqLuu > 0)
                         {
                             xulyChung.ghiNhatKyDtb(3, ndNhatKy);
@@ -720,7 +720,7 @@ namespace qlCaPhe.Controllers
         {
             try
             {
-                foreach (ctDanhGia ctXoa in db.ctDanhGias.Where(t=>t.maDanhGia == maDanhGia))
+                foreach (ctDanhGia ctXoa in db.ctDanhGias.Where(t => t.maDanhGia == maDanhGia))
                 {
                     db.ctDanhGias.Remove(ctXoa);
                     db.SaveChanges();
@@ -746,7 +746,7 @@ namespace qlCaPhe.Controllers
                 htmlCbbThanhVien += "<option ";
                 if (tv.maTV == maTV) //--------Tích chọn thành viên nếu trùng mã
                     htmlCbbThanhVien += " selected ";
-                htmlCbbThanhVien+="class=\"chonTV\" value=\"" + tv.maTV.ToString() + "\" maLay=\"" + tv.maTV.ToString() + "\">" + xulyDuLieu.traVeKyTuGoc(tv.hoTV) + " " + xulyDuLieu.traVeKyTuGoc(tv.tenTV) + "</option>";
+                htmlCbbThanhVien += "class=\"chonTV\" value=\"" + tv.maTV.ToString() + "\" maLay=\"" + tv.maTV.ToString() + "\">" + xulyDuLieu.traVeKyTuGoc(tv.hoTV) + " " + xulyDuLieu.traVeKyTuGoc(tv.tenTV) + "</option>";
             }
             ViewBag.cbbThanhVien = htmlCbbThanhVien;
         }
@@ -756,7 +756,7 @@ namespace qlCaPhe.Controllers
         private void resetSession()
         {
             Session.Remove("chuaDanhGia"); Session.Remove("daDanhGia");
-            Session.Add("chuaDanhGia", new cartMucTieu()); Session.Add("daDanhGia", new cartDanhGia()); 
+            Session.Add("chuaDanhGia", new cartMucTieu()); Session.Add("daDanhGia", new cartDanhGia());
         }
         /// <summary>
         /// Hàm thực hiện tạo mục tiêu đánh giá và lưu vào giỏ Trước đánh giá
@@ -783,7 +783,7 @@ namespace qlCaPhe.Controllers
             foreach (mucTieuDanhGia mucTieu in db.mucTieuDanhGias.Where(t => t.trangThai == true))
             {
                 //----Kiểm tra mục tiêu này đã đánh giá
-                if(cartDanhGia.getInfo(mucTieu.maMucTieu)==null)
+                if (cartDanhGia.getInfo(mucTieu.maMucTieu) == null)
                     cartChuaDanhGia.addCart(mucTieu);
             }
         }
@@ -860,18 +860,18 @@ namespace qlCaPhe.Controllers
                 cartMucTieu cartMucTieu = (cartMucTieu)Session["chuaDanhGia"];
                 foreach (mucTieuDanhGia mucTieu in cartMucTieu.Info.Values)
                 {
-                    kq+="<tr>";
+                    kq += "<tr>";
                     kq += "  <td><b class=\"col-blue\">" + xulyDuLieu.traVeKyTuGoc(mucTieu.tenMucTieu) + "</b></td>";
                     kq += "  <td>" + xulyDuLieu.traVeKyTuGoc(mucTieu.dienGiai) + "</td>";
-                    kq+="    <td class=\"focused\">";
-                    kq+="        <input type=\"number\" id=\"txtDiemSo"+mucTieu.maMucTieu.ToString()+"\" class=\"form-control\" placeholder=\"Nhập Điểm số đánh giá...\">";
-                    kq+="    </td>";
-                    kq+="    <td>";
-                    kq+="        <input type=\"text\"  id=\"txtDienGiai"+mucTieu.maMucTieu.ToString()+"\" class=\"form-control\" placeholder=\"Nhập diễn giải điểm số đã cho....\">";
-                    kq+="    </td>";
-                    kq+="    <td>";
-                    kq+="        <button type=\"button\" mamt=\""+mucTieu.maMucTieu.ToString()+"\" class=\"js-btnDanhGia btn btn-primary waves-effect\">Đánh giá</button>";
-                    kq+="    </td>";
+                    kq += "    <td class=\"focused\">";
+                    kq += "        <input type=\"number\" id=\"txtDiemSo" + mucTieu.maMucTieu.ToString() + "\" class=\"form-control\" placeholder=\"Nhập Điểm số đánh giá...\">";
+                    kq += "    </td>";
+                    kq += "    <td>";
+                    kq += "        <input type=\"text\"  id=\"txtDienGiai" + mucTieu.maMucTieu.ToString() + "\" class=\"form-control\" placeholder=\"Nhập diễn giải điểm số đã cho....\">";
+                    kq += "    </td>";
+                    kq += "    <td>";
+                    kq += "        <button type=\"button\" mamt=\"" + mucTieu.maMucTieu.ToString() + "\" class=\"js-btnDanhGia btn btn-primary waves-effect\">Đánh giá</button>";
+                    kq += "    </td>";
                     kq += "</tr>";
                 }
 
@@ -933,12 +933,12 @@ namespace qlCaPhe.Controllers
                 cartDanhGia cartRate = (cartDanhGia)Session["daDanhGia"];
                 foreach (ctDanhGia ct in cartRate.Info.Values)
                 {
-                    kq+="<tr>";
-                    kq+="    <td><b class=\"col-blue\">"+xulyDuLieu.traVeKyTuGoc(ct.mucTieuDanhGia.tenMucTieu)+"</b></td>";
-                    kq+="    <td>"+xulyDuLieu.traVeKyTuGoc(ct.mucTieuDanhGia.dienGiai)+"</td>";
-                    kq+="    <td><b>"+ct.diemSo.ToString()+"</b></td>";
-                    kq+="    <td>"+xulyDuLieu.traVeKyTuGoc(ct.dienGiai)+"</td>";
-                    kq+="    <td><button type=\"button\" mamt=\""+ct.maMucTieu.ToString()+"\" class=\"js-btnDanhGiaLai btn btn-danger waves-effect\">Đánh giá lại</button></td>";
+                    kq += "<tr>";
+                    kq += "    <td><b class=\"col-blue\">" + xulyDuLieu.traVeKyTuGoc(ct.mucTieuDanhGia.tenMucTieu) + "</b></td>";
+                    kq += "    <td>" + xulyDuLieu.traVeKyTuGoc(ct.mucTieuDanhGia.dienGiai) + "</td>";
+                    kq += "    <td><b>" + ct.diemSo.ToString() + "</b></td>";
+                    kq += "    <td>" + xulyDuLieu.traVeKyTuGoc(ct.dienGiai) + "</td>";
+                    kq += "    <td><button type=\"button\" mamt=\"" + ct.maMucTieu.ToString() + "\" class=\"js-btnDanhGiaLai btn btn-danger waves-effect\">Đánh giá lại</button></td>";
                     kq += "</tr>";
                 }
 
@@ -960,7 +960,7 @@ namespace qlCaPhe.Controllers
             {
                 cartMucTieu cartTarget = (cartMucTieu)Session["chuaDanhGia"];
                 cartDanhGia cartRate = (cartDanhGia)Session["daDanhGia"];
-                if (param.Count()>0) //------Kiểm tra tham số
+                if (param.Count() > 0) //------Kiểm tra tham số
                 {//------Xử lý tham số
                     int maMucTieu = xulyDuLieu.doiChuoiSangInteger(param.Split('|')[0]);
                     ctDanhGia ctSelected = cartRate.getInfo(maMucTieu);
@@ -995,7 +995,7 @@ namespace qlCaPhe.Controllers
             try
             {
                 this.resetSession();
-                this.taoDanhSachMucTieuDanhGia(new qlCaPheEntities());            
+                this.taoDanhSachMucTieuDanhGia(new qlCaPheEntities());
             }
             catch (Exception ex)
             {

@@ -56,7 +56,7 @@ namespace qlCaPhe.Controllers
                         ndThongBao = createHTML.taoNoiDungThongBao("Bàn", xulyDuLieu.traVeKyTuGoc(ban.tenBan), "b_TableBan");
                         this.resetDuLieu();
                         this.taoDuLieuChoCbb(db);
-                        xulyChung.ghiNhatKyDtb(2, ndThongBao);
+                        xulyChung.ghiNhatKyDtb(2, "Bàn \" " + xulyDuLieu.traVeKyTuGoc(ban.tenBan) + " \"");
                     }
                 }
                 catch (Exception ex)

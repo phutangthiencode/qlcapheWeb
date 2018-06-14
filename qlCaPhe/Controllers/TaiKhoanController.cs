@@ -50,7 +50,7 @@ namespace qlCaPhe.Controllers
                     if (kqLuu > 0)
                     {
                         noiDungTB = createHTML.taoNoiDungThongBao("Tài khoản", tk.tenDangNhap, "/TaiKhoan/tk_TableTaiKhoan?trangThai=true");
-                        xulyChung.ghiNhatKyDtb(2, noiDungTB);
+                        xulyChung.ghiNhatKyDtb(2, "Tài khoản \" " + xulyDuLieu.traVeKyTuGoc(tk.tenDangNhap) + " \"");
                     }
                 }
                 catch (Exception ex)

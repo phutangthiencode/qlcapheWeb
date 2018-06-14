@@ -57,7 +57,7 @@ namespace qlCaPhe.Controllers
                         ndThongBao = this.htmlTaoNoiDungThongBaoLuu(sp);
                         this.resetDuLieu();
                         this.taoDuLieuChoCbbTao(db);
-                        xulyChung.ghiNhatKyDtb(2, ndThongBao);
+                        xulyChung.ghiNhatKyDtb(2, "Sản phẩm \" " + xulyDuLieu.traVeKyTuGoc(sp.tenSanPham) + " \"");
                     }
                 }
                 catch (Exception ex)

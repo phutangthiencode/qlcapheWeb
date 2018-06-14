@@ -54,7 +54,7 @@ namespace qlCaPhe.Controllers
                     {
                         ndThongBao = createHTML.taoNoiDungThongBao("Bài viết", xulyDuLieu.traVeKyTuGoc(bv.tenBaiViet), "bv_TableBaiVietChoDuyet");
                         ViewBag.HinhDD = "/images/image-gallery/1.jpg";
-                        xulyChung.ghiNhatKyDtb(2, ndThongBao);
+                        xulyChung.ghiNhatKyDtb(2, "Bài viết \" " + xulyDuLieu.traVeKyTuGoc(bv.tenBaiViet) + " \"");
                     }
                 }
                 catch (Exception ex)
