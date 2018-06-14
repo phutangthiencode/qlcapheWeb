@@ -13,7 +13,7 @@ namespace qlCaPhe.Controllers
         private static string idOfPage = "1103";
         //-------Khởi tạo một số biến ban đầu
         private static string tenDangNhap = "-1";
-        private static DateTime startDate = new DateTime(1900,1,1), endDate = DateTime.Now;
+        private static DateTime startDate = new DateTime(2015,1,1), endDate = DateTime.Now;
 
         /// <summary>
         /// Hàm tạo giao diện danh mục nhật ký truy cập của thành viên
