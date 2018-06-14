@@ -166,7 +166,7 @@ namespace qlCaPhe.App_Start
         /// <summary>
         /// Hàm thực hiện thêm nhật ký vào CSDL
         /// </summary>
-        /// <param name="status">Trạng thái thực hiện <para/> 1..5: Truy cập, Thêm, Xóa, Sửa, Xem</param>
+        /// <param name="status">Trạng thái thực hiện <para/> 1..6: Truy cập, Thêm, Xóa, Sửa, Xem, Đăng xuất</param>
         /// <param name="noiDung">Nội dung, chức năng thực hiện</param>
         public static void ghiNhatKyDtb(int status, string noiDung)
         {
@@ -308,6 +308,7 @@ namespace qlCaPhe.App_Start
                 case 3: kq += "Xóa bỏ"; break;
                 case 4: kq += "Chỉnh sửa"; break;
                 case 5: kq += "Xem"; break;
+                case 6: kq += "Đăng xuất"; break;
                 default: kq += ""; break;
             }
             kq += " ) ";

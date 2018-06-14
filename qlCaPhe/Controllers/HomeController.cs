@@ -64,9 +64,19 @@ namespace qlCaPhe.Controllers
         /// <returns></returns>
         public ActionResult Logout()
         {
-            Session.Clear();
-            Session.RemoveAll();
-            Session.Abandon();
+            try
+            {
+                taiKhoan tkLogin = (taiKhoan)Session["login"];
+                if (tkLogin.tenDangNhap != null)//------Đã đăng nhập
+                    xulyChung.ghiNhatKyDtb(6, tkLogin.tenDangNhap + " đã đăng xuất khỏi hệ thống");
+                Session.Clear();
+                Session.RemoveAll();
+                Session.Abandon();
+            }
+            catch (Exception ex)
+            {
+                xulyFile.ghiLoi("Class: HomeController - Function: Logout", ex.Message);
+            }
             return RedirectToAction("Login", "Home");
         }
         /// <summary>
