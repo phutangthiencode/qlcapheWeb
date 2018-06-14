@@ -20,11 +20,11 @@
                             <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
                                 <label for="cbbTaiKhoan">Theo thành viên</label>
                                 <select class="form-control show-tick" name="cbbTaiKhoan" id="cbbTaiKhoan">
-                                    <option value="-1">--Lựa chọn tài khoản thành viên--</option>
+                                    <option value="-1">--Liệt kê tất cả thành viên--</option>
                                     @Html.Raw(ViewBag.cbbTaiKhoan)
                                 </select>
                             </div>
-                            
+
                             <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
                                 <label for="cbbTaiKhoan">Theo ngày</label>
 
@@ -32,7 +32,7 @@
                                     <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
                                         <div class="form-group">
                                             <div class="form-line">
-                                                <input class="form-control ngayValidate" id="txtStartDate" max="2018-06-14" min="1899-01-01" name="txtStartDay" type="date" value="">
+                                                <input class="form-control ngayValidate" id="txtStartDate" max="2018-06-14" min="1899-01-01" name="txtStartDay" type="date" value="@ViewBag.StartDate">
                                             </div>
                                         </div>
                                     </div>
@@ -42,7 +42,7 @@
                                     <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
                                         <div class="form-group">
                                             <div class="form-line">
-                                                <input class="form-control ngayValidate" id="txtEndDate" max="2018-06-14" min="1899-01-01" name="txtStartDay" type="date" value="">
+                                                <input class="form-control ngayValidate" id="txtEndDate" max="2018-06-14" min="1899-01-01" name="txtStartDay" type="date" value="@ViewBag.EndDate">
                                             </div>
                                         </div>
                                     </div>
@@ -51,7 +51,7 @@
                             </div>
 
                             <div class="col-md-2 col-lg-2">
-                                <button class="btn btn-primary m-t-20">Liệt kê</button>
+                                <button class="btn btn-primary m-t-30" id="js-btnLietKe">Liệt kê</button>
                             </div>
                         </div>
 
@@ -81,13 +81,13 @@
                                                 <tbody id="js-vungDanhSach">
                                                     @Html.Raw(ViewBag.TableData)
                                                     @*<tr role="row" class="odd">
-                                                        <td>ttphu</td>
-                                                        <td>27/11/2017 11:39:34</td>
-                                                        <td>154.123.010.111</td>
-                                                        <td>Chrome 54</td>
-                                                        <td>Windows 10 Creator</td>
-                                                        <td>http://localhost:54272/NhapKho/TaoMoiPhieuNhap</td>
-                                                    </tr>*@
+                                                            <td>ttphu</td>
+                                                            <td>27/11/2017 11:39:34</td>
+                                                            <td>154.123.010.111</td>
+                                                            <td>Chrome 54</td>
+                                                            <td>Windows 10 Creator</td>
+                                                            <td>http://localhost:54272/NhapKho/TaoMoiPhieuNhap</td>
+                                                        </tr>*@
                                                 </tbody>
                                             </table>
                                         </div>
@@ -95,7 +95,7 @@
 
                                     <div class="row">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12 pull-right">
-                                            <div class="pull-right" id="DataTables_Table_0_paginate">
+                                            <div class="pull-right" id="js-vungPhanTrang">
                                                 @Html.Raw(ViewBag.PhanTrang)
                                             </div>
                                         </div>
@@ -110,4 +110,55 @@
         </div>
         <!-- #END# Vertical Layout -->
     </div>
+
+    <script type="text/javascript">
+
+        $(document).ready(function (e) {
+            var page = getCurrentPageInRequest();
+            AjaxLayDanhSachNhatKy(getParam(), page);
+        });
+
+        function eventLietKeNhatKy() {
+            $('#js-btnLietKe').click(function (e) {
+                var param = getParam() + "|1";//-----xác định có thay đổi liệt kê
+                AjaxLayDanhSachNhatKy(param, 1);
+            });
+        }
+
+        function AjaxLayDanhSachNhatKy(param, page) {            
+            $.ajax({
+                url: getDuongDan() + 'NhatKy/AjaxLietKeNhatKy',
+                data: 'param=' + param + '&page=' + page,
+                context: this,
+                dataType: 'html',
+                type: 'GET',
+                beforeSend: function (xhr, opts) {
+                    event.preventDefault();
+                    event.stopImmediatePropagation();
+                    $('.page-loader-wrapper').attr('style', 'display:block');
+                },
+                success: function (data) {
+                    $('#js-vungDanhSach').html("");
+                    $('#js-vungDanhSach').html(data.split('&&&')[0]);
+
+                    $('#js-vungPhanTrang').html("");
+                    $('#js-vungPhanTrang').html(data.split('&&&')[1]);
+
+                    $('.page-loader-wrapper').attr('style', 'display:none');
+                    eventLietKeNhatKy();
+                },
+                error: function (err) {
+                    eventLietKeNhatKy();
+                }
+            });
+        }
+
+        function getParam() {
+            var tk = $('#cbbTaiKhoan').val();
+            var startDate = $('#txtStartDate').val();
+            var endDate = $('#txtEndDate').val();
+            var param = tk + "|" + startDate + "|" + endDate;
+            return param;
+        }
+    </script>
 </section>

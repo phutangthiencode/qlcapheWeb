@@ -3,3 +3,28 @@ Vị trí: Class DanhGiaController - Function: mtdg_TableMucTieuDanhGia
  Lỗi: Index was outside the bounds of the array.
 ---------------------------------------------------------------
 
+-----------------------6/14/2018 5:41:45 PM----------
+Vị trí: Class: NhatKyController - Function: AjaxLietKeNhatKy 
+ Lỗi: Index was outside the bounds of the array.
+---------------------------------------------------------------
+
+-----------------------6/14/2018 5:42:03 PM----------
+Vị trí: Class: NhatKyController - Function: AjaxLietKeNhatKy 
+ Lỗi: Index was outside the bounds of the array.
+---------------------------------------------------------------
+
+-----------------------6/14/2018 5:42:23 PM----------
+Vị trí: Class: NhatKyController - Function: AjaxLietKeNhatKy 
+ Lỗi: Index was outside the bounds of the array.
+---------------------------------------------------------------
+
+-----------------------6/14/2018 5:44:05 PM----------
+Vị trí: Class: NhatKyController - Function: AjaxLietKeNhatKy 
+ Lỗi: Index was outside the bounds of the array.
+---------------------------------------------------------------
+
+-----------------------6/14/2018 5:44:35 PM----------
+Vị trí: Class: NhatKyController - Function: AjaxLietKeNhatKy 
+ Lỗi: Index was outside the bounds of the array.
+---------------------------------------------------------------
+

@@ -161,5 +161,16 @@ namespace qlCaPhe.App_Start
         {
             return Convert.FromBase64String(strBase64);
         }
+
+        /// <summary>
+        /// Hàm thực hiện đổi object DateTime sang string và hiện lên view
+        /// Dành cho ViewBag
+        /// </summary>
+        /// <param name="date">Ngày cần chuyển đổi</param>
+        /// <returns>Chuổi ngày đã chuyển đổi và gán lên ViewBag</returns>
+        public static string doiNgaySangStringHienLenView(DateTime date)
+        {
+            return string.Format("{0:yyyy-MM-dd}", date); ;
+        }
     }
 }
