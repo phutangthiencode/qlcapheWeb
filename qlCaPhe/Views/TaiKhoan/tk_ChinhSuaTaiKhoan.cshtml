@@ -5,10 +5,7 @@
 }
 
 
-
-<script>
-        @Html.Raw(ViewBag.ScriptAjax)
-</script>
+@Html.Raw(ViewBag.ScriptAjax)
 <section class="content">
     <div class="container-fluid">
         <div class="block-header">
@@ -94,11 +91,12 @@
                                         </select>
                                         <br />
                                         <div id="vungThongTin">
-                                            <img id="hinhDD" class='img img-responsive img-thumbnail'
+                                            @*<img id="hinhDD" class='img img-responsive img-thumbnail'
                                                      src="@ViewBag.HinhDD" width="250px" height="auto" />
                                                 <br />
                                                 <p class="font-bold col-pink">Thành viên: @ViewBag.TenTV</p>
-                                                <p class="font-bold col-blue">Phone: @ViewBag.SDT</p>
+                                                <p class="font-bold col-blue">Phone: @ViewBag.SDT</p>*@
+                                            @Html.Raw(ViewBag.VungThanhVien)
                                         </div>
                                     </div>
 

@@ -43,7 +43,7 @@
                             <div class="row">
                                 <div class="col-md-7 col-lg-7">
                                     <label for="txtTenNhom">Chọn thành viên</label>
-                                    <select class="form-control" name="cbbThanhVien" id="cbbThanhVien">
+                                    <select class="form-control show-tick" name="cbbThanhVien" id="cbbThanhVien">
                                         <option value="-1">-- Lựa chọn thành viên cung cấp tài khoản --</option>
                                         @Html.Raw(ViewBag.cbbThanhVien)
                                     </select>
@@ -93,6 +93,7 @@
                                         <br />
                                         <p class="font-bold col-pink">Thành viên: Tăng Thiên Phú</p>
                                         <p class="font-bold col-blue">Phone: 01254654212</p>*@
+                                        @Html.Raw(ViewBag.VungThanhVien)
                                     </div>
                                 </div>
 

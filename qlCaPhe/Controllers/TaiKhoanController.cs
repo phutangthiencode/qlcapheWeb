@@ -21,7 +21,7 @@ namespace qlCaPhe.Controllers
         {
             if (xulyChung.duocTruyCap(idOfPage))
             {
-                taoDuLieuChoCbb(new qlCaPheEntities());
+                taoDuLieuChoCbb(new qlCaPheEntities(), 0, 0);
                 //Nhúng script ajax lấy thông tin thành viên
                 ViewBag.ScriptAjax = createScriptAjax.scriptGetInfoComboboxClick("cbbThanhVien", "ThanhVien/getInfoThanhVienForCreateTaiKhoan?maTV=", "vungThongTin");
                 xulyChung.ghiNhatKyDtb(1, "Tạo mới tài khoản");
@@ -49,7 +49,7 @@ namespace qlCaPhe.Controllers
                     kqLuu = db.SaveChanges();
                     if (kqLuu > 0)
                     {
-                        noiDungTB = createHTML.taoNoiDungThongBao("Tài khoản", tk.tenDangNhap, "/TaiKhoan/tk_TableTaiKhoan?trangThai=true");
+                        noiDungTB = createHTML.taoNoiDungThongBao("Tài khoản", tk.tenDangNhap, "/TaiKhoan/RouteTaiKhoanHoatDong");
                         xulyChung.ghiNhatKyDtb(2, "Tài khoản \" " + xulyDuLieu.traVeKyTuGoc(tk.tenDangNhap) + " \"");
                     }
                 }
@@ -57,7 +57,6 @@ namespace qlCaPhe.Controllers
                 {
                     noiDungTB = ex.Message;
                     this.doDuLieuLenView(tk);
-                    taoDuLieuChoCbb(new qlCaPheEntities());
                     xulyFile.ghiLoi("Class TaiKhoanController - Function: tk_TaoMoiTaiKhoan_Post", ex.Message);
                 }
                 //Nhúng script ajax lấy thông tin thành viên
@@ -188,18 +187,27 @@ namespace qlCaPhe.Controllers
                         string tenTK = urlAction.Split('|')[1]; tenTK = tenTK.Replace("request=", "");
                         qlCaPheEntities db = new qlCaPheEntities();
                         taiKhoan taiKhoanSua = db.taiKhoans.SingleOrDefault(tk => tk.tenDangNhap == tenTK);
-                        bool trangThaiCu = taiKhoanSua.trangThai;
-                        //Thực hiện cập nhật trạng thái ngược với trạng thái hiện hành
-                        taiKhoanSua.trangThai = !trangThaiCu;
-                        db.Entry(taiKhoanSua).State = System.Data.Entity.EntityState.Modified;
-                        kqLuu = db.SaveChanges();
-                        if (kqLuu > 0)
+                        if (taiKhoanSua != null)
                         {
-                            xulyChung.ghiNhatKyDtb(4, "Cập nhật trạng thái của tài khoản \" " + xulyDuLieu.traVeKyTuGoc(tenTK) + " \"");
-                            if (trangThaiCu == true) //-------Chuyển đến danh sách tài khoản còn hoạt động
-                                return RedirectToAction("RouteTaiKhoanHoatDong");
-                            else
-                                return RedirectToAction("RouteTaiKhoanCamTruyCap");
+                            //------Xác định đúng tài khoản đang đăng nhập
+                            taiKhoan tkLogin = (taiKhoan)Session["login"];
+                            if (!taiKhoanSua.tenDangNhap.Equals(tkLogin.tenDangNhap))//-----Nếu tài khoản đăng nhập khác với tài khoản cần chuyển đổi 
+                            {
+                                bool trangThaiCu = taiKhoanSua.trangThai;
+                                //Thực hiện cập nhật trạng thái ngược với trạng thái hiện hành
+                                taiKhoanSua.trangThai = !trangThaiCu;
+                                db.Entry(taiKhoanSua).State = System.Data.Entity.EntityState.Modified;
+                                kqLuu = db.SaveChanges();
+                                if (kqLuu > 0)
+                                {
+                                    xulyChung.ghiNhatKyDtb(4, "Cập nhật trạng thái của tài khoản \" " + xulyDuLieu.traVeKyTuGoc(tenTK) + " \"");
+                                    if (trangThaiCu == true) //-------Chuyển đến danh sách tài khoản còn hoạt động
+                                        return RedirectToAction("RouteTaiKhoanHoatDong");
+                                    else
+                                        return RedirectToAction("RouteTaiKhoanCamTruyCap");
+                                }
+                            }
+
                         }
                     }
                 }
@@ -208,7 +216,7 @@ namespace qlCaPhe.Controllers
                     xulyFile.ghiLoi("Class: TaiKhoanController - Function: capNhatTrangThai", ex.Message);
                 }
             }
-            return RedirectToAction("ServerError", "Home");
+            return RedirectToAction("RouteTaiKhoanHoatDong");
         }
         /// <summary>
         /// Hàm vào giao diện chỉnh sửa tài khoản
@@ -231,7 +239,6 @@ namespace qlCaPhe.Controllers
                         if (tkSua != null)
                         {
                             this.doDuLieuLenView(tkSua);
-                            this.taoDuLieuCbbChinhSua(db, tkSua.maTV, tkSua.maNhomTK);
                             xulyChung.ghiNhatKyDtb(1, "Chỉnh sửa tài khoản \" " + xulyDuLieu.traVeKyTuGoc(tkSua.tenDangNhap) + " \"");
                         }
                         else throw new Exception("Tài khoản " + tenTK + " không tồn tại");
@@ -243,6 +250,7 @@ namespace qlCaPhe.Controllers
                     xulyFile.ghiLoi("Class: TaiKhoanController - Function: tk_ChinhSuaTaiKhoan_get", ex.Message);
                     return RedirectToAction("ServerError", "Home");
                 }
+                ViewBag.ScriptAjax = createScriptAjax.scriptGetInfoComboboxClick("cbbThanhVien", "ThanhVien/getInfoThanhVienForCreateTaiKhoan?maTV=", "vungThongTin");
             }
             return View();
         }
@@ -275,8 +283,8 @@ namespace qlCaPhe.Controllers
             {
                 ndThongBao = ex.Message;
                 this.doDuLieuLenView(taiKhoanSua);
-                this.taoDuLieuCbbChinhSua(db, taiKhoanSua.maTV, taiKhoanSua.maNhomTK);
                 xulyFile.ghiLoi("Class: TaiKhoanController - Function: tk_ChinhSuaTaiKhoan_Post", ex.Message);
+                ViewBag.ScriptAjax = createScriptAjax.scriptGetInfoComboboxClick("cbbThanhVien", "ThanhVien/getInfoThanhVienForCreateTaiKhoan?maTV=", "vungThongTin");
             }
             ViewBag.ThongBao = createHTML.taoThongBaoLuu(ndThongBao);
             return View();
@@ -290,21 +298,29 @@ namespace qlCaPhe.Controllers
         /// <param name="tenTK">Tên tài khoản cần xóa</param>
         public void xoaTaiKhoan(string tenTK)
         {
-            try
-            {
-                int kqLuu = 0;
-                qlCaPheEntities db = new qlCaPheEntities();
-                var taiKhoanXoa = db.taiKhoans.First(tk => tk.tenDangNhap == tenTK);
-                //------------------KIỂM TRA SESSION TRÁNH XÓA TÀI KHOẢN ĐANG ĐĂNG NHẬP
-                db.taiKhoans.Remove(taiKhoanXoa);
-                kqLuu = db.SaveChanges();
-                if (kqLuu > 0)
-                    xulyChung.ghiNhatKyDtb(3, "Tài khoản \"" + xulyDuLieu.traVeKyTuGoc(taiKhoanXoa.tenDangNhap) + " \"");
-            }
-            catch (Exception ex)
-            {
-                xulyFile.ghiLoi("Class: TaiKhoanController - Function: xoaTaiKhoan", ex.Message);
-            }
+            if (xulyChung.duocCapNhat(idOfPage, "7"))
+                try
+                {
+                    int kqLuu = 0;
+                    qlCaPheEntities db = new qlCaPheEntities();
+                    var taiKhoanXoa = db.taiKhoans.First(tk => tk.tenDangNhap == tenTK);
+                    if (taiKhoanXoa != null)
+                    {
+                        //------------------KIỂM TRA SESSION TRÁNH XÓA TÀI KHOẢN ĐANG ĐĂNG NHẬP
+                        taiKhoan tkLogin = (taiKhoan)Session["login"];
+                        if (tkLogin.tenDangNhap != taiKhoanXoa.tenDangNhap)
+                        {
+                            db.taiKhoans.Remove(taiKhoanXoa);
+                            kqLuu = db.SaveChanges();
+                            if (kqLuu > 0)
+                                xulyChung.ghiNhatKyDtb(3, "Tài khoản \"" + xulyDuLieu.traVeKyTuGoc(taiKhoanXoa.tenDangNhap) + " \"");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    xulyFile.ghiLoi("Class: TaiKhoanController - Function: xoaTaiKhoan", ex.Message);
+                }
         }
         #endregion
         #region ORTHERS
@@ -358,51 +374,33 @@ namespace qlCaPhe.Controllers
             }
         }
         /// <summary>
-        /// hàm thực hiện hiện dữ liệu lên combobox
+        /// Hàm tạo dữ liệu combobox trên giao diện
         /// </summary>
-        /// <param name="db"></param>
-        private void taoDuLieuChoCbb(qlCaPheEntities db)
+        /// <param name="db">Object để truy xuất và dtb lấy danh sách nhóm tài khoản và thành viên</param>
+        /// <param name="maTV">Mã thành viên để xác định thành viên lựa chọn <para/> 0: không lựa chọn</param>
+        /// <param name="maNhom">Mã nhóm để xác định nhóm tài khoản lựa chọn <para/> 0: không lựa chọn</param>
+        private void taoDuLieuChoCbb(qlCaPheEntities db, int maTV, int maNhom)
         {
+            //Hiển thị dropdownlist lựa chọn nhóm tài khoản
+            string htmlCbbNhomTK = "";
+            foreach (nhomTaiKhoan n in db.nhomTaiKhoans.ToList())
+            {
+                htmlCbbNhomTK += "<option ";
+                if (n.maNhomTK == maNhom)
+                    htmlCbbNhomTK += " selected ";
+                htmlCbbNhomTK += " value=\"" + n.maNhomTK.ToString() + "\">" + xulyDuLieu.traVeKyTuGoc(n.tenNhom) + "</option>";
+            }
+            ViewBag.cbbNhomTK = htmlCbbNhomTK;
+
             //Hiển thị dropdownList lựa chọn thành viên
             string htmlCbbThanhVien = "";
             foreach (thanhVien tv in db.thanhViens.ToList())
-                htmlCbbThanhVien += "<option class=\"chonTV\" value=\"" + tv.maTV.ToString() + "\" maLay=\"" + tv.maTV.ToString() + "\">" + xulyDuLieu.traVeKyTuGoc(tv.hoTV) + " " + xulyDuLieu.traVeKyTuGoc(tv.tenTV) + "</option>";
-            htmlCbbThanhVien += "</select>";
-            ViewBag.cbbThanhVien = htmlCbbThanhVien;
-
-            //Hiển thị dropdownlist lựa chọn nhóm tài khoản
-            string htmlCbbNhomTK = "";
-            foreach (nhomTaiKhoan n in db.nhomTaiKhoans.ToList())
-                htmlCbbNhomTK += "<option value=\"" + n.maNhomTK.ToString() + "\">" + xulyDuLieu.traVeKyTuGoc(n.tenNhom) + "</option>";
-            ViewBag.cbbNhomTK = htmlCbbNhomTK;
-            //Nhúng script ajax lấy thông tin thành viên
-            ViewBag.ScriptAjax = createScriptAjax.taoScript("tk_TaoMoiTaiKhoan");
-
-        }
-        /// <summary>
-        /// Hàm tạo dữ liệu combobox cho trang chỉnh sửa tài khoản
-        /// </summary>
-        /// <param name="db"></param>
-        /// <param name="maTV"></param>
-        /// <param name="maNhom"></param>
-        private void taoDuLieuCbbChinhSua(qlCaPheEntities db, int maTV, int maNhom)
-        {
-            //Hiển thị dropdownlist lựa chọn nhóm tài khoản
-            string htmlCbbNhomTK = "";
-            foreach (nhomTaiKhoan n in db.nhomTaiKhoans.ToList())
-                if (n.maNhomTK == maNhom)
-                    htmlCbbNhomTK += "<option selected value=\"" + n.maNhomTK.ToString() + "\">" + xulyDuLieu.traVeKyTuGoc(n.tenNhom) + "</option>";
-                else
-                    htmlCbbNhomTK += "<option value=\"" + n.maNhomTK.ToString() + "\">" + xulyDuLieu.traVeKyTuGoc(n.tenNhom) + "</option>";
-            ViewBag.cbbNhomTK = htmlCbbNhomTK;
-
-            //Hiển thị dropdownList lựa chọn thành viên
-            string htmlCbbThanhVien = "";
-            thanhVien tv = db.thanhViens.Single(t => t.maTV == maTV);
-            //kiểm tra nếu duyệt qua trùng mã thành viên thì đặt thuộc tính selected
-            if (tv.maTV == maTV)
-                htmlCbbThanhVien += "<option selected class=\"chonTV\" value=\"" + tv.maTV.ToString() + "\" maLay=\"" + tv.maTV.ToString() + "\">" + xulyDuLieu.traVeKyTuGoc(tv.hoTV) + " " + xulyDuLieu.traVeKyTuGoc(tv.tenTV) + "</option>";
-            htmlCbbThanhVien += "</select>";
+            {
+                htmlCbbThanhVien += "<option ";
+                if (tv.maTV == maTV)
+                    htmlCbbThanhVien += " selected ";
+                htmlCbbThanhVien += " class=\"chonTV\" value=\"" + tv.maTV.ToString() + "\" maLay=\"" + tv.maTV.ToString() + "\">" + xulyDuLieu.traVeKyTuGoc(tv.hoTV) + " " + xulyDuLieu.traVeKyTuGoc(tv.tenTV) + "</option>";
+            }
             ViewBag.cbbThanhVien = htmlCbbThanhVien;
         }
         /// <summary>
@@ -411,13 +409,31 @@ namespace qlCaPhe.Controllers
         /// <param name="tenTK"></param>
         private void doDuLieuLenView(taiKhoan tk)
         {
-            //------------Hiện thông tin của tài khoản-------------
-            ViewBag.txtTenTK = tk.tenDangNhap;
-            ViewBag.TenDangNhap = tk.tenDangNhap;
-            ViewBag.GhiChu = xulyDuLieu.traVeKyTuGoc(tk.ghiChu);
-            ViewBag.HinhDD = xulyDuLieu.chuyenByteHinhThanhSrcImage(tk.thanhVien.hinhDD);
-            ViewBag.TenTV = xulyDuLieu.traVeKyTuGoc(tk.thanhVien.hoTV) + " " + xulyDuLieu.traVeKyTuGoc(tk.thanhVien.tenTV);
-            ViewBag.SDT = tk.thanhVien.soDT;
+            try
+            {
+                qlCaPheEntities db = new qlCaPheEntities();
+                //------------Hiện thông tin của tài khoản-------------
+                ViewBag.txtTenTK = tk.tenDangNhap;
+                ViewBag.TenDangNhap = tk.tenDangNhap;
+                ViewBag.GhiChu = xulyDuLieu.traVeKyTuGoc(tk.ghiChu);
+                if (tk.maTV > 0)
+                {
+                    ViewBag.VungThanhVien = new ThanhVienController().getInfoThanhVienForCreateTaiKhoan(tk.maTV);
+                    if (tk.maNhomTK > 0)
+                        //---------Cấu hình cbb lựa chọn thành viên và nhóm tài khoản
+                        this.taoDuLieuChoCbb(db, tk.maTV, tk.maNhomTK);
+                    else
+                        //---------Cấu hình cbb lựa chọn thành viên
+                        this.taoDuLieuChoCbb(db, tk.maTV, 0);
+                }
+                else
+                    this.taoDuLieuChoCbb(db, 0, 0);
+
+            }
+            catch (Exception ex)
+            {
+                xulyFile.ghiLoi("Class: TaiKhoanController - Function: doDuLieuLenView", ex.Message);
+            }
         }
         /// <summary>
         /// Hàm tạo nội dung cho trang tùy thuộc vào trạng thái danh sách cần lấy
