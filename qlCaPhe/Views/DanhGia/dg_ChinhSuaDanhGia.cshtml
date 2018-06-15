@@ -80,7 +80,7 @@
                                         <div class="col-md-11">
                                         </div>
                                         <div class="col-md-1">
-                                            <button type="button" id="btnNext" class="btn bg-orange btn-sm btn-circle pull-right">
+                                            <button type="button" onclick="slideToNextSection('buoc')" class="btn bg-orange btn-sm btn-circle pull-right">
                                                 <i class="material-icons">arrow_downward</i>
                                             </button>
                                         </div>
@@ -149,19 +149,6 @@
         </div>
         <!-- #END# Vertical Layout -->
     </div>
-
-
-    <script type="text/javascript">
-
-        //Code xử lý sự kiện click vào nút next tại cart thông tin công thức thực hiện chuyển xuống card chi tiết công thức
-        $("#btnNext").click(function () {
-            $('html,body').animate({
-                scrollTop: $(".buoc").offset().top
-            },
-                'slow');
-        });
-    </script>
-
     <script src="~/Scripts/Ajax/ajaxDanhGia.js"></script>
 
     @Html.Raw(ViewBag.ThongBao)

@@ -1,9 +1,9 @@
 ﻿$(document).ready(function () {
     //////======Sự kiện lấy và hiển thị danh sách thông báo
-    setInterval(function() {
+    setInterval(function () {
         $.ajax({
             url: getDuongDan() + 'Home/Notifications',
-        }).success(function(data) {
+        }).success(function (data) {
             $('#vungThongBao').html(data);
         });
     }, 1000);
@@ -99,4 +99,13 @@ function getCurrentPageInRequest() {
 function showToastNotify(element) {
     $(element).fadeIn("slow").delay(5000);//--------Hiện thông báo trong 5s
     $(element).slideUp(300).fadeOut("slow");
+}
+
+//----Hàm thực hiện trượt giao diện xuống section có className
+//---------className: tên class cần trượt đến 
+function slideToNextSection(className) {
+    $('html,body').animate({
+        scrollTop: $("." + className).offset().top
+    },
+              'slow');
 }

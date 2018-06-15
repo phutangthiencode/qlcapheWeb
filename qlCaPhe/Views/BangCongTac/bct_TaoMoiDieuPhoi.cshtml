@@ -61,7 +61,7 @@
                                         <br /><br /><br /><br />
                                         <br /><br /><br /><br />
                                     </div>
-                                    <button type="button" id="btnNext" class="btn bg-orange btn-sm btn-circle pull-right">
+                                    <button type="button" onclick="slideToNextSection('buoc')" class="btn bg-orange btn-sm btn-circle pull-right">
                                         <i class="material-icons">arrow_downward</i>
                                     </button>
                                 </div>
@@ -159,17 +159,5 @@
     @Html.Raw(ViewBag.ThongBao)
 
     @Html.Raw(ViewBag.ScriptAjax)
-
-    <script type="text/javascript">
-
-        //Code xử lý sự kiện click vào nút next tại cart thông tin công thức thực hiện chuyển xuống card chi tiết công thức
-        $("#btnNext").click(function () {
-            $('html,body').animate({
-                scrollTop: $(".buoc").offset().top
-            },
-                'slow');
-        });
-
-    </script>
     <script src="~/Scripts/Ajax/ajaxDieuPhoi.js"></script>
 </section>

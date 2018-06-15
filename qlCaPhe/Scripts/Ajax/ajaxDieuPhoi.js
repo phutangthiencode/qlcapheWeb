@@ -1,18 +1,5 @@
 ﻿$(document).ready(function () {
     thucThi();
-    //window.onbeforeunload = function (event) {
-    //    return confirm("Confirm refresh");
-    //};
-
-
-    //Code xử lý sự kiện click vào nút next tại cart thông tin công thức thực hiện chuyển xuống card chi tiết công thức
-    $("#btnNext").click(function () {
-        $('html,body').animate({
-            scrollTop: $(".buoc").offset().top
-        },
-            'slow');
-    });
-
 
     // slight update to account for browsers not supporting e.which
     function disableF5(e) { if ((e.which || e.keyCode) == 116) e.preventDefault(); };
