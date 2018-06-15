@@ -74,26 +74,13 @@ namespace qlCaPhe.Controllers
         #endregion
         #region READ
         /// <summary>
-        /// Hàm thực hiện cấu hình tham số cho session
-        /// </summary>
-        /// <param name="page">Trang cần chuyển</param>
-        /// <param name="request">Tham số truyền vào trang</param>
-        private void cauHinhSession(string page, string request)
-        {
-            string param = "page=" + page + "|request=" + request;
-            //------Thiết lập lại session
-            Session.Remove("urlAction"); Session.Add("urlAction", "");
-            Session["urlAction"] = param;
-        }
-
-        /// <summary>
         /// Hàm vào trang danh sách đồ uông được phép bán. CÓ TRẠNG THÁI = 1
         /// </summary>
         /// <returns></returns>
         public ActionResult RouteDoUongDuocBan()
         {
             //---------Thêm tham số vào session. TRẠNG THÁI ĐỒ UỐNG ĐƯỢC PHÉP BÁN
-            cauHinhSession("du_TableDoUong", "1");
+            xulyChung.cauHinhSession("du_TableDoUong", "1");
             xulyChung.ghiNhatKyDtb(1, "Danh mục sản phẩm được phép bán");
             return RedirectToAction("du_TableDoUong");
         }
@@ -101,7 +88,7 @@ namespace qlCaPhe.Controllers
         public ActionResult RouteDoUongChoDuyet()
         {
             //---------Thêm tham số vào session. TRẠNG THÁI ĐỒ UỐNG ĐƯỢC PHÉP BÁN
-            cauHinhSession("du_TableDoUong", "0");
+            xulyChung.cauHinhSession("du_TableDoUong", "0");
             xulyChung.ghiNhatKyDtb(1, "Danh mục sản phẩm chờ kiểm duyệt");
             return RedirectToAction("du_TableDoUong");
         }
@@ -109,7 +96,7 @@ namespace qlCaPhe.Controllers
         public ActionResult RouteDoUongDaHuy()
         {
             //---------Thêm tham số vào session. TRẠNG THÁI ĐỒ UỐNG ĐƯỢC PHÉP BÁN
-            cauHinhSession("du_TableDoUong", "2");
+            xulyChung.cauHinhSession("du_TableDoUong", "2");
             xulyChung.ghiNhatKyDtb(1, "Danh mục sản phẩm được hủy");
             return RedirectToAction("du_TableDoUong");
         }

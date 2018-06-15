@@ -69,24 +69,12 @@ namespace qlCaPhe.Controllers
         #region READ
 
         /// <summary>
-        /// Hàm thiết lập session khi vào trang
-        /// </summary>
-        /// <param name="page"></param>
-        /// <param name="request"></param>
-        private void cauHinhSession(string page, string request)
-        {
-            string param = "page=" + page + "|request=" + request;
-            //------Thiết lập lại session
-            Session.Remove("urlAction"); Session.Add("urlAction", "");
-            Session["urlAction"] = param;
-        }
-        /// <summary>
         /// hàm vào danh sách tài khoản được phép hoạt động
         /// </summary>
         /// <returns></returns>
         public ActionResult RouteTaiKhoanHoatDong()
         {
-            cauHinhSession("tk_TableTaiKhoan", "1");
+            xulyChung.cauHinhSession("tk_TableTaiKhoan", "1");
             xulyChung.ghiNhatKyDtb(1, "Danh mục tài khoản còn hoạt động");
             return RedirectToAction("tk_TableTaiKhoan");
         }
@@ -96,7 +84,7 @@ namespace qlCaPhe.Controllers
         /// <returns></returns>
         public ActionResult RouteTaiKhoanCamTruyCap()
         {
-            cauHinhSession("tk_TableTaiKhoan", "0");
+            xulyChung.cauHinhSession("tk_TableTaiKhoan", "0");
             xulyChung.ghiNhatKyDtb(1, "Danh mục tài khoản cấm hoạt động");
             return RedirectToAction("tk_TableTaiKhoan");
         }

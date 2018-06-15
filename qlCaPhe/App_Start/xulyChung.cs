@@ -315,6 +315,20 @@ namespace qlCaPhe.App_Start
             return kq;
         }
         #endregion
+
+        /// <summary>
+        /// Hàm thiết lập tham số vào session
+        /// </summary>
+        /// <param name="page">URL trang cần chuyển đến</param>
+        /// <param name="request">Tham số cần lưu trữ vào Session</param>
+        public static void cauHinhSession(string page, string request)
+        {
+            HttpSessionStateBase Session = new HttpSessionStateWrapper(HttpContext.Current.Session);
+            string param = "page=" + page + "|request=" + request;
+            //------Thiết lập lại session
+            Session.Remove("urlAction"); Session.Add("urlAction", "");
+            Session["urlAction"] = param;
+        }
     }
   
     
