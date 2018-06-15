@@ -60,7 +60,7 @@
 
   <menuItem idCha="0" id="11" name="Cấu hình - Nhật ký" link="" cssClass="" description="" icon="settings">
     <menuItem id="1101" idCha="11" name="Thiết lập thông số chung" link="../CauHinh/ch_ThietLapThongSoChung" cssClass="" description="" icon="system_update"></menuItem>
-    <menuItem id="1102" idCha="11" name="Quản lý Slideshow" link="../Slide/sl_TableSlideShow?trangThai=true" cssClass="" description="" icon="slideshow"></menuItem>
+    <menuItem id="1102" idCha="11" name="Quản lý Slideshow" link="../Slide/RouteSlideHienThi" cssClass="" description="" icon="slideshow"></menuItem>
     <menuItem id="1103" idCha="11" name="Nhật ký truy cập" link="../NhatKy/nky_NhatKyTruyCap" cssClass="" description="" icon="comment"></menuItem>
   </menuItem>
 

@@ -61,30 +61,67 @@ namespace qlCaPhe.Controllers
         }
         #endregion
         #region READ
+
+        /// <summary>
+        /// hàm cấu hình chuyển đến slideshow còn hiển thị
+        /// </summary>
+        /// <returns>Chuyển đến Action sl_TableSlideShow</returns>
+        public ActionResult RouteSlideHienThi()
+        {
+            xulyChung.cauHinhSession("sl_TableSlideShow", "1");
+            xulyChung.ghiNhatKyDtb(1, "Danh mục slideshow được hiển thị");
+            return RedirectToAction("sl_TableSlideShow");
+        }
+        /// <summary>
+        /// hàm cấu hình chuyển đến slideshow cấm hiển thị
+        /// </summary>
+        /// <returns>Chuyển đến Action sl_TableSlideShow</returns>
+        public ActionResult RouteSlideCamHienThi()
+        {
+            xulyChung.cauHinhSession("sl_TableSlideShow", "0");
+            xulyChung.ghiNhatKyDtb(1, "Danh mục slideshow cấm hiển thị");
+            return RedirectToAction("sl_TableSlideShow");
+        }
+
+
         /// <summary>
         /// Hàm tạo giao diện danh sách slideshow, được sắp theo trạng thái
         /// </summary>
-        /// <param name="trangThai"></param>
+        /// <param name="page">Trang hiện hành đang đứng</param>
         /// <returns></returns>
-        public ActionResult sl_TableSlideShow(bool trangThai)
+        public ActionResult sl_TableSlideShow(int ?page)
         {
+            int trangHienHanh = (page ?? 1);
             if (xulyChung.duocTruyCap(idOfPage))
             {
                 string htmlTable = "";
                 try
                 {
-                    thietLapThongSoTrang(trangThai);
-                    foreach (slide s in new qlCaPheEntities().slides.ToList().Where(sl => sl.trangThai == trangThai))
-                        htmlTable += this.createTable(s);
+                    //-------Xử lý tham số truyền vào
+                    string urlAction = (string)Session["urlAction"];
+                    if (urlAction.Length > 0)
+                    {
+                        urlAction = urlAction.Split('|')[1]; urlAction = urlAction.Replace("request=", "");
+                        bool trangThai = urlAction.Equals("1") ? true : false; //-----Nếu request là 1 thì trạng thái true và ngược lại
+                        thietLapThongSoTrang(trangThai);
+
+                        qlCaPheEntities db = new qlCaPheEntities();
+                        int soPhanTu = db.slides.Where(t => t.trangThai == trangThai).Count();
+                        ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, trangHienHanh, "/Slide/sl_TableSlideShow");
+
+                        foreach (slide s in new qlCaPheEntities().slides.ToList().Where(sl => sl.trangThai == trangThai).OrderBy(l=>l.thuTu).Skip((trangHienHanh - 1) * createHTML.pageSize).Take(createHTML.pageSize))
+                            htmlTable += this.createTable(s);
+                    }
+                    else throw new Exception("không có tham số ");
                 }
                 catch (Exception ex)
                 {
                     xulyFile.ghiLoi("Class SlideController - Function: sl_TableSlideShow", ex.Message);
+                    return RedirectToAction("PageNotFound", "Home");
                 }
                 ViewBag.TableData = htmlTable;
                 ViewBag.ScriptAjax = createScriptAjax.scriptAjaxXoaDoiTuong("Slide/xoaSlide?maSlide=");
-                ViewBag.ModalXoa = createHTML.taoCanhBaoXoa("SlideShow");
-                xulyChung.ghiNhatKyDtb(1, "Danh mục slideshow");
+                ViewBag.ModalXoa = createHTML.taoCanhBaoXoa("SlideShow");               
             }
             return View();
         }
@@ -342,6 +379,8 @@ namespace qlCaPhe.Controllers
                 ViewBag.Style2 = "active"; //Thêm class active cho tab trang này 
             }
         }
+
+
         #endregion
     }
 }

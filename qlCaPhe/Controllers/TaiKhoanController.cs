@@ -74,9 +74,13 @@ namespace qlCaPhe.Controllers
         /// <returns></returns>
         public ActionResult RouteTaiKhoanHoatDong()
         {
-            xulyChung.cauHinhSession("tk_TableTaiKhoan", "1");
-            xulyChung.ghiNhatKyDtb(1, "Danh mục tài khoản còn hoạt động");
-            return RedirectToAction("tk_TableTaiKhoan");
+            if (xulyChung.duocTruyCap(idOfPage))
+            {
+                xulyChung.cauHinhSession("tk_TableTaiKhoan", "1");
+                xulyChung.ghiNhatKyDtb(1, "Danh mục tài khoản còn hoạt động");
+                return RedirectToAction("tk_TableTaiKhoan");
+            }
+            return RedirectToAction("PageNotFound", "Home");
         }
         /// <summary>
         /// Hàm vào danh sách tài khoản bị cấm truy cập
