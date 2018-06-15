@@ -44,11 +44,11 @@
                             <li role="presentation" class="@ViewBag.Style1"><a href="/CongThuc/ct_TableCongThuc?trangThai=true"><i class="material-icons">check</i>Danh mục công thức còn sử dụng</a></li>
                             <li role="presentation" class="@ViewBag.Style2"><a href="/CongThuc/ct_TableCongThuc?trangThai=false"><i class="material-icons">clear</i>Danh mục công thức ngưng sử dụng</a></li>
                         </ul>*@
-                        <div class="table-responsive">
-                            <div class="dataTables_wrapper form-inline dt-bootstrap">
+                        <div class="dataTables_wrapper form-inline dt-bootstrap">
 
-                                <div class="row">
-                                    <div class="col-sm-12">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="table-responsive">
                                         <table class="table table-bordered table-striped table-hover js-basic-example dataTable" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
                                             <thead>
                                                 <tr>
@@ -67,37 +67,37 @@
                                             <tbody>
                                                 @Html.Raw(ViewBag.TableData)
                                                 @*<tr role="row" class="odd">
-                                                    <td>
-                                                        <a class="goiY" data-toggle="modal" data-target="#modalChiTiet" style="cursor:pointer">
-                                                            <b>Cà phê đen đá</b>
-                                                            <span class="noiDungGoiY-top">Click để xem chi tiết công thức</span>
-                                                        </a>
-                                                    </td>
-                                                    <td>Công thức pha chế cà phê đen</td>
-                                                    <td>Diễn giải công thức</td>
-                                                    <td>ttphu</td>
-                                                    <td>30/11/2017 12:00:12</td>
-                                                    <td>
-                                                        <div class="btn-group">
-                                                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                                                                    Chức năng <span class="caret"></span>
-                                                                </button>
-                                                                <ul class="dropdown-menu" role="menu">
-                                                                    <li><a href="#" class="col-blue waves-effect waves-block"><i class="material-icons">mode_edit</i>Chỉnh sửa</a></li>
-                                                                    <li><a href="#" class="col-red waves-effect waves-block"><i class="material-icons">delete</i>Xoá bỏ</a></li>
-                                                                </ul>
-                                                        </div>
-                                                    </td>
-                                                </tr>*@
+                                    <td>
+                                        <a class="goiY" data-toggle="modal" data-target="#modalChiTiet" style="cursor:pointer">
+                                            <b>Cà phê đen đá</b>
+                                            <span class="noiDungGoiY-top">Click để xem chi tiết công thức</span>
+                                        </a>
+                                    </td>
+                                    <td>Công thức pha chế cà phê đen</td>
+                                    <td>Diễn giải công thức</td>
+                                    <td>ttphu</td>
+                                    <td>30/11/2017 12:00:12</td>
+                                    <td>
+                                        <div class="btn-group">
+                                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                                    Chức năng <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <li><a href="#" class="col-blue waves-effect waves-block"><i class="material-icons">mode_edit</i>Chỉnh sửa</a></li>
+                                                    <li><a href="#" class="col-red waves-effect waves-block"><i class="material-icons">delete</i>Xoá bỏ</a></li>
+                                                </ul>
+                                        </div>
+                                    </td>
+                                </tr>*@
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12 pull-right">
-                                        <div class="pull-right" id="DataTables_Table_0_paginate">
-                                            @Html.Raw(ViewBag.PhanTrang)
-                                        </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12 pull-right">
+                                    <div class="pull-right" id="DataTables_Table_0_paginate">
+                                        @Html.Raw(ViewBag.PhanTrang)
                                     </div>
                                 </div>
                             </div>
