@@ -165,7 +165,6 @@ namespace qlCaPhe.Controllers
         public ActionResult capNhatTrangThai()
         {
             if (xulyChung.duocCapNhat(idOfPage, "7"))
-            {
                 try
                 {
                     int kqLuu = 0;
@@ -203,7 +202,6 @@ namespace qlCaPhe.Controllers
                 {
                     xulyFile.ghiLoi("Class: TaiKhoanController - Function: capNhatTrangThai", ex.Message);
                 }
-            }
             return RedirectToAction("RouteTaiKhoanHoatDong");
         }
         /// <summary>

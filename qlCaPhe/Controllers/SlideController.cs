@@ -130,40 +130,41 @@ namespace qlCaPhe.Controllers
         /// <param name="maSlide">Mã Slide cần cập nhật</param>
         public void capNhatTrangThai()
         {
-            try
-            {
-                int kqLuu = 0;
-                string param = xulyChung.nhanThamSoTrongSession();
-                if (param.Length > 0)
+            if (xulyChung.duocCapNhat(idOfPage, "7"))
+                try
                 {
-                    int maSlide = xulyDuLieu.doiChuoiSangInteger(param);
-                    qlCaPheEntities db = new qlCaPheEntities();
-                    slide slideSua = db.slides.SingleOrDefault(s => s.maSlide == maSlide);
-                    if (slideSua != null)
+                    int kqLuu = 0;
+                    string param = xulyChung.nhanThamSoTrongSession();
+                    if (param.Length > 0)
                     {
-                        bool trangThaiCu = (bool)slideSua.trangThai; //Lưu lại trạng thái cũ để chuyển đến danh sách tương ứng
-                        slideSua.trangThai = !trangThaiCu;//Cập nhật trạng thái ngược với trạng thái cũ
-                        db.Entry(slideSua).State = System.Data.Entity.EntityState.Modified;
-                        kqLuu = db.SaveChanges();
-                        if (kqLuu > 0)
+                        int maSlide = xulyDuLieu.doiChuoiSangInteger(param);
+                        qlCaPheEntities db = new qlCaPheEntities();
+                        slide slideSua = db.slides.SingleOrDefault(s => s.maSlide == maSlide);
+                        if (slideSua != null)
                         {
-                            xulyChung.ghiNhatKyDtb(4, "Cập nhật trạng thái slideshow\" " + slideSua.maSlide.ToString() + " \"");
-                            if (trangThaiCu)
-                                Response.Redirect(xulyChung.layTenMien() + "/Slide/sl_TableSlideShow?trangThai=true");
-                            else
-                                Response.Redirect(xulyChung.layTenMien() + "/Slide/sl_TableSlideShow?trangThai=false");
+                            bool trangThaiCu = (bool)slideSua.trangThai; //Lưu lại trạng thái cũ để chuyển đến danh sách tương ứng
+                            slideSua.trangThai = !trangThaiCu;//Cập nhật trạng thái ngược với trạng thái cũ
+                            db.Entry(slideSua).State = System.Data.Entity.EntityState.Modified;
+                            kqLuu = db.SaveChanges();
+                            if (kqLuu > 0)
+                            {
+                                xulyChung.ghiNhatKyDtb(4, "Cập nhật trạng thái slideshow\" " + slideSua.maSlide.ToString() + " \"");
+                                if (trangThaiCu)
+                                    Response.Redirect(xulyChung.layTenMien() + "/Slide/sl_TableSlideShow?trangThai=true");
+                                else
+                                    Response.Redirect(xulyChung.layTenMien() + "/Slide/sl_TableSlideShow?trangThai=false");
+                            }
                         }
+                        else
+                            throw new Exception("Slide có mã " + maSlide + " không tồn tại để cập nhật");
                     }
-                    else
-                        throw new Exception("Slide có mã " + maSlide + " không tồn tại để cập nhật");
+                    else throw new Exception("không nhận được tham số");
                 }
-                else throw new Exception("không nhận được tham số");
-            }
-            catch (Exception ex)
-            {
-                xulyFile.ghiLoi("Class: SlideController - Function: capNhatTrangThai", ex.Message);
-                Response.Redirect(xulyChung.layTenMien() + "/Home/ServerError");
-            }
+                catch (Exception ex)
+                {
+                    xulyFile.ghiLoi("Class: SlideController - Function: capNhatTrangThai", ex.Message);
+                    Response.Redirect(xulyChung.layTenMien() + "/Home/ServerError");
+                }
         }
         /// <summary>
         /// Hàm tạo giao diện chỉnh sửa thông tin cho Slide

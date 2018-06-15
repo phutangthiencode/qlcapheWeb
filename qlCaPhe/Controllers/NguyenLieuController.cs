@@ -341,40 +341,41 @@ namespace qlCaPhe.Controllers
         /// <returns></returns>
         public void capNhatTrangThai()
         {
-            try
-            {
-                int kqLuu = 0;
-                string param = xulyChung.nhanThamSoTrongSession();
-                if (param.Length > 0)
+            if (xulyChung.duocCapNhat(idOfPage, "7"))
+                try
                 {
-                    int maNguyenLieu = xulyDuLieu.doiChuoiSangInteger(param);
-                    qlCaPheEntities db = new qlCaPheEntities();
-                    nguyenLieu nlSua = db.nguyenLieux.SingleOrDefault(nl => nl.maNguyenLieu == maNguyenLieu);
-                    if (nlSua != null)
+                    int kqLuu = 0;
+                    string param = xulyChung.nhanThamSoTrongSession();
+                    if (param.Length > 0)
                     {
-                        bool trangThaiCu = nlSua.trangThai;//Lưu lại trạng thái cũ để chuyển đến trang tương ứng
-                        nlSua.trangThai = !trangThaiCu;//Cập nhật trạng thái ngược lại với trạng thái cũ. Nếu true thì thành false và ngược lại
-                        db.Entry(nlSua).State = System.Data.Entity.EntityState.Modified;
-                        kqLuu = db.SaveChanges();
-                        if (kqLuu > 0)
+                        int maNguyenLieu = xulyDuLieu.doiChuoiSangInteger(param);
+                        qlCaPheEntities db = new qlCaPheEntities();
+                        nguyenLieu nlSua = db.nguyenLieux.SingleOrDefault(nl => nl.maNguyenLieu == maNguyenLieu);
+                        if (nlSua != null)
                         {
-                            xulyChung.ghiNhatKyDtb(4, "Cập nhật trạng thái nguyên liệu \" " + xulyDuLieu.traVeKyTuGoc(nlSua.tenNguyenLieu) + " \"");
-                            if (trangThaiCu == true)//Chuyển đến danh sách sản phẩm đang sử dụng
-                                Response.Redirect(xulyChung.layTenMien() + "/NguyenLieu/nl_TableNguyenLieu");
-                            else
-                                Response.Redirect(xulyChung.layTenMien() + "/NguyenLieu/nl_TableNguyenLieuTamNgung");
+                            bool trangThaiCu = nlSua.trangThai;//Lưu lại trạng thái cũ để chuyển đến trang tương ứng
+                            nlSua.trangThai = !trangThaiCu;//Cập nhật trạng thái ngược lại với trạng thái cũ. Nếu true thì thành false và ngược lại
+                            db.Entry(nlSua).State = System.Data.Entity.EntityState.Modified;
+                            kqLuu = db.SaveChanges();
+                            if (kqLuu > 0)
+                            {
+                                xulyChung.ghiNhatKyDtb(4, "Cập nhật trạng thái nguyên liệu \" " + xulyDuLieu.traVeKyTuGoc(nlSua.tenNguyenLieu) + " \"");
+                                if (trangThaiCu == true)//Chuyển đến danh sách sản phẩm đang sử dụng
+                                    Response.Redirect(xulyChung.layTenMien() + "/NguyenLieu/nl_TableNguyenLieu");
+                                else
+                                    Response.Redirect(xulyChung.layTenMien() + "/NguyenLieu/nl_TableNguyenLieuTamNgung");
+                            }
                         }
+                        else
+                            throw new Exception("Nguyên liệu có mã " + maNguyenLieu + " cần cập nhật không tồn tại");
                     }
-                    else
-                        throw new Exception("Nguyên liệu có mã " + maNguyenLieu + " cần cập nhật không tồn tại");
+                    else throw new Exception("không nhận được tham số");
                 }
-                else throw new Exception("không nhận được tham số");
-            }
-            catch (Exception ex)
-            {
-                xulyFile.ghiLoi("Class: NguyenLieuController - Function: capNhatTrangThai", ex.Message);
-                Response.Redirect(xulyChung.layTenMien() + "/Home/ServerError");
-            }
+                catch (Exception ex)
+                {
+                    xulyFile.ghiLoi("Class: NguyenLieuController - Function: capNhatTrangThai", ex.Message);
+                    Response.Redirect(xulyChung.layTenMien() + "/Home/ServerError");
+                }
         }
         #endregion
         #region DELETE

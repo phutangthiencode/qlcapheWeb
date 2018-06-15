@@ -32,7 +32,7 @@ namespace qlCaPhe.Controllers
         [HttpPost]
         public ActionResult kh_TaoMoiKhoHang(khoHang kh, FormCollection f)
         {
-            if (xulyChung.duocCapNhat(idOfPage,"7"))
+            if (xulyChung.duocCapNhat(idOfPage, "7"))
             {
                 string ndThongBao = ""; int kqLuu = 0;
                 try
@@ -40,7 +40,7 @@ namespace qlCaPhe.Controllers
                     qlCaPheEntities db = new qlCaPheEntities();
                     this.layDuLieuTuView(kh, f);
                     db.khoHangs.Add(kh);
-                    kqLuu=db.SaveChanges();
+                    kqLuu = db.SaveChanges();
                     if (kqLuu > 0)
                     {
                         ndThongBao = createHTML.taoNoiDungThongBao("Kho hàng", xulyDuLieu.traVeKyTuGoc(kh.tenKhoHang), "kh_TableKhoHang");
@@ -157,36 +157,37 @@ namespace qlCaPhe.Controllers
         /// <returns></returns>
         public void capNhatTrangThai()
         {
-            try
-            {
-                int kqLuu = 0;
-                string param = xulyChung.nhanThamSoTrongSession();
-                if (param.Length > 0)
+            if (xulyChung.duocCapNhat(idOfPage, "7"))
+                try
                 {
-                    int maKhoHang = xulyDuLieu.doiChuoiSangInteger(param);
-                    qlCaPheEntities db = new qlCaPheEntities();
-                    khoHang khoHangSua = db.khoHangs.SingleOrDefault(kh => kh.maKhoHang == maKhoHang);
-                    if (khoHangSua != null)
+                    int kqLuu = 0;
+                    string param = xulyChung.nhanThamSoTrongSession();
+                    if (param.Length > 0)
                     {
-                        khoHangSua.trangThai = !khoHangSua.trangThai;
-                        db.Entry(khoHangSua).State = System.Data.Entity.EntityState.Modified;
-                        kqLuu=db.SaveChanges();
-                        if (kqLuu > 0)
+                        int maKhoHang = xulyDuLieu.doiChuoiSangInteger(param);
+                        qlCaPheEntities db = new qlCaPheEntities();
+                        khoHang khoHangSua = db.khoHangs.SingleOrDefault(kh => kh.maKhoHang == maKhoHang);
+                        if (khoHangSua != null)
                         {
-                            xulyChung.ghiNhatKyDtb(4, "Cập nhật trạng thái kho hàng\" " + xulyDuLieu.traVeKyTuGoc(khoHangSua.tenKhoHang) + " \"");
-                            Response.Redirect(xulyChung.layTenMien() + "/KhoHang/kh_TableKhoHang");
+                            khoHangSua.trangThai = !khoHangSua.trangThai;
+                            db.Entry(khoHangSua).State = System.Data.Entity.EntityState.Modified;
+                            kqLuu = db.SaveChanges();
+                            if (kqLuu > 0)
+                            {
+                                xulyChung.ghiNhatKyDtb(4, "Cập nhật trạng thái kho hàng\" " + xulyDuLieu.traVeKyTuGoc(khoHangSua.tenKhoHang) + " \"");
+                                Response.Redirect(xulyChung.layTenMien() + "/KhoHang/kh_TableKhoHang");
+                            }
                         }
+                        else
+                            throw new Exception("Kho hàng có mã " + maKhoHang.ToString() + " không tồn tại trong hệ thống để cập nhật");
                     }
-                    else
-                        throw new Exception("Kho hàng có mã " + maKhoHang.ToString() + " không tồn tại trong hệ thống để cập nhật");
+                    else throw new Exception("không nhận được tham số");
                 }
-                else throw new Exception("không nhận được tham số");
-            }
-            catch (Exception ex)
-            {
-                xulyFile.ghiLoi("Class: KhoHangController - Function: capNhatTrangThai", ex.Message);
-                Response.Redirect(xulyChung.layTenMien() + "/Home/ServerError");
-            }
+                catch (Exception ex)
+                {
+                    xulyFile.ghiLoi("Class: KhoHangController - Function: capNhatTrangThai", ex.Message);
+                    Response.Redirect(xulyChung.layTenMien() + "/Home/ServerError");
+                }
         }
         /// <summary>
         /// Hàm thực hiện tạo giao diện chỉnh sửa kho hàng
@@ -245,7 +246,7 @@ namespace qlCaPhe.Controllers
                     {
                         this.layDuLieuTuView(khoHangSua, f);
                         db.Entry(khoHangSua).State = System.Data.Entity.EntityState.Modified;
-                        kqLuu=db.SaveChanges();
+                        kqLuu = db.SaveChanges();
                         if (kqLuu > 0)
                         {
                             xulyChung.ghiNhatKyDtb(4, "Kho hàng\" " + xulyDuLieu.traVeKyTuGoc(khoHangSua.tenKhoHang) + " \"");
@@ -279,8 +280,8 @@ namespace qlCaPhe.Controllers
                 if (khoHangXoa != null)
                 {
                     db.khoHangs.Remove(khoHangXoa);
-                    kqLuu=db.SaveChanges();
-                    if(kqLuu>0)
+                    kqLuu = db.SaveChanges();
+                    if (kqLuu > 0)
                         xulyChung.ghiNhatKyDtb(3, "Kho hàng \"" + xulyDuLieu.traVeKyTuGoc(khoHangXoa.tenKhoHang) + " \"");
                 }
                 else
