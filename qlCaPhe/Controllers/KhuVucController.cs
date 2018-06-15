@@ -77,7 +77,7 @@ namespace qlCaPhe.Controllers
                     string htmlTable = "";
                     qlCaPheEntities db = new qlCaPheEntities();
                     int soPhanTu = db.khuVucs.Count();
-                    ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, trangHienHanh, "/KhuVuc/kv_TableKhuVuc"); //------cấu hình phân trang
+                    ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, createHTML.pageSize, trangHienHanh, "/KhuVuc/kv_TableKhuVuc"); //------cấu hình phân trang
                     foreach (khuVuc kv in db.khuVucs.ToList().OrderBy(k => k.tenKhuVuc).Skip((trangHienHanh - 1) * createHTML.pageSize).Take(createHTML.pageSize))
                     {
                         htmlTable += "<tr role=\"row\" class=\"odd\">";

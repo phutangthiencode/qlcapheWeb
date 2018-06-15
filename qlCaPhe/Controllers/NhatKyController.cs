@@ -121,7 +121,7 @@ namespace qlCaPhe.Controllers
         /// <returns>Chuỗi html tạo bảng dữ liệu nhật ký và các trang đã phân chia</returns>
         private string layDanhSachLietKe(int trangHienHanh, qlCaPheEntities db)
         {
-            string kq = ""; int soPhanTu = 0; int pageSize = 30;
+            string kq = ""; int soPhanTu = 0; int pageSize = 30; //---Thiết lập số phần tử trên một trang
             List<nhatKy> list = new List<nhatKy>();
             if (tenDangNhap.Equals("-1"))
             {
@@ -137,7 +137,7 @@ namespace qlCaPhe.Controllers
             }
             kq += this.taoDuLieuBangNhatKy(list);
             kq += "&&&";
-            kq += createHTML.taoPhanTrang(soPhanTu, trangHienHanh, "/NhatKy/nky_NhatKyTruyCap"); //------cấu hình phân trang
+            kq += createHTML.taoPhanTrang(soPhanTu, pageSize, trangHienHanh, "/NhatKy/nky_NhatKyTruyCap"); //------cấu hình phân trang
             return kq;
         }
 

@@ -189,7 +189,7 @@ namespace qlCaPhe.Controllers
                 if (sp != null)
                 {
                     int soPhanTu = sp.congThucPhaChes.Count();
-                    ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, trangHienHanh, "/CongThuc/ct_TableCongThuc"); //------cấu hình phân trang
+                    ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, createHTML.pageSize, trangHienHanh, "/CongThuc/ct_TableCongThuc"); //------cấu hình phân trang
 
                     htmlTable += this.taoBangDanhSachCongThuc(sp, trangHienHanh);
                     ViewBag.TitleTenSanPham = xulyDuLieu.traVeKyTuGoc(sp.tenSanPham);

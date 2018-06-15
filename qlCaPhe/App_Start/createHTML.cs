@@ -176,18 +176,19 @@ namespace qlCaPhe.App_Start
         /// Hàm thực hiện tạo chuỗi html cho việc phân trang
         /// </summary>
         /// <param name="soPhanTu">Số lượng tất cả các phần tử có trong list cần phân trang</param>
+        /// <param name="soLuongTrenTrang">Số lượng phần từ có trên 1 trang</param>
         /// <param name="soTrangHienHanh">Số trang hiện tại dang đứng</param>
         /// <param name="url">Đường dẫn đến với trang trong danh sách</param>
         /// <returns>Chuỗi html danh sách trang</returns>
-        public static string taoPhanTrang(int soPhanTu, int soTrangHienHanh, string url)
+        public static string taoPhanTrang(int soPhanTu, int soLuongTrenTrang, int soTrangHienHanh, string url)
         {
             string kq = "";
-            if (soPhanTu > pageSize)
+            if (soPhanTu > soLuongTrenTrang)
             {
                 //-----Tính số trang chứa đủ 10 phần tử
-                int soLuongTrang = soPhanTu / pageSize;
+                int soLuongTrang = soPhanTu / soLuongTrenTrang;
                 //-----tính trang chứa phần tử lẻ còn lại
-                if (soPhanTu % pageSize > 0)
+                if (soPhanTu % soLuongTrenTrang > 0)
                     soLuongTrang++;
 
                 //-------Tạo chuỗi html dựa trên số trang đã xác định

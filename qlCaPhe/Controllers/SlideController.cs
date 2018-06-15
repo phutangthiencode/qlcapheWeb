@@ -91,7 +91,7 @@ namespace qlCaPhe.Controllers
         /// <returns></returns>
         public ActionResult sl_TableSlideShow(int ?page)
         {
-            int trangHienHanh = (page ?? 1); int pageSize = 6;
+            int trangHienHanh = (page ?? 1); int pageSize = 6; //----Thiết lập 1 trang chỉ hiện 6 phần tử
             if (xulyChung.duocTruyCap(idOfPage))
             {
                 string htmlTable = "";
@@ -107,7 +107,7 @@ namespace qlCaPhe.Controllers
 
                         qlCaPheEntities db = new qlCaPheEntities();
                         int soPhanTu = db.slides.Where(t => t.trangThai == trangThai).Count();
-                        ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, trangHienHanh, "/Slide/sl_TableSlideShow");
+                        ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, pageSize, trangHienHanh, "/Slide/sl_TableSlideShow");
 
                         foreach (slide s in new qlCaPheEntities().slides.ToList().Where(sl => sl.trangThai == trangThai).OrderBy(l=>l.thuTu).Skip((trangHienHanh - 1) * pageSize).Take(pageSize))
                             htmlTable += this.createTable(s);

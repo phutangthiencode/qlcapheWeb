@@ -116,7 +116,7 @@ namespace qlCaPhe.Controllers
                 {
                     qlCaPheEntities db = new qlCaPheEntities();
                     int soPhanTu = db.BangGiaoViecs.Count();
-                    ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, trangHienHanh, "/BangCongTac/bct_TableDieuPhoi"); //------cấu hình phân trang
+                    ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, createHTML.pageSize, trangHienHanh, "/BangCongTac/bct_TableDieuPhoi"); //------cấu hình phân trang
                     //--------Lặp qua danh sách bảng công tác được sắp xếp theo trạng thái. Hiển thị trạng thái "còn sử dụng" trước
                     foreach (BangGiaoViec bgv in db.BangGiaoViecs.ToList().OrderByDescending(c => c.trangThai).Skip((trangHienHanh - 1) * createHTML.pageSize).Take(createHTML.pageSize))
                     {

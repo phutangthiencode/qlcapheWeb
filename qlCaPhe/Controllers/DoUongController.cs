@@ -122,7 +122,7 @@ namespace qlCaPhe.Controllers
                     qlCaPheEntities db = new qlCaPheEntities();
 
                     int soPhanTu = db.sanPhams.Where(s => s.trangThai == trangThai).Count();
-                    ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, trangHienHanh, "/DoUong/du_TableDoUong"); //------cấu hình phân trang
+                    ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, createHTML.pageSize, trangHienHanh, "/DoUong/du_TableDoUong"); //------cấu hình phân trang
 
                     List<sanPham> listSP = db.sanPhams.Where(s => s.trangThai == trangThai).OrderBy(s => s.tenSanPham).Skip((trangHienHanh - 1) * createHTML.pageSize).Take(createHTML.pageSize).ToList(); //-----Lấy danh sách các sản phẩm được phân trang
                     this.createTableDoUong(listSP);

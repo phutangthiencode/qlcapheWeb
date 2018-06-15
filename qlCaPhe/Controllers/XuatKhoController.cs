@@ -113,7 +113,7 @@ namespace qlCaPhe.Controllers
                 {
                     qlCaPheEntities db = new qlCaPheEntities();
                     int soPhanTu = db.phieuXuatKhoes.Count();
-                    ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, trangHienHanh, "/XuatKho/xk_TableXuatKho"); //------cấu hình phân trang
+                    ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, createHTML.pageSize, trangHienHanh, "/XuatKho/xk_TableXuatKho"); //------cấu hình phân trang
                     foreach (phieuXuatKho phieu in db.phieuXuatKhoes.ToList().OrderBy(p => p.maPhieu).OrderByDescending(p => p.ngayXuat).Skip((trangHienHanh - 1) * createHTML.pageSize).Take(createHTML.pageSize))
                     {
                         htmlTable += "<tr role=\"row\" class=\"odd\">";

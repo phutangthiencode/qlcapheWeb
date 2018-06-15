@@ -79,7 +79,7 @@ namespace qlCaPhe.Controllers
                 {
                     qlCaPheEntities db = new qlCaPheEntities();
                     int soPhanTu = db.thanhViens.Count();
-                    ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, trangHienHanh, "/ThanhVien/tv_TableThanhVien"); //------cấu hình phân trang
+                    ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, createHTML.pageSize, trangHienHanh, "/ThanhVien/tv_TableThanhVien"); //------cấu hình phân trang
                     var thanhVienList = db.thanhViens.OrderBy(t => t.tenTV).Skip((trangHienHanh - 1) * createHTML.pageSize).Take(createHTML.pageSize).ToList();
                     string htmlTable = "";
                     foreach (thanhVien tv in thanhVienList)

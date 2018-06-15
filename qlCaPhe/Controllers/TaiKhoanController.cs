@@ -113,7 +113,7 @@ namespace qlCaPhe.Controllers
 
                         qlCaPheEntities db = new qlCaPheEntities();
                         int soPhanTu = db.taiKhoans.Where(t => t.trangThai == trangThai).Count();
-                        ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, trangHienHanh, "/TaiKhoan/tk_TableTaiKhoan");
+                        ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, createHTML.pageSize, trangHienHanh, "/TaiKhoan/tk_TableTaiKhoan");
 
                         List<taiKhoan> listTaiKhoan = db.taiKhoans.Where(t => t.trangThai == trangThai).OrderBy(t => t.tenDangNhap).Skip((trangHienHanh - 1) * createHTML.pageSize).Take(createHTML.pageSize).ToList();
                         foreach (taiKhoan tk in listTaiKhoan)

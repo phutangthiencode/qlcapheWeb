@@ -75,7 +75,7 @@ namespace qlCaPhe.Controllers
                 {
                     qlCaPheEntities db = new qlCaPheEntities();
                     int soPhanTu = db.loaiSanPhams.Count();
-                    ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, trangHienHanh, "/LoaiDoUong/ldu_TableLoaiDoUong"); //------cấu hình phân trang
+                    ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, createHTML.pageSize, trangHienHanh, "/LoaiDoUong/ldu_TableLoaiDoUong"); //------cấu hình phân trang
                     foreach (loaiSanPham loai in db.loaiSanPhams.OrderBy(c => c.tenLoai).Skip((trangHienHanh - 1) * createHTML.pageSize).Take(createHTML.pageSize).ToList())
                     {
                         htmlTable += "<tr role=\"row\" class=\"odd\">";

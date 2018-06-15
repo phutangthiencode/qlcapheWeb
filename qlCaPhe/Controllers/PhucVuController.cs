@@ -44,7 +44,7 @@ namespace qlCaPhe.Controllers
                         html += "</tr>";
                     }
                     html += "&&"; //------Ký tự xác định chuỗi html để gán lên giao diện
-                    html += createHTML.taoPhanTrang(soPhanTu, trangHienHanh, "/PhucVu/pv_DanhSachBanCanPhucVuDoUong");
+                    html += createHTML.taoPhanTrang(soPhanTu, createHTML.pageSize, trangHienHanh, "/PhucVu/pv_DanhSachBanCanPhucVuDoUong");
                 }
                 catch (Exception ex)
                 {

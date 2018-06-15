@@ -378,7 +378,7 @@ namespace qlCaPhe.Controllers
                     int trangHienHanh = (page ?? 1);
                     qlCaPheEntities db = new qlCaPheEntities();
                     int soPhanTu = db.TonKhoes.Count();
-                    ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, trangHienHanh, "/TonKho/tkho_TableTonKho"); //------cấu hình phân trang
+                    ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, createHTML.pageSize, trangHienHanh, "/TonKho/tkho_TableTonKho"); //------cấu hình phân trang
                     foreach (TonKho tonKho in db.TonKhoes.ToList().OrderByDescending(c => c.ngayKiem).Skip((trangHienHanh - 1) * createHTML.pageSize).Take(createHTML.pageSize))
                     {
                         html += "<tr role=\"row\" class=\"odd\">";
@@ -423,7 +423,7 @@ namespace qlCaPhe.Controllers
 
                         qlCaPheEntities db = new qlCaPheEntities();
                         int soPhanTu = db.ctTonKhoes.Where(c => c.maSoKy == maSoKy).Count();
-                        ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, trangHienHanh, "/TonKho/tkho_TableCtTonKho"); //------cấu hình phân trang
+                        ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, createHTML.pageSize, trangHienHanh, "/TonKho/tkho_TableCtTonKho"); //------cấu hình phân trang
                         foreach (ctTonKho item in db.ctTonKhoes.Where(c => c.maSoKy == maSoKy).ToList().Skip((trangHienHanh - 1) * createHTML.pageSize).Take(createHTML.pageSize))
                         {
                             html += "<tr role=\"row\" class=\"odd\">";

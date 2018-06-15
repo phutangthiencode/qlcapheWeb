@@ -126,7 +126,7 @@ namespace qlCaPhe.Controllers
             {
                 qlCaPheEntities db = new qlCaPheEntities();
                 int soPhanTu = db.mucTieuDanhGias.Where(s => s.trangThai == trangThai).Count();
-                ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, trangHienHanh, "/DanhGia/mtdg_TableMucTieuDanhGia"); //------cấu hình phân trang
+                ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, createHTML.pageSize, trangHienHanh, "/DanhGia/mtdg_TableMucTieuDanhGia"); //------cấu hình phân trang
                 foreach (mucTieuDanhGia mucTieu in db.mucTieuDanhGias.ToList().Where(m => m.trangThai == trangThai).OrderBy(s => s.tenMucTieu).Skip((trangHienHanh - 1) * createHTML.pageSize).Take(createHTML.pageSize))
                 {
                     htmlTable += "<tr role=\"row\" class=\"odd\">";
@@ -473,7 +473,7 @@ namespace qlCaPhe.Controllers
                     string htmlTable = ""; int trangHienHanh = (page ?? 1);
                     qlCaPheEntities db = new qlCaPheEntities();
                     int soPhanTu = db.danhGiaNhanViens.Count();
-                    ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, trangHienHanh, "/DanhGia/dg_TableDanhGiaNhanVien"); //------cấu hình phân trang
+                    ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, createHTML.pageSize, trangHienHanh, "/DanhGia/dg_TableDanhGiaNhanVien"); //------cấu hình phân trang
                     foreach (danhGiaNhanVien danhGia in db.danhGiaNhanViens.ToList().OrderByDescending(s => s.ngayDanhGia).Skip((trangHienHanh - 1) * createHTML.pageSize).Take(createHTML.pageSize))
                     {
                         htmlTable += "<tr role=\"row\" class=\"odd\">";

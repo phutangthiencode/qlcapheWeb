@@ -54,7 +54,7 @@ namespace qlCaPhe.Controllers
                         kq += " </tr>";
                     }
                     kq += "&&"; //------Ký tự xác định chuỗi html để gán lên giao diện
-                    kq += createHTML.taoPhanTrang(soPhanTu, trangHienHanh, "/HoaDon/hd_TableHoaDonChoThanhToan");
+                    kq += createHTML.taoPhanTrang(soPhanTu, createHTML.pageSize, trangHienHanh, "/HoaDon/hd_TableHoaDonChoThanhToan");
                 }
                 catch (Exception ex)
                 {
@@ -469,7 +469,7 @@ namespace qlCaPhe.Controllers
                 default: break;
             }
             kq += taoBangHoaDon(listHoaDon);
-            ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, trangHienHanh, url); //------cấu hình phân trang
+            ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, createHTML.pageSize, trangHienHanh, url); //------cấu hình phân trang
             //----Nhúng script ajax hiển thị chi tiết hóa đơn khi người dùng click vào mã số hóa đơn trên bảng
             ViewBag.ScriptAjaxXemChiTiet = createScriptAjax.scriptAjaxXemChiTietKhiClick("btnXemChiTiet", "maHD", "HoaDon/AjaxXemChiTietHoaDonOrder?maHD=", "vungChiTiet", "modalChiTiet");
             //----Nhúng các tag html cho modal chi tiết
