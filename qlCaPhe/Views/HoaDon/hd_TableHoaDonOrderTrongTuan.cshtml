@@ -41,25 +41,27 @@
 
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <table class="table table-bordered table-striped table-hover js-basic-example dataTable" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
-                                        <thead>
-                                            <tr>
-                                                <th width="9%">Số hóa đơn</th>
-                                                <th width="10%">Số bàn</th>
-                                                <th width="15%">Ngày lập</th>
-                                                <th width="15%">Phục vụ</th>
-                                                <th width="15%">Người xuất</th>
-                                                <th width="10%">Tổng tiền</th>
-                                                <th width="15%">Chức năng</th>
-                                            </tr>
-                                        </thead>
-                                        <tfoot>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped table-hover js-basic-example dataTable" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                                            <thead>
+                                                <tr>
+                                                    <th width="9%">Số hóa đơn</th>
+                                                    <th width="10%">Số bàn</th>
+                                                    <th width="15%">Ngày lập</th>
+                                                    <th width="15%">Phục vụ</th>
+                                                    <th width="15%">Người xuất</th>
+                                                    <th width="10%">Tổng tiền</th>
+                                                    <th width="15%">Chức năng</th>
+                                                </tr>
+                                            </thead>
+                                            <tfoot>
 
-                                        </tfoot>
-                                        <tbody>
-                                            @Html.Raw(ViewBag.TableData)
-                                        </tbody>
-                                    </table>
+                                            </tfoot>
+                                            <tbody>
+                                                @Html.Raw(ViewBag.TableData)
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">

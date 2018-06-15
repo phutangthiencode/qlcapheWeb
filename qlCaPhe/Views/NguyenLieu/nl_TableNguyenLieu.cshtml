@@ -50,46 +50,48 @@
 
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <table class="table table-bordered table-striped table-hover js-basic-example dataTable" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
-                                            <thead>
-                                                <tr>
-                                                    <th width="20%" rowspan="1" colspan="1">Tên nguyên liệu</th>
-                                                    <th width="10%" rowspan="1" colspan="1">Tên loại</th>
-                                                    <th width="25%" rowspan="1" colspan="1">Mô tả</th>
-                                                    <th width="15%" rowspan="1" colspan="1">Đơn vị tính</th>
-                                                    <th width="10%" rowspan="1" colspan="1">Thời hạn</th>
-                                                    <th width="20%" rowspan="1" colspan="1"></th>
-                                                </tr>
-                                            </thead>
-                                            <tfoot>
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-striped table-hover js-basic-example dataTable" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                                                <thead>
+                                                    <tr>
+                                                        <th width="20%" rowspan="1" colspan="1">Tên nguyên liệu</th>
+                                                        <th width="10%" rowspan="1" colspan="1">Tên loại</th>
+                                                        <th width="25%" rowspan="1" colspan="1">Mô tả</th>
+                                                        <th width="15%" rowspan="1" colspan="1">Đơn vị tính</th>
+                                                        <th width="10%" rowspan="1" colspan="1">Thời hạn</th>
+                                                        <th width="20%" rowspan="1" colspan="1"></th>
+                                                    </tr>
+                                                </thead>
+                                                <tfoot>
 
-                                            </tfoot>
-                                            <tbody>
-                                                @Html.Raw(ViewBag.TableData)
-                                                @*<tr role="row" class="odd">
-                                <td>
-                                    <img width="50px" height="auto;" src="~/images/image-gallery/1.jpg"/>
-                                    Cà phê đen    Cà phê đen    Cà phê đen
-                                </td>
-                                <td>Cà phê</td>
-                                <td>Thơm ngon, được làm từ cà phê nguyên chất</td>
-                                <td>1 Tấn</td>
-                                <td>60 ngày</td>
-                                <td>
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                            Chức năng <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="#" class="col-blue"><i class="material-icons">mode_edit</i>Chỉnh sửa</a></li>
-                                            <li><a href="#" class="col-orange"><i class="material-icons">clear</i>Ngưng sử dụng</a></li>
-                                            <li><a href="#" class="col-red"><i class="material-icons">delete</i>Xoá bỏ</a></li>
-                                        </ul>
-                                    </div>
-                                </td>
-                            </tr>*@
-                                            </tbody>
-                                        </table>
+                                                </tfoot>
+                                                <tbody>
+                                                    @Html.Raw(ViewBag.TableData)
+                                                    @*<tr role="row" class="odd">
+                    <td>
+                        <img width="50px" height="auto;" src="~/images/image-gallery/1.jpg"/>
+                        Cà phê đen    Cà phê đen    Cà phê đen
+                    </td>
+                    <td>Cà phê</td>
+                    <td>Thơm ngon, được làm từ cà phê nguyên chất</td>
+                    <td>1 Tấn</td>
+                    <td>60 ngày</td>
+                    <td>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                Chức năng <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#" class="col-blue"><i class="material-icons">mode_edit</i>Chỉnh sửa</a></li>
+                                <li><a href="#" class="col-orange"><i class="material-icons">clear</i>Ngưng sử dụng</a></li>
+                                <li><a href="#" class="col-red"><i class="material-icons">delete</i>Xoá bỏ</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>*@
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row">

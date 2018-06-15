@@ -29,8 +29,8 @@ namespace qlCaPhe.Controllers
                     qlCaPheEntities db = new qlCaPheEntities();
                     this.taoCbbTaiKhoan(db);
                     //------Hiện ngày hiện tại lên textbox ngày
-                    ViewBag.StartDate = xulyDuLieu.doiNgaySangStringHienLenView(new DateTime(1900, 1, 1));
-                    ViewBag.EndDate = xulyDuLieu.doiNgaySangStringHienLenView(DateTime.Now);
+                    ViewBag.StartDate = xulyDuLieu.doiNgaySangStringHienLenView(startDate);
+                    ViewBag.EndDate = xulyDuLieu.doiNgaySangStringHienLenView(endDate);
                 }
                 catch (Exception ex)
                 {
@@ -121,18 +121,18 @@ namespace qlCaPhe.Controllers
         /// <returns>Chuỗi html tạo bảng dữ liệu nhật ký và các trang đã phân chia</returns>
         private string layDanhSachLietKe(int trangHienHanh, qlCaPheEntities db)
         {
-            string kq = ""; int soPhanTu = 0;
+            string kq = ""; int soPhanTu = 0; int pageSize = 30;
             List<nhatKy> list = new List<nhatKy>();
             if (tenDangNhap.Equals("-1"))
             {
                 //-------Lấy tất cả dữ liệu theo thời điểm
-                list = db.nhatKies.Where(n => n.thoiDiem >= startDate && n.thoiDiem <= endDate).OrderByDescending(n => n.thoiDiem).Skip((trangHienHanh - 1) * createHTML.pageSize).Take(createHTML.pageSize).ToList();                
+                list = db.nhatKies.Where(n => n.thoiDiem >= startDate && n.thoiDiem <= endDate).OrderByDescending(n => n.thoiDiem).Skip((trangHienHanh - 1) * pageSize).Take(pageSize).ToList();                
                 soPhanTu = db.nhatKies.Where(n => n.thoiDiem >= startDate && n.thoiDiem <= endDate).Count();            
             }
             else
             {
                 //------Liệt kê nhật ký theo tài khoản
-                list = db.nhatKies.Where(n => n.tenDangNhap.Equals(tenDangNhap) && n.thoiDiem >= startDate && n.thoiDiem <= endDate).OrderByDescending(n => n.thoiDiem).Skip((trangHienHanh - 1) * createHTML.pageSize).Take(createHTML.pageSize).ToList();
+                list = db.nhatKies.Where(n => n.tenDangNhap.Equals(tenDangNhap) && n.thoiDiem >= startDate && n.thoiDiem <= endDate).OrderByDescending(n => n.thoiDiem).Skip((trangHienHanh - 1) * pageSize).Take(pageSize).ToList();
                 soPhanTu = db.nhatKies.Where(n => n.tenDangNhap.Equals(tenDangNhap) && n.thoiDiem >= startDate && n.thoiDiem <= endDate).Count();
             }
             kq += this.taoDuLieuBangNhatKy(list);

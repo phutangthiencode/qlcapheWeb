@@ -54,49 +54,51 @@
                                 <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
                                     <div class="row">
                                         <div class="col-sm-12">
-                                            <table class="table table-bordered table-striped table-hover js-basic-example dataTable" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
-                                                <thead>
-                                                    <tr>
-                                                        <th width="20%" rowspan="1" colspan="1">Tên đồ uống</th>
-                                                        <th width="10%" rowspan="1" colspan="1">Tên loại</th>
-                                                        <th width="25%" rowspan="1" colspan="1">Mô tả</th>
-                                                        <th width="15%" rowspan="1" colspan="1">Đơn giá</th>
-                                                        <th width="10%" rowspan="1" colspan="1">Pha chế</th>
-                                                        <th width="20%" rowspan="1" colspan="1"></th>
-                                                    </tr>
-                                                </thead>
-                                                <tfoot>
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                                                    <thead>
+                                                        <tr>
+                                                            <th width="20%" rowspan="1" colspan="1">Tên đồ uống</th>
+                                                            <th width="10%" rowspan="1" colspan="1">Tên loại</th>
+                                                            <th width="25%" rowspan="1" colspan="1">Mô tả</th>
+                                                            <th width="15%" rowspan="1" colspan="1">Đơn giá</th>
+                                                            <th width="10%" rowspan="1" colspan="1">Pha chế</th>
+                                                            <th width="20%" rowspan="1" colspan="1"></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tfoot>
 
-                                                </tfoot>
-                                                <tbody id="vungDanhSach">
-                                                    @Html.Raw(ViewBag.TableData)
-                                                    @*<tr role="row" class="odd">
-                                                            <td>
+                                                    </tfoot>
+                                                    <tbody id="vungDanhSach">
+                                                        @Html.Raw(ViewBag.TableData)
+                                                        @*<tr role="row" class="odd">
+                    <td>
 
-                                                                <a href="#" data-toggle="modal" data-target="#modalChiTiet" class="goiY">
-                                                                    Tên sản phẩm
-                                                                    <span class="noiDungGoiY-right">Click để xem chi tiết</span>
-                                                                </a>
-                                                            </td>
-                                                            <td>Cà phê</td>
-                                                            <td>Thơm ngon, được làm từ cà phê nguyên chất</td>
-                                                            <td>25.000 VNĐ</td>
-                                                            <td>5 phút</td>
-                                                            <td>
-                                                                <div class="btn-group">
-                                                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                                                        Chức năng <span class="caret"></span>
-                                                                    </button>
-                                                                    <ul class="dropdown-menu" role="menu">
-                                                                        <li><a href="#" class="col-blue"><i class="material-icons">mode_edit</i>Chỉnh sửa</a></li>
-                                                                        <li><a href="#" class="col-orange"><i class="material-icons">clear</i>Ngưng bán</a></li>
-                                                                        <li><a href="#" class="col-red"><i class="material-icons">delete</i>Xoá bỏ</a></li>
-                                                                    </ul>
-                                                                </div>
-                                                            </td>
-                                                        </tr>*@
-                                                </tbody>
-                                            </table>
+                        <a href="#" data-toggle="modal" data-target="#modalChiTiet" class="goiY">
+                            Tên sản phẩm
+                            <span class="noiDungGoiY-right">Click để xem chi tiết</span>
+                        </a>
+                    </td>
+                    <td>Cà phê</td>
+                    <td>Thơm ngon, được làm từ cà phê nguyên chất</td>
+                    <td>25.000 VNĐ</td>
+                    <td>5 phút</td>
+                    <td>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                Chức năng <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#" class="col-blue"><i class="material-icons">mode_edit</i>Chỉnh sửa</a></li>
+                                <li><a href="#" class="col-orange"><i class="material-icons">clear</i>Ngưng bán</a></li>
+                                <li><a href="#" class="col-red"><i class="material-icons">delete</i>Xoá bỏ</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>*@
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="row">

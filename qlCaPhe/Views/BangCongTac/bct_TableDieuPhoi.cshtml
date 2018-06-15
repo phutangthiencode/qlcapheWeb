@@ -42,47 +42,49 @@
 
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <table class="table table-bordered table-striped table-hover js-basic-example dataTable" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
-                                        <thead>
-                                            <tr>
-                                                <th rowspan="1" colspan="1">Tài khoản </th>
-                                                <th rowspan="1" colspan="1">Ngày lập</th>
-                                                <th rowspan="1" colspan="1">Trạng thái</th>
-                                                <th rowspan="1" colspan="1">Ghi chú</th>
-                                                <th rowspan="1" colspan="1"></th>
-                                            </tr>
-                                        </thead>
-                                        <tfoot>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped table-hover js-basic-example dataTable" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                                            <thead>
+                                                <tr>
+                                                    <th rowspan="1" colspan="1">Tài khoản </th>
+                                                    <th rowspan="1" colspan="1">Ngày lập</th>
+                                                    <th rowspan="1" colspan="1">Trạng thái</th>
+                                                    <th rowspan="1" colspan="1">Ghi chú</th>
+                                                    <th rowspan="1" colspan="1"></th>
+                                                </tr>
+                                            </thead>
+                                            <tfoot>
 
-                                        </tfoot>
-                                        <tbody>
-                                            @Html.Raw(ViewBag.TableData)
-                                            @*<tr role="row" class="odd">
-                                <td>
-                                    <a href="#" data-toggle="modal" data-target="#modalChiTiet"
-                                       class="goiY">nmvy<span class="noiDungGoiY-right">Click để xem chi tiết</span></a>
-                                </td>
-                                <td>22/11/2017 12:05:45</td>
-                                <td>Còn sử dụng</td>
-                                <td>không có ghi chú</td>
-                                <td>
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                                            Chức năng <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="#" class="guiRequest  col-blue waves-effect waves-block"><i class="material-icons">mode_edit</i>Chỉnh sửa</a></li>
-                                            <li><a href="#" class="guiRequest  col-orange waves-effect waves-block"><i class="material-icons">clear</i>Chuyển đổi</a></li>
-                                            <li><a href="#" class="xoa col-red waves-effect waves-block"><i class="material-icons">delete</i>Xoá bỏ</a></li>
-                                        </ul>
+                                            </tfoot>
+                                            <tbody>
+                                                @Html.Raw(ViewBag.TableData)
+                                                @*<tr role="row" class="odd">
+                                                        <td>
+                                                            <a href="#" data-toggle="modal" data-target="#modalChiTiet"
+                                                               class="goiY">nmvy<span class="noiDungGoiY-right">Click để xem chi tiết</span></a>
+                                                        </td>
+                                                        <td>22/11/2017 12:05:45</td>
+                                                        <td>Còn sử dụng</td>
+                                                        <td>không có ghi chú</td>
+                                                        <td>
+                                                            <div class="btn-group">
+                                                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                                                    Chức năng <span class="caret"></span>
+                                                                </button>
+                                                                <ul class="dropdown-menu" role="menu">
+                                                                    <li><a href="#" class="guiRequest  col-blue waves-effect waves-block"><i class="material-icons">mode_edit</i>Chỉnh sửa</a></li>
+                                                                    <li><a href="#" class="guiRequest  col-orange waves-effect waves-block"><i class="material-icons">clear</i>Chuyển đổi</a></li>
+                                                                    <li><a href="#" class="xoa col-red waves-effect waves-block"><i class="material-icons">delete</i>Xoá bỏ</a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </td>
+                                                    </tr>*@
+                                            </tbody>
+                                        </table>
                                     </div>
-                                </td>
-                            </tr>*@
-                                        </tbody>
-                                    </table>
                                 </div>
                             </div>
-                            
+
                             <div class="row">
                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12 pull-right">
                                     <div class="pull-right" id="DataTables_Table_0_paginate">
@@ -103,62 +105,62 @@
     @Html.Raw(ViewBag.ModalChiTiet)
     <!-- Modal cho danh sách chi tiết bảng công tác-->
     @*<div class="modal fade" id="modalChiTiet" tabindex="-2" role="dialog" style="display: none;">
-        <div class="modal-dialog modal-lg" style="width:90%" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title" id="largeModalLabel">CHI TIẾT PHÂN CÔNG CHO NHÂN VIÊN NGUYỄN MINH VY</h3>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-12 col-lg-12">
-                            <div class="card">
-                                <div class="header bg-cyan">
-                                    <h2>
-                                        Danh mục ca đã phân công
-                                    </h2>
-                                </div>
-                                <div class="body table-responsive">
-                                    <table class="table table-bordered table-striped table-hover js-basic-example dataTable" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
-                                        <thead>
-                                            <tr>
-                                                <th>Tên ca</th>
-                                                <th>Buổi</th>
-                                                <th>Thời gian làm việc</th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-                                        <tfoot>
+            <div class="modal-dialog modal-lg" style="width:90%" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="largeModalLabel">CHI TIẾT PHÂN CÔNG CHO NHÂN VIÊN NGUYỄN MINH VY</h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12 col-lg-12">
+                                <div class="card">
+                                    <div class="header bg-cyan">
+                                        <h2>
+                                            Danh mục ca đã phân công
+                                        </h2>
+                                    </div>
+                                    <div class="body table-responsive">
+                                        <table class="table table-bordered table-striped table-hover js-basic-example dataTable" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                                            <thead>
+                                                <tr>
+                                                    <th>Tên ca</th>
+                                                    <th>Buổi</th>
+                                                    <th>Thời gian làm việc</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tfoot>
 
-                                        </tfoot>
-                                        <tbody>
-                                            <tr role="row" class="odd">
-                                                <td>
-                                                    Ca 1
-                                                </td>
-                                                <td>Sáng</td>
-                                                <td>7:00 - 11:00</td>
-                                            </tr>
+                                            </tfoot>
+                                            <tbody>
+                                                <tr role="row" class="odd">
+                                                    <td>
+                                                        Ca 1
+                                                    </td>
+                                                    <td>Sáng</td>
+                                                    <td>7:00 - 11:00</td>
+                                                </tr>
 
-                                            <tr role="row" class="odd">
-                                                <td>
-                                                    Ca 1
-                                                </td>
-                                                <td>Sáng</td>
-                                                <td>7:00 - 11:00</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                                <tr role="row" class="odd">
+                                                    <td>
+                                                        Ca 1
+                                                    </td>
+                                                    <td>Sáng</td>
+                                                    <td>7:00 - 11:00</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal"><i class="material-icons">exit_to_app</i>Đóng lại</button>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default waves-effect" data-dismiss="modal"><i class="material-icons">exit_to_app</i>Đóng lại</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>*@  
+        </div>*@
     <!-- Modal cho danh sách chi tiết  -->
 </section>
 @*modal Xóa*@

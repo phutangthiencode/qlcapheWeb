@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Danh mục khu vực";
     Layout = "~/Views/Shared/_LayoutTools.cshtml";
 }
@@ -37,46 +36,48 @@
                         </div>
                     </div>
                     <div class="body">
-                        <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                        <div class="dataTables_wrapper form-inline dt-bootstrap">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <table class="table table-bordered table-striped table-hover js-basic-example dataTable" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
-                                        <thead>
-                                            <tr>
-                                                <th width="20%">Tên khu vực</th>
-                                                <th width="35%">Diễn giải</th>
-                                                <th width="10%">Diện tích</th>
-                                                <th width="15%">Tổng sức chứa</th>
-                                                <th width="20%">Chức năng</th>
-                                            </tr>
-                                        </thead>
-                                        <tfoot>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped table-hover js-basic-example dataTable" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                                            <thead>
+                                                <tr>
+                                                    <th width="20%">Tên khu vực</th>
+                                                    <th width="35%">Diễn giải</th>
+                                                    <th width="10%">Diện tích</th>
+                                                    <th width="15%">Tổng sức chứa</th>
+                                                    <th width="20%">Chức năng</th>
+                                                </tr>
+                                            </thead>
+                                            <tfoot>
 
-                                        </tfoot>
-                                        <tbody>
-                                            @Html.Raw(ViewBag.TableData)
-                                            @*<tr role="row" class="odd">
-                                <td>
-                                    Khu vực A
-                                </td>
-                                <td>Trên lầu, thoáng mát</td>
-                                <td>30 m<sup>2</sup></td>
-                                <td>100 khách</td>
-                                <td>
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                            Chức năng <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="/KhuVuc/kv_ChinhSuaKhuVuc?maKV=" class="col-blue"><i class="material-icons">mode_edit</i>Chỉnh sửa</a></li>
-                                            <li><a href="#" class="col-red"><i class="material-icons">delete</i>Xoá bỏ</a></li>
-                                        </ul>
+                                            </tfoot>
+                                            <tbody>
+                                                @Html.Raw(ViewBag.TableData)
+                                                @*<tr role="row" class="odd">
+                                                        <td>
+                                                            Khu vực A
+                                                        </td>
+                                                        <td>Trên lầu, thoáng mát</td>
+                                                        <td>30 m<sup>2</sup></td>
+                                                        <td>100 khách</td>
+                                                        <td>
+                                                            <div class="btn-group">
+                                                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                                                    Chức năng <span class="caret"></span>
+                                                                </button>
+                                                                <ul class="dropdown-menu" role="menu">
+                                                                    <li><a href="/KhuVuc/kv_ChinhSuaKhuVuc?maKV=" class="col-blue"><i class="material-icons">mode_edit</i>Chỉnh sửa</a></li>
+                                                                    <li><a href="#" class="col-red"><i class="material-icons">delete</i>Xoá bỏ</a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </td>
+                                                    </tr>*@
+
+                                            </tbody>
+                                        </table>
                                     </div>
-                                </td>
-                            </tr>*@
-
-                                        </tbody>
-                                    </table>
                                 </div>
                             </div>
                             <div class="row">
@@ -87,6 +88,8 @@
                                 </div>
                             </div>
                         </div>
+
+
                     </div>
                 </div>
             </div>

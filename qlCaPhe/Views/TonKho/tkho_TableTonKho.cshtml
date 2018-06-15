@@ -42,30 +42,32 @@
                         <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <table class="table table-bordered table-striped table-hover js-basic-example dataTable" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
-                                        <thead>
-                                            <tr>
-                                                <th width="10%">Mã số kỳ</th>
-                                                <th width="25%">Người kiểm</th>
-                                                <th width="35%">Ngày kiểm</th>
-                                                <th width="15%">Tổng tiền</th>
-                                                <th width="20%">Chức năng</th>
-                                            </tr>
-                                        </thead>
-                                        <tfoot>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped table-hover js-basic-example dataTable" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                                            <thead>
+                                                <tr>
+                                                    <th width="10%">Mã số kỳ</th>
+                                                    <th width="25%">Người kiểm</th>
+                                                    <th width="35%">Ngày kiểm</th>
+                                                    <th width="15%">Tổng tiền</th>
+                                                    <th width="20%">Chức năng</th>
+                                                </tr>
+                                            </thead>
+                                            <tfoot>
 
-                                        </tfoot>
-                                        <tbody>
-                                            @Html.Raw(ViewBag.TableData)
-                                            @*<tr role="row" class="odd">
-                                <td>121</td>
-                                <td>phutangthien</td>
-                                <td>02/11/1996</td>
-                                <td>192000</td>
-                                <td><a href="TonKho/tkho_TableCtTonKho" class="btn btn-info waves-effect">Xem chi tiết </a></td>
-                            </tr>*@
-                                        </tbody>
-                                    </table>
+                                            </tfoot>
+                                            <tbody>
+                                                @Html.Raw(ViewBag.TableData)
+                                                @*<tr role="row" class="odd">
+                                                        <td>121</td>
+                                                        <td>phutangthien</td>
+                                                        <td>02/11/1996</td>
+                                                        <td>192000</td>
+                                                        <td><a href="TonKho/tkho_TableCtTonKho" class="btn btn-info waves-effect">Xem chi tiết </a></td>
+                                                    </tr>*@
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">

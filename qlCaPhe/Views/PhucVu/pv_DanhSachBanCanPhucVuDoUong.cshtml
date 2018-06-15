@@ -30,23 +30,25 @@
                             <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <table class="table table-bordered table-striped table-hover js-basic-example dataTable" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
-                                            <thead>
-                                                <tr>
-                                                    <th rowspan="1" width="20%" colspan="1">Số bàn</th>
-                                                    <th rowspan="1" width="20%" colspan="1">Tiếp nhận lúc</th>
-                                                    <th rowspan="1" width="20%" colspan="1">Số sản phẩm</th>
-                                                    <th rowspan="1" width="20%" colspan="1">Tổng tiền</th>
-                                                    <th rowspan="1" width="20%" colspan="1">Chức năng</th>
-                                                </tr>
-                                            </thead>
-                                            <tfoot>
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-striped table-hover js-basic-example dataTable" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                                                <thead>
+                                                    <tr>
+                                                        <th rowspan="1" width="20%" colspan="1">Số bàn</th>
+                                                        <th rowspan="1" width="20%" colspan="1">Tiếp nhận lúc</th>
+                                                        <th rowspan="1" width="20%" colspan="1">Số sản phẩm</th>
+                                                        <th rowspan="1" width="20%" colspan="1">Tổng tiền</th>
+                                                        <th rowspan="1" width="20%" colspan="1">Chức năng</th>
+                                                    </tr>
+                                                </thead>
+                                                <tfoot>
 
-                                            </tfoot>
-                                            <tbody id="danhSachPhucVu">
-                                                @Html.Raw(ViewBag.TableData)
-                                            </tbody>
-                                        </table>
+                                                </tfoot>
+                                                <tbody id="danhSachPhucVu">
+                                                    @Html.Raw(ViewBag.TableData)
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
 
