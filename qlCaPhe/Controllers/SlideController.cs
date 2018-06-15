@@ -43,7 +43,7 @@ namespace qlCaPhe.Controllers
                     kqLuu = db.SaveChanges();
                     if (kqLuu > 0)
                     {
-                        ndThongBao = createHTML.taoNoiDungThongBao("Slideshow", s.maSlide.ToString(), "sl_TableSlideShow?trangThai=false");
+                        ndThongBao = createHTML.taoNoiDungThongBao("Slideshow", s.maSlide.ToString(), "RouteSlideCamHienThi");
                         this.resetDuLieu();
                         xulyChung.ghiNhatKyDtb(2, "Chỉnh sửa slideshow\" " + s.maSlide.ToString() + " \"");
                     }
@@ -91,7 +91,7 @@ namespace qlCaPhe.Controllers
         /// <returns></returns>
         public ActionResult sl_TableSlideShow(int ?page)
         {
-            int trangHienHanh = (page ?? 1);
+            int trangHienHanh = (page ?? 1); int pageSize = 6;
             if (xulyChung.duocTruyCap(idOfPage))
             {
                 string htmlTable = "";
@@ -109,7 +109,7 @@ namespace qlCaPhe.Controllers
                         int soPhanTu = db.slides.Where(t => t.trangThai == trangThai).Count();
                         ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, trangHienHanh, "/Slide/sl_TableSlideShow");
 
-                        foreach (slide s in new qlCaPheEntities().slides.ToList().Where(sl => sl.trangThai == trangThai).OrderBy(l=>l.thuTu).Skip((trangHienHanh - 1) * createHTML.pageSize).Take(createHTML.pageSize))
+                        foreach (slide s in new qlCaPheEntities().slides.ToList().Where(sl => sl.trangThai == trangThai).OrderBy(l=>l.thuTu).Skip((trangHienHanh - 1) * pageSize).Take(pageSize))
                             htmlTable += this.createTable(s);
                     }
                     else throw new Exception("không có tham số ");
@@ -187,9 +187,9 @@ namespace qlCaPhe.Controllers
                             {
                                 xulyChung.ghiNhatKyDtb(4, "Cập nhật trạng thái slideshow\" " + slideSua.maSlide.ToString() + " \"");
                                 if (trangThaiCu)
-                                    Response.Redirect(xulyChung.layTenMien() + "/Slide/sl_TableSlideShow?trangThai=true");
+                                    Response.Redirect(xulyChung.layTenMien() + "/Slide/RouteSlideHienThi");
                                 else
-                                    Response.Redirect(xulyChung.layTenMien() + "/Slide/sl_TableSlideShow?trangThai=false");
+                                    Response.Redirect(xulyChung.layTenMien() + "/Slide/RouteSlideCamHienThi");
                             }
                         }
                         else
@@ -261,7 +261,7 @@ namespace qlCaPhe.Controllers
                         if (kqLuu > 0)
                         {
                             xulyChung.ghiNhatKyDtb(4, "Chỉnh sửa slideshow\" " + slideSua.maSlide.ToString() + " \"");
-                            return RedirectToAction("sl_TableSlideShow", new { trangThai = false }); //Chuyển đến trang danh sách slideshow không hiển thị khi thành công
+                            return RedirectToAction("RouteSlideCamHienThi"); //Chuyển đến trang danh sách slideshow không hiển thị khi thành công
                         }
                     }
                 }

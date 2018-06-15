@@ -36,10 +36,6 @@ public class bNhanVien : System.Web.Services.WebService
         int kq = 0;
         try
         {
-            //--------Thay thế ký tự khoảng trắng có trong chuỗi pass ban đầu thành + 
-            //pass = pass.Replace(" ", "+");
-            ////---------Giải mã lại mật khẩu vừa nhận để truyền phương thức bên dưới
-            //pass = xulyMaHoa.Decrypt(pass);
             kq = bProfile.kiemTraDangNhap(user, pass);
         }
         catch (Exception ex)

@@ -13,3 +13,23 @@ Vị trí: Class SlideController - Function: sl_TableSlideShow
  Lỗi: không có tham số 
 ---------------------------------------------------------------
 
+-----------------------6/15/2018 5:35:20 PM----------
+Vị trí: Class: xulyFile - Function: donDepTM 
+ Lỗi: The process cannot access the file 'img9.jpg' because it is being used by another process.
+---------------------------------------------------------------
+
+-----------------------6/15/2018 5:41:14 PM----------
+Vị trí: Class: xulyChung - Function: ghiNhatKy 
+ Lỗi: An error occurred while updating the entries. See the inner exception for details.
+---------------------------------------------------------------
+
+-----------------------6/15/2018 5:46:34 PM----------
+Vị trí: Class: xulyFile - Function: donDepTM 
+ Lỗi: The process cannot access the file 'img5.jpg' because it is being used by another process.
+---------------------------------------------------------------
+
+-----------------------6/15/2018 5:49:59 PM----------
+Vị trí: Class: xulyFile - Function: donDepTM 
+ Lỗi: The process cannot access the file 'img4.jpg' because it is being used by another process.
+---------------------------------------------------------------
+

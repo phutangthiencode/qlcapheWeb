@@ -82,24 +82,5 @@ namespace qlCaPhe.App_Start.Cart
             return kq;
         }
 
-        /// <summary>
-        /// Hàm lấy thông tin của 1 ca làm việc đã có trong giỏ
-        /// </summary>
-        /// <param name="maCa">Mã ca làm việc cần lấy</param>
-        /// <returns></returns>
-        public ctBangGiaoViec getInfo(int maCa)
-        {
-            try
-            {
-                foreach (ctBangGiaoViec item in this.Info.Values)
-                    if (item.maCa== maCa)
-                        return item;
-            }
-            catch (Exception ex)
-            {
-                xulyFile.ghiLoi("Class: cartDieuPhoi - Function: getInfo", ex.Message);
-            }
-            return null;
-        }
     }
 }

@@ -171,8 +171,6 @@
     <Compile Include="App_Start\Cart\cartXuatKho.cs" />
     <Compile Include="App_Start\createScriptCarvas.cs" />
     <Compile Include="App_Start\TableData\createTableData.cs" />
-    <Compile Include="App_Start\TableData\DanhSachNut.cs" />
-    <Compile Include="App_Start\TableData\NutChucNang.cs" />
     <Compile Include="App_Start\Cart\cartCongThuc.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -183,12 +181,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="App_Start\TableData\DuLieuBang.cs" />
     <Compile Include="App_Start\xulyChung.cs" />
     <Compile Include="App_Start\xulyDuLieu.cs" />
     <Compile Include="App_Start\xulyFile.cs" />
     <Compile Include="App_Start\xulyMaHoa.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AjaxController.cs" />
     <Compile Include="Controllers\BaiVietController.cs" />
     <Compile Include="Controllers\BanController.cs" />
@@ -207,7 +203,6 @@
     <Compile Include="Controllers\NghiepVuBanController.cs" />
     <Compile Include="Controllers\NguyenLieuController.cs" />
     <Compile Include="Controllers\NhaCungCapController.cs" />
-    <Compile Include="Controllers\NhanBanController.cs" />
     <Compile Include="Controllers\NhapKhoController.cs" />
     <Compile Include="Controllers\NhatKyController.cs" />
     <Compile Include="Controllers\NhomTaiKhoanController.cs" />
@@ -234,7 +229,6 @@
     <Compile Include="Models\BangGiaoViec.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Business\bHoaDon.cs" />
     <Compile Include="Models\Business\bHoaDonTam.cs" />
     <Compile Include="Models\Business\bMenuTools.cs" />
     <Compile Include="Models\Business\bNguyenLieu.cs" />
@@ -289,7 +283,6 @@
     </Compile>
     <Compile Include="Models\EditorHTML.cs" />
     <Compile Include="Models\Entities\MenuTools.cs" />
-    <Compile Include="Models\Entities\QuyenHan.cs" />
     <Compile Include="Models\Entities\Services\svBanChoNgoi.cs" />
     <Compile Include="Models\Entities\Services\svCtHoaDonTam.cs" />
     <Compile Include="Models\Entities\Services\svCtTonKho.cs" />
@@ -4002,19 +3995,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
-    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
-    <Content Include="Views\Account\_RemoveAccountPartial.cshtml" />
-    <Content Include="Views\Account\_SetPasswordPartial.cshtml" />
-    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\Manage.cshtml" />
-    <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Tools_VungLamViec\Index.cshtml" />
     <Content Include="Views\NhomTaiKhoan\ntk_TaoMoiNhomTK.cshtml" />
@@ -4033,11 +4014,7 @@
     <Content Include="Views\DoUong\du_TaoMoiDoUong.cshtml" />
     <Content Include="Views\CongThuc\ct_TableCongThuc.cshtml" />
     <Content Include="Views\CongThuc\ct_TaoMoiCongThuc.cshtml" />
-    <Content Include="Views\NhanBan\QuanLyDatBan.cshtml" />
     <Content Include="Views\HoaDon\hd_TableHoaDonChoThanhToan.cshtml" />
-    <Content Include="Views\NhanBan\TableNhanBanOnline.cshtml" />
-    <Content Include="Views\NhanBan\TablePhaChe.cshtml" />
-    <Content Include="Views\NhanBan\TablePhucVu.cshtml" />
     <Content Include="Views\LoaiNguyenLieu\lnl_TaoMoiLoaiNguyenLieu.cshtml" />
     <Content Include="Views\LoaiNguyenLieu\lnl_TableLoaiNguyenLieu.cshtml" />
     <Content Include="Views\NguyenLieu\nl_TaoMoiNguyenLieu.cshtml" />
@@ -4104,7 +4081,6 @@
     <Content Include="Views\NghiepVuBan\nvb_QuanLyDatBanTaiQuan.cshtml" />
     <Content Include="Views\PhaChe\pc_ThucHienPhaCheTheoBan.cshtml" />
     <Content Include="Views\TonKho\tkho_TableTonKho.cshtml" />
-    <Content Include="Views\Ajax\xulyRequest.cshtml" />
     <Content Include="Views\PhaChe\pc_PhaCheTheoBan.cshtml" />
     <Content Include="Views\PhaChe\pc_PhaCheTheoSanPham.cshtml" />
     <Content Include="Views\PhaChe\pc_PhaCheTheoThoiGian.cshtml" />
@@ -4138,7 +4114,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="App_Start\Data\" />
     <Folder Include="pages\temp\baiViet\" />
     <Folder Include="pages\temp\banChoNgoi\" />
     <Folder Include="pages\temp\cauHinh\" />
@@ -4147,7 +4122,6 @@
     <Folder Include="pages\temp\nhaCungCap\" />
     <Folder Include="pages\temp\slideshow\" />
     <Folder Include="pages\temp\thanhVien\" />
-    <Folder Include="Views\ThanhToan\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
