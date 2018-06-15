@@ -172,5 +172,15 @@ namespace qlCaPhe.App_Start
         {
             return string.Format("{0:yyyy-MM-dd}", date); ;
         }
+
+        /// <summary>
+        /// Hàm thực hiện chuyển đổi 1 object kiểu số sang chuỗi Tiền tệ VND
+        /// </summary>
+        /// <param name="obj0">Object kiểu số cần chuyển đổi</param>
+        /// <returns>Chuỗi tiền tệ đã chuyển đổi <para/> VD: 1,780,000 vnđ </returns>
+        public static string doiVND(object obj0)
+        {
+            return String.Format("{0:0,0 VNĐ}", obj0);
+        }
     }
 }

@@ -146,7 +146,7 @@ namespace qlCaPhe.Controllers
                         htmlTable += "      </td>";
                         htmlTable += "      <td>" + xulyDuLieu.traVeKyTuGoc(phieu.khoHang.tenKhoHang) + "</td>";
                         htmlTable += "      <td>" + phieu.ngayNhap.ToString() + "</td>";
-                        htmlTable += "      <td>" + phieu.tongTien.ToString() + "</td>";
+                        htmlTable += "      <td>" + xulyDuLieu.doiVND(phieu.tongTien) + "</td>";
                         htmlTable += "      <td>" + xulyDuLieu.traVeKyTuGoc(phieu.taiKhoan.thanhVien.hoTV) + " " + xulyDuLieu.traVeKyTuGoc(phieu.taiKhoan.thanhVien.tenTV) + "</td>";
                         htmlTable += "      <td>";
                         htmlTable += "          <div class=\"btn-group\">";
@@ -203,7 +203,7 @@ namespace qlCaPhe.Controllers
                     kq += "             </td>";
                     kq += "             <td>" + xulyDuLieu.traVeKyTuGoc(ct.nhaCungCap.tenNhaCC) + "</td>";
                     kq += "             <td>" + bNguyenLieu.chuyenDoiDonViNhoSangLon(ct.soLuongNhap, ct.nguyenLieu).ToString() + " " + xulyDuLieu.traVeKyTuGoc(ct.nguyenLieu.donViHienThi) + "</td>";
-                    kq += "             <td>" + ct.donGiaNhap.ToString() + "</td>";
+                    kq += "             <td>" + xulyDuLieu.doiVND(ct.donGiaNhap) + "</td>";
                     kq += "             <td>";
                     //-----------Lấy mã nguyên liệu làm key trong list session để xác định chi tiết cần xóa
                     kq += "                 <button type=\"button\" maCt=\"" + ct.maNguyenLieu + "\" class=\"btn btn-danger xoaChiTiet\">Xoá nguyên liệu</button>";
@@ -214,7 +214,7 @@ namespace qlCaPhe.Controllers
                 kq += "</table>";
                 //---Hiện thông tin tổng tiền nhập nguyên liệu
                 kq += "<label class=\"font-20 col-red bold\" id=\"TongTienCart";
-                kq += "\">Tổng số tiền nhập nguyên liệu: " + cart.getTotalPrice().ToString() + " VNĐ</label><br />";
+                kq += "\">Tổng số tiền nhập nguyên liệu: " + xulyDuLieu.doiVND(cart.getTotalPrice()) + " </label><br />";
             }
             catch (Exception ex)
             {
@@ -282,7 +282,7 @@ namespace qlCaPhe.Controllers
                     kq += "<div class=\"modal-footer\">";
                     kq += "     <div class=\"col-md-9\">";
                     kq += "         <div class=\"pull-left\">";
-                    kq += "             <label class=\"font-18 pull-left col-red bold\">Tổng tiền: " + phieuNhap.tongTien.ToString() + " VNĐ</label><br />";
+                    kq += "             <label class=\"font-18 pull-left col-red bold\">Tổng tiền: " + xulyDuLieu.doiVND(phieuNhap.tongTien) + " VNĐ</label><br />";
                     kq += "             <label class=\"pull-left col-blue-grey\"><i>* Ghi chú: </i>" + xulyDuLieu.traVeKyTuGoc(phieuNhap.ghiChu) + "</label>";
                     kq += "         </div>";
                     kq += "     </div>";

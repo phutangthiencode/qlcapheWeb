@@ -35,7 +35,7 @@ namespace qlCaPhe.Controllers
                         html += "   </td>";
                         html += "   <td>" + hoaDon.ngayLap.ToString() + "</td>";
                         html += "   <td>" + new bHoaDonTam().layTongSoLuongSanPhamTrongHoaDon(hoaDon, 2) + "</td>";
-                        html += "   <td>" + hoaDon.tongTien.ToString() + "</td>";
+                        html += "   <td>" + xulyDuLieu.doiVND(hoaDon.tongTien) + "</td>";
                         html += "   <td>";
                         html += "       <div class=\"btn-group\">";
                         html += "             <a task=\"" + xulyChung.taoUrlCoTruyenThamSo("Phucvu/capNhatSangDaGiao", hoaDon.maBan.ToString()) + "\" class=\"addSession btnGiaoTatCa  btn btn-warning waves-effect\"><i class=\"material-icons\">done_all</i><span>Giao tất cả</span></a>";

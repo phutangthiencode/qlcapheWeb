@@ -17,6 +17,7 @@
     }
 </style>
 
+
 <section class="content">
     <div class="container-fluid">
         <div class="block-header">
@@ -65,7 +66,7 @@
                                                                 <b> @xulyDuLieu.traVeKyTuGoc(ct.sanPham.tenSanPham)</b>
                                                             </td>
                                                             <td>@ct.soLuong.ToString() </td>
-                                                            <td>@ct.sanPham.donGia.ToString() VNĐ</td>
+                                                            <td><b class="col-pink">@xulyDuLieu.doiVND(ct.sanPham.donGia)</b></td>
                                                         </tr>
                                                     }
                                                 </tbody>
@@ -87,7 +88,7 @@
                                                     <div class="form-group">
                                                         <div class="form-line"> 
                                                             @{ var tongTien = new bHoaDonTam().layTongTienSanPham(Model); }
-                                                            <label class="font-16 font-bold col-pink"><span id="lbTamTinh">@tongTien.ToString()</span> VNĐ</label>
+                                                            <label class="font-16 font-bold col-pink"><span id="lbTamTinh">@xulyDuLieu.doiVND(tongTien)</span></label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -150,6 +151,7 @@
     </div>
 </section>
 @Html.Raw(ViewBag.ModalBill)
+<script src="~/Scripts/dungChung.js"></script>
 <script>
 
     $(document).ready(function () {
@@ -162,25 +164,22 @@
         $('#btnTinhTien').click(function (e) {
             var status = false
             var tienHoanLai = "Tiền khách trả chưa đủ";
-            var tamTinh = parseInt($('#lbTamTinh').text(), 10);
+            var tamTinh = parseInt($('#lbTamTinh').text().replace(",",""));
             var tienKhachDua = parseInt($('#txtTienKhachDua').val(), 10);
             if (tienKhachDua > 0) {
                 var tienChietKhau = parseInt($('#txtTienChietKhau').val(), 10);
                 if (tienChietKhau > 0)
                     tamTinh -= tienChietKhau;//Tính tiền sau khi chiết khấu
-
-                //if (tienKhachDua < tamTinh)
-                //    tienHoanLai = "Tiền khách trả chưa đủ";
                 if (tienKhachDua >= tamTinh) {
                     tienHoanLai = "Hoàn lại: " + (tienKhachDua - tamTinh) + " VNĐ ||";
                     status = true;
                 }
                 if (status == true) {
                     $('#btnSave').attr('style', 'display:block');
-                    $('#lbTongTien').html("Tạm tính: " + tamTinh + " VNĐ");
+                    $('#lbTongTien').html("Tạm tính: " + formatTienTe(tamTinh, ".", ",") + " VNĐ");
                 }
             }
-            $('#lbTienHoanLai').html(tienHoanLai);
+            $('#lbTienHoanLai').html(formatTienTe(tienHoanLai, ".", ","));
             $('#txtTienMat').val(tamTinh);
             $('#txtTienTra').val((tienKhachDua-tamTinh));
             thucThi();
@@ -189,7 +188,7 @@
 
     }
 
-
+    //-------Hàm mở công cụ in 
     function printContent(el) {
         var restorepage = $('body').html();
         var printcontent = $('#' + el).clone();

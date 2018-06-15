@@ -155,7 +155,7 @@ namespace qlCaPhe.Controllers
                     htmlTable += "      </td>";
                     htmlTable += "      <td>" + xulyDuLieu.traVeKyTuGoc(sp.loaiSanPham.tenLoai) + "</td>";
                     htmlTable += "      <td>" + xulyDuLieu.traVeKyTuGoc(sp.moTa) + "</td>";
-                    htmlTable += "      <td>" + sp.donGia.ToString() + " VNĐ</td>";
+                    htmlTable += "      <td>" + xulyDuLieu.doiVND(sp.donGia) + " VNĐ</td>";
                     htmlTable += "      <td>" + sp.thoiGianPhaChe.ToString() + " phút</td>";
                     htmlTable += "      <td>";
                     htmlTable += this.thietLapNutChucNangTable(sp);

@@ -324,7 +324,7 @@ namespace qlCaPhe.Controllers
                 html += "     <div class=\"hetHang\"></div>";
             html += "         <div class=\"caption\">";
             html += "            <h3>" + xulyDuLieu.traVeKyTuGoc(sp.tenSanPham) + "</h3>";
-            html += "            <label class=\"font-13 font-bold col-pink\">" + sp.donGia.ToString() + " VNĐ</label>";
+            html += "            <label class=\"font-13 font-bold col-pink\">" + xulyDuLieu.doiVND(sp.donGia) +"</label>";
             html += "            <button class=\"btn btn-info btnChonSP\" maSP=\"" + sp.maSanPham.ToString() + "\">Chọn</button>";
             html += "         </div>";
             html += "    </div>";
@@ -347,7 +347,7 @@ namespace qlCaPhe.Controllers
                 //-------Hiện bảng danh sách sản phẩm của bàn. CHỈ LẤY DANH SÁCH SẢN PHẨM ĐƯỢC BÁN
                 html += this.taoBangDanhSachSanPhamTrenBan(db.ctHoaDonTams.Where(c => c.maBan == maBan && c.trangThaiPhaChe!=4).ToList());
                 //--------Hiện tổng tiền hóa đơn
-                html += "   <p class=\"font-16 font-bold col-pink\">Tạm tính: <i>" + db.hoaDonTams.SingleOrDefault(h => h.maBan == maBan).tongTien.ToString() + " VNĐ</i></p>";
+                html += "   <p class=\"font-16 font-bold col-pink\">Tạm tính: <i>" + xulyDuLieu.doiVND(db.hoaDonTams.SingleOrDefault(h => h.maBan == maBan).tongTien) + " </i></p>";
                 html += "</div>";
             }
             catch (Exception ex)
@@ -383,7 +383,7 @@ namespace qlCaPhe.Controllers
                 html += "                   <b>" + xulyDuLieu.traVeKyTuGoc(ct.sanPham.tenSanPham) + "</b>";
                 html += "               </td>";
                 html += "               <td>" + ct.soLuong.ToString() + "</td>";
-                html += "               <td>" + ct.donGia.ToString() + " VNĐ</td>";
+                html += "               <td>" + xulyDuLieu.doiVND(ct.donGia) + " </td>";
                 html += "           </tr>";
             }
             html += "       </tbody>";
@@ -453,13 +453,7 @@ namespace qlCaPhe.Controllers
             {
                 //-------Tạo bản danh sách sản phẩm có trong cart session
                 html += this.taoBangDanhSachSanPhamDaOrder(list, "txtSoLuongS", "btnUpdateCart", "btnRemoveCart");
-                html += "<div class=\"col-md-9\" id=\"divTongTien\" style=\"display:block\"><p class=\"font-16 font-bold col-pink\">Tạm tính: <i>" + tongTien.ToString() + " VNĐ</p>";
-                //html += "   <label for=\"txtTenQuan\">Ghi chú</label>";
-                //html += "   <div class=\"form-group\">";
-                //html += "       <div class=\"form-line\">";
-                //html += "           <input type=\"text\" id=\"txtGhiChu\" class=\"form-control\" placeholder=\"Nhập thêm yêu cầu...\"/>";
-                //html += "       </div>    ";
-                //html += "   </div>";
+                html += "<div class=\"col-md-9\" id=\"divTongTien\" style=\"display:block\"><p class=\"font-16 font-bold col-pink\">Tạm tính: <i>" + xulyDuLieu.doiVND(tongTien) + " </p>";
                 html += "</div>";
 
             }
@@ -674,7 +668,7 @@ namespace qlCaPhe.Controllers
                 //--------Lấy tổng tiền trong bảng hoaDonTam có trong session
                 cartHoaDonTam tongTien = (cartHoaDonTam)Session["hoaDonTam"];
                 //--------Hiện tổng số tiền của hóa đơn
-                html += "<div class=\"col-md-9\" id=\"divTongTien\" style=\"display:block\"><p class=\"font-16 font-bold col-pink\">Tạm tính: <i>" + tongTien.tongTienDtb.ToString() + " VNĐ</p></div>";
+                html += "<div class=\"col-md-9\" id=\"divTongTien\" style=\"display:block\"><p class=\"font-16 font-bold col-pink\">Tạm tính: <i>" + xulyDuLieu.doiVND(tongTien.tongTienDtb) + " </p></div>";
             }
             catch (Exception ex)
             {
@@ -881,7 +875,7 @@ namespace qlCaPhe.Controllers
                 html += "               <input type=\"number\" value=\"" + ct.soLuong.ToString() + "\" min=1 class=\"form-control\" id=\"" + idTextBoxSoLuong + ct.maCtTam.ToString() + "\" style=\"width:100%\"";
                 if (ct.trangThaiPhaChe > 0) html += " disabled "; html += "/>";//----Kiểm tra nếu sản phẩm đang pha chế hoặc đã giao thì không được cập nhật số lượng
                 html += "           </td>";
-                html += "           <td>" + ct.donGia.ToString() + "</td>";
+                html += "           <td>" + xulyDuLieu.doiVND(ct.donGia).Replace("VNĐ", "") + "</td>";
                 html += "           <td>";
                 if (ct.trangThaiPhaChe <= 1) //Nếu trạng thái sản phẩm CHƯA PHA CHẾ thì mới được CẬP NHẬT
                 {

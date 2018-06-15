@@ -516,7 +516,7 @@ namespace qlCaPhe.Controllers
             kq += "     </tbody>";
             kq += "</table>";
             //Trả vê chuỗi htmlBangDanhSachCacBuoc|bảng danh sách nguyên liệu|tongGiaNguyenLieu
-            return kq + "|" + this.taoBangNguyenLieuSuDung() + "|" + cart.getTotalPriceNguyenLieu().ToString(); ;
+            return kq + "|" + this.taoBangNguyenLieuSuDung() + "|" + xulyDuLieu.doiVND(cart.getTotalPriceNguyenLieu()) ;
         }
         /// <summary>
         /// hàm tạo bảng danh sách nguyên liệu đã dùng và gán vào tag có id...

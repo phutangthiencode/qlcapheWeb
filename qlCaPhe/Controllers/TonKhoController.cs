@@ -187,7 +187,7 @@ namespace qlCaPhe.Controllers
             string kq = "";
             kq += "<tr role=\"row\" class=\"odd\">";
             kq += "    <td><b>" + xulyDuLieu.traVeKyTuGoc(item.nguyenLieu.tenNguyenLieu) + "</b></td>";
-            kq += "    <td>" + item.donGia.ToString() + "</td>";
+            kq += "    <td>" + xulyDuLieu.doiVND(item.donGia) + "</td>";
             kq += "    <td>   <input  min=\"0\" class=\"form-control\" id=\"txtSoLuongThucTe" + item.maNguyenLieu.ToString() + "\" style=\"width:100%\"></td>";
             kq += "    <td>" + xulyDuLieu.traVeKyTuGoc(item.nguyenLieu.donViPhaChe) + "</td>";
             kq += "    <td>   <input type=\"text\" min=\"0\" class=\"form-control\" id=\"txtNguyenNhan" + item.maNguyenLieu.ToString() + "\" placeholder=\"Nguyên nhân hao hụt\" style=\"width:100%\"></td>";
@@ -210,7 +210,7 @@ namespace qlCaPhe.Controllers
                 {
                     kq += "<tr role=\"row\" class=\"odd\">";
                     kq += "    <td><b>" + xulyDuLieu.traVeKyTuGoc(item.nguyenLieu.tenNguyenLieu) + "</b></td>";
-                    kq += "    <td>" + item.donGia.ToString() + "</td>";
+                    kq += "    <td>" + xulyDuLieu.doiVND(item.donGia)+ "</td>";
                     kq += "    <td>   <input type=\"number\" min=\"0\" class=\"form-control\" id=\"txtSoLuongThucTe" + item.maNguyenLieu.ToString() + "\" style=\"width:100%\"></td>";
                     kq += "    <td>" + xulyDuLieu.traVeKyTuGoc(item.nguyenLieu.donViPhaChe) + "</td>";
                     kq += "    <td>   <input type=\"text\" min=\"0\" class=\"form-control\" id=\"txtNguyenNhan" + item.maNguyenLieu.ToString() + "\" placeholder=\"Nguyên nhân hao hụt\" style=\"width:100%\"></td>";
@@ -305,7 +305,7 @@ namespace qlCaPhe.Controllers
                     string donViTinh = xulyDuLieu.traVeKyTuGoc(item.nguyenLieu.donViPhaChe);
                     kq += "<tr role=\"row\" class=\"odd\">";
                     kq += "    <td><b>" + xulyDuLieu.traVeKyTuGoc(item.nguyenLieu.tenNguyenLieu) + "</b></td>";
-                    kq += "    <td>" + item.donGia.ToString() + "</td>";
+                    kq += "    <td>" + xulyDuLieu.doiVND(item.donGia) + "</td>";
                     kq += "    <td>" + item.soLuongDauKy.ToString() + " (" + donViTinh + ")</td>";
                     kq += "    <td>" + item.soLuongCuoiKyLyThuyet.ToString() + " (" + donViTinh + ")</td>";
                     kq += "    <td><b>" + item.soLuongThucTe.ToString() + " (" + donViTinh + ")</b></td>";
@@ -385,7 +385,7 @@ namespace qlCaPhe.Controllers
                         html += "    <td>" + tonKho.maSoKy.ToString() + "</td>";
                         html += "    <td>" + xulyDuLieu.traVeKyTuGoc(tonKho.taiKhoan.thanhVien.hoTV) + " " + xulyDuLieu.traVeKyTuGoc(tonKho.taiKhoan.thanhVien.tenTV) + "</td>";
                         html += "    <td>" + tonKho.ngayKiem.ToString() + "</td>";
-                        html += "    <td>" + tonKho.tongTien.ToString() + "</td>";
+                        html += "    <td>" + xulyDuLieu.doiVND(tonKho.tongTien) + "</td>";
                         html += "    <td><a task=\"" + xulyChung.taoUrlCoTruyenThamSo("TonKho/tkho_TableCtTonKho", tonKho.maSoKy.ToString()) + "\"  class=\"guiRequest btn btn-info waves-effect\">Xem chi tiết </a></td>";
                         html += "</tr>";
                     }
@@ -428,7 +428,7 @@ namespace qlCaPhe.Controllers
                         {
                             html += "<tr role=\"row\" class=\"odd\">";
                             html += "  <td><b>" + xulyDuLieu.traVeKyTuGoc(item.nguyenLieu.tenNguyenLieu) + "</b></td>";
-                            html += "  <td>" + item.donGia.ToString() + "</td>";
+                            html += "  <td>" + xulyDuLieu.doiVND(item.donGia) + "</td>";
                             html += "  <td>" + item.soLuongDauKy.ToString() + " (" + xulyDuLieu.traVeKyTuGoc(item.nguyenLieu.donViPhaChe) + ")</td>";
                             html += "  <td>" + item.soLuongCuoiKyLyThuyet.ToString() + " (" + xulyDuLieu.traVeKyTuGoc(item.nguyenLieu.donViPhaChe) + ")</td>";
                             html += "  <td><b>" + item.soLuongThucTe.ToString() + " (" + xulyDuLieu.traVeKyTuGoc(item.nguyenLieu.donViPhaChe) + ")</b></td>";
@@ -469,7 +469,7 @@ namespace qlCaPhe.Controllers
                         string donViTinh = xulyDuLieu.traVeKyTuGoc(item.nguyenLieu.donViPhaChe);
                         htmlTable += "<tr role=\"row\" class=\"odd\">";
                         htmlTable += "    <td><b>" + xulyDuLieu.traVeKyTuGoc(item.nguyenLieu.tenNguyenLieu) + "</b></td>";
-                        htmlTable += "    <td>" + item.donGia.ToString() + "</td>";
+                        htmlTable += "    <td>" + xulyDuLieu.doiVND(item.donGia)+ "</td>";
                         htmlTable += "    <td class=\"col-green\"><b>" + item.soLuongDauKy.ToString() + " (" + donViTinh + ")</b></td>";
                         htmlTable += "    <td class=\"col-blue\"><b>" + item.soLuongCuoiKyLyThuyet.ToString() + " (" + donViTinh + ")</b></td>";
                         htmlTable += "    <td class=\"col-red\"><b>" + item.soLuongThucTe.ToString() + " (" + donViTinh + ")</b></td>";

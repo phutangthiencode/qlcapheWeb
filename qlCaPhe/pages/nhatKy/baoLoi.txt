@@ -33,3 +33,18 @@ Vị trí: Class: xulyFile - Function: donDepTM
  Lỗi: The process cannot access the file 'img4.jpg' because it is being used by another process.
 ---------------------------------------------------------------
 
+-----------------------6/15/2018 11:51:38 PM----------
+Vị trí: Class NhapKhoController - Function: AjaxThemChiTietVaTraVeBang 
+ Lỗi: Vui lòng chọn nhà cung cấp cho nguyên liệu này <br/>
+---------------------------------------------------------------
+
+-----------------------6/16/2018 12:40:22 AM----------
+Vị trí: Class: XuatKhoController - Function: xk_TaoMoiPhieuXuat_Post 
+ Lỗi: Vui lòng chọn kho hàng nhận hàng <br/>
+---------------------------------------------------------------
+
+-----------------------6/16/2018 12:53:10 AM----------
+Vị trí: Class: XuatKhoController - Function: xk_TaoMoiPhieuXuat_Post 
+ Lỗi: Vui lòng chọn kho hàng nhận hàng <br/>
+---------------------------------------------------------------
+

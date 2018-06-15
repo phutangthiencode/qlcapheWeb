@@ -49,7 +49,7 @@ namespace qlCaPhe.Controllers
                         kq += "   <td>" + hd.ngayLap.ToString() + "</td>";
                         kq += "   <td>" + hd.thoiDiemDen.ToString() + "</td>";
                         kq += "   <td>" + xulyDuLieu.traVeKyTuGoc(hd.taiKhoan.thanhVien.hoTV) + " " + xulyDuLieu.traVeKyTuGoc(hd.taiKhoan.thanhVien.tenTV) + "</td>";
-                        kq += "   <td>" + new bHoaDonTam().layTongTienSanPham(hd).ToString() + "</td>";
+                        kq += "   <td>" + xulyDuLieu.doiVND(new bHoaDonTam().layTongTienSanPham(hd)) + "</td>";
                         kq += "   <td><button task=\"" + xulyChung.taoUrlCoTruyenThamSo("/HoaDon/hd_ThucHienThanhToan", hd.maBan.ToString()) + "\" class=\" guiRequest btn btn-primary waves-effect\" data-toggle=\"modal\" data-target=\"#modalThanhToan\"><i class=\"material-icons\">attach_money</i>Thanh toán</button></td>";
                         kq += " </tr>";
                     }
@@ -233,7 +233,7 @@ namespace qlCaPhe.Controllers
         /// <returns></returns>
         private string taoModalInBill(hoaDonOrder hoaDon, qlCaPheEntities db, FormCollection f)
         {
-            string kq = ""; cauHinh cauHinh = db.cauHinhs.First(); string tienMat = f["txtTienMat"], tienTra = f["txtTienTra"];
+            string kq = ""; cauHinh cauHinh = db.cauHinhs.First(); long tienMat = xulyDuLieu.doiChuoiSangLong(f["txtTienMat"]), tienTra = xulyDuLieu.doiChuoiSangLong(f["txtTienTra"]);
             kq+="<div class=\"modal fade in\" id=\"modalInHoaDon\" tabindex=\"-1\" role=\"dialog\" style=\"display: block;\">";
             kq+="    <div class=\"modal-dialog modal-sm\" role=\"document\">";
             kq+="        <div class=\"modal-content\">";
@@ -266,8 +266,8 @@ namespace qlCaPhe.Controllers
             {
                 kq+="                            <tr>";
                 kq+="                                <td>"+xulyDuLieu.traVeKyTuGoc(ct.sanPham.tenSanPham)+" (x"+ct.soLuong.ToString()+")</td>";
-                kq+="                                <td>"+ct.donGia.ToString()+"</td>";
-                kq+="                                <td>"+(ct.soLuong* ct.donGia).ToString()+"</td>";
+                kq+="                                <td>"+xulyDuLieu.doiVND(ct.donGia).Replace("VNĐ", "")+"</td>";
+                kq+="                                <td>"+xulyDuLieu.doiVND((ct.soLuong* ct.donGia)).Replace("VNĐ", "")+"</td>";
                 kq+="                            </tr>";
             }
             kq+="                        </tbody>";
@@ -276,19 +276,19 @@ namespace qlCaPhe.Controllers
             kq+="                <br/>";
             kq+="                <div class=\"font-16 bold\">";
             kq+="                    <label>T.Cộng:</label>";
-            kq+="                    <label class=\"pull-right\">"+hoaDon.tongTien.ToString()+"</label>";
+            kq+="                    <label class=\"pull-right\">"+xulyDuLieu.doiVND(hoaDon.tongTien)+"</label>";
             kq+="                </div>";
             kq+="                <div class=\"font-18 bold\">";
             kq+="                    <label>Tạm tính:</label>";
-            kq+="                    <label class=\"pull-right\">"+hoaDon.tamTinh.ToString()+"</label>";
+            kq+="                    <label class=\"pull-right\">"+xulyDuLieu.doiVND(hoaDon.tamTinh)+"</label>";
             kq+="                </div>";
             kq+="                <div class=\"font-14 bold\">";
             kq+="                    <label>Nhận tiền mặt:</label>";
-            kq+="                    <label class=\"pull-right\">"+tienMat+"</label>";
+            kq+="                    <label class=\"pull-right\">"+xulyDuLieu.doiVND(tienMat)+"</label>";
             kq+="                </div>";
             kq+="                <div class=\"font-14 bold\">";
             kq+="                    <label>Tiền trả:</label>";
-            kq+="                    <label class=\"pull-right\">"+tienTra+"</label>";
+            kq+="                    <label class=\"pull-right\">"+xulyDuLieu.doiVND(tienTra)+"</label>";
             kq+="                </div>";
             kq+="                <div class=\"font-11 text-center\">";
             kq+="                    <label>Cám ơn quý khách - hẹn gặp lại !!!</label>";
@@ -339,7 +339,7 @@ namespace qlCaPhe.Controllers
             {
                 kq += "                            <tr>";
                 kq += "                                <td>" + xulyDuLieu.traVeKyTuGoc(ct.sanPham.tenSanPham) + " (x" + ct.soLuong.ToString() + ")</td>";
-                kq += "                                <td>" + ct.donGia.ToString() + "</td>";
+                kq += "                                <td>" + xulyDuLieu.doiVND(ct.donGia) + "</td>";
                 kq += "                                <td>" + (ct.soLuong * ct.donGia).ToString() + "</td>";
                 kq += "                            </tr>";
             }
@@ -349,11 +349,11 @@ namespace qlCaPhe.Controllers
             kq += "                <br/>";
             kq += "                <div class=\"font-16 bold\">";
             kq += "                    <label>T.Cộng:</label>";
-            kq += "                    <label class=\"pull-right\">" + hoaDon.tongTien.ToString() + "</label>";
+            kq += "                    <label class=\"pull-right\">" + xulyDuLieu.doiVND(hoaDon.tongTien) + "</label>";
             kq += "                </div>";
             kq += "                <div class=\"font-18 bold\">";
             kq += "                    <label>Tạm tính:</label>";
-            kq += "                    <label class=\"pull-right\">" + hoaDon.tamTinh.ToString() + "</label>";
+            kq += "                    <label class=\"pull-right\">" + xulyDuLieu.doiVND(hoaDon.tamTinh) + "</label>";
             kq += "                </div>";
             kq += "                <div class=\"font-14 bold\">";
             kq += "                    <label>Nhận tiền mặt:</label>";
@@ -492,7 +492,7 @@ namespace qlCaPhe.Controllers
                 kq += "     <td>"+hoaDon.ngayLap.ToString()+"</td>";
                 kq += "     <td>"+xulyDuLieu.traVeKyTuGoc(hoaDon.taiKhoan.thanhVien.hoTV) + " " + xulyDuLieu.traVeKyTuGoc(hoaDon.taiKhoan.thanhVien.tenTV)+"</td>";
                 kq += "     <td>" + xulyDuLieu.traVeKyTuGoc(hoaDon.taiKhoan1.thanhVien.hoTV) + " " + xulyDuLieu.traVeKyTuGoc(hoaDon.taiKhoan1.thanhVien.tenTV) + "</td>";
-                kq += "     <td>"+hoaDon.tongTien.ToString()+"</td>";
+                kq += "     <td>"+xulyDuLieu.doiVND(hoaDon.tongTien)+"</td>";
                 kq += "     <td><button type=\"button\" maHD=\""+hoaDon.maHoaDon.ToString()+"\" class=\"btnXemChiTiet btn btn-info waves-effect\"><i class=\"material-icons\">info</i><span>Xem chi tiết</span></button></td>";
                 kq += "</tr>";
             }
@@ -580,7 +580,7 @@ namespace qlCaPhe.Controllers
                 html += "               <b>" + xulyDuLieu.traVeKyTuGoc(ct.sanPham.tenSanPham) + "</b>";
                 html += "           </td>";
                 html += "           <td>" + ct.soLuong.ToString() + "</td>";
-                html += "           <td>" + ct.donGia.ToString() + "</td>";
+                html += "           <td>" + xulyDuLieu.doiVND(ct.donGia) + "</td>";
                 html += "       </tr>";
             }
             html += "   </tbody>";
