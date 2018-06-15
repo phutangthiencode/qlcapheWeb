@@ -171,7 +171,7 @@ namespace qlCaPhe.Controllers
                 }
                 catch (Exception ex)
                 {
-                    ViewBag.ThognBao = createHTML.taoThongBaoLuu(ex.Message);
+                    ViewBag.ThongBao = createHTML.taoThongBaoLuu(ex.Message);
                     xulyFile.ghiLoi("Class CaLamViecController - Function: ca_ChinhSuaCaLamViec_Post", ex.Message);
                     this.doDuLieuLenView(caSua);
                 }
