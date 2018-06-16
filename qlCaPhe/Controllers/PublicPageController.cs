@@ -132,13 +132,59 @@ namespace qlCaPhe.Controllers
         }
         #endregion
 
+        #region Trang Sản phẩm
+
+
         /// <summary>
-        /// Giao diện danh mục sản phẩm
+        /// Giao diện trang danh mục sản phẩm
         /// </summary>
         /// <returns></returns>
-        public ActionResult DanhSachSanPham()
+        public ActionResult DanhSachSanPham(int? page)
         {
+            List<sanPham> listSanPham = new List<sanPham>(); int pageSize = 8;
+            try
+            {
+                int trangHienHanh = (page ?? 1);
+                qlCaPheEntities db = new qlCaPheEntities();
+                int soPhanTu = db.sanPhams.Where(s => s.trangThai == 1).Count();
+                ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, pageSize, trangHienHanh, "/PublicPage/DanhSachSanPham"); //------cấu hình phân trang
+                listSanPham = db.sanPhams.Where(s => s.trangThai == 1).OrderBy(c => c.tenSanPham).Skip((trangHienHanh - 1) * pageSize).Take(pageSize).ToList();
+                ViewBag.ListSanPham = taoDanhSachSanPham(listSanPham);
+            }
+            catch (Exception ex)
+            {
+                xulyFile.ghiLoi("Class: PublicPageController - Function: DanhSachSanPham", ex.Message);
+                Response.Redirect(xulyChung.layTenMien() + "Home/ServerError");
+            }
             return View();
+        }
+        /// <summary>
+        /// Hàm tạo danh sách sản phầm và hiện lên giao diện
+        /// </summary>
+        /// <param name="list">List chứa object sản phẩm cần hiển thị</param>
+        /// <returns>Trả về chuổi hmlt toàn bộ danh sách hiển thị</returns>
+        private string taoDanhSachSanPham(List<sanPham> list)
+        {
+            string kq = ""; int index = 0;
+            foreach (sanPham sp in list)
+            {
+                index++;
+                if (index == 1) 
+                    kq += "<div class=\"special-top\">";
+                kq += "   <div class=\"col-md-3 special-in\">";
+                kq += "       <a href=\"~/PublicPage/ChiTietSanPham\">";
+                kq += "           <img src=\""+xulyDuLieu.chuyenByteHinhThanhSrcImage(sp.hinhAnh)+"\" class=\"img-responsive\" alt=\""+xulyDuLieu.traVeKyTuGoc(sp.tenSanPham)+"\">";
+                kq += "       </a>";
+                kq += "       <h5><a href=\"~/PublicPage/ChiTietSanPham\">"+xulyDuLieu.traVeKyTuGoc(sp.tenSanPham)+"</a></h5>";
+                kq += "       <p>"+xulyDuLieu.doiVND(sp.donGia)+"</p>";
+                kq += "   </div>";
+                if (index == 4)
+                {
+                    kq += "</div>";
+                    index = 0;
+                }
+            }
+            return kq;
         }
         /// <summary>
         /// Giao diện chi tiết sản phẩm
@@ -148,6 +194,7 @@ namespace qlCaPhe.Controllers
         {
             return View();
         }
+        #endregion
         /// <summary>
         /// Giao diện danh sách bàn có trong quán để đặt bàn
         /// </summary>

@@ -4,118 +4,31 @@
     Layout = "~/Views/Shared/_LayoutPublic.cshtml";
 }
 
+<style>
+    .phantrang-pulic .pagination a {
+        color: #7A282C !important;
+        font-weight: bold !important;
+    }
+    .pagination > li > a {
+        position: relative;
+        float: left;
+        padding: 10px 17px;
+        margin-left: -1px;
+        line-height: 1.428571429;
+        text-decoration: none;
+        border: 1px solid #dddddd;
+    }
+
+    .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus{
+        background-color:#eeeeee!important;
+        border-color:#7A282C !important;
+    }
+</style>
+
 <div class="container">
     <div class="specials">
         <h3>Menu Đồ uống</h3>
-        <div class="special-top">
-            <div class="col-md-3 special-in">
-                <a href="~/PublicPage/ChiTietSanPham">
-                    <img src="~/images/Public/img4.jpg" class="img-responsive" alt="">
-
-                </a>
-                <h5><a href="~/PublicPage/ChiTietSanPham">Cà phê đen</a></h5>
-                <p>15.000 VNĐ</p>
-            </div>
-
-            <div class="col-md-3 special-in">
-                <a href="~/PublicPage/ChiTietSanPham">
-                    <img src="~/images/Public/img1.jpg" class="img-responsive" alt="">
-
-                </a>
-                <h5><a href="~/PublicPage/ChiTietSanPham">Đá me</a></h5>
-                <p>20.000 VNĐ</p>
-            </div>
-
-            <div class="col-md-3 special-in">
-                <a href="~/PublicPage/ChiTietSanPham">
-                    <img src="~/images/Public/img2.jpg" class="img-responsive" alt="">
-
-                </a>
-                <h5><a href="~/PublicPage/ChiTietSanPham">Siro</a></h5>
-                <p>Latte</p>
-            </div>
-
-            <div class="col-md-3 special-in">
-                <a href="~/PublicPage/ChiTietSanPham">
-                    <img src="~/images/Public/img3.jpg" class="img-responsive" alt="">
-
-                </a>
-                <h5><a href="~/PublicPage/ChiTietSanPham">Trà đào</a></h5>
-                <p>25.000 VNĐ</p>
-            </div>
-        </div> <!--Special-top-->
-        <div class="special-top">
-            <div class="col-md-3 special-in">
-                <a href="~/PublicPage/ChiTietSanPham">
-                    <img src="~/images/Public/img5.jpg" class="img-responsive" alt="">
-
-                </a>
-                <h5><a href="~/PublicPage/ChiTietSanPham">Trà sâm</a></h5>
-                <p>30.000 VNĐ</p>
-            </div>
-
-            <div class="col-md-3 special-in">
-                <a href="~/PublicPage/ChiTietSanPham">
-                    <img src="~/images/Public/img6.jpg" class="img-responsive" alt="">
-
-                </a>
-                <h5><a href="~/PublicPage/ChiTietSanPham">Trà sữa thái</a></h5>
-                <p>25.000 VNĐ</p>
-            </div>
-            <div class="col-md-3 special-in">
-                <a href="~/PublicPage/ChiTietSanPham">
-                    <img src="~/images/Public/img3.jpg" class="img-responsive" alt="">
-
-                </a>
-                <h5><a href="~/PublicPage/ChiTietSanPham">Vivamus vel eros nulla</a></h5>
-                <p>Cappuccino</p>
-            </div>
-            <div class="col-md-3 special-in">
-                <a href="~/PublicPage/ChiTietSanPham">
-                    <img src="~/images/Public/img1.jpg" class="img-responsive" alt="">
-
-                </a>
-                <h5><a href="~/PublicPage/ChiTietSanPham">Vivamus vel eros nulla</a></h5>
-                <p>Americano</p>
-            </div>
-            <div class="clearfix"> </div>
-        </div><!--Special-top-->
-        <div class="special-top">
-            <div class="col-md-3 special-in">
-                <a href="~/PublicPage/ChiTietSanPham">
-                    <img src="~/images/Public/img5.jpg" class="img-responsive" alt="">
-
-                </a>
-                <h5><a href="~/PublicPage/ChiTietSanPham">Trà sâm</a></h5>
-                <p>30.000 VNĐ</p>
-            </div>
-
-            <div class="col-md-3 special-in">
-                <a href="~/PublicPage/ChiTietSanPham">
-                    <img src="~/images/Public/img6.jpg" class="img-responsive" alt="">
-
-                </a>
-                <h5><a href="~/PublicPage/ChiTietSanPham">Trà sữa thái</a></h5>
-                <p>25.000 VNĐ</p>
-            </div>
-            <div class="col-md-3 special-in">
-                <a href="~/PublicPage/ChiTietSanPham">
-                    <img src="~/images/Public/img3.jpg" class="img-responsive" alt="">
-
-                </a>
-                <h5><a href="~/PublicPage/ChiTietSanPham">Vivamus vel eros nulla</a></h5>
-                <p>Cappuccino</p>
-            </div>
-            <div class="col-md-3 special-in">
-                <a href="~/PublicPage/ChiTietSanPham">
-                    <img src="~/images/Public/img1.jpg" class="img-responsive" alt="">
-
-                </a>
-                <h5><a href="~/PublicPage/ChiTietSanPham">Vivamus vel eros nulla</a></h5>
-                <p>Americano</p>
-            </div>
-            <div class="clearfix"> </div>
-        </div><!--Special-top-->
+        @Html.Raw(ViewBag.ListSanPham)
         <div class="row clearfix">
             <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
 
@@ -123,18 +36,10 @@
             <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
 
             </div>
-            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-                <nav>
-                    <ul class="pagination pagination-lg">
-                        <li><a href="#" style="color:#7A282C; font-weight:bold;">&lt;</a></li>
-                        <li><a href="#" style="color: #7A282C; font-weight: bold;">1</a></li>
-                        <li><a href="#" style="color: #7A282C; font-weight: bold;">2</a></li>
-                        <li><a href="#" style="color: #7A282C; font-weight: bold;">3</a></li>
-                        <li><a href="#" style="color: #7A282C; font-weight: bold;">4</a></li>
-                        <li><a href="#" style="color: #7A282C; font-weight: bold;">5</a></li>
-                        <li><a href="#" style="color: #7A282C; font-weight: bold;">&gt;</a></li>
-                    </ul>
-                </nav>
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12 pull-right">
+                <div class="pull-right phantrang-pulic">
+                    @Html.Raw(ViewBag.PhanTrang)
+                </div>
             </div>
 
         </div>
@@ -152,4 +57,3 @@
     </div>
 </div>
 <!---->
-
