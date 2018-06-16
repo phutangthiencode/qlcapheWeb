@@ -1,0 +1,39 @@
+﻿@model qlCaPhe.Models.cauHinh
+           @using qlCaPhe.App_Start
+
+<div class="banner1">
+    <div class="header">
+        <div class="container">
+            <div class="logo">
+                <a href="~/PublicPage/Index"><img src="@xulyDuLieu.chuyenByteHinhThanhSrcImage(Model.loGo)" class="img-responsive" alt="" /></a>
+            </div>
+            <div class="hader-left">
+                <h1><a href="~/PublicPage/Index">@xulyDuLieu.traVeKyTuGoc(Model.tenQuan)</a></h1>
+            </div>
+            <div class="head-nav">
+                <span class="menu"> </span>
+                <ul class="cl-effect-3">
+                    <li><a href="~/PublicPage/Index">Trang chủ</a></li>
+                    <li><a href="~/PublicPage/DanhSachBan">Đặt bàn</a></li>
+                    <li><a href="~/PublicPage/DanhSachSanPham">Sản phẩm</a></li>
+                    <li><a href="~/PublicPage/DanhSachBaiViet">Bài viết</a></li>
+                    <li><a href="~/PublicPage/ThongTinLienHe">Liên hệ</a></li>
+                    <li><a href="~/PublicPage/GuiPhanHoi">Phản hồi</a></li>
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+            <!-- script-for-nav -->
+            <script>
+                $("span.menu").click(function () {
+                    $(".head-nav ul").slideToggle(300, function () {
+                        // Animation complete.
+                    });
+                });
+            </script>
+            <!-- script-for-nav -->
+        </div>
+    </div>
+    <!--//End-Gallery-->
+    <!-- portfolio -->
+</div>
+

@@ -1,0 +1,20 @@
+﻿@model List<qlCaPhe.Models.sanPham>
+@using qlCaPhe.App_Start
+@foreach (var sp in Model)
+{
+    <div class="col-md-6">
+
+        <div class="anean-1">
+            <div class="anean-left">
+                <img src="@xulyDuLieu.chuyenByteHinhThanhSrcImage(sp.hinhAnh)" class="img-responsive" alt="" />
+            </div>
+            <div class="anean-right">
+                <h4>@xulyDuLieu.traVeKyTuGoc(sp.tenSanPham)</h4>
+                <span> @xulyDuLieu.doiVND(sp.donGia)</span>
+                <p>@xulyDuLieu.xulyCatChuoi(xulyDuLieu.traVeKyTuGoc(sp.moTa), 70)</p>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+}

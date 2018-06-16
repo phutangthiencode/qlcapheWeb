@@ -48,3 +48,53 @@ Vị trí: Class: XuatKhoController - Function: xk_TaoMoiPhieuXuat_Post
  Lỗi: Vui lòng chọn kho hàng nhận hàng <br/>
 ---------------------------------------------------------------
 
+-----------------------6/16/2018 2:02:02 PM----------
+Vị trí: Class: PublicPageController - Function: PartHome_Banner1 
+ Lỗi: Lỗi
+---------------------------------------------------------------
+
+-----------------------6/16/2018 2:08:37 PM----------
+Vị trí: Class: PublicPageController - Function: PartHome_Banner1 
+ Lỗi: Lỗi
+---------------------------------------------------------------
+
+-----------------------6/16/2018 2:09:47 PM----------
+Vị trí: Class: PublicPageController - Function: PartHome_Banner1 
+ Lỗi: Lỗi
+---------------------------------------------------------------
+
+-----------------------6/16/2018 2:09:47 PM----------
+Vị trí: Class: PublicPageController - Function: PartHome_Banner1 
+ Lỗi: Lỗi
+---------------------------------------------------------------
+
+-----------------------6/16/2018 2:11:33 PM----------
+Vị trí: Class: PublicPageController - Function: PartHome_Banner1 
+ Lỗi: Lỗi
+---------------------------------------------------------------
+
+-----------------------6/16/2018 2:11:33 PM----------
+Vị trí: Class: PublicPageController - Function: PartHome_Banner1 
+ Lỗi: Lỗi
+---------------------------------------------------------------
+
+-----------------------6/16/2018 2:11:44 PM----------
+Vị trí: Class: xulyChung - Function: ghiNhatKy 
+ Lỗi: An error occurred while updating the entries. See the inner exception for details.
+---------------------------------------------------------------
+
+-----------------------6/16/2018 3:31:58 PM----------
+Vị trí: Class: PublicPageController - Function: PartHome_BaiViet 
+ Lỗi: Parameter count mismatch.
+---------------------------------------------------------------
+
+-----------------------6/16/2018 3:33:13 PM----------
+Vị trí: Class: PublicPageController - Function: PartHome_BaiViet 
+ Lỗi: Parameter count mismatch.
+---------------------------------------------------------------
+
+-----------------------6/16/2018 4:18:56 PM----------
+Vị trí: Class: xulyChung - Function: ghiNhatKy 
+ Lỗi: An error occurred while updating the entries. See the inner exception for details.
+---------------------------------------------------------------
+

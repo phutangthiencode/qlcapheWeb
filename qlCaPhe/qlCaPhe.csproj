@@ -4111,6 +4111,12 @@
     <Content Include="Views\DanhGia\dg_TaoMoiDanhGia.cshtml" />
     <Content Include="Views\DanhGia\dg_ChinhSuaDanhGia.cshtml" />
     <Content Include="Views\NhatKy\nky_NhatKyTruyCap.cshtml" />
+    <Content Include="Views\PublicPage\PartHome_Banner1.cshtml" />
+    <Content Include="Views\PublicPage\Part_Header.cshtml" />
+    <Content Include="Views\PublicPage\PartHome_BaiViet.cshtml" />
+    <Content Include="Views\PublicPage\PartHome_SanPhamNoiTroi.cshtml" />
+    <Content Include="Views\PublicPage\PartHome_LoaiSanPham.cshtml" />
+    <Content Include="Views\PublicPage\Part_Footer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

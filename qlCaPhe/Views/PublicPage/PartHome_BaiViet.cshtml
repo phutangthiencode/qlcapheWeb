@@ -1,0 +1,58 @@
+﻿@model List<qlCaPhe.Models.baiViet>
+           @using qlCaPhe.App_Start
+
+
+<div class="duis-top">
+    @foreach (var baiViet in Model) { 
+    <div class="col-md-6 duis-1">
+        <div class="duis-left">
+            <span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>
+        </div>
+        <div class="duis-right">
+            <h5>@xulyDuLieu.traVeKyTuGoc(baiViet.tenBaiViet)</h5>
+        </div>
+        <div class="clearfix"></div>
+        <p>@xulyDuLieu.traVeKyTuGoc(baiViet.noiDungTomTat)</p>
+        <a href="#" class="more">Đọc tiếp</a>
+    </div>
+            <div class="clearfix"></div>
+    }
+    @*<div class="col-md-6 duis-1">
+        <div class="duis-left">
+            <span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>
+        </div>
+        <div class="duis-right">
+            <h5>Join ltrices semper illus</h5>
+        </div>
+        <div class="clearfix"></div>
+        <p>Teger non semper nunc. Nam lacus diam, dignissim eu lobortis sit amet, ultrices sit amet lectus. Praesent enim massa, ultrices ac elit vel, commodo ullamcorper elit. Quisque ac magna tellus. Cras eu elementum sem.  </p>
+        <a href="#" class="more">Read More</a>
+    </div>
+    <div class="clearfix"></div>*@
+</div>
+
+@*<div class="duis-top">
+    <div class="col-md-6 duis-1">
+        <div class="duis-left">
+            <span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>
+        </div>
+        <div class="duis-right">
+            <h5>Lorem ipsum semper illus</h5>
+        </div>
+        <div class="clearfix"></div>
+        <p>Eger non semper nunc. Nam lacus diam, dignissim eu lobortis sit amet, ultrices sit amet lectus. Praesent enim massa, ultrices ac elit vel, commodo ullamcorper elit. Quisque ac magna tellus. Cras eu elementum sem.  </p>
+        <a href="#" class="more">Read More</a>
+    </div>
+    <div class="col-md-6 duis-1">
+        <div class="duis-left">
+            <span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>
+        </div>
+        <div class="duis-right">
+            <h5>Trices semper illus vivamus</h5>
+        </div>
+        <div class="clearfix"></div>
+        <p>Osteger non semper nunc. Nam lacus diam, dignissim eu lobortis sit amet, ultrices sit amet lectus. Praesent enim massa, ultrices ac elit vel, commodo ullamcorper elit. Quisque ac magna tellus. Cras eu elementum sem.  </p>
+        <a href="#" class="more">Read More</a>
+    </div>
+    <div class="clearfix"></div>
+</div>*@

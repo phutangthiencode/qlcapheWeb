@@ -182,5 +182,15 @@ namespace qlCaPhe.App_Start
         {
             return String.Format("{0:0,0 VNĐ}", obj0);
         }
+        /// <summary>
+        /// Hàm lấy giá trị trong thuộc tính có trong 1 object
+        /// </summary>
+        /// <param name="obj">Object cần lấy thuộc tính</param>
+        /// <param name="tenThuocTinh">Tên thuộc tính cần lấy</param>
+        /// <returns>Trả về chuổi kết quả chứa giá trị trong thuộc tính</returns>
+        public static string layThuocTinhTrongMotObject(object obj, string tenThuocTinh)
+        {
+            return obj.GetType().GetProperty(tenThuocTinh).GetValue(obj, null).ToString();
+        }
     }
 }

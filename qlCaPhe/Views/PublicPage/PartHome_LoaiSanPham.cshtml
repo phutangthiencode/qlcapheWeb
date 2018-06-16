@@ -1,0 +1,9 @@
+﻿@model List<qlCaPhe.Models.loaiSanPham>
+@using qlCaPhe.App_Start
+
+<ul>
+    @foreach (var loai in Model)
+    {
+        <li><a href="#"><span> </span>@xulyDuLieu.traVeKyTuGoc(loai.tenLoai)</a></li>
+    }
+</ul>

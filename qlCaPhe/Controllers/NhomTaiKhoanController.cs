@@ -251,7 +251,7 @@ namespace qlCaPhe.Controllers
         public ActionResult ntk_PartListPagePermission()
         {
 
-            return PartialView(new bMenuTools().readAllMenuTools());
+            return PartialView(new bMenuTools().readAllMenuTools()); //----Truyền qua danh sách trang phân quyền
         }
 
         public ActionResult ntk_Script()
