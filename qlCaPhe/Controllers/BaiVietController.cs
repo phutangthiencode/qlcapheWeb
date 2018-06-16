@@ -49,7 +49,7 @@ namespace qlCaPhe.Controllers
                     bv.nguoiTao = ((taiKhoan)Session["login"]).tenDangNhap;
                     bv.hienTrangChu = false;
                     db.baiViets.Add(bv);
-                    kqLuu= db.SaveChanges();
+                    kqLuu = db.SaveChanges();
                     if (kqLuu > 0)
                     {
                         ndThongBao = createHTML.taoNoiDungThongBao("Bài viết", xulyDuLieu.traVeKyTuGoc(bv.tenBaiViet), "bv_TableBaiVietChoDuyet");
@@ -73,7 +73,7 @@ namespace qlCaPhe.Controllers
         /// Hàm tạo view danh sách bài viết đã duyệt
         /// </summary>
         /// <returns></returns>
-        public ActionResult bv_TableBaiVietDaDuyet(int ?page)
+        public ActionResult bv_TableBaiVietDaDuyet(int? page)
         {
             if (xulyChung.duocTruyCap(idOfPage))
             {
@@ -86,7 +86,7 @@ namespace qlCaPhe.Controllers
         /// Hàm tạo view danh mục bài viết chờ kiểm duyệt
         /// </summary>
         /// <returns></returns>
-        public ActionResult bv_TableBaiVietChoDuyet(int ?page)
+        public ActionResult bv_TableBaiVietChoDuyet(int? page)
         {
             if (xulyChung.duocTruyCap(idOfPage))
             {
@@ -100,7 +100,7 @@ namespace qlCaPhe.Controllers
         /// Hàm tạo view danh mục bài viết bị gở bỏ
         /// </summary>
         /// <returns></returns>
-        public ActionResult bv_TableBaiVietBiGoBo(int ?page)
+        public ActionResult bv_TableBaiVietBiGoBo(int? page)
         {
 
             if (xulyChung.duocTruyCap(idOfPage))
@@ -144,19 +144,7 @@ namespace qlCaPhe.Controllers
                     htmlTable += "      <td>" + bv.ngayDang.ToString() + "</td>";
                     htmlTable += "      <td>" + xulyDuLieu.traVeKyTuGoc(bv.taiKhoan.thanhVien.hoTV) + " " + xulyDuLieu.traVeKyTuGoc(bv.taiKhoan.thanhVien.tenTV) + "</td>";
                     htmlTable += "      <td>";
-                    htmlTable += "          <div class=\"btn-group\">";
-                    htmlTable += "              <button type=\"button\" class=\"btn btn-primary dropdown-toggle\" data-toggle=\"dropdown\" aria-expanded=\"true\">";
-                    htmlTable += "                  Chức năng <span class=\"caret\"></span>";
-                    htmlTable += "              </button>";
-                    htmlTable += "              <ul class=\"dropdown-menu\" role=\"menu\">";
-                    htmlTable += createTableData.taoNutChinhSua("/BaiViet/bv_ChinhSuaBaiViet", bv.maBaiViet.ToString());
-                    if (trangThai == 0 || trangThai == 2) //---Nếu trạng thái Đã tạo hoặc đã gở thì được phép Duyệt = 1
-                        htmlTable += createTableData.taoNutCapNhat("/BaiViet/capNhatTrangThai", bv.maBaiViet.ToString() + "&1", "col-orange", "spellcheck", "Đăng bài");
-                    else if (trangThai == 1) //---Nếu trạng thái đã duyệt thì cập nhật thành GỞ BỎ = 2
-                        htmlTable += createTableData.taoNutCapNhat("/BaiViet/capNhatTrangThai", bv.maBaiViet.ToString() + "&2", "col-orange", "spellcheck", "Đăng bài");
-                    htmlTable += createTableData.taoNutXoaBo(bv.maBaiViet.ToString());
-                    htmlTable += "              </ul>";
-                    htmlTable += "          </div>";
+                    htmlTable += this.taoNutChucNangTable(trangThai, bv);
                     htmlTable += "      </td>";
                     htmlTable += "</tr>";
                 }
@@ -173,6 +161,36 @@ namespace qlCaPhe.Controllers
             ViewBag.ScriptAjaxXemChiTiet = createScriptAjax.scriptAjaxXemChiTietKhiClick("goiY", "maBV", "BaiViet/AjaxXemChiTietBaiViet?maBV=", "vungChiTiet", "modalChiTiet");
             //-----Tạo modal dạng lớn để chứa nội dung bài viết
             ViewBag.ModalChiTiet = createHTML.taoModalChiTiet("modalChiTiet", "vungChiTiet", 3);
+        }
+        /// <summary>
+        /// Hàm tạo nút chức năng cho từng row trong table danh sách bài viết
+        /// </summary>
+        /// <param name="trangThai">Trạng thái danh sách bài viết cần lấy</param>
+        /// <param name="bv">Object chứa thông tin bài viết</param>
+        /// <returns>Trả về chuỗ html tạo 1 button chức năng</returns>
+        private string taoNutChucNangTable(int trangThai, baiViet bv)
+        {
+            string htmlTable = "";
+            htmlTable += "          <div class=\"btn-group\">";
+            htmlTable += "              <button type=\"button\" class=\"btn btn-primary dropdown-toggle\" data-toggle=\"dropdown\" aria-expanded=\"true\">";
+            htmlTable += "                  Chức năng <span class=\"caret\"></span>";
+            htmlTable += "              </button>";
+            htmlTable += "              <ul class=\"dropdown-menu\" role=\"menu\">";
+            htmlTable += createTableData.taoNutChinhSua("/BaiViet/bv_ChinhSuaBaiViet", bv.maBaiViet.ToString());
+            if (trangThai == 0 || trangThai == 2) //---Nếu trạng thái Đã tạo hoặc đã gở thì được phép Duyệt = 1
+                htmlTable += createTableData.taoNutCapNhat("/BaiViet/capNhatTrangThai", bv.maBaiViet.ToString() + "&1", "col-orange", "spellcheck", "Đăng bài");
+            else if (trangThai == 1)
+            {   //---Nếu trạng thái đã duyệt thì cập nhật thành GỞ BỎ = 2
+                if (bv.hienTrangChu == false)
+                    htmlTable += createTableData.taoNutCapNhat("/BaiViet/dangTrangChu", bv.maBaiViet.ToString(), "col-green", "home", "Đăng trang chủ");
+                else
+                    htmlTable += createTableData.taoNutCapNhat("/BaiViet/dangTrangChu", bv.maBaiViet.ToString(), "col-green-grey", "home", "Gở trang chủ");
+                htmlTable += createTableData.taoNutCapNhat("/BaiViet/capNhatTrangThai", bv.maBaiViet.ToString() + "&2", "col-orange", "spellcheck", "Gở bỏ");
+            }
+            htmlTable += createTableData.taoNutXoaBo(bv.maBaiViet.ToString());
+            htmlTable += "              </ul>";
+            htmlTable += "          </div>";
+            return htmlTable;
         }
         /// <summary>
         /// Hàm thực hiện lấy thông tin bài viết khi người dùng click vào tiêu để để xem nội dung chi tiết
@@ -215,7 +233,7 @@ namespace qlCaPhe.Controllers
                         htmlDetails += "    </button>";
                         htmlDetails += "</div>";
                         htmlDetails += "</div>";
-                        xulyChung.ghiNhatKyDtb(5, "Xem bài viết \" "+xulyDuLieu.traVeKyTuGoc(bv.tenBaiViet)+" \"");
+                        xulyChung.ghiNhatKyDtb(5, "Xem bài viết \" " + xulyDuLieu.traVeKyTuGoc(bv.tenBaiViet) + " \"");
                     }
                 }
                 catch (Exception ex)
@@ -281,7 +299,7 @@ namespace qlCaPhe.Controllers
                         this.doDuLieuLenView(bvSua);
                         this.layDuLieuTuView(bvSua, f, fileUpload);
                         db.Entry(bvSua).State = System.Data.Entity.EntityState.Modified;
-                        kqLuu=db.SaveChanges();
+                        kqLuu = db.SaveChanges();
                         if (kqLuu > 0)
                         {
                             xulyChung.ghiNhatKyDtb(4, "Bài viết \" " + xulyDuLieu.traVeKyTuGoc(bvSua.tenBaiViet) + " \"");
@@ -323,10 +341,10 @@ namespace qlCaPhe.Controllers
                                     bvSua.ngayDang = DateTime.Now;
                                 bvSua.trangThai = trangThai;
                                 db.Entry(bvSua).State = System.Data.Entity.EntityState.Modified;
-                                kqLuu= db.SaveChanges();
+                                kqLuu = db.SaveChanges();
                                 if (kqLuu > 0)
                                 {
-                                    xulyChung.ghiNhatKyDtb(4, "Cập nhật trạng thái bài viết \" "+xulyDuLieu.traVeKyTuGoc(bvSua.tenBaiViet)+" \"");
+                                    xulyChung.ghiNhatKyDtb(4, "Cập nhật trạng thái bài viết \" " + xulyDuLieu.traVeKyTuGoc(bvSua.tenBaiViet) + " \"");
                                     if (trangThaiCu == 0)//Chuyển đến danh sách bài viết chờ duyệt
                                         Response.Redirect(xulyChung.layTenMien() + "/BaiViet/bv_TableBaiVietChoDuyet");
                                     else if (trangThaiCu == 1)//Chuyển đến danh sách bài viết đã duyệt.
@@ -340,6 +358,46 @@ namespace qlCaPhe.Controllers
                         }
                         else
                             throw new Exception("Trạng thái cần cập nhật không chính xác");
+                    }
+                    else throw new Exception("không nhận được tham số");
+
+                }
+                catch (Exception ex)
+                {
+                    xulyFile.ghiLoi("Class: BaiVietController - Function: capNhatTrangThai", ex.Message);
+                    Response.Redirect(xulyChung.layTenMien() + "/Home/ServerError");
+                }
+        }
+        /// <summary>
+        ///Hàm chuyện trạng thái thuộc tính của viết thành đăng trang chủ
+        /// </summary>
+        public void dangTrangChu()
+        {
+            if (xulyChung.duocCapNhat(idOfPage, "7"))
+                try
+                {
+                    int kqLuu = 0;
+                    string param = xulyChung.nhanThamSoTrongSession(); //----param = maBV
+                    if (param.Length > 0)
+                    {
+                        int maBV = xulyDuLieu.doiChuoiSangInteger(param);
+                        qlCaPheEntities db = new qlCaPheEntities();
+                        baiViet bvSua = db.baiViets.SingleOrDefault(s => s.maBaiViet == maBV);
+                        if (bvSua != null)
+                        {
+                            if (bvSua.trangThai == 1) //------Kiểm tra bài viết đã được duyệt
+                            {
+                                bvSua.hienTrangChu = !bvSua.hienTrangChu; //-----Cập nhật trạng thái ngược với trạng thái hiện tại
+                                db.Entry(bvSua).State = System.Data.Entity.EntityState.Modified;
+                                kqLuu = db.SaveChanges();
+                                if (kqLuu > 0)
+                                {
+                                    xulyChung.ghiNhatKyDtb(4, "Cập nhật trạng thái hiện trang chủ của bài viết \"" + xulyDuLieu.traVeKyTuGoc(bvSua.tenBaiViet) + "\"");
+                                    Response.Redirect(xulyChung.layTenMien() + "/BaiViet/bv_TableBaiVietDaDuyet");
+                                }
+                            }
+                        }
+                        else throw new Exception("Bài viết cần cập nhật không tồn tại");
                     }
                     else throw new Exception("không nhận được tham số");
 
@@ -365,9 +423,9 @@ namespace qlCaPhe.Controllers
                 if (bv != null)
                 {
                     db.baiViets.Remove(bv);
-                    kqLuu=db.SaveChanges();
-                    if (kqLuu > 0) 
-                        xulyChung.ghiNhatKyDtb(3, "Bài viết \"" + xulyDuLieu.traVeKyTuGoc(bv.tenBaiViet)+ " \"");
+                    kqLuu = db.SaveChanges();
+                    if (kqLuu > 0)
+                        xulyChung.ghiNhatKyDtb(3, "Bài viết \"" + xulyDuLieu.traVeKyTuGoc(bv.tenBaiViet) + " \"");
                 }
                 else
                     throw new Exception("Bài viết có mã " + maBV.ToString() + " không tồn tại để xóa");
