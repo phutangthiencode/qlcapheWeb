@@ -3780,6 +3780,7 @@
     <Content Include="Scripts\Ajax\ajaxNghiepVuBan.js" />
     <Content Include="Scripts\Ajax\ajaxNhapHangVaoKho.js" />
     <Content Include="Scripts\Ajax\ajaxCongThucPhaChe.js" />
+    <Content Include="Scripts\Ajax\ajaxPublic.js" />
     <Content Include="Scripts\Ajax\ajaxXuatKho.js" />
     <Content Include="Scripts\Ajax\kiemKho.js" />
     <Content Include="Scripts\bootstrap.js" />

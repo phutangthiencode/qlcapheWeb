@@ -169,14 +169,14 @@ namespace qlCaPhe.Controllers
             foreach (sanPham sp in list)
             {
                 index++;
-                if (index == 1) 
+                if (index == 1)
                     kq += "<div class=\"special-top\">";
                 kq += "   <div class=\"col-md-3 special-in\">";
                 kq += "       <a href=\"~/PublicPage/ChiTietSanPham\">";
-                kq += "           <img src=\""+xulyDuLieu.chuyenByteHinhThanhSrcImage(sp.hinhAnh)+"\" class=\"img-responsive\" alt=\""+xulyDuLieu.traVeKyTuGoc(sp.tenSanPham)+"\">";
+                kq += "           <img src=\"" + xulyDuLieu.chuyenByteHinhThanhSrcImage(sp.hinhAnh) + "\" class=\"img-responsive\" alt=\"" + xulyDuLieu.traVeKyTuGoc(sp.tenSanPham) + "\">";
                 kq += "       </a>";
-                kq += "       <h5><a href=\"~/PublicPage/ChiTietSanPham\">"+xulyDuLieu.traVeKyTuGoc(sp.tenSanPham)+"</a></h5>";
-                kq += "       <p>"+xulyDuLieu.doiVND(sp.donGia)+"</p>";
+                kq += "       <h5><a href=\"~/PublicPage/ChiTietSanPham\">" + xulyDuLieu.traVeKyTuGoc(sp.tenSanPham) + "</a></h5>";
+                kq += "       <p>" + xulyDuLieu.doiVND(sp.donGia) + "</p>";
                 kq += "   </div>";
                 if (index == 4)
                 {
@@ -195,13 +195,163 @@ namespace qlCaPhe.Controllers
             return View();
         }
         #endregion
+
+        #region Trang Đặt bàn
         /// <summary>
         /// Giao diện danh sách bàn có trong quán để đặt bàn
         /// </summary>
         /// <returns></returns>
         public ActionResult DanhSachBan()
         {
+            try
+            {
+                this.taoCbbKhuVucDanhMucBan(new qlCaPheEntities());
+            }
+            catch (Exception ex)
+            {
+                xulyFile.ghiLoi("Class: PublicPageController - Function: DanhSachBan", ex.Message);
+                Response.Redirect(xulyChung.layTenMien() + "Home/ServerError");
+            }
             return View();
+        }
+
+        /// <summary>
+        /// Hàm xử lý sự kiện liệt kê danh mục bàn
+        /// </summary>
+        /// <param name="f"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult DanhSachBan(FormCollection f)
+        {
+            try
+            {
+                int maKV = xulyDuLieu.doiChuoiSangInteger(f["cbbKhuVuc"]);
+                int soLuongChoNgoi = xulyDuLieu.doiChuoiSangInteger(f["txtSoLuong"]);
+                this.lietKeDanhMucBan(maKV, soLuongChoNgoi);
+            }
+            catch (Exception ex)
+            {
+                xulyFile.ghiLoi("Class: PublicPageController - Function: DanhSachBan_Post", ex.Message);
+                Response.Redirect(xulyChung.layTenMien() + "Home/ServerError");
+            }
+            this.taoCbbKhuVucDanhMucBan(new qlCaPheEntities());
+            return View();
+        }
+
+        private void lietKeDanhMucBan(int maKV, int soLuongChoNgoi)
+        {
+            string kq = "<br><h3>Không có bàn theo mục tiêu đã liệt kê</h3>";
+            try
+            {
+                int index = 0;
+                List<BanChoNgoi> listBan = new qlCaPheEntities().BanChoNgois.Where(b => b.trangThai == 1 && b.maKhuVuc == maKV && b.sucChua == soLuongChoNgoi).ToList();
+                if (listBan.Count > 0)
+                {
+                    kq = "";
+                    foreach (BanChoNgoi ban in listBan)
+                    {
+                        index++;
+                        if (index == 1)
+                            kq += "<div class=\"special-top\">";
+                        kq += "     <div class=\"col-md-3 special-in\">";
+                        kq += "         <a data-toggle=\"modal\" data-target=\"#modal-detail-table\">";
+                        kq += "             <img src=\"" + xulyDuLieu.chuyenByteHinhThanhSrcImage(ban.hinhAnh) + "\" class=\"img-responsive\" alt=\"hinh_anh_ban" + xulyDuLieu.traVeKyTuGoc(ban.tenBan) + "\">";
+                        kq += "         </a>";
+                        kq += "         <div class=\"item-detail-table\">";
+                        kq += "             <h5><a task=\"" + ban.maBan.ToString() + "\" class=\"js-btn-openDetail\"><b>" + xulyDuLieu.traVeKyTuGoc(ban.tenBan) + "</b> - " + ban.sucChua.ToString() + " chỗ</a></h5>";
+                        kq += "             <button><span class=\"glyphicon glyphicon-check\" style=\"color:#ffffff; padding-right:20px;\"></span>Đặt bàn</button>";
+                        kq += "         </div>";
+                        kq += "     </div>";
+                        if (index == 4)
+                        {
+                            kq += "     <div class=\"clearfix\"></div>";
+                            kq += " </div>"; //---Đóng tag special-top
+                            index = 0;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                xulyFile.ghiLoi("Class: PublicPageController - Function: lietKeDanhMucBan", ex.Message);
+                Response.Redirect(xulyChung.layTenMien() + "Home/ServerError");
+            }
+            ViewBag.DanhMucBan = kq;
+        }
+
+
+        /// <summary>
+        /// Hàm tạo danh sách khu vực cho giao diện Danh mục bàn
+        /// </summary>
+        /// <param name="db"></param>
+        private void taoCbbKhuVucDanhMucBan(qlCaPheEntities db)
+        {
+            string kq = "";
+            try
+            {
+                foreach (khuVuc kv in db.khuVucs.ToList())
+                    kq += "<option value=\"" + kv.maKhuVuc.ToString() + "\">" + xulyDuLieu.traVeKyTuGoc(kv.tenKhuVuc) + "</option>";
+            }
+            catch (Exception ex)
+            {
+                xulyFile.ghiLoi("Class: PublicPageController - Function: taoCbbKhuVucDanhMucBan", ex.Message);
+                Response.Redirect(xulyChung.layTenMien() + "Home/ServerError");
+            }
+            ViewBag.CbbKhuVuc = kq;
+        }
+        /// <summary>
+        /// Hàm tạo giao diện modal chi tiết bàn khi ajax gọi đến
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public string AjaxXemChiTietBan(string param)
+        {
+            string kq = "";
+            try
+            {
+                int maBan = xulyDuLieu.doiChuoiSangInteger(param);
+                BanChoNgoi ban = new qlCaPheEntities().BanChoNgois.SingleOrDefault(b => b.trangThai == 1 && b.maBan == maBan);
+                if (ban != null)
+                {
+                    kq += "<div class=\"modal fade\" id=\"modal-detail-table\" role=\"dialog\" style=\"display: none;\">";
+                    kq += "    <div class=\"modal-dialog modal-lg\">";
+                    kq += "        <div class=\"modal-content\">";
+                    kq += "            <div class=\"modal-header\">";
+                    kq += "                <button type=\"button\" class=\"close\" data-dismiss=\"modal\">×</button>";
+                    kq += "                <h4 class=\"modal-title\">Thông tin chi tiết bàn \"" + xulyDuLieu.traVeKyTuGoc(ban.tenBan) + "\"</h4>";
+                    kq += "            </div>";
+                    kq += "            <div class=\"modal-body\">";
+                    kq += "                 <div class=\"row\">";
+                    kq += "                     <div class=\"col-md-6 col-lg-6 col-xs-6 col-sm-6\">";
+                    kq += "                         <img src=\"" + xulyDuLieu.chuyenByteHinhThanhSrcImage(ban.hinhAnh) + "\" class=\"img-responsive\" alt=\"\">";
+                    kq += "                     </div>";
+                    kq += "                     <div class=\"col-md-6 col-lg-6 col-xs-6 col-sm-6\">";
+                    kq += "                         <ul class=\"detail-table\">";
+                    kq += "                             <li><strong>Tên bàn: </strong>" + xulyDuLieu.traVeKyTuGoc(ban.tenBan) + "</li>";
+                    kq += "                             <li><strong>Khu vực:;</strong>" + xulyDuLieu.traVeKyTuGoc(ban.khuVuc.tenKhuVuc) + "</li>";
+                    kq += "                             <li><strong>Sức chứa:</strong>" + ban.sucChua.ToString() + " chỗ</li>";
+                    kq += "                             <li><strong>Giới thiệu:</strong>" + xulyDuLieu.traVeKyTuGoc(ban.gioiThieu) + " </li>";
+                    kq += "                         </ul>";
+                    kq += "                     </div>";
+                    kq += "               </div>";
+                    kq += "               <div class=\"row\">";
+                    kq += "                 <div class=\"col-md-9 col-lg-9 col-xs-9 col-sm-9\"></div>";
+                    kq += "                 <div class=\"col-md-3 col-lg-3 col-xs-3 col-sm-3\">";
+                    kq += "                     <button type=\"button\" task=\"" + ban.maBan.ToString() + "\" class=\"js-btn-datBan btn btn-primary\"><span class=\"glyphicon glyphicon-check\" style=\"color:#ffffff; padding-right:20px;\"></span>Đặt bàn</button>";
+                    kq += "                 </div>";
+                    kq += "               </div>";
+                    kq += "            </div>";
+                    kq += "        </div>";
+                    kq += "    </div>";
+                    kq += "</div>";
+                }
+            }
+            catch (Exception ex)
+            {
+                xulyFile.ghiLoi("Class: PublicPageController - Function: AjaxXemChiTietBan", ex.Message);
+                Response.Redirect(xulyChung.layTenMien() + "Home/ServerError");
+            }
+            return kq;
         }
         /// <summary>
         /// Giao diện nhập thông tin đặt bàn
@@ -211,6 +361,7 @@ namespace qlCaPhe.Controllers
         {
             return View();
         }
+        #endregion
         /// <summary>
         /// Giao diện danh sách bài viết
         /// </summary>

@@ -2,40 +2,14 @@
     ViewBag.Title = "Lựa chọn bàn - Chổ ngồi";
     Layout = "~/Views/Shared/_LayoutPublic.cshtml";
 }
-<style type="text/css">
-    .choNgoi {
-        width: 40px;
-        height: 40px;
-        background-image: url(../../images/Public/sprite.png);
-        background-repeat: no-repeat;
-        background-position: 0 -416px;
-        display: inline-block;
-        padding: 5px;
-        line-height: 1.42857143;
-        text-align: center;
-        cursor: pointer;
-        background-color: #E3E3E3;
-    }
 
-    .luaChon {
-        background-position: 0 -315px;
-        color: #ffffff;
-    }
-
-    .daDatCho {
-        background-position: 0 -365px;
-        cursor: not-allowed;
-        color: #ffffff;
-    }
-</style>
-
-<script type="text/javascript">
+@*<script type="text/javascript">
     $(document).ready(function () {
         $('.js-btn-openDetail').click(function () {
             $('#modal-detail-table').modal('show');
         });
     });
-</script>
+</script>*@
 
 
 <div class="container">
@@ -44,24 +18,25 @@
 
 
         <div class="row">
-            <form>
+            <form action="/PublicPage/DanhSachBan" method="post">
                 <div class=" col-md-4 contact-left">
                     <div>
                         <span>Chọn thời điểm đến dự kiến:</span>
-                        <input type="datetime-local" class="form-component">
+                        <input type="datetime-local" name="txtNgayDen" class="form-component">
                     </div>
                 </div>
 
                 <div class=" col-md-4 contact-left">
                     <div>
                         <span>Chọn thời điểm đến dự kiến:</span>
-                        <select class="form-component">
-                            <option value="">-- Lựa chọn khu vực --</option>
-                            <option value="10">Khu vực 1</option>
-                            <option value="20">Khu vực 2</option>
-                            <option value="30">Khu vực 3</option>
-                            <option value="40">Khu vực 4</option>
-                            <option value="50">Khu vực 5</option>
+                        <select class="form-component" name="cbbKhuVuc">
+                            <option value="-1">-- Lựa chọn khu vực --</option>
+                            @*<option value="10">Khu vực 1</option>
+                        <option value="20">Khu vực 2</option>
+                        <option value="30">Khu vực 3</option>
+                        <option value="40">Khu vực 4</option>
+                        <option value="50">Khu vực 5</option>*@
+                            @Html.Raw(ViewBag.CbbKhuVuc)
                         </select>
                     </div>
                 </div>
@@ -69,7 +44,7 @@
                 <div class=" col-md-2 contact-left">
                     <div>
                         <span>Số lượng chổ ngồi:</span>
-                        <input type="number" name="txtTenNguoiGui" class="form-component" placeholder="Nhập số lượng chổ ngồi mong muốn">
+                        <input type="number" name="txtSoLuong" class="form-component" placeholder="Nhập số lượng chổ ngồi mong muốn">
                     </div>
                 </div>
 
@@ -84,59 +59,19 @@
         </div>
 
 
-        <div class="row">
-            <div class="special-top">
-                <div class="col-md-3 special-in">
-                    <a data-toggle="modal" data-target="#modal-detail-table">
-                        <img src="~/images/Public/img4.jpg" class="img-responsive" alt="">
-
-                    </a>
-                    <div class="item-detail-table">
-                        <h5><a class="js-btn-openDetail"><b>Bàn số 10</b> - 4 chỗ</a></h5>
-                        <button><span class="glyphicon glyphicon-check" style="color:#ffffff; padding-right:20px;"></span>Đặt bàn</button>
-                    </div>
-                </div>
-
-
-                <div class="col-md-3 special-in">
-                    <a href="~/PublicPage/ChiTietSanPham">
-                        <img src="~/images/Public/img4.jpg" class="img-responsive" alt="">
-
-                    </a>
-                    <div class="item-detail-table">
-                        <h5><a href="~/PublicPage/ChiTietSanPham"><b>Bàn số 10</b> - 4 chỗ</a></h5>
-                        <button><span class="glyphicon glyphicon-check" style="color:#ffffff; padding-right:20px;"></span>Đặt bàn</button>
-                    </div>
-                </div>
-                <div class="col-md-3 special-in">
-                    <a href="~/PublicPage/ChiTietSanPham">
-                        <img src="~/images/Public/img4.jpg" class="img-responsive" alt="">
-
-                    </a>
-                    <div class="item-detail-table">
-                        <h5><a href="~/PublicPage/ChiTietSanPham"><b>Bàn số 10</b> - 4 chỗ</a></h5>
-                        <button><span class="glyphicon glyphicon-check" style="color:#ffffff; padding-right:20px;"></span>Đặt bàn</button>
-                    </div>
-                </div>
-                <div class="col-md-3 special-in padding-0">
-                    <a href="~/PublicPage/ChiTietSanPham">
-                        <img src="~/images/Public/img4.jpg" class="img-responsive" alt="">
-
-                    </a>
-                    <div class="item-detail-table">
-                        <h5><a href="~/PublicPage/ChiTietSanPham"><b>Bàn số 10</b> - 4 chỗ</a></h5>
-                        <button><span class="glyphicon glyphicon-check" style="color:#ffffff; padding-right:20px;"></span>Đặt bàn</button>
-                    </div>
-                </div>
-
-
-
-            </div> <!--Special-top-->
+        <div class="row" id="vungDanhSachBan">
+            @Html.Raw(ViewBag.DanhMucBan)
         </div>
     </div>
 </div>
 
-<div class="modal fade" id="modal-detail-table" role="dialog" style="display: none;">
+<div id="js-vung-modal">
+
+</div>
+<script src="~/Scripts/dungChung.js"></script>
+<script src="~/Scripts/Ajax/ajaxPublic.js"></script>
+
+@*<div class="modal fade" id="modal-detail-table" role="dialog" style="display: none;">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -162,4 +97,4 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@
