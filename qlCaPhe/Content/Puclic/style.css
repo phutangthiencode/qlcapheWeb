@@ -1639,3 +1639,21 @@ span {
     padding: 0px;
     margin: 0px;
 }
+.amount-order{
+    padding: 0 10px;
+    text-align: center;
+    font-size: 18px;
+    color: #bf6459;
+    font-weight: 400;
+}
+.table-ordered tr, .table-ordered th{
+    text-align:center;
+}
+.table-ordered-tablename{
+    font-size:20px;
+}
+.tong-suc-chua{
+    color: #673840;
+    font-size: 20px;
+    font-weight: 500;
+}

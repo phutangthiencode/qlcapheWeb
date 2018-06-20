@@ -118,3 +118,38 @@ Vị trí: Class: PublicPageController - Function: PartHome_BaiViet
  Lỗi: The underlying provider failed on Open.
 ---------------------------------------------------------------
 
+-----------------------6/21/2018 1:16:40 AM----------
+Vị trí: Class: PublicPageController - Function: HoanTatOrDer 
+ Lỗi: Khách nhập ngày không hợp lệ
+---------------------------------------------------------------
+
+-----------------------6/21/2018 1:18:15 AM----------
+Vị trí: Class: PublicPageController - Function: HoanTatOrDer 
+ Lỗi: Khách nhập ngày không hợp lệ
+---------------------------------------------------------------
+
+-----------------------6/21/2018 1:18:32 AM----------
+Vị trí: Class: PublicPageController - Function: HoanTatOrDer 
+ Lỗi: Khách nhập ngày không hợp lệ
+---------------------------------------------------------------
+
+-----------------------6/21/2018 1:45:43 AM----------
+Vị trí: Class: PublicPageController - Function: HoanTatOrDer 
+ Lỗi: Object reference not set to an instance of an object.
+---------------------------------------------------------------
+
+-----------------------6/21/2018 1:53:08 AM----------
+Vị trí: Class: PublicPageController - Function: HoanTatOrDer 
+ Lỗi: Object reference not set to an instance of an object.
+---------------------------------------------------------------
+
+-----------------------6/21/2018 1:53:25 AM----------
+Vị trí: Class: PublicPageController - Function: HoanTatOrDer 
+ Lỗi: Object reference not set to an instance of an object.
+---------------------------------------------------------------
+
+-----------------------6/21/2018 1:53:46 AM----------
+Vị trí: Class: PublicPageController - Function: HoanTatOrDer 
+ Lỗi: Object reference not set to an instance of an object.
+---------------------------------------------------------------
+

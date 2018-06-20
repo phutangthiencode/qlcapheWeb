@@ -1,0 +1,72 @@
+﻿@model qlCaPhe.Models.datBanOnline
+@{
+    ViewBag.Title = "GioDatBan";
+    Layout = "~/Views/Shared/_LayoutPublic.cshtml";
+}
+<div class="container">
+    <div class="contact">
+        <div class="contact-in">
+            <h3>KIỂM TRA ĐẶT BÀN</h3>
+            <div class=" col-md-5 contact-left">
+
+                <form action="/PublicPage/GioDatBan" method="post">
+                    @Html.ValidationSummary(true)
+                    <div>
+                        <span>Họ và tên*</span>
+                        @Html.TextBoxFor(model => model.hoTenKH, new { placeholder = "Nhập họ và tên của bạn tại đây", required = "required" })
+                        @Html.ValidationMessageFor(m => m.hoTenKH)
+                    </div>
+                    <div>
+                        <span>Số điện thoại*</span>
+                        @Html.TextBoxFor(model => model.SDT, new { placeholder = "Nhập số điện thoại của bạn tại đây", required = "required" })
+                        @Html.ValidationMessageFor(m => m.SDT)
+                    </div>
+                    <div>
+                        <span>Số lượng khách đến*</span>
+                        @Html.TextBoxFor(model => model.soLuongKhach, new { placeholder = "Nhập số lượng khách đến tại đây", @min="1", @type = "number", @class = "form-component" })
+                        @Html.ValidationMessageFor(m => m.soLuongKhach)
+                    </div>
+                    <div>
+                        <span>Ngày đến dự kiến</span>
+                        @Html.TextBoxFor(model => model.ngayDenDuKien, new { @type = "datetime-local", @class = "form-component", required = "required" })
+                        @Html.ValidationMessageFor(m => m.ngayDenDuKien)
+                    </div>
+                    <div>
+                        <span>Yêu cầu khác</span>
+                        @Html.TextAreaFor(m => m.yeuCauThem, new {   placeholder="Nhập thêm yêu cầu khác của bạn tại đây (Trang trí, món ăn, đồ uống....)"})
+                    </div>
+                    <div>
+                        <span><input type="submit" value="Hoàn tất"></span>
+                    </div>
+                </form>
+            </div>
+
+            <div class=" col-md-7 contact-right">
+                <table border="1">
+                    <thead>
+                        <tr class="table-ordered">
+                            <th style="width:40%">Bàn</th>
+                            <th style="width:10%">Khu vực</th>
+                            <th style="width:10%">Sức chứa</th>
+                            <th style="width:10%"></th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-ordered" id="js-table-ordered">
+                        @Html.Raw(ViewBag.TableCheckout)
+                    </tbody>
+                </table>
+                <br />
+
+                <span class="tong-suc-chua" id="js-total-capacity">@ViewBag.TongSucChua</span>
+                <a href="~/PublicPage/DanhSachBan" class="btn btn-primary pull-right ">
+                    <i class="glyphicon glyphicon-circle-arrow-left">
+                    </i> Chọn thêm bàn
+                </a>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+    </div>
+</div>
+<script src="~/Scripts/dungChung.js"></script>
+<script src="~/Scripts/Ajax/ajaxPublic.js"></script>

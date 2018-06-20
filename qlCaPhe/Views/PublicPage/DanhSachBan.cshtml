@@ -2,16 +2,6 @@
     ViewBag.Title = "Lựa chọn bàn - Chổ ngồi";
     Layout = "~/Views/Shared/_LayoutPublic.cshtml";
 }
-
-@*<script type="text/javascript">
-    $(document).ready(function () {
-        $('.js-btn-openDetail').click(function () {
-            $('#modal-detail-table').modal('show');
-        });
-    });
-</script>*@
-
-
 <div class="container">
     <div class="specials">
         <h3>Lựa chọn bàn - Chổ ngồi</h3>
@@ -19,7 +9,7 @@
 
         <div class="row">
             <form action="/PublicPage/DanhSachBan" method="post">
-                <div class=" col-md-4 contact-left">
+                <div class=" col-md-3 contact-left">
                     <div>
                         <span>Chọn thời điểm đến dự kiến:</span>
                         <input type="datetime-local" name="txtNgayDen" class="form-component">
@@ -31,11 +21,6 @@
                         <span>Chọn thời điểm đến dự kiến:</span>
                         <select class="form-component" name="cbbKhuVuc">
                             <option value="-1">-- Lựa chọn khu vực --</option>
-                            @*<option value="10">Khu vực 1</option>
-                        <option value="20">Khu vực 2</option>
-                        <option value="30">Khu vực 3</option>
-                        <option value="40">Khu vực 4</option>
-                        <option value="50">Khu vực 5</option>*@
                             @Html.Raw(ViewBag.CbbKhuVuc)
                         </select>
                     </div>
@@ -48,10 +33,11 @@
                     </div>
                 </div>
 
-                <div class=" col-md-2 contact-left">
+                <div class=" col-md-3 contact-left">
                     <div>
                         <br /><br />
                         <input type="submit" name="txtTenNguoiGui" class="textbox" value="Liệt kê">
+                        <a href="~/PublicPage/GioDatBan" id="js-soluongDat" class="amount-order"></a>
                     </div>
                 </div>
 
@@ -65,36 +51,8 @@
     </div>
 </div>
 
-<div id="js-vung-modal">
+<div id="js-modal-detail-ban">
 
 </div>
 <script src="~/Scripts/dungChung.js"></script>
 <script src="~/Scripts/Ajax/ajaxPublic.js"></script>
-
-@*<div class="modal fade" id="modal-detail-table" role="dialog" style="display: none;">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">×</button>
-                <h4 class="modal-title">Thông tin chi tiết bàn "Bàn số 10"</h4>
-            </div>
-            <div class="modal-body">
-                <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6">
-                    <img src="~/images/Public/img4.jpg" class="img-responsive" alt="">
-                </div>
-
-                <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6">
-                    <ul class="detail-table">
-                        <li><strong>Tên bàn: </strong>Bàn số 10</li>
-                        <li><strong>Khu vực:;</strong>Khu vực 1</li>
-                        <li><strong>Sức chứa:</strong>4 chỗ</li>
-                        <li><strong>Giới thiệu:</strong>Vị trí tầng 1, cảnh đẹp, thuận tiện cho việc ngắm sông Sài Gòn. </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-check" style="color:#ffffff; padding-right:20px;"></span>Đặt bàn</button>
-            </div>
-        </div>
-    </div>
-</div>*@

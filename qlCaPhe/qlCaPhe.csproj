@@ -164,6 +164,7 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\Cart\cartDanhGia.cs" />
+    <Compile Include="App_Start\Cart\cartDatBan.cs" />
     <Compile Include="App_Start\Cart\cartDieuPhoi.cs" />
     <Compile Include="App_Start\Cart\cartKiemKho.cs" />
     <Compile Include="App_Start\Cart\cartMucTieu.cs" />
@@ -4037,7 +4038,6 @@
     <Content Include="Views\PublicPage\ChiTietSanPham.cshtml" />
     <Content Include="Views\PublicPage\DatBanDatCho.cshtml" />
     <Content Include="Views\PublicPage\DanhSachBan.cshtml" />
-    <Content Include="Views\PublicPage\DatBan.cshtml" />
     <Content Include="Views\PublicPage\DanhSachBaiViet.cshtml" />
     <Content Include="Views\PublicPage\ChiTietBaiViet.cshtml" />
     <Content Include="Views\PublicPage\ThongTinLienHe.cshtml" />
@@ -4118,6 +4118,7 @@
     <Content Include="Views\PublicPage\PartHome_SanPhamNoiTroi.cshtml" />
     <Content Include="Views\PublicPage\PartHome_LoaiSanPham.cshtml" />
     <Content Include="Views\PublicPage\Part_Footer.cshtml" />
+    <Content Include="Views\PublicPage\GioDatBan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

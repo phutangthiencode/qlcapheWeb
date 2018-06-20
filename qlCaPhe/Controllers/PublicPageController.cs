@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using qlCaPhe.App_Start;
 using qlCaPhe.Models;
+using qlCaPhe.App_Start.Cart;
 
 namespace qlCaPhe.Controllers
 {
@@ -259,7 +260,7 @@ namespace qlCaPhe.Controllers
                         kq += "         </a>";
                         kq += "         <div class=\"item-detail-table\">";
                         kq += "             <h5><a task=\"" + ban.maBan.ToString() + "\" class=\"js-btn-openDetail\"><b>" + xulyDuLieu.traVeKyTuGoc(ban.tenBan) + "</b> - " + ban.sucChua.ToString() + " chỗ</a></h5>";
-                        kq += "             <button><span class=\"glyphicon glyphicon-check\" style=\"color:#ffffff; padding-right:20px;\"></span>Đặt bàn</button>";
+                        kq += "             <button class=\"js-btn-datBan\" task=\"" + ban.maBan.ToString() + "\"><span class=\"glyphicon glyphicon-check\" style=\"color:#ffffff; padding-right:20px;\"></span>Đặt bàn</button>";
                         kq += "         </div>";
                         kq += "     </div>";
                         if (index == 4)
@@ -278,7 +279,6 @@ namespace qlCaPhe.Controllers
             }
             ViewBag.DanhMucBan = kq;
         }
-
 
         /// <summary>
         /// Hàm tạo danh sách khu vực cho giao diện Danh mục bàn
@@ -302,8 +302,8 @@ namespace qlCaPhe.Controllers
         /// <summary>
         /// Hàm tạo giao diện modal chi tiết bàn khi ajax gọi đến
         /// </summary>
-        /// <param name="param"></param>
-        /// <returns></returns>
+        /// <param name="param">Tham số chứa mã bàn cần lấy thông tin</param>
+        /// <returns>Trả về chuỗi html tạo modal chi tiết bàn</returns>
         public string AjaxXemChiTietBan(string param)
         {
             string kq = "";
@@ -354,14 +354,200 @@ namespace qlCaPhe.Controllers
             return kq;
         }
         /// <summary>
-        /// Giao diện nhập thông tin đặt bàn
+        /// Hàm thực hiện Thêm mới 1 bàn vào giỏ đặt bàn
+        /// </summary>
+        /// <param name="param">Tham số chứa mã bàn cần dặt</param>
+        /// <returns>Chuỗi chứa số lượng bàn</returns>
+        public string AjaxDatBan(string param)
+        {
+            int soLuongBanDat = 0;
+            cartDatBan cart = (cartDatBan)Session["datBan"];
+            try
+            {
+                int maBan = xulyDuLieu.doiChuoiSangInteger(param);
+                qlCaPheEntities db = new qlCaPheEntities();
+                BanChoNgoi banDat = db.BanChoNgois.SingleOrDefault(b => b.maBan == maBan);
+                if (banDat != null)
+                {
+                    //------Thêm bàn cần đặt vào giỏ 
+                    ctDatBan ctAdd = new ctDatBan();
+                    ctAdd.maBan = banDat.maBan;
+                    ctAdd.ghiChu = "";
+                    ctAdd.BanChoNgoi = banDat;
+                    cart.addCart(ctAdd);
+                    Session["datBan"] = cart;
+                }
+                soLuongBanDat = cart.Info.Count;
+            }
+            catch (Exception ex)
+            {
+                xulyFile.ghiLoi("Class: PublicPageController - Function: AjaxDatBan", ex.Message);
+                Response.Redirect(xulyChung.layTenMien() + "Home/ServerError");
+            }
+            return "Đã đặt: " + soLuongBanDat.ToString() + " bàn";
+        }
+        /// <summary>
+        /// hàm tạo giao diện checkout
         /// </summary>
         /// <returns></returns>
-        public ActionResult DatBan()
+        public ActionResult GioDatBan()
         {
+            cartDatBan cart = (cartDatBan)Session["datBan"];
+            try
+            {
+                //-----Nếu trong giỏ chưa có bàn thì chuyển đến giao diện đặt bàn
+                if (cart.Info.Values.Count > 0)
+                {
+                    ViewBag.TableCheckout = taoDuLieuBangBanDaDat();
+                    ViewBag.TongSucChua = "Tổng sức chứa " + cart.getTotalCapacity();
+                }
+                else
+                    return RedirectToAction("DanhSachBan");
+            }
+            catch (Exception ex)
+            {
+                xulyFile.ghiLoi("Class: PublicPageController - Function: GioDatBan", ex.Message);
+                Response.Redirect(xulyChung.layTenMien() + "Home/ServerError");
+            }
             return View();
         }
+        /// <summary>
+        /// Hàm xóa 1 bàn đã order
+        /// </summary>
+        /// <param name="param">Mã bàn đã order cần xóa</param>
+        /// <returns>Chuồi html tạo bảng các bàn còn lại | tổng số lượng bàn đã xóa</returns>
+        public string AjaxXoaOrderBan(string param)
+        {
+            string kq = "";
+            try
+            {
+                cartDatBan cart = (cartDatBan)Session["datBan"];
+                int maBanXoa = xulyDuLieu.doiChuoiSangInteger(param);
+                cart.removeItem(maBanXoa);
+                kq += taoDuLieuBangBanDaDat() + "&&&Tổng sức chứa: " + cart.getTotalCapacity();
+            }
+            catch (Exception ex)
+            {
+                xulyFile.ghiLoi("Class: PublicPageController - Function: AjaxXoaOrderBan", ex.Message);
+                Response.Redirect(xulyChung.layTenMien() + "Home/ServerError");
+            }
+            return kq;
+        }
+        /// <summary>
+        /// hàm tạo dữ liệu cho bảng bàn đã order
+        /// </summary>
+        /// <returns>Chuỗi html tạo giao diện bàn</returns>
+        private string taoDuLieuBangBanDaDat()
+        {
+            string kq = "";
+            try
+            {
+                cartDatBan cart = (cartDatBan)Session["datBan"];
+                foreach (ctDatBan item in cart.Info.Values)
+                {
+                    kq += "<tr>";
+                    kq += "      <td>";
+                    kq += "          <img src=\""+xulyDuLieu.chuyenByteHinhThanhSrcImage(item.BanChoNgoi.hinhAnh)+"\" style=\"width:100%; height:auto;\">";
+                    kq += "          <b class=\"table-ordered-tablename\">"+xulyDuLieu.traVeKyTuGoc(item.BanChoNgoi.tenBan)+"</b>";
+                    kq += "      </td>";
+                    kq += "      <td>"+xulyDuLieu.traVeKyTuGoc(item.BanChoNgoi.khuVuc.tenKhuVuc)+"</td>";
+                    kq += "      <td>"+item.BanChoNgoi.sucChua.ToString()+"</td>";
+                    kq += "      <td><button task=\""+item.maBan.ToString()+"\" class=\"js-btn-xoaban btn btn-danger btn-sm\"><i class=\"glyphicon glyphicon-trash\"></i></button></td>";
+                    kq += "  </tr>";
+                }
+            }
+            catch (Exception ex)
+            {
+                xulyFile.ghiLoi("Class: PublicPageController - Function: taoDuLieuBangBanDaDat", ex.Message);
+                Response.Redirect(xulyChung.layTenMien() + "Home/ServerError");
+            }
+            return kq;
+        }
+        /// <summary>
+        /// Hàm thêm mới một đặt bàn vào CSDL
+        /// </summary>
+        /// <param name="f"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult GioDatBan(datBanOnline datBan, FormCollection f)
+        {
+            cartDatBan cart = (cartDatBan)Session["datBan"];
+            int kqLuu = 0;
+            if(cart.Info.Count>0)
+                try
+                {
+                    qlCaPheEntities db = new qlCaPheEntities();
+                    if (ModelState.IsValid)
+                    {
+                        this.layDuLieuTuViewCheckout(f, datBan);
+                        db.datBanOnlines.Add(datBan);
+                        kqLuu = db.SaveChanges();
+                        if (kqLuu > 0)
+                        {
+                            this.themChiTietDatBan(db, cart, datBan.maDatBan);
+                            this.xoaSessionDatBan();
+                            return RedirectToAction("Index");
+                        }
+                    }else{
+                        ViewBag.TableCheckout = taoDuLieuBangBanDaDat();
+                        ViewBag.TongSucChua = "Tổng sức chứa " + cart.getTotalCapacity();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    xulyFile.ghiLoi("Class: PublicPageController - Function: GioDatBan", ex.Message);
+                }
+            return View(datBan);
+        }
+        /// <summary>
+        /// Hàm nhận dữ liệu từ giao diện 
+        /// </summary>
+        /// <param name="f"></param>
+        /// <param name="d"></param>
+        private void layDuLieuTuViewCheckout(FormCollection f, datBanOnline d)
+        {
+            d.hoTenKH = xulyDuLieu.xulyKyTuHTML(f["hoTenKH"]).Trim();
+            d.SDT = xulyDuLieu.xulyKyTuHTML(f["SDT"]).Trim();
+            d.soLuongKhach = xulyDuLieu.doiChuoiSangInteger(f["soLuongKhach"]);
+            d.ngayDenDuKien = xulyDuLieu.doiChuoiSangDateTime(f["ngayDenDuKien"]);
+            d.ngayDat = DateTime.Now;
+            d.trangThai = 0;
+            d.yeuCauThem = xulyDuLieu.xulyKyTuHTML(f["yeuCauThem"]);
+        }
+        /// <summary>
+        /// Hàm thực hiện thêm chi tiết đặt bàn online vào CSDL
+        /// </summary>
+        /// <param name="db"></param>
+        /// <param name="cart">Object chứa danh sách bàn đã đặt trong giỏ</param>
+        private void themChiTietDatBan(qlCaPheEntities db, cartDatBan cart, int maDatBan)
+        {
+            try
+            {
+                foreach(ctDatBan item in cart.Info.Values)
+                {
+                    ctDatBan ctAdd = new ctDatBan();
+                    ctAdd.ghiChu = "";
+                    ctAdd.maBan = item.maBan;
+                    ctAdd.maDatBan = maDatBan;
+                    db.ctDatBans.Add(ctAdd);
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                xulyFile.ghiLoi("Class: PublicPageController - Function: themChiTietDatBan", ex.Message);
+            }
+        }
+        /// <summary>
+        /// Hàm xóa bỏ session đặt bàn và tạo mới lại
+        /// </summary>
+        private void xoaSessionDatBan()
+        {
+            Session.Remove("datBan"); 
+            Session.Add("datBan", new cartDatBan()); 
+        }
         #endregion
+
         /// <summary>
         /// Giao diện danh sách bài viết
         /// </summary>

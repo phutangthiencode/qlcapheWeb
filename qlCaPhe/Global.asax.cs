@@ -47,6 +47,8 @@ namespace qlCaPhe
             Session["daDanhGia"] = new cartDanhGia();
             //--Tạo session object chứa thông tin người dùng đăng nhập hệ thống
             Session["login"] = new taiKhoan();
+            //--Tạo session object chứa các bàn đã đặt
+            Session["datBan"] = new cartDatBan();
         }
     }
 }
