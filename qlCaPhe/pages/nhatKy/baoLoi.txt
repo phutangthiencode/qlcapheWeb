@@ -98,3 +98,23 @@ Vị trí: Class: xulyChung - Function: ghiNhatKy
  Lỗi: An error occurred while updating the entries. See the inner exception for details.
 ---------------------------------------------------------------
 
+-----------------------6/20/2018 2:51:54 PM----------
+Vị trí: Class: PublicPageController - Function: PartHome_Banner1 
+ Lỗi: The underlying provider failed on Open.
+---------------------------------------------------------------
+
+-----------------------6/20/2018 2:51:56 PM----------
+Vị trí: Class: PublicPageController - Function: PartHome_BaiViet 
+ Lỗi: The underlying provider failed on Open.
+---------------------------------------------------------------
+
+-----------------------6/20/2018 2:55:23 PM----------
+Vị trí: Class: PublicPageController - Function: PartHome_Banner1 
+ Lỗi: The underlying provider failed on Open.
+---------------------------------------------------------------
+
+-----------------------6/20/2018 2:55:25 PM----------
+Vị trí: Class: PublicPageController - Function: PartHome_BaiViet 
+ Lỗi: The underlying provider failed on Open.
+---------------------------------------------------------------
+

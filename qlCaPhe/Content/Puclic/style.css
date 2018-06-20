@@ -585,7 +585,7 @@ i.goog:hover{
 	margin-top: 0px;
 	font-weight:700;
 }
-.contact-left input[type="text"], .contact-left textarea {
+.contact-left input[type="text"], .contact-left textarea,  .form-component {
 	padding: 14px;
 	display: block;
 	width: 98%;
@@ -708,8 +708,9 @@ i.goog:hover{
 .special-in h5 a{
 	text-decoration:none;
 	color:#bf6459;
-	padding: 0.5em 0;
+	padding: 10px 0 0;
 	display:block;
+    text-align: center;
 }
 .special-in h5 a:hover{
 	color:#673840;
@@ -717,13 +718,14 @@ i.goog:hover{
 .special-in p{
 	font-size:1.3em;
 	color:#3e3e3e;
+    text-align:center;
 }
 .special-top {
 	padding: 2em 0;
 }
 .special-in {
 	margin: 0 2% 0 0;
-	padding: 0;
+	padding: 10px 0;
 	width: 23.5%;
 	float:left;
 }
@@ -1601,4 +1603,39 @@ span {
 	height: 63px;
 	width: 91px;
 }
+}
+
+.item-detail-table{
+    background-color:#384751;
+}
+.item-detail-table a{
+    color:#ffffff!important;
+    cursor:pointer;
+}
+
+.item-detail-table button{
+    outline: none;
+    padding: 7px -2px;
+    color: #F4F4F4;
+    cursor: pointer;
+    background: #2586a2;
+    border: none;
+    transition: 0.5s all;
+    -webkit-transition: 0.5s all;
+    -o-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -ms-transition: 0.5s all;
+    width:100%;
+    text-align:center;
+    font-weight:600;
+    height:43px;
+    font-size:20px;
+}
+.item-detail-table button:hover{
+    background: #176d86;
+}
+.detail-table{
+        list-style-type: none;
+    padding: 0px;
+    margin: 0px;
 }

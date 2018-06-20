@@ -31,43 +31,8 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        var kq = "";
-        $('.choNgoi').click(function () {
-            //Kiểm tra xem chổ ngồi này đã chọn chưa
-            if (!$(this).hasClass('luaChon')) {
-                //Thêm class luaChon để hiện icon khác
-                $(this).addClass('luaChon');
-                //Cộng dồn tên bàn đã chọn và hiển thị
-                var tenBan = $(this).text();
-                if (kq == "")
-                    kq = tenBan;
-                else
-                    kq = kq + ", " + tenBan;
-                $('.lbBanChon').text(kq);
-            } else {
-                //Gở bỏ bàn đã chọn
-                $(this).removeClass('luaChon');
-                //Xoá số bàn đã chọn
-                var tenBan = $(this).text();
-                var dau = tenBan + ",";
-                var cuoi = ", " + tenBan;
-                //Kiểm tra xem có số ghế đã chọn và ở vị trí đầu chuỗi
-                if (kq.indexOf(dau) > -1)
-                    kq = kq.replace(tenBan + ", ", ""); //Xoá dấu phẩy và số bàn đã chọn
-                    //Kiểm tra xem số ghế chọn phải ở vị trí cuối
-                else if (kq.indexOf(cuoi) > -1)
-                    kq = kq.replace(cuoi, "");
-                    //Xoá số trong trường họp chỉ còn 1 số
-                else
-                    kq = kq.replace(tenBan, "");
-                $('.lbBanChon').text(kq);
-            }
-        });
-
-        $('.content').hide();
-        $('#btnChon').click(function () {
-            $('.content').show(300);
-            
+        $('.js-btn-openDetail').click(function () {
+            $('#modal-detail-table').modal('show');
         });
     });
 </script>
@@ -76,89 +41,124 @@
 <div class="container">
     <div class="specials">
         <h3>Lựa chọn bàn - Chổ ngồi</h3>
+
+
         <div class="row">
-            <div class="col-md-4">
-                <div class="form-group">
-                    <p>Chọn thời điểm đến dự kiến:</p>
-                    <input type="datetime-local" class="form-control" />
+            <form>
+                <div class=" col-md-4 contact-left">
+                    <div>
+                        <span>Chọn thời điểm đến dự kiến:</span>
+                        <input type="datetime-local" class="form-component">
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <p>Số lượng chổ ngồi</p>
-                <input type="number" placeholder="Nhập số lượng đến dự kiến" class="form-control" />
-            </div>
-            <div class="col-md-4">
-                <br />
-                <input type="submit" class="btn btn-info" id="btnChon" value="Chọn" />
-            </div>
+
+                <div class=" col-md-4 contact-left">
+                    <div>
+                        <span>Chọn thời điểm đến dự kiến:</span>
+                        <select class="form-component">
+                            <option value="">-- Lựa chọn khu vực --</option>
+                            <option value="10">Khu vực 1</option>
+                            <option value="20">Khu vực 2</option>
+                            <option value="30">Khu vực 3</option>
+                            <option value="40">Khu vực 4</option>
+                            <option value="50">Khu vực 5</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class=" col-md-2 contact-left">
+                    <div>
+                        <span>Số lượng chổ ngồi:</span>
+                        <input type="number" name="txtTenNguoiGui" class="form-component" placeholder="Nhập số lượng chổ ngồi mong muốn">
+                    </div>
+                </div>
+
+                <div class=" col-md-2 contact-left">
+                    <div>
+                        <br /><br />
+                        <input type="submit" name="txtTenNguoiGui" class="textbox" value="Liệt kê">
+                    </div>
+                </div>
+
+            </form>
         </div>
-        <div class="content">
-            <div class="col-md-3 ">
-                <h2>Chọn khu vực</h2>
-                <select class="form-control show-tick">
-                    <option value="">-- Lựa chọn khu vực --</option>
-                    <option value="10">Khu vực 1</option>
-                    <option value="20">Khu vực 2</option>
-                    <option value="30">Khu vực 3</option>
-                    <option value="40">Khu vực 4</option>
-                    <option value="50">Khu vực 5</option>
-                </select>
-            </div>
-            <div class="col-md-9">
-                <div>
-                    <div class="row">
-                        <h2 style="text-align:center;">Sơ đồ chổ ngồi</h2>
-                        <div class="list-inline">
-                            <span style="font-weight:bold">Bàn đã chọn:  <span class="lbBanChon"></span></span>
-                        </div>
-                    </div>
-                    <br /><br /><br />
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="choNgoi">1</div>
-                        </div>
-                        <div class="col-md-4">
 
-                            <div class="choNgoi">2</div>
-                        </div>
-                        <div class="col-md-4">
 
-                            <div class="choNgoi">3</div>
-                        </div>
-                    </div>
-                    <br />
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="choNgoi daDatCho">4</div>
-                        </div>
-                        <div class="col-md-4">
+        <div class="row">
+            <div class="special-top">
+                <div class="col-md-3 special-in">
+                    <a data-toggle="modal" data-target="#modal-detail-table">
+                        <img src="~/images/Public/img4.jpg" class="img-responsive" alt="">
 
-                            <div class="choNgoi">5</div>
-                        </div>
-                        <div class="col-md-4">
-
-                            <div class="choNgoi">6</div>
-                        </div>
-                    </div>
-                    <br />
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="choNgoi">7</div>
-                        </div>
-                        <div class="col-md-4">
-
-                            <div class="choNgoi">8</div>
-                        </div>
-                        <div class="col-md-4">
-
-                            <div class="choNgoi">9</div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <a href="~/PublicPage/DatBan" class="btn btn-success pull-right"><i class="glyphicon glyphicon-edit"></i> Đặt bàn</a> 
+                    </a>
+                    <div class="item-detail-table">
+                        <h5><a class="js-btn-openDetail"><b>Bàn số 10</b> - 4 chỗ</a></h5>
+                        <button><span class="glyphicon glyphicon-check" style="color:#ffffff; padding-right:20px;"></span>Đặt bàn</button>
                     </div>
                 </div>
+
+
+                <div class="col-md-3 special-in">
+                    <a href="~/PublicPage/ChiTietSanPham">
+                        <img src="~/images/Public/img4.jpg" class="img-responsive" alt="">
+
+                    </a>
+                    <div class="item-detail-table">
+                        <h5><a href="~/PublicPage/ChiTietSanPham"><b>Bàn số 10</b> - 4 chỗ</a></h5>
+                        <button><span class="glyphicon glyphicon-check" style="color:#ffffff; padding-right:20px;"></span>Đặt bàn</button>
+                    </div>
+                </div>
+                <div class="col-md-3 special-in">
+                    <a href="~/PublicPage/ChiTietSanPham">
+                        <img src="~/images/Public/img4.jpg" class="img-responsive" alt="">
+
+                    </a>
+                    <div class="item-detail-table">
+                        <h5><a href="~/PublicPage/ChiTietSanPham"><b>Bàn số 10</b> - 4 chỗ</a></h5>
+                        <button><span class="glyphicon glyphicon-check" style="color:#ffffff; padding-right:20px;"></span>Đặt bàn</button>
+                    </div>
+                </div>
+                <div class="col-md-3 special-in padding-0">
+                    <a href="~/PublicPage/ChiTietSanPham">
+                        <img src="~/images/Public/img4.jpg" class="img-responsive" alt="">
+
+                    </a>
+                    <div class="item-detail-table">
+                        <h5><a href="~/PublicPage/ChiTietSanPham"><b>Bàn số 10</b> - 4 chỗ</a></h5>
+                        <button><span class="glyphicon glyphicon-check" style="color:#ffffff; padding-right:20px;"></span>Đặt bàn</button>
+                    </div>
+                </div>
+
+
+
+            </div> <!--Special-top-->
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-detail-table" role="dialog" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Thông tin chi tiết bàn "Bàn số 10"</h4>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6">
+                    <img src="~/images/Public/img4.jpg" class="img-responsive" alt="">
+                </div>
+
+                <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6">
+                    <ul class="detail-table">
+                        <li><strong>Tên bàn: </strong>Bàn số 10</li>
+                        <li><strong>Khu vực:;</strong>Khu vực 1</li>
+                        <li><strong>Sức chứa:</strong>4 chỗ</li>
+                        <li><strong>Giới thiệu:</strong>Vị trí tầng 1, cảnh đẹp, thuận tiện cho việc ngắm sông Sài Gòn. </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-check" style="color:#ffffff; padding-right:20px;"></span>Đặt bàn</button>
             </div>
         </div>
     </div>
