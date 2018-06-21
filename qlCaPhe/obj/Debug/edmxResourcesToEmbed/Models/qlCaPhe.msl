@@ -230,6 +230,7 @@
         <MappingFragment StoreEntitySet="Feedback">
           <ScalarProperty Name="maFB" ColumnName="maFB" />
           <ScalarProperty Name="tenNguoiGui" ColumnName="tenNguoiGui" />
+          <ScalarProperty Name="email" ColumnName="email" />
           <ScalarProperty Name="tieuDe" ColumnName="tieuDe" />
           <ScalarProperty Name="noiDung" ColumnName="noiDung" />
           <ScalarProperty Name="ngayDang" ColumnName="ngayDang" />

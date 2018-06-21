@@ -631,7 +631,7 @@ namespace qlCaPhe.Controllers
         }
         #endregion
 
-
+        #region Trang Liên hệ
         /// <summary>
         /// Hàm tạo giao diện trang cấu hình
         /// </summary>
@@ -653,6 +653,7 @@ namespace qlCaPhe.Controllers
                     ViewBag.ScriptAPI = createScriptAjax.taoScriptGoogleMapAPIKey();
                     //-----Nhúng script bản đồ vào giao diện
                     ViewBag.ScriptMap = createScriptAjax.taoScriptNhungBanDo(xulyDuLieu.traVeKyTuGoc(ch.kinhDo), xulyDuLieu.traVeKyTuGoc(ch.viDo), data, content);
+
                     return View(ch);
                 }
             }
@@ -663,6 +664,10 @@ namespace qlCaPhe.Controllers
             }
             return RedirectToAction("PageNotFound");
         }
+        #endregion
+
+        #region Trang gửi phản hồi
+
         /// <summary>
         /// Giao diện gửi phản hồi
         /// </summary>
@@ -671,6 +676,53 @@ namespace qlCaPhe.Controllers
         {
             return View();
         }
+
+        /// <summary>
+        /// Hàm lưu mới 1 phản hồi vào CSDL
+        /// </summary>
+        /// <param name="phanHoi"></param>
+        /// <param name="f"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult GuiPhanHoi(Feedback phanHoi, FormCollection f)
+        {
+            int kqLuu = 0;
+            try
+            {
+                qlCaPheEntities db = new qlCaPheEntities();
+                if (ModelState.IsValid)
+                {
+                    this.layDuLieuTuViewPhanHoi(phanHoi, f);
+                    db.Feedbacks.Add(phanHoi);
+                    kqLuu = db.SaveChanges();
+                    if (kqLuu > 0)
+                        return RedirectToAction("Index");
+                }
+            }
+            catch (Exception ex)
+            {
+                xulyFile.ghiLoi("Class: PublicPageController - Function: GuiPhanHoi", ex.Message);
+            }
+            return View(phanHoi);
+        }
+
+        /// <summary>
+        /// Hàm lấy dữ liệu có trên giao diện và gán vào object Feedback
+        /// </summary>
+        /// <param name="phanHoi">Object cần gán dữ liệu vào thuộc tính</param>
+        /// <param name="f"></param>
+        private void layDuLieuTuViewPhanHoi(Feedback phanHoi, FormCollection f)
+        {
+            phanHoi.email = xulyDuLieu.xulyKyTuHTML(f["email"]);
+            phanHoi.ngayDang = DateTime.Now;
+            phanHoi.noiDung = xulyDuLieu.xulyKyTuHTML(f["noiDung"]);
+            phanHoi.tenNguoiGui = xulyDuLieu.xulyKyTuHTML(f["tenNguoiGui"]);
+            phanHoi.tieuDe = xulyDuLieu.xulyKyTuHTML(f["tieuDe"]);
+            phanHoi.trangThai = 0;//Set trạng thái phản hồi đã đăng
+        }
+        #endregion
+
+
 
         /// <summary>
         /// Hàm tạo vùng giao diện footer

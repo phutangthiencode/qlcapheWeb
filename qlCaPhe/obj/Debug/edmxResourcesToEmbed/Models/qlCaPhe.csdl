@@ -257,6 +257,7 @@
     </Key>
     <Property Name="maFB" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="tenNguoiGui" Type="String" MaxLength="68" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="tieuDe" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="noiDung" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="ngayDang" Type="DateTime" Precision="3" />

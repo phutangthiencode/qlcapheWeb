@@ -1,4 +1,6 @@
 ﻿
+@model qlCaPhe.Models.Feedback
+
 @{
     ViewBag.Title = "Gửi phản hồi";
     Layout = "~/Views/Shared/_LayoutPublic.cshtml";
@@ -11,22 +13,27 @@
             <h3>Phản hồi</h3>
             <div class=" col-md-9 contact-left">
 
-                <form>
+                <form action="/PublicPage/GuiPhanHoi" method="post">
+                    @Html.ValidationSummary(true)
                     <div>
                         <span>Họ và tên</span>
-                        <input name="txtTenNguoiGui" type="text" class="textbox" placeholder="Nhập họ và tên của bạn">
+                        @Html.TextBoxFor(model => model.tenNguoiGui, new { placeholder = "Nhập họ và tên của bạn tại đây", required = "required" })
+                        @Html.ValidationMessageFor(m => m.tenNguoiGui)
                     </div>
                     <div>
                         <span>E-Mail</span>
-                        <input name="txtEmailNguoiGui" placeholder="Nhập địa chỉ Email của bạn" type="text" class="textbox">
+                        @Html.TextBoxFor(model => model.email, new { placeholder = "Nhập địa chỉ Email của bạn", required = "required" })
+                        @Html.ValidationMessageFor(m => m.email)
                     </div>
                     <div>
                         <span>Tiêu đề</span>
-                        <input name="txtTieuDe" placeholder="Nhập tiêu đề, chủ đề cần phản hồi" type="text" class="textbox">
+                        @Html.TextBoxFor(model => model.tieuDe, new { placeholder = "Nhập tiêu đề, chủ đề cần phản hồi", required = "required" })
+                        @Html.ValidationMessageFor(m => m.tieuDe)
                     </div>
                     <div>
                         <span>Nội dung</span>
-                        <textarea name="txtNoiDung" placeholder="Nhập nội dung chi tiết ý kiến của bạn"> </textarea>
+                        @Html.TextAreaFor(model => model.noiDung, new { placeholder = "Nhập nội dung chi tiết ý kiến của bạn", required = "required" })
+                        @Html.ValidationMessageFor(m => m.noiDung)
                     </div>
                     <div>
                         <span><input type="submit" value="Gửi phản hồi"></span>

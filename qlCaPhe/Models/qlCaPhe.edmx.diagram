@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="03bb5a1bf614468ebed44117e12f3a9e" Name="Diagram1">
+      <Diagram DiagramId="fd6c3c6768f542cebf52c3e95fc9a8a2" Name="Diagram1">
         <EntityTypeShape EntityType="qlCaPheModel.baiViet" Width="1.5" PointX="8.25" PointY="16.75" IsExpanded="true" />
         <EntityTypeShape EntityType="qlCaPheModel.BanChoNgoi" Width="1.5" PointX="11" PointY="12.125" IsExpanded="true" />
         <EntityTypeShape EntityType="qlCaPheModel.BangGiaoViec" Width="1.5" PointX="8.25" PointY="21" IsExpanded="true" />
@@ -39,8 +39,8 @@
         <EntityTypeShape EntityType="qlCaPheModel.phieuNhapKho" Width="1.5" PointX="14.25" PointY="23.375" IsExpanded="true" />
         <EntityTypeShape EntityType="qlCaPheModel.phieuXuatKho" Width="1.5" PointX="14.25" PointY="27.375" IsExpanded="true" />
         <EntityTypeShape EntityType="qlCaPheModel.sanPham" Width="1.5" PointX="13.25" PointY="6.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="qlCaPheModel.slide" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="qlCaPheModel.sysdiagram" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="qlCaPheModel.slide" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="qlCaPheModel.sysdiagram" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="qlCaPheModel.taiKhoan" Width="1.5" PointX="6" PointY="22.125" IsExpanded="true" />
         <EntityTypeShape EntityType="qlCaPheModel.thanhVien" Width="1.5" PointX="0.75" PointY="22.5" IsExpanded="true" />
         <EntityTypeShape EntityType="qlCaPheModel.thongBao" Width="1.5" PointX="8.25" PointY="50.875" IsExpanded="true" />

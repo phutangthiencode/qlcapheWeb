@@ -225,6 +225,7 @@
           </Key>
           <Property Name="maFB" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="tenNguoiGui" Type="nvarchar" MaxLength="68" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="250" Nullable="false" />
           <Property Name="tieuDe" Type="nvarchar" MaxLength="256" Nullable="false" />
           <Property Name="noiDung" Type="ntext" />
           <Property Name="ngayDang" Type="datetime" />
@@ -1589,6 +1590,7 @@
           </Key>
           <Property Name="maFB" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="tenNguoiGui" Type="String" MaxLength="68" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="tieuDe" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="noiDung" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ngayDang" Type="DateTime" Precision="3" />
@@ -2993,6 +2995,7 @@
               <MappingFragment StoreEntitySet="Feedback">
                 <ScalarProperty Name="maFB" ColumnName="maFB" />
                 <ScalarProperty Name="tenNguoiGui" ColumnName="tenNguoiGui" />
+                <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="tieuDe" ColumnName="tieuDe" />
                 <ScalarProperty Name="noiDung" ColumnName="noiDung" />
                 <ScalarProperty Name="ngayDang" ColumnName="ngayDang" />

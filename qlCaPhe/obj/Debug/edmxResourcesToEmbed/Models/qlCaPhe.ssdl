@@ -220,6 +220,7 @@
     </Key>
     <Property Name="maFB" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="tenNguoiGui" Type="nvarchar" MaxLength="68" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="250" Nullable="false" />
     <Property Name="tieuDe" Type="nvarchar" MaxLength="256" Nullable="false" />
     <Property Name="noiDung" Type="ntext" />
     <Property Name="ngayDang" Type="datetime" />
