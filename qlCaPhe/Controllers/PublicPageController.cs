@@ -148,7 +148,7 @@ namespace qlCaPhe.Controllers
                 int trangHienHanh = (page ?? 1);
                 qlCaPheEntities db = new qlCaPheEntities();
                 int soPhanTu = db.sanPhams.Where(s => s.trangThai == 1).Count();
-                ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, pageSize, trangHienHanh, "/PublicPage/DanhSachSanPham"); //------cấu hình phân trang
+                ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, pageSize, trangHienHanh, "/san-pham"); //------cấu hình phân trang
                 listSanPham = db.sanPhams.Where(s => s.trangThai == 1).OrderBy(c => c.tenSanPham).Skip((trangHienHanh - 1) * pageSize).Take(pageSize).ToList();
                 ViewBag.ListSanPham = taoDanhSachSanPham(listSanPham);
                 ViewBag.ListBaiViet = taoDanhSachBaiVietTrenDanhMucSanPham(db);
@@ -176,7 +176,7 @@ namespace qlCaPhe.Controllers
                 int soPhanTu = db.sanPhams.Where(s => s.trangThai == 1 && s.maLoai == id).Count();
                 if (soPhanTu > 0)
                 {
-                    ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, pageSize, trangHienHanh, "/PublicPage/SanPhamTheoLoai"); //------cấu hình phân trang
+                    ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, pageSize, trangHienHanh, "/loai-san-pham"); //------cấu hình phân trang
                     listSanPham = db.sanPhams.Where(s => s.trangThai == 1 && s.maLoai == id).OrderBy(c => c.tenSanPham).Skip((trangHienHanh - 1) * pageSize).Take(pageSize).ToList();
                     ViewBag.ListSanPham = taoDanhSachSanPham(listSanPham);
                     ViewBag.ListBaiViet = taoDanhSachBaiVietTrenDanhMucSanPham(db);
@@ -197,12 +197,13 @@ namespace qlCaPhe.Controllers
         /// </summary>
         /// <param name="list">List chứa object sản phẩm cần hiển thị</param>
         /// <returns>Trả về chuổi hmlt toàn bộ danh sách hiển thị</returns>
-        private string taoDanhSachSanPham(List<sanPham> list)
+        private string taoDanhSachSanPham(List<sanPham> list) 
         {
             string kq = ""; int index = 0;
             foreach (sanPham sp in list)
             {
-                string urlDetail = "../PublicPage/ChiTietSanPham/" + sp.maSanPham.ToString();
+                string tenSP = xulyDuLieu.traVeKyTuGoc(sp.tenSanPham);
+                string urlDetail = "../san-pham/"+xulyDuLieu.loaiBoDauTiengViet(tenSP).Replace(" ", "_") + "-" + sp.maSanPham.ToString();
                 index++;
                 if (index == 1)
                     kq += "<div class=\"special-top\">";
@@ -210,7 +211,7 @@ namespace qlCaPhe.Controllers
                 kq += "       <a href=\"" + urlDetail + "\">";
                 kq += "           <img src=\"" + xulyDuLieu.chuyenByteHinhThanhSrcImage(sp.hinhAnh) + "\" class=\"img-responsive\" alt=\"" + xulyDuLieu.traVeKyTuGoc(sp.tenSanPham) + "\">";
                 kq += "       </a>";
-                kq += "       <h5><a href=\"" + urlDetail + "\">" + xulyDuLieu.traVeKyTuGoc(sp.tenSanPham) + "</a></h5>";
+                kq += "       <h5><a href=\"" + urlDetail + "\">" + tenSP + "</a></h5>";
                 kq += "       <p>" + xulyDuLieu.doiVND(sp.donGia) + "</p>";
                 kq += "   </div>";
                 if (index == 4)
@@ -234,9 +235,10 @@ namespace qlCaPhe.Controllers
             {
                 foreach (baiViet bv in db.baiViets.Where(s => s.trangThai == 1 && s.hienTrangChu == true).ToList().Take(2))
                 {
-                    string urlDetail = "../PublicPage/ChiTietBaiViet/" + bv.maBaiViet.ToString();
+                    string tenBV = xulyDuLieu.traVeKyTuGoc(bv.tenBaiViet);
+                    string urlDetail = xulyDuLieu.taoUrlChoSEO("bai-viet", tenBV, bv.maBaiViet.ToString());
                     kq += "<div class=\"col-md-5 bottom-special\">";
-                    kq += "    <h5><a href=\""+urlDetail+"\">"+xulyDuLieu.xulyCatChuoi(xulyDuLieu.traVeKyTuGoc(bv.tenBaiViet),30)+"</a></h5>";
+                    kq += "    <h5><a href=\"" + urlDetail + "\">" + xulyDuLieu.xulyCatChuoi(tenBV, 30) + "</a></h5>";
                     kq += "    <a href=\""+urlDetail+"\" class=\"more\">Xem chi tiết</a>";
                     kq += "</div>";
                 }
@@ -251,7 +253,7 @@ namespace qlCaPhe.Controllers
         /// Giao diện chi tiết sản phẩm
         /// </summary>
         /// <returns></returns>
-        public ActionResult ChiTietSanPham(int id)
+        public ActionResult ChiTietSanPham(int ?id)
         {
             try
             {
@@ -316,7 +318,7 @@ namespace qlCaPhe.Controllers
             try
             {
                 int index = 0;
-                List<BanChoNgoi> listBan = new qlCaPheEntities().BanChoNgois.Where(b => b.trangThai == 1 && b.maKhuVuc == maKV && b.sucChua == soLuongChoNgoi).ToList();
+                List<BanChoNgoi> listBan = new qlCaPheEntities().BanChoNgois.Where(b => b.trangThai == 1 && b.maKhuVuc == maKV && b.sucChua >= soLuongChoNgoi).ToList();
                 if (listBan.Count > 0)
                 {
                     kq = "";
@@ -635,7 +637,7 @@ namespace qlCaPhe.Controllers
                 qlCaPheEntities db = new qlCaPheEntities();
                 int trangHienHanh = (page ?? 1);
                 int soPhanTu = db.baiViets.Where(s => s.trangThai == 1).Count();
-                ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, pageSize, trangHienHanh, "/PublicPage/DanhSachBaiViet"); //------cấu hình phân trang
+                ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, pageSize, trangHienHanh, "/bai-viet"); //------cấu hình phân trang
                 listBaiViet = db.baiViets.Where(s => s.trangThai == 1).OrderByDescending(c => c.ngayDang).Skip((trangHienHanh - 1) * pageSize).Take(pageSize).ToList();
 
                 layLoaiSanPhamTaiDanhSachBaiViet(db);
@@ -659,7 +661,11 @@ namespace qlCaPhe.Controllers
             {
                 string html = "";
                 foreach (loaiSanPham loai in db.loaiSanPhams.Where(l => l.sanPhams.Count > 0).ToList())
-                    html += "<a href=\"../PublicPage/SanPhamTheoLoai/" + loai.maLoai.ToString() + "\" class=\"list-group-item\">" + xulyDuLieu.traVeKyTuGoc(loai.tenLoai) + "</a>";
+                {
+                    string tenLoai = xulyDuLieu.traVeKyTuGoc(loai.tenLoai);
+                    string urlRewrite = xulyDuLieu.taoUrlChoSEO("loai-san-pham", tenLoai, loai.maLoai.ToString());
+                    html += "<a href=\""+urlRewrite+ "\" class=\"list-group-item\">" + tenLoai+ "</a>";
+                }
                 ViewBag.LoaiSanPham = html;
             }
             catch (Exception ex)

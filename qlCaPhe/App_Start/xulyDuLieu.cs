@@ -42,7 +42,7 @@ namespace qlCaPhe.App_Start
         {
             if (s.Length < lenght)
                 return s;
-            return s.Substring(0,lenght) + "...";
+            return s.Substring(0, lenght) + "...";
         }
         /// <summary>
         /// Hàm thực hiện chuyển đổi 1 chuỗi thành kiểu Integer
@@ -54,7 +54,7 @@ namespace qlCaPhe.App_Start
         {
             int tempVal;
             int? val = Int32.TryParse(s, out tempVal) ? Int32.Parse(s) : (int?)0;
-            return (int) val;
+            return (int)val;
         }
         /// <summary>
         /// Hàm đổi chuỗi sang double
@@ -93,7 +93,7 @@ namespace qlCaPhe.App_Start
         public static long doiChuoiSangLong(string s)
         {
             long tempVal;
-            long ? kq = Int64.TryParse(s, out tempVal) ? Int64.Parse(s) : (long?)0;
+            long? kq = Int64.TryParse(s, out tempVal) ? Int64.Parse(s) : (long?)0;
             return (long)kq;
         }
 
@@ -106,7 +106,7 @@ namespace qlCaPhe.App_Start
         {
             byte[] kq = null;
             try
-            {             
+            {
                 FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read);
                 BinaryReader br = new BinaryReader(fs);
                 kq = br.ReadBytes((int)fs.Length);
@@ -191,6 +191,48 @@ namespace qlCaPhe.App_Start
         public static string layThuocTinhTrongMotObject(object obj, string tenThuocTinh)
         {
             return obj.GetType().GetProperty(tenThuocTinh).GetValue(obj, null).ToString();
+        }
+
+        /// <summary>
+        /// Hàm gở bỏ ký tự dấu tiếng việt
+        /// </summary>
+        /// <param name="text">Chuỗi cần gở bỏ</param>
+        /// <returns>Chuỗi không dấu</returns>
+        public static string loaiBoDauTiengViet(string text)
+        {
+            string[] arr1 = new string[] { "á", "à", "ả", "ã", "ạ", "â", "ấ", "ầ", "ẩ", "ẫ", "ậ", "ă", "ắ", "ằ", "ẳ", "ẵ", "ặ",  
+    "đ",  
+    "é","è","ẻ","ẽ","ẹ","ê","ế","ề","ể","ễ","ệ",  
+    "í","ì","ỉ","ĩ","ị",  
+    "ó","ò","ỏ","õ","ọ","ô","ố","ồ","ổ","ỗ","ộ","ơ","ớ","ờ","ở","ỡ","ợ",  
+    "ú","ù","ủ","ũ","ụ","ư","ứ","ừ","ử","ữ","ự",  
+    "ý","ỳ","ỷ","ỹ","ỵ",};
+            string[] arr2 = new string[] { "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a",  
+    "d",  
+    "e","e","e","e","e","e","e","e","e","e","e",  
+    "i","i","i","i","i",  
+    "o","o","o","o","o","o","o","o","o","o","o","o","o","o","o","o","o",  
+    "u","u","u","u","u","u","u","u","u","u","u",  
+    "y","y","y","y","y",};
+            for (int i = 0; i < arr1.Length; i++)
+            {
+                text = text.Replace(arr1[i], arr2[i]);
+                text = text.Replace(arr1[i].ToUpper(), arr2[i].ToUpper());
+            }
+            return text;
+        }
+
+        /// <summary>
+        /// Hàm tạo chuổi url thân thiện với SEO
+        /// chuỗi trả về có dạng <para/> sub-url/ten-doi-tuong-id
+        /// </summary>
+        /// <param name="suburl">Chuỗi url đầu trang</param>
+        /// <param name="name">Tên đối tượng</param>
+        /// <param name="id">Id của đối tượng</param>
+        /// <returns>Chuổi url chuẩn SEO</returns>
+        public static string taoUrlChoSEO(string suburl, string name, string id)
+        {
+            return "../"+suburl+"/" + loaiBoDauTiengViet(name).Replace(" ", "_") + "-" + id;
         }
     }
 }

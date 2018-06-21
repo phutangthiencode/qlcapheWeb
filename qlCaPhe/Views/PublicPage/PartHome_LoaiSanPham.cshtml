@@ -4,6 +4,8 @@
 <ul>
     @foreach (var loai in Model)
     {
-        <li><a href="../PublicPage/SanPhamTheoLoai/@loai.maLoai.ToString()"><span> </span>@xulyDuLieu.traVeKyTuGoc(loai.tenLoai)</a></li>
+        string tenLoai = xulyDuLieu.traVeKyTuGoc(loai.tenLoai);
+        string urlRewrite = xulyDuLieu.taoUrlChoSEO("loai-san-pham", tenLoai, loai.maLoai.ToString());
+        <li><a href="@urlRewrite"><span> </span>@xulyDuLieu.traVeKyTuGoc(loai.tenLoai)</a></li>
     }
 </ul>

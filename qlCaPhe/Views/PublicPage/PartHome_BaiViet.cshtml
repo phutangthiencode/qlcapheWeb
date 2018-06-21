@@ -8,6 +8,9 @@
     }
     @foreach (var baiViet in Model)
     {
+        string tenBV = xulyDuLieu.traVeKyTuGoc(baiViet.tenBaiViet);
+        string urlRewrite = xulyDuLieu.taoUrlChoSEO("bai-viet", tenBV, baiViet.maBaiViet.ToString());
+        
         <div class="col-md-6 duis-1">
             <div class="duis-left">
                 <span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>
@@ -17,7 +20,7 @@
             </div>
             <div class="clearfix"></div>
             <p>@xulyDuLieu.traVeKyTuGoc(baiViet.noiDungTomTat)</p>
-            <a href="../PublicPage/ChiTietBaiViet/@baiViet.maBaiViet.ToString()" class="more">Đọc tiếp</a>
+            <a href="@urlRewrite" class="more">Đọc tiếp</a>
         </div>
 
         index++;

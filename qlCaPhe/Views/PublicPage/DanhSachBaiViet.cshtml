@@ -11,10 +11,12 @@
         <div class="col-md-8 duis-1 col-lg-8 col-sm-10 col-xs-12">
             @foreach (var bv in Model)
             {
-                string urlDetail = "../PubLicPage/ChiTietBaiViet/" + bv.maBaiViet.ToString();
+                string tenBV = xulyDuLieu.traVeKyTuGoc(bv.tenBaiViet);
+                string urlDetail = xulyDuLieu.taoUrlChoSEO("bai-viet", tenBV, bv.maBaiViet.ToString());
+                
                 <a href="@urlDetail" class="baiViet">
                     <div class="duis-right">
-                        <h5>@xulyDuLieu.traVeKyTuGoc(bv.tenBaiViet)</h5>
+                        <h5>@tenBV</h5>
                         <img src="@xulyDuLieu.chuyenByteHinhThanhSrcImage(bv.hinhDD)" style="width:100%; height:auto;" />
                     </div>
                     <div class="clearfix"></div>
