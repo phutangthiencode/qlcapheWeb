@@ -1,7 +1,7 @@
 ﻿@model qlCaPhe.Models.sanPham
            @using qlCaPhe.App_Start
 @{
-    ViewBag.Title = "Chi tiết sản phẩm";
+    ViewBag.Title = @xulyDuLieu.traVeKyTuGoc(Model.tenSanPham);
     Layout = "~/Views/Shared/_LayoutPublic.cshtml";
 }
 

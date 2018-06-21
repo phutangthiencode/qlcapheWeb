@@ -12,7 +12,7 @@
             @foreach (var bv in Model)
             {
                 string tenBV = xulyDuLieu.traVeKyTuGoc(bv.tenBaiViet);
-                string urlDetail = xulyDuLieu.taoUrlChoSEO("bai-viet", tenBV, bv.maBaiViet.ToString());
+                string urlDetail = xulyDuLieu.taoUrlChoSEO("bai-viet", bv.tenBaiViet, bv.maBaiViet.ToString());
                 
                 <a href="@urlDetail" class="baiViet">
                     <div class="duis-right">

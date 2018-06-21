@@ -153,3 +153,15 @@ Vị trí: Class: PublicPageController - Function: HoanTatOrDer
  Lỗi: Object reference not set to an instance of an object.
 ---------------------------------------------------------------
 
+-----------------------6/22/2018 3:36:16 AM----------
+Vị trí: Class: PublicPageController - Function: layLoaiSanPhamTaiDanhSachBaiViet 
+ Lỗi: String cannot be of zero length.
+Parameter name: oldValue
+---------------------------------------------------------------
+
+-----------------------6/22/2018 3:37:57 AM----------
+Vị trí: Class: PublicPageController - Function: layLoaiSanPhamTaiDanhSachBaiViet 
+ Lỗi: String cannot be of zero length.
+Parameter name: oldValue
+---------------------------------------------------------------
+

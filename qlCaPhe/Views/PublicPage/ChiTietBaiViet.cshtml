@@ -1,7 +1,7 @@
 ﻿@model qlCaPhe.Models.baiViet
 @using qlCaPhe.App_Start
 @{
-    ViewBag.Title = "Chi tiết bài viết";
+    ViewBag.Title = @xulyDuLieu.traVeKyTuGoc(Model.tenBaiViet);
     Layout = "~/Views/Shared/_LayoutPublic.cshtml";
 }
 <div class="container">

@@ -232,7 +232,15 @@ namespace qlCaPhe.App_Start
         /// <returns>Chuổi url chuẩn SEO</returns>
         public static string taoUrlChoSEO(string suburl, string name, string id)
         {
-            return "../"+suburl+"/" + loaiBoDauTiengViet(name).Replace(" ", "_") + "-" + id;
+            string kq = "";
+            try
+            {
+                kq="../" + suburl + "/" + loaiBoDauTiengViet(name).Replace(" ", "_") + "-" + id;
+                kq = kq.Replace(".", "").Replace(":", "").Replace("%", "").Replace("*", "").Replace("{", "").Replace("}", "").Replace("<", "").Replace(">", "").Replace("|", "").Trim();
+            }catch{
+
+            }
+            return kq;
         }
     }
 }
