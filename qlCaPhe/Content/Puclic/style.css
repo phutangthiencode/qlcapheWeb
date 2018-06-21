@@ -2034,7 +2034,19 @@ i.goog {
     margin-top: -20px;
     font-size: 20px;
 }
-.tieude-baiviet{
-        font-size: 30px;
+
+.tieude-baiviet {
+    font-size: 30px;
     font-weight: 600;
+}
+
+.tomtat-baiviet {
+    font-weight: bold;
+    font-size: 17px !important;
+    color: #000000 !important;
+}
+
+.ngaydang-baiviet {
+    font-size: 14px;
+    color: #000000 !important;
 }

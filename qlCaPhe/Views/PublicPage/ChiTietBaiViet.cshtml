@@ -10,6 +10,13 @@
             <div class="text-in">
                 <div class="single-men">
                     <h5 class="tieude-baiviet">@xulyDuLieu.traVeKyTuGoc(Model.tenBaiViet)</h5>
+
+                    <div class="pull-right ngaydang-baiviet">Ngày đăng: @Model.ngayDang.Value.ToShortDateString()</div>
+                    <br/><br /><br />
+
+                    <p class="tomtat-baiviet">@xulyDuLieu.traVeKyTuGoc(Model.noiDungTomTat)</p>
+                    <br/>
+
                     <div class="noidung-baiviet">
                             @Html.Raw(ViewBag.NoiDungBaiViet)
                     </div>
