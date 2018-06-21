@@ -151,6 +151,7 @@ namespace qlCaPhe.Controllers
                 ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, pageSize, trangHienHanh, "/PublicPage/DanhSachSanPham"); //------cấu hình phân trang
                 listSanPham = db.sanPhams.Where(s => s.trangThai == 1).OrderBy(c => c.tenSanPham).Skip((trangHienHanh - 1) * pageSize).Take(pageSize).ToList();
                 ViewBag.ListSanPham = taoDanhSachSanPham(listSanPham);
+                ViewBag.ListBaiViet = taoDanhSachBaiVietTrenDanhMucSanPham(db);
             }
             catch (Exception ex)
             {
@@ -165,19 +166,20 @@ namespace qlCaPhe.Controllers
         /// <param name="id">Mã loại cần lấy</param>
         /// <param name="page">Tham số trang hiện hành</param>
         /// <returns></returns>
-        public ActionResult SanPhamTheoLoai(int ?id, int? page)
+        public ActionResult SanPhamTheoLoai(int? id, int? page)
         {
             List<sanPham> listSanPham = new List<sanPham>(); int pageSize = 8;
             try
             {
                 int trangHienHanh = (page ?? 1);
                 qlCaPheEntities db = new qlCaPheEntities();
-                int soPhanTu = db.sanPhams.Where(s => s.trangThai == 1 && s.maLoai==id).Count();
+                int soPhanTu = db.sanPhams.Where(s => s.trangThai == 1 && s.maLoai == id).Count();
                 if (soPhanTu > 0)
                 {
                     ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, pageSize, trangHienHanh, "/PublicPage/SanPhamTheoLoai"); //------cấu hình phân trang
                     listSanPham = db.sanPhams.Where(s => s.trangThai == 1 && s.maLoai == id).OrderBy(c => c.tenSanPham).Skip((trangHienHanh - 1) * pageSize).Take(pageSize).ToList();
                     ViewBag.ListSanPham = taoDanhSachSanPham(listSanPham);
+                    ViewBag.ListBaiViet = taoDanhSachBaiVietTrenDanhMucSanPham(db);
                 }
                 else
                     return RedirectToAction("PageNotFound");
@@ -205,10 +207,10 @@ namespace qlCaPhe.Controllers
                 if (index == 1)
                     kq += "<div class=\"special-top\">";
                 kq += "   <div class=\"col-md-3 special-in\">";
-                kq += "       <a href=\""+urlDetail+"\">";
+                kq += "       <a href=\"" + urlDetail + "\">";
                 kq += "           <img src=\"" + xulyDuLieu.chuyenByteHinhThanhSrcImage(sp.hinhAnh) + "\" class=\"img-responsive\" alt=\"" + xulyDuLieu.traVeKyTuGoc(sp.tenSanPham) + "\">";
                 kq += "       </a>";
-                kq += "       <h5><a href=\""+urlDetail+"\">" + xulyDuLieu.traVeKyTuGoc(sp.tenSanPham) + "</a></h5>";
+                kq += "       <h5><a href=\"" + urlDetail + "\">" + xulyDuLieu.traVeKyTuGoc(sp.tenSanPham) + "</a></h5>";
                 kq += "       <p>" + xulyDuLieu.doiVND(sp.donGia) + "</p>";
                 kq += "   </div>";
                 if (index == 4)
@@ -216,6 +218,32 @@ namespace qlCaPhe.Controllers
                     kq += "</div>";
                     index = 0;
                 }
+            }
+            return kq;
+        }
+
+        /// <summary>
+        /// Hàm tạo 2 bài viết gắn dưới danh mục sản phẩm
+        /// </summary>
+        /// <param name="db"></param>
+        /// <returns>Chuỗi html tạo danh sách bài viết</returns>
+        private string taoDanhSachBaiVietTrenDanhMucSanPham(qlCaPheEntities db)
+        {
+            string kq = "";
+            try
+            {
+                foreach (baiViet bv in db.baiViets.Where(s => s.trangThai == 1 && s.hienTrangChu == true).ToList().Take(2))
+                {
+                    string urlDetail = "../PublicPage/ChiTietBaiViet/" + bv.maBaiViet.ToString();
+                    kq += "<div class=\"col-md-5 bottom-special\">";
+                    kq += "    <h5><a href=\""+urlDetail+"\">"+xulyDuLieu.xulyCatChuoi(xulyDuLieu.traVeKyTuGoc(bv.tenBaiViet),30)+"</a></h5>";
+                    kq += "    <a href=\""+urlDetail+"\" class=\"more\">Xem chi tiết</a>";
+                    kq += "</div>";
+                }
+            }
+            catch (Exception ex)
+            {
+                xulyFile.ghiLoi("Class: PublicPageController - Function: taoDanhSachBaiVietTrenDanhMucSanPham", ex.Message);
             }
             return kq;
         }
@@ -490,12 +518,12 @@ namespace qlCaPhe.Controllers
                 {
                     kq += "<tr>";
                     kq += "      <td>";
-                    kq += "          <img src=\""+xulyDuLieu.chuyenByteHinhThanhSrcImage(item.BanChoNgoi.hinhAnh)+"\" style=\"width:100%; height:auto;\">";
-                    kq += "          <b class=\"table-ordered-tablename\">"+xulyDuLieu.traVeKyTuGoc(item.BanChoNgoi.tenBan)+"</b>";
+                    kq += "          <img src=\"" + xulyDuLieu.chuyenByteHinhThanhSrcImage(item.BanChoNgoi.hinhAnh) + "\" style=\"width:100%; height:auto;\">";
+                    kq += "          <b class=\"table-ordered-tablename\">" + xulyDuLieu.traVeKyTuGoc(item.BanChoNgoi.tenBan) + "</b>";
                     kq += "      </td>";
-                    kq += "      <td>"+xulyDuLieu.traVeKyTuGoc(item.BanChoNgoi.khuVuc.tenKhuVuc)+"</td>";
-                    kq += "      <td>"+item.BanChoNgoi.sucChua.ToString()+"</td>";
-                    kq += "      <td><button task=\""+item.maBan.ToString()+"\" class=\"js-btn-xoaban btn btn-danger btn-sm\"><i class=\"glyphicon glyphicon-trash\"></i></button></td>";
+                    kq += "      <td>" + xulyDuLieu.traVeKyTuGoc(item.BanChoNgoi.khuVuc.tenKhuVuc) + "</td>";
+                    kq += "      <td>" + item.BanChoNgoi.sucChua.ToString() + "</td>";
+                    kq += "      <td><button task=\"" + item.maBan.ToString() + "\" class=\"js-btn-xoaban btn btn-danger btn-sm\"><i class=\"glyphicon glyphicon-trash\"></i></button></td>";
                     kq += "  </tr>";
                 }
             }
@@ -516,7 +544,7 @@ namespace qlCaPhe.Controllers
         {
             cartDatBan cart = (cartDatBan)Session["datBan"];
             int kqLuu = 0;
-            if(cart.Info.Count>0)
+            if (cart.Info.Count > 0)
                 try
                 {
                     qlCaPheEntities db = new qlCaPheEntities();
@@ -531,7 +559,9 @@ namespace qlCaPhe.Controllers
                             this.xoaSessionDatBan();
                             return RedirectToAction("Index");
                         }
-                    }else{
+                    }
+                    else
+                    {
                         ViewBag.TableCheckout = taoDuLieuBangBanDaDat();
                         ViewBag.TongSucChua = "Tổng sức chứa " + cart.getTotalCapacity();
                     }
@@ -566,7 +596,7 @@ namespace qlCaPhe.Controllers
         {
             try
             {
-                foreach(ctDatBan item in cart.Info.Values)
+                foreach (ctDatBan item in cart.Info.Values)
                 {
                     ctDatBan ctAdd = new ctDatBan();
                     ctAdd.ghiChu = "";
@@ -586,8 +616,8 @@ namespace qlCaPhe.Controllers
         /// </summary>
         private void xoaSessionDatBan()
         {
-            Session.Remove("datBan"); 
-            Session.Add("datBan", new cartDatBan()); 
+            Session.Remove("datBan");
+            Session.Add("datBan", new cartDatBan());
         }
         #endregion
 
@@ -596,7 +626,7 @@ namespace qlCaPhe.Controllers
         /// Giao diện danh sách bài viết
         /// </summary>
         /// <returns></returns>
-        public ActionResult DanhSachBaiViet(int ?page)
+        public ActionResult DanhSachBaiViet(int? page)
         {
             List<baiViet> listBaiViet = new List<baiViet>();
             int pageSize = 3;//------Hiện 5 bài viết trên 1 trang
@@ -629,7 +659,7 @@ namespace qlCaPhe.Controllers
             {
                 string html = "";
                 foreach (loaiSanPham loai in db.loaiSanPhams.Where(l => l.sanPhams.Count > 0).ToList())
-                    html += "<a href=\"../PublicPage/SanPhamTheoLoai/"+loai.maLoai.ToString()+"\" class=\"list-group-item\">"+xulyDuLieu.traVeKyTuGoc(loai.tenLoai)+"</a>";
+                    html += "<a href=\"../PublicPage/SanPhamTheoLoai/" + loai.maLoai.ToString() + "\" class=\"list-group-item\">" + xulyDuLieu.traVeKyTuGoc(loai.tenLoai) + "</a>";
                 ViewBag.LoaiSanPham = html;
             }
             catch (Exception ex)
@@ -641,7 +671,7 @@ namespace qlCaPhe.Controllers
         /// Giao diện chi tiết bài viết
         /// </summary>
         /// <returns>Object chứa thuộc tính của 1 bài viết để hiện lên view</returns>
-        public ActionResult ChiTietBaiViet(int ?id)
+        public ActionResult ChiTietBaiViet(int? id)
         {
             baiViet bv = new baiViet();
             try
@@ -652,7 +682,7 @@ namespace qlCaPhe.Controllers
                     ViewBag.NoiDungBaiViet = xulyDuLieu.traVeKyTuGoc(bv.noiDungBaiViet);
                     return View(bv);
                 }
-                    
+
             }
             catch (Exception ex)
             {
