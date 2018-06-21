@@ -176,7 +176,7 @@ namespace qlCaPhe.Controllers
                 kq += "       <a href=\"~/PublicPage/ChiTietSanPham\">";
                 kq += "           <img src=\"" + xulyDuLieu.chuyenByteHinhThanhSrcImage(sp.hinhAnh) + "\" class=\"img-responsive\" alt=\"" + xulyDuLieu.traVeKyTuGoc(sp.tenSanPham) + "\">";
                 kq += "       </a>";
-                kq += "       <h5><a href=\"~/PublicPage/ChiTietSanPham\">" + xulyDuLieu.traVeKyTuGoc(sp.tenSanPham) + "</a></h5>";
+                kq += "       <h5><a href=\"../PublicPage/ChiTietSanPham/"+sp.maSanPham.ToString()+"\">" + xulyDuLieu.traVeKyTuGoc(sp.tenSanPham) + "</a></h5>";
                 kq += "       <p>" + xulyDuLieu.doiVND(sp.donGia) + "</p>";
                 kq += "   </div>";
                 if (index == 4)
@@ -191,9 +191,20 @@ namespace qlCaPhe.Controllers
         /// Giao diện chi tiết sản phẩm
         /// </summary>
         /// <returns></returns>
-        public ActionResult ChiTietSanPham()
+        public ActionResult ChiTietSanPham(int id)
         {
-            return View();
+            try
+            {
+                sanPham sp = new qlCaPheEntities().sanPhams.SingleOrDefault(s => s.maSanPham == id && s.trangThai == 1);
+                if (sp != null)
+                    return View(sp);
+            }
+            catch (Exception ex)
+            {
+                xulyFile.ghiLoi("Class: PublicPageController - Function: ChiTietSanPham", ex.Message);
+                Response.Redirect(xulyChung.layTenMien() + "Home/ServerError");
+            }
+            return RedirectToAction("PageNotFound", "PublicPage");
         }
         #endregion
 
@@ -548,22 +559,79 @@ namespace qlCaPhe.Controllers
         }
         #endregion
 
+        #region Trang bài viết
         /// <summary>
         /// Giao diện danh sách bài viết
         /// </summary>
         /// <returns></returns>
-        public ActionResult DanhSachBaiViet()
+        public ActionResult DanhSachBaiViet(int ?page)
         {
-            return View();
+            List<baiViet> listBaiViet = new List<baiViet>();
+            int pageSize = 3;//------Hiện 5 bài viết trên 1 trang
+            try
+            {
+                qlCaPheEntities db = new qlCaPheEntities();
+                int trangHienHanh = (page ?? 1);
+                int soPhanTu = db.baiViets.Where(s => s.trangThai == 1).Count();
+                ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, pageSize, trangHienHanh, "/PublicPage/DanhSachBaiViet"); //------cấu hình phân trang
+                listBaiViet = db.baiViets.Where(s => s.trangThai == 1).OrderByDescending(c => c.ngayDang).Skip((trangHienHanh - 1) * pageSize).Take(pageSize).ToList();
+
+                layLoaiSanPhamTaiDanhSachBaiViet(db);
+            }
+            catch (Exception ex)
+            {
+                xulyFile.ghiLoi("Class: PublicPageController - Function: DanhSachBaiViet", ex.Message);
+                return RedirectToAction("ServerError", "Home");
+            }
+            return View(listBaiViet);
+        }
+
+        /// <summary>
+        /// Hàm lấy danh sách loại sản phẩm có sản phẩm bày bán 
+        /// Hiện lên trang danh mục bài viết
+        /// </summary>
+        /// <param name="db"></param>
+        private void layLoaiSanPhamTaiDanhSachBaiViet(qlCaPheEntities db)
+        {
+            try
+            {
+                string html = "";
+                foreach (loaiSanPham loai in db.loaiSanPhams.Where(l => l.sanPhams.Count > 0).ToList())
+                    html += "<a href=\"#\" class=\"list-group-item\">"+xulyDuLieu.traVeKyTuGoc(loai.tenLoai)+"</a>";
+                ViewBag.LoaiSanPham = html;
+            }
+            catch (Exception ex)
+            {
+                xulyFile.ghiLoi("Class: PublicPageController - Function: layLoaiSanPhamTaiDanhSachBaiViet", ex.Message);
+            }
         }
         /// <summary>
         /// Giao diện chi tiết bài viết
         /// </summary>
-        /// <returns></returns>
-        public ActionResult ChiTietBaiViet()
+        /// <returns>Object chứa thuộc tính của 1 bài viết để hiện lên view</returns>
+        public ActionResult ChiTietBaiViet(int ?id)
         {
-            return View();
+            baiViet bv = new baiViet();
+            try
+            {
+                bv = new qlCaPheEntities().baiViets.SingleOrDefault(b => b.maBaiViet == id);
+                if (bv != null)
+                {
+                    ViewBag.NoiDungBaiViet = xulyDuLieu.traVeKyTuGoc(bv.noiDungBaiViet);
+                    return View(bv);
+                }
+                    
+            }
+            catch (Exception ex)
+            {
+                xulyFile.ghiLoi("Class: PublicPageController - Function: DanhSachBaiViet", ex.Message);
+                return RedirectToAction("ServerError", "Home");
+            }
+            return RedirectToAction("PageNotFound");
         }
+        #endregion
+
+
         /// <summary>
         /// 
         /// </summary>
@@ -598,6 +666,14 @@ namespace qlCaPhe.Controllers
                 Response.Redirect(xulyChung.layTenMien() + "Home/ServerError");
             }
             return PartialView(cauHinh);
+        }
+        /// <summary>
+        /// Hàm tạo giao diện trang báo lỗi
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult PageNotFound()
+        {
+            return View();
         }
     }
 }

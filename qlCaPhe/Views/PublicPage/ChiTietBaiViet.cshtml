@@ -1,4 +1,5 @@
-﻿
+﻿@model qlCaPhe.Models.baiViet
+@using qlCaPhe.App_Start
 @{
     ViewBag.Title = "Chi tiết bài viết";
     Layout = "~/Views/Shared/_LayoutPublic.cshtml";
@@ -8,20 +9,12 @@
         <div class="single-top">
             <div class="text-in">
                 <div class="single-men">
-                    <h5>Tiêu đề bài viết</h5>
-                    <img class="img-responsive" src="~/images/Public/3.jpg" alt="" />
-                    <p>
-                        Quisque euismod velit luctus tellus dignissim, sed aliquam tellus porttitor. Suspendisse feugiat, orci sed iaculis tristique, est neque tempus sem, ut iaculis mi augue sed enim. Nunc nec consectetur mi. Aenean nisl augue, laoreet vel justo nec, auctor congue metus. Vestibulum aliquet, eros non iaculis lobortis, velit lectus imperdiet turpis, id blandit nisi mauris nec turpis.
-                        Quisque euismod velit luctus tellus dignissim, sed aliquam tellus porttitor. Suspendisse feugiat, orci sed iaculis tristique, est neque tempus sem, ut iaculis mi augue sed enim. Nunc nec consectetur mi. Aenean nisl augue, laoreet vel justo nec, auctor congue metus. Vestibulum aliquet, eros non iaculis lobortis, velit lectus imperdiet turpis, id blandit nisi mauris nec turpis.
-                    </p>
-                    <img class="img-responsive" src="~/images/Public/2.jpg" alt="" />
-                    <p>
-                        Quisque euismod velit luctus tellus dignissim, sed aliquam tellus porttitor. Suspendisse feugiat, orci sed iaculis tristique, est neque tempus sem, ut iaculis mi augue sed enim. Nunc nec consectetur mi. Aenean nisl augue, laoreet vel justo nec, auctor congue metus. Vestibulum aliquet, eros non iaculis lobortis, velit lectus imperdiet turpis, id blandit nisi mauris nec turpis.
-                        Quisque euismod velit luctus tellus dignissim, sed aliquam tellus porttitor. Suspendisse feugiat, orci sed iaculis tristique, est neque tempus sem, ut iaculis mi augue sed enim. Nunc nec consectetur mi. Aenean nisl augue, laoreet vel justo nec, auctor congue metus. Vestibulum aliquet, eros non iaculis lobortis, velit lectus imperdiet turpis, id blandit nisi mauris nec turpis.
-                    </p>
-                    <b class="pull-right">Tác giả:   </b>
+                    <h5 class="tieude-baiviet">@xulyDuLieu.traVeKyTuGoc(Model.tenBaiViet)</h5>
+                    <div class="noidung-baiviet">
+                            @Html.Raw(ViewBag.NoiDungBaiViet)
+                    </div>
+                    <b class="pull-right">Tác giả:   @xulyDuLieu.traVeKyTuGoc(Model.taiKhoan.thanhVien.hoTV + " " + Model.taiKhoan.thanhVien.tenTV)</b>
                 </div>
-
 
             </div>
         </div>
