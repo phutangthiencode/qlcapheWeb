@@ -633,12 +633,35 @@ namespace qlCaPhe.Controllers
 
 
         /// <summary>
-        /// 
+        /// Hàm tạo giao diện trang cấu hình
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Object chứa thuộc tính cấu hình</returns>
         public ActionResult ThongTinLienHe()
         {
-            return View();
+            cauHinh ch = new cauHinh();
+            try
+            {
+                ch = new qlCaPheEntities().cauHinhs.First();
+                if (ch != null)
+                {
+                    //-----Gán dữ liệu vị trí quán cho bản đồ
+                    string data = "\"Id\": 1, \"tenQuan\": \"" + xulyDuLieu.traVeKyTuGoc(ch.tenQuan) + "\", \"diaChi\": \"" + xulyDuLieu.traVeKyTuGoc(ch.diaChi) + "\", \"sdt\": \"" + xulyDuLieu.traVeKyTuGoc(ch.hotLine) +
+                        "\", \"GeoLong\": \"" + xulyDuLieu.traVeKyTuGoc(ch.kinhDo) + "\", \"GeoLat\": \"" + xulyDuLieu.traVeKyTuGoc(ch.viDo) + "\"";
+                    //-----Thêm div chi tiết vị trí khi nhấn vào marker trên bản đồ
+                    string content = "content: \"<div class='infoDiv'><h2>\" + item.tenQuan + \"</h2>\" + \"<div><h4>Địa chỉ: \" + item.diaChi + \"</h4><h4>Điện thoại: \" + item.sdt + \"</h4></div></div>\"\n";
+                    //-----Nhúng script chứa API key bản đồ
+                    ViewBag.ScriptAPI = createScriptAjax.taoScriptGoogleMapAPIKey();
+                    //-----Nhúng script bản đồ vào giao diện
+                    ViewBag.ScriptMap = createScriptAjax.taoScriptNhungBanDo(xulyDuLieu.traVeKyTuGoc(ch.kinhDo), xulyDuLieu.traVeKyTuGoc(ch.viDo), data, content);
+                    return View(ch);
+                }
+            }
+            catch (Exception ex)
+            {
+                xulyFile.ghiLoi("Class: PublicPageController - Function: DanhSachBaiViet", ex.Message);
+                return RedirectToAction("ServerError", "Home");
+            }
+            return RedirectToAction("PageNotFound");
         }
         /// <summary>
         /// Giao diện gửi phản hồi
