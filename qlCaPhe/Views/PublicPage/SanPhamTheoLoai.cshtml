@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "Danh sách sản phẩm theo loại";
+    Layout = "~/Views/Shared/_LayoutPublic.cshtml";
+}
+<link href="~/Content/Puclic/style.css" rel="stylesheet" />
+<div class="container">
+    <div class="specials">
+        <h3>Menu Đồ uống</h3>
+        @Html.Raw(ViewBag.ListSanPham)
+        <div class="row clearfix">
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12 pull-right">
+                <div class="pull-right phantrang-pulic">
+                    @Html.Raw(ViewBag.PhanTrang)
+                </div>
+            </div>
+
+        </div>
+        <div class="special-bottom">
+            <div class="col-md-6 bottom-special">
+                <h5><a href="~/PublicPage/ChiTietSanPham">MENU ĐỒ UỐNG</a></h5>
+                <a href="~/PublicPage/ChiTietSanPham" class="more">Xem chi tiết</a>
+            </div>
+            <div class="col-md-6 bottom-special-1">
+                <h5><a href="~/PublicPage/ChiTietSanPham">MENU ĐỒ ĂN</a></h5>
+                <a href="~/PublicPage/ChiTietSanPham" class="more">Xem chi tiết</a>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+</div>
+<!---->

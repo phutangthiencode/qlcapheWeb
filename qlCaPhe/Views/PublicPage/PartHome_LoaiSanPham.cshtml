@@ -4,6 +4,6 @@
 <ul>
     @foreach (var loai in Model)
     {
-        <li><a href="#"><span> </span>@xulyDuLieu.traVeKyTuGoc(loai.tenLoai)</a></li>
+        <li><a href="../PublicPage/SanPhamTheoLoai/@loai.maLoai.ToString()"><span> </span>@xulyDuLieu.traVeKyTuGoc(loai.tenLoai)</a></li>
     }
 </ul>

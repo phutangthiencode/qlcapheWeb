@@ -160,6 +160,37 @@ namespace qlCaPhe.Controllers
             return View();
         }
         /// <summary>
+        /// Hàm lấy danh sách sản phẩm theo loại
+        /// </summary>
+        /// <param name="id">Mã loại cần lấy</param>
+        /// <param name="page">Tham số trang hiện hành</param>
+        /// <returns></returns>
+        public ActionResult SanPhamTheoLoai(int ?id, int? page)
+        {
+            List<sanPham> listSanPham = new List<sanPham>(); int pageSize = 8;
+            try
+            {
+                int trangHienHanh = (page ?? 1);
+                qlCaPheEntities db = new qlCaPheEntities();
+                int soPhanTu = db.sanPhams.Where(s => s.trangThai == 1 && s.maLoai==id).Count();
+                if (soPhanTu > 0)
+                {
+                    ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, pageSize, trangHienHanh, "/PublicPage/SanPhamTheoLoai"); //------cấu hình phân trang
+                    listSanPham = db.sanPhams.Where(s => s.trangThai == 1 && s.maLoai == id).OrderBy(c => c.tenSanPham).Skip((trangHienHanh - 1) * pageSize).Take(pageSize).ToList();
+                    ViewBag.ListSanPham = taoDanhSachSanPham(listSanPham);
+                }
+                else
+                    return RedirectToAction("PageNotFound");
+            }
+            catch (Exception ex)
+            {
+                xulyFile.ghiLoi("Class: PublicPageController - Function: DanhSachSanPham", ex.Message);
+                Response.Redirect(xulyChung.layTenMien() + "Home/ServerError");
+            }
+            return View();
+        }
+
+        /// <summary>
         /// Hàm tạo danh sách sản phầm và hiện lên giao diện
         /// </summary>
         /// <param name="list">List chứa object sản phẩm cần hiển thị</param>
@@ -169,14 +200,15 @@ namespace qlCaPhe.Controllers
             string kq = ""; int index = 0;
             foreach (sanPham sp in list)
             {
+                string urlDetail = "../PublicPage/ChiTietSanPham/" + sp.maSanPham.ToString();
                 index++;
                 if (index == 1)
                     kq += "<div class=\"special-top\">";
                 kq += "   <div class=\"col-md-3 special-in\">";
-                kq += "       <a href=\"~/PublicPage/ChiTietSanPham\">";
+                kq += "       <a href=\""+urlDetail+"\">";
                 kq += "           <img src=\"" + xulyDuLieu.chuyenByteHinhThanhSrcImage(sp.hinhAnh) + "\" class=\"img-responsive\" alt=\"" + xulyDuLieu.traVeKyTuGoc(sp.tenSanPham) + "\">";
                 kq += "       </a>";
-                kq += "       <h5><a href=\"../PublicPage/ChiTietSanPham/"+sp.maSanPham.ToString()+"\">" + xulyDuLieu.traVeKyTuGoc(sp.tenSanPham) + "</a></h5>";
+                kq += "       <h5><a href=\""+urlDetail+"\">" + xulyDuLieu.traVeKyTuGoc(sp.tenSanPham) + "</a></h5>";
                 kq += "       <p>" + xulyDuLieu.doiVND(sp.donGia) + "</p>";
                 kq += "   </div>";
                 if (index == 4)
@@ -597,7 +629,7 @@ namespace qlCaPhe.Controllers
             {
                 string html = "";
                 foreach (loaiSanPham loai in db.loaiSanPhams.Where(l => l.sanPhams.Count > 0).ToList())
-                    html += "<a href=\"#\" class=\"list-group-item\">"+xulyDuLieu.traVeKyTuGoc(loai.tenLoai)+"</a>";
+                    html += "<a href=\"../PublicPage/SanPhamTheoLoai/"+loai.maLoai.ToString()+"\" class=\"list-group-item\">"+xulyDuLieu.traVeKyTuGoc(loai.tenLoai)+"</a>";
                 ViewBag.LoaiSanPham = html;
             }
             catch (Exception ex)
