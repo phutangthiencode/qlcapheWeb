@@ -175,3 +175,8 @@ Vị trí: Class: xulyChung - Function: ghiNhatKy
  Lỗi: An error occurred while updating the entries. See the inner exception for details.
 ---------------------------------------------------------------
 
+-----------------------6/25/2018 12:27:30 AM----------
+Vị trí: Class: ThongKeController - Function: tke_DoanhThuTheoThoiDiem 
+ Lỗi: The result of a query cannot be enumerated more than once.
+---------------------------------------------------------------
+

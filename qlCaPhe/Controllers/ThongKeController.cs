@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using qlCaPhe.App_Start;
 using qlCaPhe.Models;
+using System.Data.SqlClient;
 
 namespace qlCaPhe.Controllers
 {
@@ -91,25 +92,36 @@ namespace qlCaPhe.Controllers
         public JsonResult GetJsonDoanhThuTheoTuan(string param)
         {
             List<object> listHoaDon = new List<object>();
-            if (xulyChung.duocTruyCap(idOfPageDoanhThuTheoThoiDiem))
-                try
+        //    if (xulyChung.duocTruyCap(idOfPageDoanhThuTheoThoiDiem))
+            try
+            {
+                DateTime startDate = xulyDuLieu.doiChuoiSangDateTime(param);
+                DateTime endDate = startDate.AddDays(7); //-------Tính đến ngày của tuần sau bắt đầu từ ngày hiện tại
+                using (var context = new qlCaPheEntities())
                 {
-                    DateTime startDate = xulyDuLieu.doiChuoiSangDateTime(param);
-                    DateTime endDate = startDate.AddDays(7); //-------Tính đến ngày của tuần sau bắt đầu từ ngày hiện tại
-                    foreach (hoaDonOrder hoaDon in new qlCaPheEntities().hoaDonOrders.ToList().Where(h => h.ngayLap>=startDate && h.ngayLap<=endDate))
+                    IEnumerable<object> courses = context.thongKeHoaDonTheoTuan(startDate, endDate);
+                    List<object> listKQ = courses.ToList();
+                    foreach (object x in listKQ)
                     {
-                        object x = new
+                        string ngay = xulyDuLieu.layThuocTinhTrongMotObject(x, "ngay");
+                        DateTime date = xulyDuLieu.doiChuoiSangDateTime(ngay);
+                        //---------Lấy tổng tiền thanh toán tạm tính của ngày
+                        long tongTienTamTinh = xulyDuLieu.doiChuoiSangLong(xulyDuLieu.layThuocTinhTrongMotObject(x, "tongTien")); 
+                        object a = new
                         {
-                            maHD = hoaDon.ngayLap.Value.Date.ToShortDateString(), //-----Thay đổi mã hóa đơn thành ngày lập.
-                            tamTinh = hoaDon.tamTinh,
+                            maHD = date.Date.ToShortDateString(),
+                            tamTinh = tongTienTamTinh
                         };
-                        listHoaDon.Add(x);
+                        listHoaDon.Add(a);
+
                     }
+
                 }
-                catch (Exception ex)
-                {
-                    xulyFile.ghiLoi("Class: ThongKeController - Function: tke_DoanhThuTheoThoiDiem", ex.Message);
-                }
+            }
+            catch (Exception ex)
+            {
+                xulyFile.ghiLoi("Class: ThongKeController - Function: tke_DoanhThuTheoThoiDiem", ex.Message);
+            }
             return Json(listHoaDon, JsonRequestBehavior.AllowGet);
         }
         #endregion

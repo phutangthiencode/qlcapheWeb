@@ -193,6 +193,11 @@ namespace qlCaPhe.App_Start
             return obj.GetType().GetProperty(tenThuocTinh).GetValue(obj, null).ToString();
         }
 
+        public static void ganDuLieuVaoThuocTinhMotObject(object obj, string tenThuocTinh, object value)
+        {
+            obj.GetType().GetProperty(tenThuocTinh).SetValue(obj, value);
+        }
+
         /// <summary>
         /// Hàm gở bỏ ký tự dấu tiếng việt
         /// </summary>

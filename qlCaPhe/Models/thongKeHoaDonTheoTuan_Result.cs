@@ -10,16 +10,10 @@
 namespace qlCaPhe.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Feedback
+    public partial class thongKeHoaDonTheoTuan_Result
     {
-        public int maFB { get; set; }
-        public string tenNguoiGui { get; set; }
-        public string email { get; set; }
-        public string tieuDe { get; set; }
-        public string noiDung { get; set; }
-        public Nullable<System.DateTime> ngayDang { get; set; }
-        public Nullable<int> trangThai { get; set; }
+        public Nullable<long> tongTien { get; set; }
+        public Nullable<System.DateTime> ngay { get; set; }
     }
 }
