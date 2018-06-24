@@ -1,49 +1,25 @@
 ﻿
 @{
-    ViewBag.Title = "Thống kê doanh thu theo tuần";
+    ViewBag.Title = "Thống kê doanh thu theo quý";
     Layout = "~/Views/Shared/_LayoutTools.cshtml";
 }
 
 <script src="~/Scripts/jsapi.js"></script>
 <script src="~/Scripts/Ajax/ThongKe/thongKeDoanhThu.js"></script>
+@Html.Raw(ViewBag.ScriptAjax)
 <script>
-
-    function jsonThongKeDoanhThuTheoTuan(handleData, ts) {
-        $.ajax({
-            url: "/ThongKe/GetJsonDoanhThuTheoTuan",
-            data: 'param=' + ts,
-            type: "GET",
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            async: true,
-            beforeSend: function () {
-                $('#chart-tuan').html('');
-                $('.page-loader-wrapper').attr('style', 'display:block');
-            },
-            success: function (result) {
-                handleData(result);
-                $('.page-loader-wrapper').attr('style', 'display:none');
-
-            },
-            error: function (errormessage) {
-                // alert(errormessage.responseText);
-            }
-        });
-        return false;
-    }
-
     google.load("visualization", "1", { packages: ["corechart"] });
     var soHDs, tamTinhs, dts;
     $(document).ready(function () {
 
-        var ts;       
+        var ts;
 
         $('#txtStartNgay').val(getDateCurrent());
-        ts = $('#txtStartNgay').val();      
-        layDuLieuHoaDon(jsonThongKeDoanhThuTheoTuan, soHDs, tamTinhs, dts, ts, 'chart-tuan', "Thống kê tổng doanh thu theo tuần từ ngày: " + ts + " đến " + convertDateToString(getDateOfNextWeek(ts)));
+        ts = $('#txtStartNgay').val();
+        layDuLieuHoaDon(jsonThongKeDoanhThuTheoTuan, soHDs, tamTinhs, dts, ts, 'chart-quy', "Thống kê tổng doanh thu theo tuần từ ngày: " + ts + " đến " + convertDateToString(getDateOfNextMonth(ts)));
         $('#txtStartNgay').change(function () {
             ts = $('#txtStartNgay').val();
-            layDuLieuHoaDon(jsonThongKeDoanhThuTheoTuan, soHDs, tamTinhs, dts, ts, 'chart-tuan', "Thống kê tổng doanh thu theo tuần từ ngày: " + ts + " đến " + convertDateToString(getDateOfNextWeek(ts)));
+            layDuLieuHoaDon(jsonThongKeDoanhThuTheoTuan, soHDs, tamTinhs, dts, ts, 'chart-quy', "Thống kê tổng doanh thu theo tuần từ ngày: " + ts + " đến " + convertDateToString(getDateOfNextMonth(ts)));
         })
     });
 
@@ -92,14 +68,14 @@
                                                 <i class="material-icons">date_range</i>
                                             </span>
                                             <div class="form-line">
-                                                <input class="form-control ngayValidate" id="txtStartNgay" min="1899-01-01" 
+                                                <input class="form-control ngayValidate" id="txtStartNgay" min="1899-01-01"
                                                        required="true" type="date">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div id="chart-tuan" class="col-md-12 col-sm-12 col-xs-12 col-lg-12" style="max-width:979px; height:600px"></div>
+                                <div id="chart-quy" class="col-md-12 col-sm-12 col-xs-12 col-lg-12" style="max-width:979px; height:600px"></div>
                             </div>
                         </div>
 
@@ -110,3 +86,6 @@
         <!-- #END# Vertical Layout -->
     </div>
 </section>
+
+
+

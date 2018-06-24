@@ -1,16 +1,16 @@
 ﻿
 @{
-    ViewBag.Title = "Thống kê doanh thu theo tuần";
+    ViewBag.Title = "Thống kê doanh thu theo tháng";
     Layout = "~/Views/Shared/_LayoutTools.cshtml";
 }
+
 
 <script src="~/Scripts/jsapi.js"></script>
 <script src="~/Scripts/Ajax/ThongKe/thongKeDoanhThu.js"></script>
 <script>
-
     function jsonThongKeDoanhThuTheoTuan(handleData, ts) {
         $.ajax({
-            url: "/ThongKe/GetJsonDoanhThuTheoTuan",
+            url: "/ThongKe/GetJsonDoanhThuTheoThang",
             data: 'param=' + ts,
             type: "GET",
             contentType: "application/json; charset=utf-8",
@@ -31,19 +31,20 @@
         });
         return false;
     }
-
+</script>
+<script>
     google.load("visualization", "1", { packages: ["corechart"] });
     var soHDs, tamTinhs, dts;
     $(document).ready(function () {
 
-        var ts;       
+        var ts;
 
         $('#txtStartNgay').val(getDateCurrent());
-        ts = $('#txtStartNgay').val();      
-        layDuLieuHoaDon(jsonThongKeDoanhThuTheoTuan, soHDs, tamTinhs, dts, ts, 'chart-tuan', "Thống kê tổng doanh thu theo tuần từ ngày: " + ts + " đến " + convertDateToString(getDateOfNextWeek(ts)));
+        ts = $('#txtStartNgay').val();
+        layDuLieuHoaDon(jsonThongKeDoanhThuTheoTuan, soHDs, tamTinhs, dts, ts, 'chart-tuan', "Thống kê tổng doanh thu theo tuần từ ngày: " + ts + " đến " + convertDateToString(getDateOfNextMonth(ts)));
         $('#txtStartNgay').change(function () {
             ts = $('#txtStartNgay').val();
-            layDuLieuHoaDon(jsonThongKeDoanhThuTheoTuan, soHDs, tamTinhs, dts, ts, 'chart-tuan', "Thống kê tổng doanh thu theo tuần từ ngày: " + ts + " đến " + convertDateToString(getDateOfNextWeek(ts)));
+            layDuLieuHoaDon(jsonThongKeDoanhThuTheoTuan, soHDs, tamTinhs, dts, ts, 'chart-tuan', "Thống kê tổng doanh thu theo tuần từ ngày: " + ts + " đến " + convertDateToString(getDateOfNextMonth(ts)));
         })
     });
 
@@ -92,7 +93,7 @@
                                                 <i class="material-icons">date_range</i>
                                             </span>
                                             <div class="form-line">
-                                                <input class="form-control ngayValidate" id="txtStartNgay" min="1899-01-01" 
+                                                <input class="form-control ngayValidate" id="txtStartNgay" min="1899-01-01"
                                                        required="true" type="date">
                                             </div>
                                         </div>
@@ -110,3 +111,5 @@
         <!-- #END# Vertical Layout -->
     </div>
 </section>
+
+

@@ -126,13 +126,35 @@ function formatTienTe(value, decSeperate, groupSeperate) {
     return x1 + x2;
 }
 
+//--------Hàm chuyển đổi Date thành string
+function convertDateToString(date) {
+    var day = ("0" + date.getDate()).slice(-2);
+    var month = ("0" + (date.getMonth() + 1)).slice(-2);
+    var today = date.getFullYear() + "-" + (month) + "-" + (day);
+    return today;
+}
+
 //-------Hàm lấy ngày hiện tại
 //----------Trả về chuỗi ngày hiện tại theo đạng dd/MM/yyyy
 function getDateCurrent() {
     var now = new Date();
-    var day = ("0" + now.getDate()).slice(-2);
-    var month = ("0" + (now.getMonth() + 1)).slice(-2);
-    var today = now.getFullYear() + "-" + (month) + "-" + (day);
-
+    var today = convertDateToString(now);
     return today;
+}
+//----------Hàm lấy ngày của của tháng tiếp theo
+//--------------startDate ngày bắt đầu
+//--------------return ngày của tháng tiếp theo
+function getDateOfNextMonth(startDate) {
+    var start = new Date(startDate);
+    start.setMonth(start.getMonth() + 1);
+    return start;
+}
+
+//---------Hàm lấy ngày của tuần tiếp theo
+//--------------startDate ngày bắt đầu
+//--------------return Ngày của tuần tiếp theo
+function getDateOfNextWeek(startDate) {
+    var firstDay = new Date(startDate);
+    var nextWeek = new Date(firstDay.getTime() + 7 * 24 * 60 * 60 * 1000);
+    return nextWeek;
 }

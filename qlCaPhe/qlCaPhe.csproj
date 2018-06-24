@@ -4128,6 +4128,8 @@
     <Content Include="Views\ThongKe\tke_DoanhThuTheoThoiDiem.cshtml" />
     <Content Include="Views\ThongKe\tke_DoanhThuTheoNgay.cshtml" />
     <Content Include="Views\ThongKe\tke_DoanhThuTheoTuan.cshtml" />
+    <Content Include="Views\ThongKe\tke_DoanhThuTheoThang.cshtml" />
+    <Content Include="Views\ThongKe\tke_DoanhThuTheoQuy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

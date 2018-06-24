@@ -41,11 +41,11 @@
 
         $('#txtNgay').val(getDateCurrent());
         ts = $('#txtNgay').val();
-        layDuLieuHoaDon(jsonThongKeDoanhThuTheoNgay, soHDs, tamTinhs, dts, ts, 'chart-ngay');
+        layDuLieuHoaDon(jsonThongKeDoanhThuTheoNgay, soHDs, tamTinhs, dts, ts, 'chart-ngay', "Thống kê doanh thu hóa đơn theo ngày: " + ts);
 
         $('#txtNgay').change(function () {
             ts = $('#txtNgay').val();
-            layDuLieuHoaDon(jsonThongKeDoanhThuTheoNgay, soHDs, tamTinhs, dts, ts, 'chart-ngay');
+            layDuLieuHoaDon(jsonThongKeDoanhThuTheoNgay, soHDs, tamTinhs, dts, ts, 'chart-ngay', "Thống kê doanh thu hóa đơn theo ngày: " + ts);
         })
     });
 

@@ -53,17 +53,17 @@ namespace qlCaPhe.App_Start
         public static string taoBieuDoMotDuong(string idNameConfig, List<string> labels, string labelDataSets, string mauSac, List<string> datas, string xLabel, string yLabel)
         {
             string kq = "";
-            kq += "var "+idNameConfig+" = {";
+            kq += "var " + idNameConfig + " = {";
             kq += "   type: 'line',";
             kq += "     data: {";
             kq += "         labels: [";
-            foreach(string label in labels)
-                kq+="\"" + label +"\",";
+            foreach (string label in labels)
+                kq += "\"" + label + "\",";
             kq += "         ],";
             kq += "         datasets: [{";
-            kq += "         label: \""+labelDataSets+"\",";
-            kq += "         backgroundColor: window.chartColors."+mauSac+",";
-            kq += "         borderColor: window.chartColors."+mauSac+",";
+            kq += "         label: \"" + labelDataSets + "\",";
+            kq += "         backgroundColor: window.chartColors." + mauSac + ",";
+            kq += "         borderColor: window.chartColors." + mauSac + ",";
             kq += "         data: [";
             foreach (string data in datas)
                 kq += data + ",";
@@ -82,18 +82,53 @@ namespace qlCaPhe.App_Start
             kq += "             xAxes: [{";
             kq += "                 display: true,";
             kq += "                 scaleLabel: {";
-            kq += "                     display: true, labelString: '"+xLabel+"'";
+            kq += "                     display: true, labelString: '" + xLabel + "'";
             kq += "                  }";
             kq += "              }],";
             kq += "         yAxes: [{";
             kq += "             display: true,";
             kq += "             scaleLabel: {";
-            kq += "                 display: true,labelString: '"+yLabel+"'";
+            kq += "                 display: true,labelString: '" + yLabel + "'";
             kq += "             }";
             kq += "         }]";
             kq += "     }";
             kq += " }";
             kq += "};";
+            return kq;
+        }
+
+        /// <summary>
+        /// Hàm tạo script ajax gửi lên request yêu cầu lấy danh sách hóa đơn 
+        /// </summary>
+        /// <param name="url">Url ứng với request yêu cầu lấy danh sách</param>
+        /// <param name="chartID"></param>
+        /// <returns></returns>
+        public static string ScriptAjaxThongKeDoanhThu(string url, string chartID)
+        {
+            string kq = "";
+            kq += "<script>";
+            kq += "    function jsonThongKeDoanhThuTheoTuan(handleData, ts) {";
+            kq += "        $.ajax({";
+            kq += "            url: \""+url+"\",";
+            kq += "            data: 'param=' + ts,";
+            kq += "            type: \"GET\",";
+            kq += "            contentType: \"application/json; charset=utf-8\",";
+            kq += "            dataType: \"json\",";
+            kq += "            async: true,";
+            kq += "            beforeSend: function () {";
+            kq += "                $('#"+chartID+"').html('');";
+            kq += "                $('.page-loader-wrapper').attr('style', 'display:block');";
+            kq += "            },";
+            kq += "            success: function (result) {";
+            kq += "                handleData(result);";
+            kq += "                $('.page-loader-wrapper').attr('style', 'display:none');";
+            kq += "            },";
+            kq += "            error: function (errormessage) {";
+            kq += "            }";
+            kq += "        });";
+            kq += "        return false;";
+            kq += "    }";
+            kq += "</script>";
             return kq;
         }
     }

@@ -5,7 +5,8 @@
 //------------------datas: Dữ liệu để vẽ biểu đồ
 //-----------------ts: Tham số gửi lên server để lọc dữ liệu
 //-----------------idDivchart: id name div chứa biểu đồ
-function layDuLieuHoaDon(fn, soHoaDons, tongTiens, datas, ts, idDivchart) {
+//-----------------title: Tên title trên biểu đồ
+function layDuLieuHoaDon(fn, soHoaDons, tongTiens, datas, ts, idDivchart, title) {
 
     fn(function (data) {
         soHoaDons = [];
@@ -28,23 +29,23 @@ function layDuLieuHoaDon(fn, soHoaDons, tongTiens, datas, ts, idDivchart) {
             for (var i = 0; i < soHoaDons.length; i++)
                 data.setCell(i, 0, parseInt(tongTiens[i]));
 
-            veBieuDoCotDoanhThu(datas, idDivchart);
+            veBieuDoCotDoanhThu(datas, idDivchart, title);
         }
     }, ts);
 }
 
 //--------Hàm vẽ đồ thị dạng cột cho doanh thu
 //-----------datas: mảng chứa dữ liệu cần vẽ biểu đồ
-function veBieuDoCotDoanhThu(datas, idDivchart) {
-    var dataArray = [['Mã hóa đơn', 'Tiền thanh toán']];
+function veBieuDoCotDoanhThu(datas, idDivchart, title) {
+    var dataArray = [['Hóa đơn', 'Tiền thanh toán']];
     $.each(datas, function (i, item) {
         dataArray.push([item.maHD, item.tamTinh]);
     });
 
     var data = new google.visualization.arrayToDataTable(dataArray);
     var options = {
-        title: 'Thống kê doanh thu hóa đơn theo ngày',
-        hAxis: { title: 'Mã hóa đơn', titleTextStyle: { color: 'black' } }
+        title: title,
+        hAxis: { title: 'Hóa đơn', titleTextStyle: { color: 'black' } }
     };
 
     var chart = new google.visualization.ColumnChart(document.getElementById(idDivchart));
