@@ -125,3 +125,14 @@ function formatTienTe(value, decSeperate, groupSeperate) {
     }
     return x1 + x2;
 }
+
+//-------Hàm lấy ngày hiện tại
+//----------Trả về chuỗi ngày hiện tại theo đạng dd/MM/yyyy
+function getDateCurrent() {
+    var now = new Date();
+    var day = ("0" + now.getDate()).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+    var today = now.getFullYear() + "-" + (month) + "-" + (day);
+
+    return today;
+}

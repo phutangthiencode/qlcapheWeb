@@ -10,13 +10,14 @@ namespace qlCaPhe.Controllers
 {
     public class ThongKeController : Controller
     {
+        private static string idOfPageDoanhThuTheoThoiDiem= "1201";
         /// <summary>
         /// Hàm tạo giao diện thống kê tổng doanh thu theo ngày
         /// </summary>
         /// <returns></returns>
         public ActionResult tke_DoanhThuTheoThoiDiem()
         {
-            if (xulyChung.duocTruyCap("1201"))
+            if (xulyChung.duocTruyCap(idOfPageDoanhThuTheoThoiDiem))
                 try
                 {
 
@@ -27,13 +28,16 @@ namespace qlCaPhe.Controllers
                 }
             return View();
         }
+        #region DOANH THU THEO NGÀY
         /// <summary>
         /// Hàm tạo vùng thống kê doanh thu theo ngày
         /// </summary>
         /// <returns></returns>
         public ActionResult tke_DoanhThuTheoNgay()
         {
-            return View();
+            if (xulyChung.duocTruyCap(idOfPageDoanhThuTheoThoiDiem))
+                return View();
+            return RedirectToAction("PageNotFound", "Home");
         }
         /// <summary>
         /// Hàm ajax lấy danh sách hóa đơn theo ngày
@@ -44,7 +48,7 @@ namespace qlCaPhe.Controllers
         public JsonResult GetJsonDoanhThuTheoNgay(string param)
         {
             List<object> listHoaDon = new List<object>();
-            if (xulyChung.duocTruyCap("1201"))
+            if (xulyChung.duocTruyCap(idOfPageDoanhThuTheoThoiDiem))
                 try
                 {
                     DateTime date = xulyDuLieu.doiChuoiSangDateTime(param);
@@ -65,6 +69,20 @@ namespace qlCaPhe.Controllers
                 }
             return Json(listHoaDon, JsonRequestBehavior.AllowGet);
         }
+        #endregion
+
+        #region DOANH THU THEO TUẦN
+        /// <summary>
+        /// Hàm tạo giao diện thống kê doanh thu theo tuần
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult tke_DoanhThuTheoTuan()
+        {
+            if (xulyChung.duocTruyCap(idOfPageDoanhThuTheoThoiDiem))
+                return View();
+            return RedirectToAction("PageNotFound", "Home");
+        }
+        #endregion
 
 
     }

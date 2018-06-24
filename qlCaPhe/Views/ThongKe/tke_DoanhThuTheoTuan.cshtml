@@ -1,29 +1,32 @@
-﻿@{
-    ViewBag.Title = "Thống kê doanh thu theo ngày";
+﻿
+@{
+    ViewBag.Title = "Thống kê doanh thu theo tuần";
     Layout = "~/Views/Shared/_LayoutTools.cshtml";
 }
+
 <script src="~/Scripts/jsapi.js"></script>
 <script src="~/Scripts/Ajax/ThongKe/thongKeDoanhThu.js"></script>
 <script>
 
-    function jsonThongKeDoanhThuTheoNgay(handleData,ts) {        
+    function jsonThongKeDoanhThuTheoNgay(handleData, ts) {
         $.ajax({
-            url: "/ThongKe/GetJsonDoanhThuTheoNgay",
+            url: "/ThongKe/GetJsonDoanhThuTheoTuan",
             data: 'param=' + ts,
             type: "GET",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             async: true,
             beforeSend: function () {
-                $('#chart-ngay').html('');
+                $('#chart_div').html('');
                 $('.page-loader-wrapper').attr('style', 'display:block');
             },
             success: function (result) {
-                handleData(result);                
+                handleData(result);
                 $('.page-loader-wrapper').attr('style', 'display:none');
-                
+
             },
             error: function (errormessage) {
+                // alert(errormessage.responseText);
             }
         });
         return false;
@@ -41,16 +44,21 @@
 
         $('#txtNgay').val(getDateCurrent());
         ts = $('#txtNgay').val();
-        layDuLieuHoaDon(jsonThongKeDoanhThuTheoNgay, soHDs, tamTinhs, dts, ts, 'chart-ngay');
+        layDuLieuHoaDon(jsonThongKeDoanhThuTheoNgay, soHDs, tamTinhs, dts, ts);
 
         $('#txtNgay').change(function () {
             ts = $('#txtNgay').val();
-            layDuLieuHoaDon(jsonThongKeDoanhThuTheoNgay, soHDs, tamTinhs, dts, ts, 'chart-ngay');
+
+            layDuLieuHoaDon(jsonThongKeDoanhThuTheoNgay, soHDs, tamTinhs, dts, ts);
         })
     });
 
-   
+
 </script>
+
+
+
+
 
 <section class="content">
     <div class="container-fluid">
@@ -70,11 +78,11 @@
                     <div class="body">
                         <ul class="nav nav-tabs tab-col-pink tabs-thongke" role="tablist">
 
-                            <li role="presentation" class="active"><a class="tab-thongke"><i class="material-icons">looks_6</i>Theo ngày</a></li>
-                            <li role="presentation" class=""><a href="/ThongKe/tke_DoanhThuTheoTuan"><i class="material-icons">view_week</i>Theo tuần</a></li>
-                            <li role="presentation" class=""><a href="/ThongKe/tke_DoanhThuTheoThang"><i class="material-icons">date_range</i>Theo tháng</a></li>
-                            <li role="presentation" class=""><a href="/ThongKe/tke_DoanhThuTheoQuy"><i class="material-icons">poll</i>Theo quý</a></li>
-                            <li role="presentation" class=""><a href="/ThongKe/tke_DoanhThuTheoNam"><i class="material-icons">present_to_all</i>Theo năm</a></li>
+                            <li role="presentation" class=""><a href="/ThongKe/tke_DoanhThuTheoNgay"><i class="material-icons">looks_6</i>Theo ngày</a></li>
+                            <li role="presentation" class="active"><a href="/ThongKe/tke_DoanhThuTheoTuan"><i class="material-icons">view_week</i>Theo tuần</a></li>
+                            <li role="presentation" class=""><a><i class="material-icons">date_range</i>Theo tháng</a></li>
+                            <li role="presentation" class=""><a><i class="material-icons">poll</i>Theo quý</a></li>
+                            <li role="presentation" class=""><a><i class="material-icons">present_to_all</i>Theo năm</a></li>
 
                         </ul>
 
@@ -82,7 +90,7 @@
                             <div class="row">
                                 <div class="col-md-5 pull-right">
                                     <div class="col-md-4 m-t-10">
-                                        <label>Chọn ngày</label>
+                                        <label>Chọn ngày bắt đầu</label>
                                     </div>
                                     <div class="col-md-7 pull-right">
                                         <div class="input-group">
@@ -97,7 +105,7 @@
                                     </div>
                                 </div>
 
-                                <div id="chart-ngay" class="col-md-12 col-sm-12 col-xs-12 col-lg-12" style="max-width:979px; height:600px"></div>
+                                <div id="chart_div" class="col-md-12 col-sm-12 col-xs-12 col-lg-12" style="max-width:979px; height:600px"></div>
                             </div>
                         </div>
 
@@ -108,6 +116,3 @@
         <!-- #END# Vertical Layout -->
     </div>
 </section>
-
-
-

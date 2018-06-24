@@ -3786,6 +3786,7 @@
     <Content Include="Scripts\Ajax\ajaxPublic.js" />
     <Content Include="Scripts\Ajax\ajaxXuatKho.js" />
     <Content Include="Scripts\Ajax\kiemKho.js" />
+    <Content Include="Scripts\Ajax\ThongKe\thongKeDoanhThu.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="plugins\bootstrap-colorpicker\css\bootstrap-colorpicker.css.map" />
@@ -4126,6 +4127,7 @@
     <Content Include="Views\PublicPage\SanPhamTheoLoai.cshtml" />
     <Content Include="Views\ThongKe\tke_DoanhThuTheoThoiDiem.cshtml" />
     <Content Include="Views\ThongKe\tke_DoanhThuTheoNgay.cshtml" />
+    <Content Include="Views\ThongKe\tke_DoanhThuTheoTuan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

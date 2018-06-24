@@ -10822,3 +10822,8 @@ html.ie11 .bs-searchbox .form-control {
     font-size: 16px;
     border-bottom: 1px solid #EEEEEE;
 }
+
+
+.tabs-thongke>li>a{
+    cursor:pointer!important;
+}
