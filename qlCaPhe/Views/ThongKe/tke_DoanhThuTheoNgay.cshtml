@@ -1,0 +1,148 @@
+﻿@{
+    ViewBag.Title = "Thống kê doanh thu theo ngày";
+    Layout = "~/Views/Shared/_LayoutTools.cshtml";
+}
+<script src="~/Scripts/jsapi.js"></script>
+
+<script>
+    function jsonThongKeDoanhThuTheoNgay(handleData, ts) {
+        $.ajax({
+            url: "/ThongKe/GetJsonDoanhThuTheoNgay",
+            data: 'param=' + ts,
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            async: true,
+            beforeSend: function () {
+                $('#chart_div').html('');
+                $('.page-loader-wrapper').attr('style', 'display:block');
+            },
+            success: function (result) {
+                handleData(result);
+                $('.page-loader-wrapper').attr('style', 'display:none');
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+        return false;
+    }
+
+
+    google.load("visualization", "1", { packages: ["corechart"] });
+
+    var soHoaDons;
+    var tongTiens;
+    var datas;
+
+
+    $(document).ready(function () {
+        $('#txtNgay').change(function () {
+            var ts = $('#txtNgay').val();
+
+            jsonThongKeDoanhThuTheoNgay(function (data) {
+                soHoaDons = [];
+                tongTiens = [];
+
+                $.each(data, function (i, item) {
+                    soHoaDons.push([item.maHD]);
+                    tongTiens.push([item.tamTinh]);
+
+                    datas = data; // Dành cho biểu đồ cột
+                });
+                var data = new google.visualization.DataTable();
+                data.addColumn('number', 'maHD');
+                data.addColumn('number', 'tamTinh');
+
+                if (soHoaDons.length > 0) {
+                    data.addRows(soHoaDons.length);
+                    for (var i = 0; i < soHoaDons.length; i++) 
+                        data.setCell(i, 0, parseInt(tongTiens[i]));
+
+                    drawChart();
+                }
+            }, ts);
+        })
+    });
+
+
+
+
+    function drawChart() {
+        var dataArray = [['Mã hóa đơn', 'Tiền thanh toán']];
+        $.each(datas, function (i, item) {
+            dataArray.push([item.maHD, item.tamTinh]);
+        });
+
+        var data = new google.visualization.arrayToDataTable(dataArray);
+        var options = {
+            title: 'Thống kê doanh thu hóa đơn theo ngày',
+            hAxis: { title: 'Mã hóa đơn', titleTextStyle: { color: 'black' } }
+        };
+
+        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+
+        chart.draw(data, options);
+
+    }
+</script>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <h2>Thống kê > Doanh thu theo thời điểm</h2>
+        </div>
+        <!-- Vertical Layout -->
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>
+                            <i class="material-icons">insert_chart</i>
+                            THỐNG KÊ DOANH THU THEO THỜI ĐIỂM
+                        </h2>
+                    </div>
+                    <div class="body">
+                        <ul class="nav nav-tabs tab-col-pink" role="tablist">
+
+                            <li role="presentation" class="active"><a id="js-thongke-ngay"><i class="material-icons">looks_6</i>Theo ngày</a></li>
+                            <li role="presentation"><a class="js-thongke-ngay"><i class="material-icons">view_week</i>Theo tuần</a></li>
+                            <li role="presentation" class=""><a><i class="material-icons">date_range</i>Theo tháng</a></li>
+                            <li role="presentation" class=""><a><i class="material-icons">poll</i>Theo quý</a></li>
+                            <li role="presentation" class=""><a><i class="material-icons">present_to_all</i>Theo năm</a></li>
+
+                        </ul>
+
+                        <div class="tab-content">
+                            <div class="row">
+                                <div class="col-md-5 pull-right">
+                                    <div class="col-md-4 m-t-10">
+                                        <label>Chọn ngày</label>
+                                    </div>
+                                    <div class="col-md-7 pull-right">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="material-icons">date_range</i>
+                                            </span>
+                                            <div class="form-line">
+                                                <input class="form-control ngayValidate" id="txtNgay" min="1899-01-01" name="txtNgay"
+                                                       required="true" type="date" value="1">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="chart_div" class="col-md-12 col-sm-12 col-xs-12 col-lg-12" style="max-width:979px; height:600px"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #END# Vertical Layout -->
+    </div>
+</section>
+
+
+

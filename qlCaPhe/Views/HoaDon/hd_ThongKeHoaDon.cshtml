@@ -66,39 +66,5 @@ bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index
 
 
 <script>
-    //var MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    var color = Chart.helpers.color;
-    var barChartData = {
-        labels: ["", "3/15/2018 11:28:02 PM	", "3/15/2018 11:30:46 PM", "3/17/2018 1:03:19 AM", "2/4/2018 1:01:59 AM", "2/4/2018 1:18:20 AM	", "2/4/2018 1:25:57 AM	", "2/4/2018 1:26:05 AM	", "2/15/2018 2:01:54 PM", "2/15/2018 2:02:11 PM", "2/15/2018 2:03:41"
-        , "2/15/2018 2:03:41 PM", "2/15/2018 2:06:06 PM", "2/15/2018 2:24:43 PM", "2/15/2018 2:25:02 PM	", "2/15/2018 2:25:20 PM", "2/15/2018 2:25:41 PM", "2/15/2018 2:26:04 PM", "2/15/2018 2:26:24 PM"],
-        datasets: [{
-            label: 'Hóa đơn',
-            backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
-            borderColor: window.chartColors.blue,
-            borderWidth: 1,
-            data: [
-                0, 21000, 40000, 52000, 41000, 34000, 44000, 22000, 44000, 20000, 34000, 41000, 44000, 21000, 35000, 44000, 32000, 21000,10000
-            ]
-        }]
-
-    };
-
-    window.onload = function () {
-        var ctx = document.getElementById("canvasBills").getContext("2d");
-        window.myBar = new Chart(ctx, {
-            type: 'bar',
-            data: barChartData,
-            options: {
-                responsive: true,
-                legend: {
-                    position: 'top',
-                },
-                title: {
-                    display: true,
-                    text: 'Biểu đồ thống kê hóa đơn theo tuần'
-                }
-            }
-        });
-
-    };
+    
 </script>

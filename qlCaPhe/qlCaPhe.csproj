@@ -214,6 +214,7 @@
     <Compile Include="Controllers\SlideController.cs" />
     <Compile Include="Controllers\TaiKhoanController.cs" />
     <Compile Include="Controllers\ThanhVienController.cs" />
+    <Compile Include="Controllers\ThongKeController.cs" />
     <Compile Include="Controllers\TonKhoController.cs" />
     <Compile Include="Controllers\Tools_VungLamViecController.cs" />
     <Compile Include="Controllers\XuatKhoController.cs" />
@@ -3941,6 +3942,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jsapi.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\pages\cards\basic.js" />
     <Content Include="Scripts\pages\cards\colored.js" />
@@ -4122,6 +4124,8 @@
     <Content Include="Views\PublicPage\GioDatBan.cshtml" />
     <Content Include="Views\PublicPage\PageNotFound.cshtml" />
     <Content Include="Views\PublicPage\SanPhamTheoLoai.cshtml" />
+    <Content Include="Views\ThongKe\tke_DoanhThuTheoThoiDiem.cshtml" />
+    <Content Include="Views\ThongKe\tke_DoanhThuTheoNgay.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

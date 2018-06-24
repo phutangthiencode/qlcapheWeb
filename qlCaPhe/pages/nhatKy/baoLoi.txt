@@ -165,3 +165,13 @@ Vị trí: Class: PublicPageController - Function: layLoaiSanPhamTaiDanhSachBaiV
 Parameter name: oldValue
 ---------------------------------------------------------------
 
+-----------------------6/22/2018 10:52:39 AM----------
+Vị trí: Class: xulyChung - Function: ghiNhatKy 
+ Lỗi: An error occurred while updating the entries. See the inner exception for details.
+---------------------------------------------------------------
+
+-----------------------6/22/2018 11:00:41 AM----------
+Vị trí: Class: xulyChung - Function: ghiNhatKy 
+ Lỗi: An error occurred while updating the entries. See the inner exception for details.
+---------------------------------------------------------------
+
