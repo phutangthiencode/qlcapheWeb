@@ -4152,7 +4152,6 @@
     <Content Include="Views\PublicPage\GioDatBan.cshtml" />
     <Content Include="Views\PublicPage\PageNotFound.cshtml" />
     <Content Include="Views\PublicPage\SanPhamTheoLoai.cshtml" />
-    <Content Include="Views\ThongKe\tke_DoanhThuTheoThoiDiem.cshtml" />
     <Content Include="Views\ThongKe\tke_DoanhThuTheoNgay.cshtml" />
     <Content Include="Views\ThongKe\tke_DoanhThuTheoTuan.cshtml" />
     <Content Include="Views\ThongKe\tke_DoanhThuTheoThang.cshtml" />

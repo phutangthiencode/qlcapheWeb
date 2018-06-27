@@ -13,23 +13,6 @@ namespace qlCaPhe.Controllers
     {
         #region THỐNG KÊ DOANH THU THEO THỜI ĐIỂM
         private static string idOfPageDoanhThuTheoThoiDiem = "1201";
-        /// <summary>
-        /// Hàm tạo giao diện thống kê tổng doanh thu theo ngày
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult tke_DoanhThuTheoThoiDiem()
-        {
-            if (xulyChung.duocTruyCap(idOfPageDoanhThuTheoThoiDiem))
-                try
-                {
-
-                }
-                catch (Exception ex)
-                {
-                    xulyFile.ghiLoi("Class: ThongKeController - Function: tke_DoanhThuTheoThoiDiem", ex.Message);
-                }
-            return View();
-        }
         #region DOANH THU THEO NGÀY
         /// <summary>
         /// Hàm tạo vùng thống kê doanh thu theo ngày
@@ -87,20 +70,8 @@ namespace qlCaPhe.Controllers
                 try
                 {
                     DateTime date = xulyDuLieu.doiChuoiSangDateTime(param);
-                    IEnumerable<object> listKQ = new qlCaPheEntities().thongKeDoanhThuTheoSanPhamTheoNgay(date);
-                    foreach (object x in listKQ.ToList())
-                    {
-                        string soLanBan = xulyDuLieu.layThuocTinhTrongMotObject(x, "soLanBan");
-                        //---------Lấy tổng tiền thanh toán tạm tính của từng ngày
-                        long tongTienTamTinh = xulyDuLieu.doiChuoiSangLong(xulyDuLieu.layThuocTinhTrongMotObject(x, "tongTien"));
-                        object a = new
-                        {
-                            soLanBan = xulyDuLieu.doiChuoiSangInteger(soLanBan),
-                            tenSP = xulyDuLieu.layThuocTinhTrongMotObject(x, "tenSanPham"),
-                            tongTien = tongTienTamTinh
-                        };
-                        listHoaDon.Add(a);
-                    }
+                    IEnumerable<object> listIEnumerable = new qlCaPheEntities().thongKeDoanhThuTheoSanPhamTheoNgay(date);
+                    this.taoDuLieuThongKeSoLanBanSanPham(listIEnumerable, listHoaDon);
                 }
                 catch (Exception ex)
                 {
@@ -173,20 +144,8 @@ namespace qlCaPhe.Controllers
                 try
                 {
                     DateTime date = xulyDuLieu.doiChuoiSangDateTime(param);
-                    IEnumerable<object> listKQ = new qlCaPheEntities().thongKeDoanhThuTheoSanPhamTheoTuan(date);
-                    foreach (object x in listKQ.ToList())
-                    {
-                        string soLanBan = xulyDuLieu.layThuocTinhTrongMotObject(x, "soLanBan");
-                        //---------Lấy tổng tiền thanh toán tạm tính của từng ngày
-                        long tongTienTamTinh = xulyDuLieu.doiChuoiSangLong(xulyDuLieu.layThuocTinhTrongMotObject(x, "tongTien"));
-                        object a = new
-                        {
-                            soLanBan = xulyDuLieu.doiChuoiSangInteger(soLanBan),
-                            tenSP = xulyDuLieu.layThuocTinhTrongMotObject(x, "tenSanPham"),
-                            tongTien = tongTienTamTinh
-                        };
-                        listHoaDon.Add(a);
-                    }
+                    IEnumerable<object> listIEnumerable = new qlCaPheEntities().thongKeDoanhThuTheoSanPhamTheoTuan(date);
+                    this.taoDuLieuThongKeSoLanBanSanPham(listIEnumerable, listHoaDon);
                 }
                 catch (Exception ex)
                 {
@@ -207,11 +166,7 @@ namespace qlCaPhe.Controllers
             if (xulyChung.duocTruyCap(idOfPageDoanhThuTheoThoiDiem))
             {
                 //--------Tạo dữ liệu cho cbb năm
-                string cbbNam = "";
-                int namHienTai = DateTime.Now.Year;
-                for (int i = 2017; i <= namHienTai; i++)
-                    cbbNam += "<option value=\"" + i.ToString() + "\"" + ">" + i.ToString() + "</option>";
-                ViewBag.CbbNam = cbbNam;
+                this.taoDuLieuChoCbbNam();
                 ViewBag.ScriptAjax = createScriptCarvas.ScriptAjaxThongKeDoanhThu("/ThongKe/GetJsonDoanhThuTheoThang", "chart-tuan");
                 return View();
             }
@@ -265,20 +220,8 @@ namespace qlCaPhe.Controllers
                 try
                 {
                     int thang = xulyDuLieu.doiChuoiSangInteger(param);
-                    IEnumerable<object> listKQ = new qlCaPheEntities().thongKeDoanhThuTheoSanPhamTheoThang(thang);
-                    foreach (object x in listKQ.ToList())
-                    {
-                        string soLanBan = xulyDuLieu.layThuocTinhTrongMotObject(x, "soLanBan");
-                        //---------Lấy tổng tiền thanh toán tạm tính của từng ngày
-                        long tongTienTamTinh = xulyDuLieu.doiChuoiSangLong(xulyDuLieu.layThuocTinhTrongMotObject(x, "tongTien"));
-                        object a = new
-                        {
-                            soLanBan = xulyDuLieu.doiChuoiSangInteger(soLanBan),
-                            tenSP = xulyDuLieu.layThuocTinhTrongMotObject(x, "tenSanPham"),
-                            tongTien = tongTienTamTinh
-                        };
-                        listHoaDon.Add(a);
-                    }
+                    IEnumerable<object> listIEnumerable = new qlCaPheEntities().thongKeDoanhThuTheoSanPhamTheoThang(thang);
+                    this.taoDuLieuThongKeSoLanBanSanPham(listIEnumerable, listHoaDon);
                 }
                 catch (Exception ex)
                 {
@@ -299,11 +242,7 @@ namespace qlCaPhe.Controllers
             if (xulyChung.duocTruyCap(idOfPageDoanhThuTheoThoiDiem))
             {
                 //--------Tạo dữ liệu cho cbb năm
-                string cbbNam = "";
-                int namHienTai = DateTime.Now.Year;
-                for (int i = 2017; i <= namHienTai; i++)
-                    cbbNam += "<option value=\"" + i.ToString() + "\"" + ">" + i.ToString() + "</option>";
-                ViewBag.CbbNam = cbbNam;
+                this.taoDuLieuChoCbbNam();
                 ViewBag.ScriptAjax = createScriptCarvas.ScriptAjaxThongKeDoanhThu("/ThongKe/GetJsonDoanhThuTheoQuy", "chart-quy");
                 return View();
             }
@@ -357,20 +296,8 @@ namespace qlCaPhe.Controllers
                 try
                 {
                     int quy = xulyDuLieu.doiChuoiSangInteger(param);
-                    IEnumerable<object> listKQ = new qlCaPheEntities().thongKeDoanhThuTheoSanPhamTheoQuy(quy);
-                    foreach (object x in listKQ.ToList())
-                    {
-                        string soLanBan = xulyDuLieu.layThuocTinhTrongMotObject(x, "soLanBan");
-                        //---------Lấy tổng tiền thanh toán tạm tính của từng ngày
-                        long tongTienTamTinh = xulyDuLieu.doiChuoiSangLong(xulyDuLieu.layThuocTinhTrongMotObject(x, "tongTien"));
-                        object a = new
-                        {
-                            soLanBan = xulyDuLieu.doiChuoiSangInteger(soLanBan),
-                            tenSP = xulyDuLieu.layThuocTinhTrongMotObject(x, "tenSanPham"),
-                            tongTien = tongTienTamTinh
-                        };
-                        listHoaDon.Add(a);
-                    }
+                    IEnumerable<object> listIEnumerable = new qlCaPheEntities().thongKeDoanhThuTheoSanPhamTheoQuy(quy);
+                    this.taoDuLieuThongKeSoLanBanSanPham(listIEnumerable, listHoaDon);
                 }
                 catch (Exception ex)
                 {
@@ -391,11 +318,7 @@ namespace qlCaPhe.Controllers
             if (xulyChung.duocTruyCap(idOfPageDoanhThuTheoThoiDiem))
             {
                 //--------Tạo dữ liệu cho cbb năm
-                string cbbNam = "";
-                int namHienTai = DateTime.Now.Year;
-                for (int i = 2017; i <= namHienTai; i++)
-                    cbbNam += "<option value=\"" + i.ToString() + "\"" + ">" + i.ToString() + "</option>";
-                ViewBag.CbbNam = cbbNam;
+                this.taoDuLieuChoCbbNam();
                 ViewBag.ScriptAjax = createScriptCarvas.ScriptAjaxThongKeDoanhThu("/ThongKe/GetJsonDoanhThuTheoNam", "chart-nam");
                 return View();
             }
@@ -447,20 +370,8 @@ namespace qlCaPhe.Controllers
                 try
                 {
                     int nam = xulyDuLieu.doiChuoiSangInteger(param);
-                    IEnumerable<object> listKQ = new qlCaPheEntities().thongKeDoanhThuTheoSanPhamTheoNam(nam);
-                    foreach (object x in listKQ.ToList())
-                    {
-                        string soLanBan = xulyDuLieu.layThuocTinhTrongMotObject(x, "soLanBan");
-                        //---------Lấy tổng tiền thanh toán tạm tính của từng ngày
-                        long tongTienTamTinh = xulyDuLieu.doiChuoiSangLong(xulyDuLieu.layThuocTinhTrongMotObject(x, "tongTien"));
-                        object a = new
-                        {
-                            soLanBan = xulyDuLieu.doiChuoiSangInteger(soLanBan),
-                            tenSP = xulyDuLieu.layThuocTinhTrongMotObject(x, "tenSanPham"),
-                            tongTien = tongTienTamTinh
-                        };
-                        listHoaDon.Add(a);
-                    }
+                    IEnumerable<object> listIEnumerable = new qlCaPheEntities().thongKeDoanhThuTheoSanPhamTheoNam(nam);
+                    this.taoDuLieuThongKeSoLanBanSanPham(listIEnumerable, listHoaDon);
                 }
                 catch (Exception ex)
                 {
@@ -469,6 +380,40 @@ namespace qlCaPhe.Controllers
             return Json(listHoaDon, JsonRequestBehavior.AllowGet);
         }
         #endregion
+
+        /// <summary>
+        /// Hàm tạo dữ liệu cho các combobox năm trên các giao diện
+        /// Bắt đầu từ năm 2017 đến năm hiện tại
+        /// </summary>
+        private void taoDuLieuChoCbbNam()
+        {
+            string cbbNam = "";
+            int namHienTai = DateTime.Now.Year;
+            for (int i = 2017; i <= namHienTai; i++)
+                cbbNam += "<option value=\"" + i.ToString() + "\"" + ">" + i.ToString() + "</option>";
+            ViewBag.CbbNam = cbbNam;
+        }
+        /// <summary>
+        /// Hàm đọc dữ liệu đã lấy về từ store procedure thống kê và thêm vào List object json kết quả
+        /// </summary>
+        /// <param name="listIEnumerable">IEnumerable chứa kết quả nhận về từ store procedure</param>
+        /// <param name="listKQ">List object cần thêm dữ liệu vào JSon</param>
+        private void taoDuLieuThongKeSoLanBanSanPham(IEnumerable<object> listIEnumerable, List<object> listKQ)
+        {
+            foreach (object x in listIEnumerable.ToList())
+            {
+                string soLanBan = xulyDuLieu.layThuocTinhTrongMotObject(x, "soLanBan");
+                //---------Lấy tổng tiền thanh toán tạm tính của từng ngày
+                long tongTienTamTinh = xulyDuLieu.doiChuoiSangLong(xulyDuLieu.layThuocTinhTrongMotObject(x, "tongTien"));
+                object a = new
+                {
+                    soLanBan = xulyDuLieu.doiChuoiSangInteger(soLanBan),
+                    tenSP = xulyDuLieu.layThuocTinhTrongMotObject(x, "tenSanPham"),
+                    tongTien = tongTienTamTinh
+                };
+                listKQ.Add(a);
+            }
+        }
         #endregion
     }
 
