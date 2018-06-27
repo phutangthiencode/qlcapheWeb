@@ -1435,6 +1435,12 @@
     <FunctionImport Name="thongKeDoanhThuTheoSanPhamTheoThang" ReturnType="Collection(qlCaPheModel.thongKeDoanhThuTheoSanPhamTheoThang_Result)">
       <Parameter Name="thang" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="thongKeDoanhThuTheoSanPhamTheoQuy" ReturnType="Collection(qlCaPheModel.thongKeDoanhThuTheoSanPhamTheoQuy_Result)">
+      <Parameter Name="quy" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="thongKeDoanhThuTheoSanPhamTheoNam" ReturnType="Collection(qlCaPheModel.thongKeDoanhThuTheoSanPhamTheoNam_Result)">
+      <Parameter Name="nam" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="sp_helpdiagramdefinition_Result">
     <Property Type="Int32" Name="version" Nullable="true" />
@@ -1474,6 +1480,16 @@
     <Property Type="Int64" Name="tongTien" Nullable="true" />
   </ComplexType>
   <ComplexType Name="thongKeDoanhThuTheoSanPhamTheoThang_Result">
+    <Property Type="Int32" Name="soLanBan" Nullable="true" />
+    <Property Type="String" Name="tenSanPham" Nullable="false" MaxLength="50" />
+    <Property Type="Int64" Name="tongTien" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="thongKeDoanhThuTheoSanPhamTheoQuy_Result">
+    <Property Type="Int32" Name="soLanBan" Nullable="true" />
+    <Property Type="String" Name="tenSanPham" Nullable="false" MaxLength="50" />
+    <Property Type="Int64" Name="tongTien" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="thongKeDoanhThuTheoSanPhamTheoNam_Result">
     <Property Type="Int32" Name="soLanBan" Nullable="true" />
     <Property Type="String" Name="tenSanPham" Nullable="false" MaxLength="50" />
     <Property Type="Int64" Name="tongTien" Nullable="true" />

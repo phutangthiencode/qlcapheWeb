@@ -14,6 +14,27 @@
     var soHDs, tamTinhs, dts;
     $(document).ready(function () {
         layDuLieuHoaDon(jsonThongKeDoanhThu, soHDs, tamTinhs, dts, "", 'chart-nam', "Thống kê tổng doanh thu qua các năm ");
+
+        $('#cbbNamSP').change(function () {
+            var ts = $(this).val();
+            var title = "Thống kê sản phẩm bán theo quý : " + ts;
+            $.ajax({
+                type: "GET",
+                url: '/ThongKe/GetJsonSanPhamTheoNam',
+                data: 'param=' + ts,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json", async: true,
+                success: function (kq) {
+                    drawPieChartSanPham(kq, title, "pie-chart-nam");
+                },
+                failure: function (r) {
+                    alert(r.d);
+                },
+                error: function (r) {
+                    alert(r.d);
+                }
+            });
+        });
     });
 
 
@@ -52,6 +73,26 @@
                         <div class="tab-content">
                             <div class="row">
                                 <div id="chart-nam" class="col-md-12 col-sm-12 col-xs-12 col-lg-12" style="max-width:979px; height:600px"></div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-md-5 pull-right">
+                                    <div class="col-md-5 m-t-10">
+                                        <label>Chọn năm thống kê</label>
+                                    </div>
+                                    <div class="col-md-7 pull-right">
+                                        <div class="input-group">
+                                            <select class="form-control" id="cbbNamSP">
+                                                <option value="-1">Chọn năm</option>
+                                                @Html.Raw(ViewBag.CbbNam)
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div id="pie-chart-nam"></div>
+                                </div>
                             </div>
                         </div>
 

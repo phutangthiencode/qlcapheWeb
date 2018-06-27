@@ -17,6 +17,27 @@
             layDuLieuHoaDon(jsonThongKeDoanhThu, soHDs, tamTinhs, dts, ts, 'chart-quy', "Thống kê tổng doanh thu theo quý của năm " + ts);
         })
 
+
+        $('#cbbQuySP').change(function () {
+            var ts = $(this).val();
+            var title = "Thống kê sản phẩm bán theo quý : " + ts;
+            $.ajax({
+                type: "GET",
+                url: '/ThongKe/GetJsonSanPhamTheoQuy',
+                data: 'param=' + ts,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json", async: true,
+                success: function (kq) {
+                    drawPieChartSanPham(kq, title, "pie-chart-quy");
+                },
+                failure: function (r) {
+                    alert(r.d);
+                },
+                error: function (r) {
+                    alert(r.d);
+                }
+            });
+        });
     });
 
 
@@ -69,6 +90,29 @@
                                 </div>
 
                                 <div id="chart-quy" class="col-md-12 col-sm-12 col-xs-12 col-lg-12" style="max-width:979px; height:600px"></div>
+
+
+                                <div class="row">
+                                    <div class="col-md-5 pull-right">
+                                        <div class="col-md-5 m-t-10">
+                                            <label>Chọn quý thống kê</label>
+                                        </div>
+                                        <div class="col-md-7 pull-right">
+                                            <div class="input-group">
+                                                <select class="form-control" id="cbbQuySP">
+                                                    <option value="-1">Chọn quý</option>
+                                                    <option value="1">Quý 1</option>
+                                                    <option value="2">Quý 2</option>
+                                                    <option value="3">Quý 3</option>
+                                                    <option value="4">Quý 4</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div id="pie-chart-quy"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 

@@ -389,7 +389,13 @@
     <Compile Include="Models\thongBao.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\thongKeDoanhThuTheoSanPhamTheoNam_Result.cs">
+      <DependentUpon>qlCaPhe.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\thongKeDoanhThuTheoSanPhamTheoNgay_Result.cs">
+      <DependentUpon>qlCaPhe.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\thongKeDoanhThuTheoSanPhamTheoQuy_Result.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\thongKeDoanhThuTheoSanPhamTheoThang_Result.cs">
