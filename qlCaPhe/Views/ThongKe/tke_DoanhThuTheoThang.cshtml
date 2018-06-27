@@ -7,44 +7,16 @@
 
 <script src="~/Scripts/jsapi.js"></script>
 <script src="~/Scripts/Ajax/ThongKe/thongKeDoanhThu.js"></script>
+@Html.Raw(ViewBag.ScriptAjax)
 <script>
-    function jsonThongKeDoanhThuTheoTuan(handleData, ts) {
-        $.ajax({
-            url: "/ThongKe/GetJsonDoanhThuTheoThang",
-            data: 'param=' + ts,
-            type: "GET",
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            async: true,
-            beforeSend: function () {
-                $('#chart-tuan').html('');
-                $('.page-loader-wrapper').attr('style', 'display:block');
-            },
-            success: function (result) {
-                handleData(result);
-                $('.page-loader-wrapper').attr('style', 'display:none');
 
-            },
-            error: function (errormessage) {
-                // alert(errormessage.responseText);
-            }
-        });
-        return false;
-    }
-</script>
-<script>
     google.load("visualization", "1", { packages: ["corechart"] });
     var soHDs, tamTinhs, dts;
     $(document).ready(function () {
 
-        var ts;
-
-        $('#txtStartNgay').val(getDateCurrent());
-        ts = $('#txtStartNgay').val();
-        layDuLieuHoaDon(jsonThongKeDoanhThuTheoTuan, soHDs, tamTinhs, dts, ts, 'chart-tuan', "Thống kê tổng doanh thu theo tuần từ ngày: " + ts + " đến " + convertDateToString(getDateOfNextMonth(ts)));
-        $('#txtStartNgay').change(function () {
-            ts = $('#txtStartNgay').val();
-            layDuLieuHoaDon(jsonThongKeDoanhThuTheoTuan, soHDs, tamTinhs, dts, ts, 'chart-tuan', "Thống kê tổng doanh thu theo tuần từ ngày: " + ts + " đến " + convertDateToString(getDateOfNextMonth(ts)));
+        $('#cbbNam').change(function () {
+            var ts = $('#cbbNam').val();
+            layDuLieuHoaDon(jsonThongKeDoanhThu, soHDs, tamTinhs, dts, ts, 'chart-thang', "Thống kê tổng doanh thu theo tháng của năm " + ts);
         })
     });
 
@@ -85,22 +57,19 @@
                             <div class="row">
                                 <div class="col-md-5 pull-right">
                                     <div class="col-md-5 m-t-10">
-                                        <label>Chọn ngày bắt đầu</label>
+                                        <label>Chọn năm thống kê</label>
                                     </div>
                                     <div class="col-md-7 pull-right">
                                         <div class="input-group">
-                                            <span class="input-group-addon">
-                                                <i class="material-icons">date_range</i>
-                                            </span>
-                                            <div class="form-line">
-                                                <input class="form-control ngayValidate" id="txtStartNgay" min="1899-01-01"
-                                                       required="true" type="date">
-                                            </div>
+                                            <select class="form-control" id="cbbNam">
+                                                <option value="-1">Chọn năm</option>
+                                                @Html.Raw(ViewBag.CbbNam)
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div id="chart-tuan" class="col-md-12 col-sm-12 col-xs-12 col-lg-12" style="max-width:979px; height:600px"></div>
+                                <div id="chart-thang" class="col-md-12 col-sm-12 col-xs-12 col-lg-12" style="max-width:979px; height:600px"></div>
                             </div>
                         </div>
 

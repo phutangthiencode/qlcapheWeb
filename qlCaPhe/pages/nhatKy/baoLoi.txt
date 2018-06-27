@@ -180,3 +180,13 @@ Vị trí: Class: ThongKeController - Function: tke_DoanhThuTheoThoiDiem
  Lỗi: The result of a query cannot be enumerated more than once.
 ---------------------------------------------------------------
 
+-----------------------6/27/2018 3:49:35 PM----------
+Vị trí: Class: ThongKeController - Function: GetJsonDoanhThuTheoQuy 
+ Lỗi: Object reference not set to an instance of an object.
+---------------------------------------------------------------
+
+-----------------------6/27/2018 3:50:04 PM----------
+Vị trí: Class: ThongKeController - Function: GetJsonDoanhThuTheoQuy 
+ Lỗi: Object reference not set to an instance of an object.
+---------------------------------------------------------------
+

@@ -4,32 +4,8 @@
 }
 <script src="~/Scripts/jsapi.js"></script>
 <script src="~/Scripts/Ajax/ThongKe/thongKeDoanhThu.js"></script>
+@Html.Raw(ViewBag.ScriptAjax)
 <script>
-
-    function jsonThongKeDoanhThuTheoNgay(handleData,ts) {        
-        $.ajax({
-            url: "/ThongKe/GetJsonDoanhThuTheoNgay",
-            data: 'param=' + ts,
-            type: "GET",
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            async: true,
-            beforeSend: function () {
-                $('#chart-ngay').html('');
-                $('.page-loader-wrapper').attr('style', 'display:block');
-            },
-            success: function (result) {
-                handleData(result);                
-                $('.page-loader-wrapper').attr('style', 'display:none');
-                
-            },
-            error: function (errormessage) {
-            }
-        });
-        return false;
-    }
-
-
     google.load("visualization", "1", { packages: ["corechart"] });
 
     var soHDs, tamTinhs, dts;
@@ -41,11 +17,11 @@
 
         $('#txtNgay').val(getDateCurrent());
         ts = $('#txtNgay').val();
-        layDuLieuHoaDon(jsonThongKeDoanhThuTheoNgay, soHDs, tamTinhs, dts, ts, 'chart-ngay', "Thống kê doanh thu hóa đơn theo ngày: " + ts);
+        layDuLieuHoaDon(jsonThongKeDoanhThu, soHDs, tamTinhs, dts, ts, 'chart-ngay', "Thống kê doanh thu hóa đơn theo ngày: " + ts);
 
         $('#txtNgay').change(function () {
             ts = $('#txtNgay').val();
-            layDuLieuHoaDon(jsonThongKeDoanhThuTheoNgay, soHDs, tamTinhs, dts, ts, 'chart-ngay', "Thống kê doanh thu hóa đơn theo ngày: " + ts);
+            layDuLieuHoaDon(jsonThongKeDoanhThu, soHDs, tamTinhs, dts, ts, 'chart-ngay', "Thống kê doanh thu hóa đơn theo ngày: " + ts);
         })
     });
 

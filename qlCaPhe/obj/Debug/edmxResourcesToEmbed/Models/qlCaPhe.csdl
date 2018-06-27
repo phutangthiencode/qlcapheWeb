@@ -1419,6 +1419,13 @@
       <Parameter Name="startDate" Mode="In" Type="DateTime" />
       <Parameter Name="endDate" Mode="In" Type="DateTime" />
     </FunctionImport>
+    <FunctionImport Name="thongKeHoaDonTheoThang" ReturnType="Collection(qlCaPheModel.thongKeHoaDonTheoThang_Result)">
+      <Parameter Name="nam" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="thongKeHoaDonTheoQuy" ReturnType="Collection(qlCaPheModel.thongKeHoaDonTheoQuy_Result)">
+      <Parameter Name="nam" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="thongKeHoaDonTheoNam" ReturnType="Collection(qlCaPheModel.thongKeHoaDonTheoNam_Result)" />
   </EntityContainer>
   <ComplexType Name="sp_helpdiagramdefinition_Result">
     <Property Type="Int32" Name="version" Nullable="true" />
@@ -1434,5 +1441,17 @@
   <ComplexType Name="thongKeHoaDonTheoTuan_Result">
     <Property Type="Int64" Name="tongTien" Nullable="true" />
     <Property Type="DateTime" Name="ngay" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="thongKeHoaDonTheoThang_Result">
+    <Property Type="Int64" Name="tongTien" Nullable="true" />
+    <Property Type="Int32" Name="thang" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="thongKeHoaDonTheoQuy_Result">
+    <Property Type="Int64" Name="tongTien" Nullable="true" />
+    <Property Type="Int32" Name="quy" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="thongKeHoaDonTheoNam_Result">
+    <Property Type="Int64" Name="tongTien" Nullable="true" />
+    <Property Type="Int32" Name="nam" Nullable="true" />
   </ComplexType>
 </Schema>

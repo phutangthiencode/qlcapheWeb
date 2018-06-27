@@ -107,7 +107,7 @@ namespace qlCaPhe.App_Start
         {
             string kq = "";
             kq += "<script>";
-            kq += "    function jsonThongKeDoanhThuTheoTuan(handleData, ts) {";
+            kq += "    function jsonThongKeDoanhThu(handleData, ts) {";
             kq += "        $.ajax({";
             kq += "            url: \""+url+"\",";
             kq += "            data: 'param=' + ts,";

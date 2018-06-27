@@ -1,8 +1,10 @@
 ﻿
 @{
-    ViewBag.Title = "Thống kê doanh thu theo quý";
+    ViewBag.Title = "Thống kê doanh thu theo năm";
     Layout = "~/Views/Shared/_LayoutTools.cshtml";
 }
+
+
 
 <script src="~/Scripts/jsapi.js"></script>
 <script src="~/Scripts/Ajax/ThongKe/thongKeDoanhThu.js"></script>
@@ -11,12 +13,7 @@
     google.load("visualization", "1", { packages: ["corechart"] });
     var soHDs, tamTinhs, dts;
     $(document).ready(function () {
-
-        $('#cbbNam').change(function () {
-            var ts = $('#cbbNam').val();
-            layDuLieuHoaDon(jsonThongKeDoanhThu, soHDs, tamTinhs, dts, ts, 'chart-quy', "Thống kê tổng doanh thu theo quý của năm " + ts);
-        })
-
+        layDuLieuHoaDon(jsonThongKeDoanhThu, soHDs, tamTinhs, dts, "", 'chart-nam', "Thống kê tổng doanh thu qua các năm ");
     });
 
 
@@ -47,28 +44,14 @@
                             <li role="presentation" class=""><a href="/ThongKe/tke_DoanhThuTheoNgay"><i class="material-icons">looks_6</i>Theo ngày</a></li>
                             <li role="presentation" class=""><a href="/ThongKe/tke_DoanhThuTheoTuan"><i class="material-icons">view_week</i>Theo tuần</a></li>
                             <li role="presentation" class=""><a href="/ThongKe/tke_DoanhThuTheoThang"><i class="material-icons">date_range</i>Theo tháng</a></li>
-                            <li role="presentation" class="active"><a href="/ThongKe/tke_DoanhThuTheoQuy"><i class="material-icons">poll</i>Theo quý</a></li>
-                            <li role="presentation" class=""><a href="/ThongKe/tke_DoanhThuTheoNam"><i class="material-icons">present_to_all</i>Theo năm</a></li>
+                            <li role="presentation" class=""><a href="/ThongKe/tke_DoanhThuTheoQuy"><i class="material-icons">poll</i>Theo quý</a></li>
+                            <li role="presentation" class="active"><a href="/ThongKe/tke_DoanhThuTheoNam"><i class="material-icons">present_to_all</i>Theo năm</a></li>
 
                         </ul>
 
                         <div class="tab-content">
                             <div class="row">
-                                <div class="col-md-5 pull-right">
-                                    <div class="col-md-5 m-t-10">
-                                        <label>Chọn năm thống kê</label>
-                                    </div>
-                                    <div class="col-md-7 pull-right">
-                                        <div class="input-group">
-                                            <select class="form-control" id="cbbNam">
-                                                <option value="-1">Chọn năm</option>
-                                                @Html.Raw(ViewBag.CbbNam)
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div id="chart-quy" class="col-md-12 col-sm-12 col-xs-12 col-lg-12" style="max-width:979px; height:600px"></div>
+                                <div id="chart-nam" class="col-md-12 col-sm-12 col-xs-12 col-lg-12" style="max-width:979px; height:600px"></div>
                             </div>
                         </div>
 
@@ -79,6 +62,8 @@
         <!-- #END# Vertical Layout -->
     </div>
 </section>
+
+
 
 
 

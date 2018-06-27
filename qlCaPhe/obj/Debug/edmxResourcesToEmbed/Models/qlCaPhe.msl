@@ -556,5 +556,29 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="thongKeHoaDonTheoThang" FunctionName="qlCaPheModel.Store.thongKeHoaDonTheoThang">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="qlCaPheModel.thongKeHoaDonTheoThang_Result">
+          <ScalarProperty Name="tongTien" ColumnName="tongTien" />
+          <ScalarProperty Name="thang" ColumnName="thang" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="thongKeHoaDonTheoQuy" FunctionName="qlCaPheModel.Store.thongKeHoaDonTheoQuy">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="qlCaPheModel.thongKeHoaDonTheoQuy_Result">
+          <ScalarProperty Name="tongTien" ColumnName="tongTien" />
+          <ScalarProperty Name="quy" ColumnName="quy" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="thongKeHoaDonTheoNam" FunctionName="qlCaPheModel.Store.thongKeHoaDonTheoNam">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="qlCaPheModel.thongKeHoaDonTheoNam_Result">
+          <ScalarProperty Name="tongTien" ColumnName="tongTien" />
+          <ScalarProperty Name="nam" ColumnName="nam" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

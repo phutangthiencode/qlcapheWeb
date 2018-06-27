@@ -6,32 +6,8 @@
 
 <script src="~/Scripts/jsapi.js"></script>
 <script src="~/Scripts/Ajax/ThongKe/thongKeDoanhThu.js"></script>
+@Html.Raw(ViewBag.ScriptAjax)
 <script>
-
-    function jsonThongKeDoanhThuTheoTuan(handleData, ts) {
-        $.ajax({
-            url: "/ThongKe/GetJsonDoanhThuTheoTuan",
-            data: 'param=' + ts,
-            type: "GET",
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            async: true,
-            beforeSend: function () {
-                $('#chart-tuan').html('');
-                $('.page-loader-wrapper').attr('style', 'display:block');
-            },
-            success: function (result) {
-                handleData(result);
-                $('.page-loader-wrapper').attr('style', 'display:none');
-
-            },
-            error: function (errormessage) {
-                // alert(errormessage.responseText);
-            }
-        });
-        return false;
-    }
-
     google.load("visualization", "1", { packages: ["corechart"] });
     var soHDs, tamTinhs, dts;
     $(document).ready(function () {
@@ -40,10 +16,10 @@
 
         $('#txtStartNgay').val(getDateCurrent());
         ts = $('#txtStartNgay').val();      
-        layDuLieuHoaDon(jsonThongKeDoanhThuTheoTuan, soHDs, tamTinhs, dts, ts, 'chart-tuan', "Thống kê tổng doanh thu theo tuần từ ngày: " + ts + " đến " + convertDateToString(getDateOfNextWeek(ts)));
+        layDuLieuHoaDon(jsonThongKeDoanhThu, soHDs, tamTinhs, dts, ts, 'chart-tuan', "Thống kê tổng doanh thu theo tuần từ ngày: " + ts + " đến " + convertDateToString(getDateOfNextWeek(ts)));
         $('#txtStartNgay').change(function () {
             ts = $('#txtStartNgay').val();
-            layDuLieuHoaDon(jsonThongKeDoanhThuTheoTuan, soHDs, tamTinhs, dts, ts, 'chart-tuan', "Thống kê tổng doanh thu theo tuần từ ngày: " + ts + " đến " + convertDateToString(getDateOfNextWeek(ts)));
+            layDuLieuHoaDon(jsonThongKeDoanhThu, soHDs, tamTinhs, dts, ts, 'chart-tuan', "Thống kê tổng doanh thu theo tuần từ ngày: " + ts + " đến " + convertDateToString(getDateOfNextWeek(ts)));
         })
     });
 

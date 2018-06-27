@@ -11,7 +11,8 @@ namespace qlCaPhe.Controllers
 {
     public class ThongKeController : Controller
     {
-        private static string idOfPageDoanhThuTheoThoiDiem= "1201";
+        #region THỐNG KÊ DOANH THU THEO THỜI ĐIỂM
+        private static string idOfPageDoanhThuTheoThoiDiem = "1201";
         /// <summary>
         /// Hàm tạo giao diện thống kê tổng doanh thu theo ngày
         /// </summary>
@@ -37,7 +38,10 @@ namespace qlCaPhe.Controllers
         public ActionResult tke_DoanhThuTheoNgay()
         {
             if (xulyChung.duocTruyCap(idOfPageDoanhThuTheoThoiDiem))
+            {
+                ViewBag.ScriptAjax = createScriptCarvas.ScriptAjaxThongKeDoanhThu("/ThongKe/GetJsonDoanhThuTheoNgay", "chart-ngay");
                 return View();
+            }                
             return RedirectToAction("PageNotFound", "Home");
         }
         /// <summary>
@@ -80,7 +84,10 @@ namespace qlCaPhe.Controllers
         public ActionResult tke_DoanhThuTheoTuan()
         {
             if (xulyChung.duocTruyCap(idOfPageDoanhThuTheoThoiDiem))
+            {
+                ViewBag.ScriptAjax = createScriptCarvas.ScriptAjaxThongKeDoanhThu("/ThongKe/GetJsonDoanhThuTheoTuan", "chart-tuan");
                 return View();
+            }
             return RedirectToAction("PageNotFound", "Home");
         }
         /// <summary>
@@ -92,36 +99,30 @@ namespace qlCaPhe.Controllers
         public JsonResult GetJsonDoanhThuTheoTuan(string param)
         {
             List<object> listHoaDon = new List<object>();
-        //    if (xulyChung.duocTruyCap(idOfPageDoanhThuTheoThoiDiem))
-            try
-            {
-                DateTime startDate = xulyDuLieu.doiChuoiSangDateTime(param);
-                DateTime endDate = startDate.AddDays(7); //-------Tính đến ngày của tuần sau bắt đầu từ ngày hiện tại
-                using (var context = new qlCaPheEntities())
+            if (xulyChung.duocTruyCap(idOfPageDoanhThuTheoThoiDiem))
+                try
                 {
-                    IEnumerable<object> courses = context.thongKeHoaDonTheoTuan(startDate, endDate);
-                    List<object> listKQ = courses.ToList();
-                    foreach (object x in listKQ)
+                    DateTime startDate = xulyDuLieu.doiChuoiSangDateTime(param);
+                    DateTime endDate = startDate.AddDays(7); //-------Tính đến ngày của tuần sau bắt đầu từ ngày hiện tại
+                    IEnumerable<object> listKQ = new qlCaPheEntities().thongKeHoaDonTheoTuan(startDate, endDate);
+                    foreach (object x in listKQ.ToList())
                     {
                         string ngay = xulyDuLieu.layThuocTinhTrongMotObject(x, "ngay");
                         DateTime date = xulyDuLieu.doiChuoiSangDateTime(ngay);
-                        //---------Lấy tổng tiền thanh toán tạm tính của ngày
-                        long tongTienTamTinh = xulyDuLieu.doiChuoiSangLong(xulyDuLieu.layThuocTinhTrongMotObject(x, "tongTien")); 
+                        //---------Lấy tổng tiền thanh toán tạm tính của từng ngày
+                        long tongTienTamTinh = xulyDuLieu.doiChuoiSangLong(xulyDuLieu.layThuocTinhTrongMotObject(x, "tongTien"));
                         object a = new
                         {
                             maHD = date.Date.ToShortDateString(),
                             tamTinh = tongTienTamTinh
                         };
                         listHoaDon.Add(a);
-
                     }
-
                 }
-            }
-            catch (Exception ex)
-            {
-                xulyFile.ghiLoi("Class: ThongKeController - Function: tke_DoanhThuTheoThoiDiem", ex.Message);
-            }
+                catch (Exception ex)
+                {
+                    xulyFile.ghiLoi("Class: ThongKeController - Function: GetJsonDoanhThuTheoTuan", ex.Message);
+                }
             return Json(listHoaDon, JsonRequestBehavior.AllowGet);
         }
         #endregion
@@ -135,13 +136,23 @@ namespace qlCaPhe.Controllers
         public ActionResult tke_DoanhThuTheoThang()
         {
             if (xulyChung.duocTruyCap(idOfPageDoanhThuTheoThoiDiem))
+            {
+                //--------Tạo dữ liệu cho cbb năm
+                string cbbNam = "";
+                int namHienTai = DateTime.Now.Year;
+                for (int i = 2017; i <= namHienTai; i++)
+                    cbbNam += "<option value=\"" + i.ToString() + "\"" + ">"+i.ToString()+"</option>";
+                ViewBag.CbbNam = cbbNam;
+                ViewBag.ScriptAjax = createScriptCarvas.ScriptAjaxThongKeDoanhThu("/ThongKe/GetJsonDoanhThuTheoThang", "chart-tuan");
                 return View();
+            }
+                
             return RedirectToAction("PageNotFound", "Home");
         }
         /// <summary>
-        /// Hàm lấy danh sách hóa đơn theo năm
+        /// Hàm lấy danh sách hóa đơn theo tháng của một năm
         /// </summary>
-        /// <param name="param">Ngày bắt đầu tuần cần lấy</param>
+        /// <param name="param">Năm cần lấy dữ liệu thống kê theo tháng</param>
         /// <returns>Json object danh sách hóa đơn</returns>
         [HttpGet]
         public JsonResult GetJsonDoanhThuTheoThang(string param)
@@ -150,21 +161,24 @@ namespace qlCaPhe.Controllers
             if (xulyChung.duocTruyCap(idOfPageDoanhThuTheoThoiDiem))
                 try
                 {
-                    DateTime startDate = xulyDuLieu.doiChuoiSangDateTime(param);
-                    DateTime endDate = startDate.AddDays(30); //-------Tính đến ngày của tuần sau bắt đầu từ ngày hiện tại
-                    foreach (hoaDonOrder hoaDon in new qlCaPheEntities().hoaDonOrders.ToList().Where(h => h.ngayLap >= startDate && h.ngayLap <= endDate))
+                    int nam = xulyDuLieu.doiChuoiSangInteger(param);
+                    IEnumerable<object> listThongKe = new qlCaPheEntities().thongKeHoaDonTheoThang(nam);
+                    foreach (object x in listThongKe.ToList())
                     {
-                        object x = new
+                        string thang = xulyDuLieu.layThuocTinhTrongMotObject(x, "thang");
+                        //---------Lấy tổng tiền thanh toán tạm tính của từng ngày
+                        long tongTienTamTinh = xulyDuLieu.doiChuoiSangLong(xulyDuLieu.layThuocTinhTrongMotObject(x, "tongTien"));
+                        object a = new
                         {
-                            maHD = hoaDon.ngayLap.Value.Date.ToShortDateString(), //-----Thay đổi mã hóa đơn thành ngày lập.
-                            tamTinh = hoaDon.tamTinh,
+                            maHD = thang,
+                            tamTinh = tongTienTamTinh
                         };
-                        listHoaDon.Add(x);
+                        listHoaDon.Add(a);
                     }
                 }
                 catch (Exception ex)
                 {
-                    xulyFile.ghiLoi("Class: ThongKeController - Function: tke_DoanhThuTheoThoiDiem", ex.Message);
+                    xulyFile.ghiLoi("Class: ThongKeController - Function: GetJsonDoanhThuTheoThang", ex.Message);
                 }
             return Json(listHoaDon, JsonRequestBehavior.AllowGet);
         }
@@ -180,10 +194,16 @@ namespace qlCaPhe.Controllers
         {
             if (xulyChung.duocTruyCap(idOfPageDoanhThuTheoThoiDiem))
             {
+                //--------Tạo dữ liệu cho cbb năm
+                string cbbNam = "";
+                int namHienTai = DateTime.Now.Year;
+                for (int i = 2017; i <= namHienTai; i++)
+                    cbbNam += "<option value=\"" + i.ToString() + "\"" + ">" + i.ToString() + "</option>";
+                ViewBag.CbbNam = cbbNam;
                 ViewBag.ScriptAjax = createScriptCarvas.ScriptAjaxThongKeDoanhThu("/ThongKe/GetJsonDoanhThuTheoQuy", "chart-quy");
                 return View();
             }
-                
+
             return RedirectToAction("PageNotFound", "Home");
         }
         /// <summary>
@@ -198,24 +218,77 @@ namespace qlCaPhe.Controllers
             if (xulyChung.duocTruyCap(idOfPageDoanhThuTheoThoiDiem))
                 try
                 {
-                    DateTime startDate = xulyDuLieu.doiChuoiSangDateTime(param);
-                    DateTime endDate = startDate.AddMonths(3); //-------Tính đến ngày của tuần sau bắt đầu từ ngày hiện tại
-                    foreach (hoaDonOrder hoaDon in new qlCaPheEntities().hoaDonOrders.ToList().Where(h => h.ngayLap >= startDate && h.ngayLap <= endDate))
+                    int nam = xulyDuLieu.doiChuoiSangInteger(param);
+                    IEnumerable<object> listThongKe = new qlCaPheEntities().thongKeHoaDonTheoQuy(nam);
+                    foreach (object x in listThongKe.ToList())
                     {
-                        object x = new
+                        string thang = xulyDuLieu.layThuocTinhTrongMotObject(x, "quy");
+                        //---------Lấy tổng tiền thanh toán tạm tính của từng ngày
+                        long tongTienTamTinh = xulyDuLieu.doiChuoiSangLong(xulyDuLieu.layThuocTinhTrongMotObject(x, "tongTien"));
+                        object a = new
                         {
-                            maHD = hoaDon.ngayLap.Value.Date.Month.ToString(),
-                            tamTinh = hoaDon.tamTinh,
+                            maHD = thang,
+                            tamTinh = tongTienTamTinh
                         };
-                        listHoaDon.Add(x);
+                        listHoaDon.Add(a);
                     }
                 }
                 catch (Exception ex)
                 {
-                    xulyFile.ghiLoi("Class: ThongKeController - Function: tke_DoanhThuTheoThoiDiem", ex.Message);
+                    xulyFile.ghiLoi("Class: ThongKeController - Function: GetJsonDoanhThuTheoQuy", ex.Message);
                 }
             return Json(listHoaDon, JsonRequestBehavior.AllowGet);
         }
+        #endregion
+
+        #region DOANH THU THEO NĂM
+
+        /// <summary>
+        /// Hàm tạo giao diện thống kê doanh thu theo năm
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult tke_DoanhThuTheoNam()
+        {
+            if (xulyChung.duocTruyCap(idOfPageDoanhThuTheoThoiDiem))
+            {
+                ViewBag.ScriptAjax = createScriptCarvas.ScriptAjaxThongKeDoanhThu("/ThongKe/GetJsonDoanhThuTheoNam", "chart-nam");
+                return View();
+            }
+
+            return RedirectToAction("PageNotFound", "Home");
+        }
+        /// <summary>
+        /// Hàm lấy danh sách hóa đơn theo năm
+        /// </summary>
+        /// <returns>Json object danh sách hóa đơn</returns>
+        [HttpGet]
+        public JsonResult GetJsonDoanhThuTheoNam()
+        {
+            List<object> listHoaDon = new List<object>();
+            if (xulyChung.duocTruyCap(idOfPageDoanhThuTheoThoiDiem))
+                try
+                {
+                    IEnumerable<object> listThongKe = new qlCaPheEntities().thongKeHoaDonTheoNam();
+                    foreach (object x in listThongKe.ToList())
+                    {
+                        string thang = xulyDuLieu.layThuocTinhTrongMotObject(x, "nam");
+                        //---------Lấy tổng tiền thanh toán tạm tính của từng ngày
+                        long tongTienTamTinh = xulyDuLieu.doiChuoiSangLong(xulyDuLieu.layThuocTinhTrongMotObject(x, "tongTien"));
+                        object a = new
+                        {
+                            maHD = thang,
+                            tamTinh = tongTienTamTinh
+                        };
+                        listHoaDon.Add(a);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    xulyFile.ghiLoi("Class: ThongKeController - Function: GetJsonDoanhThuTheoQuy", ex.Message);
+                }
+            return Json(listHoaDon, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
         #endregion
     }
 
