@@ -10811,19 +10811,55 @@ html.ie11 .bs-searchbox .form-control {
     width: 90%;
 }
 
-.profile-thanhvien{
-      list-style-type:none;
-    padding:0px;
-    margin:0px;
+.profile-thanhvien {
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
 }
 
-.profile-thanhvien li{
-    padding: 5px 0;
-    font-size: 16px;
-    border-bottom: 1px solid #EEEEEE;
+    .profile-thanhvien li {
+        padding: 5px 0;
+        font-size: 16px;
+        border-bottom: 1px solid #EEEEEE;
+    }
+
+
+.tabs-thongke > li > a {
+    cursor: pointer !important;
+}
+
+.column-chart {
+    max-width: 979px;
+    height: 600px;
+}
+.pie-chart{
+    max-width: 800px;
+    height: 600px;
+}
+
+/*RESPONSIVE BIỂU ĐỒ*/
+
+/*IPAD*/
+@media screen and (max-width: 992px) {
+    .column-chart {
+        max-width: 979px;
+        height: 600px;
+    }
+    .pie-chart{
+    max-width: 800px;
+    height: 600px;
+}
 }
 
 
-.tabs-thongke>li>a{
-    cursor:pointer!important;
+/*IPhone*/
+@media screen and (max-width: 600px) {
+    .column-chart {
+        max-width: 979px;
+        height: 600px;
+    }
+    .pie-chart{
+    max-width: 800px;
+    height: 600px;
+}
 }

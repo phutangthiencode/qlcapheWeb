@@ -77,9 +77,7 @@ function drawPieChartSanPham(json, title, chartID) {
 
     //Create option for chart
     var options = {
-        title: title,
-        'width': 800,
-        'height': 600
+        title: title
     };
 
     // Instantiate and draw our chart, passing in some options.

@@ -72,27 +72,45 @@
 
                         <div class="tab-content">
                             <div class="row">
-                                <div id="chart-nam" class="col-md-12 col-sm-12 col-xs-12 col-lg-12" style="max-width:979px; height:600px"></div>
+
+                                <div class="card">
+                                    <div class="header bg-cyan">
+                                        <h2>Thống kê tổng doanh thu theo năm</h2>
+                                    </div>
+                                    <div class="body" style="max-height: 740px; min-height: 740px; ">
+                                        <div id="chart-nam" class="col-md-12 col-sm-12 col-xs-12 col-lg-12 column-chart"></div>
+                                    </div>
+                                </div>
+
                             </div>
 
 
                             <div class="row">
-                                <div class="col-md-5 pull-right">
-                                    <div class="col-md-5 m-t-10">
-                                        <label>Chọn năm thống kê</label>
+                                <div class="card">
+                                    <div class="header bg-green">
+                                        <h2>Thống kê số lượng sản phẩm đã bán theo năm</h2>
                                     </div>
-                                    <div class="col-md-7 pull-right">
-                                        <div class="input-group">
-                                            <select class="form-control" id="cbbNamSP">
-                                                <option value="-1">Chọn năm</option>
-                                                @Html.Raw(ViewBag.CbbNam)
-                                            </select>
+                                    <div class="body" style="max-height: 740px; min-height: 740px; ">
+                                        <div class="col-md-5 pull-right">
+                                            <div class="col-md-6 m-t-10">
+                                                <label>Chọn năm thống kê</label>
+                                            </div>
+                                            <div class="col-md-6 pull-right">
+                                                <div class="input-group">
+                                                    <select class="form-control" id="cbbNamSP">
+                                                        <option value="-1">Chọn năm</option>
+                                                        @Html.Raw(ViewBag.CbbNam)
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div id="pie-chart-nam" class="pie-chart"></div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
-                                    <div id="pie-chart-nam"></div>
-                                </div>
+
+                              
                             </div>
                         </div>
 

@@ -75,44 +75,64 @@
 
                         <div class="tab-content">
                             <div class="row">
-                                <div class="col-md-5 pull-right">
-                                    <div class="col-md-5 m-t-10">
-                                        <label>Chọn năm thống kê</label>
+
+                                <div class="card">
+                                    <div class="header bg-cyan">
+                                        <h2>Thống kê tổng doanh thu theo quý</h2>
                                     </div>
-                                    <div class="col-md-7 pull-right">
-                                        <div class="input-group">
-                                            <select class="form-control" id="cbbNam">
-                                                <option value="-1">Chọn năm</option>
-                                                @Html.Raw(ViewBag.CbbNam)
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
+                                    <div class="body" style="max-height: 740px; min-height: 740px; ">
 
-                                <div id="chart-quy" class="col-md-12 col-sm-12 col-xs-12 col-lg-12" style="max-width:979px; height:600px"></div>
-
-
-                                <div class="row">
-                                    <div class="col-md-5 pull-right">
-                                        <div class="col-md-5 m-t-10">
-                                            <label>Chọn quý thống kê</label>
-                                        </div>
-                                        <div class="col-md-7 pull-right">
-                                            <div class="input-group">
-                                                <select class="form-control" id="cbbQuySP">
-                                                    <option value="-1">Chọn quý</option>
-                                                    <option value="1">Quý 1</option>
-                                                    <option value="2">Quý 2</option>
-                                                    <option value="3">Quý 3</option>
-                                                    <option value="4">Quý 4</option>
-                                                </select>
+                                        <div class="col-md-6 pull-right">
+                                            <div class="col-md-5 m-t-10">
+                                                <label>Chọn quý thống kê</label>
+                                            </div>
+                                            <div class="col-md-6 pull-right">
+                                                <div class="input-group">
+                                                    <select class="form-control" id="cbbNam">
+                                                        <option value="-1">Chọn năm</option>
+                                                        @Html.Raw(ViewBag.CbbNam)
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div id="pie-chart-quy"></div>
+
+                                        <div id="chart-quy" class="col-md-12 col-sm-12 col-xs-12 col-lg-12 column-chart" ></div>
+
                                     </div>
                                 </div>
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="card">
+                                    <div class="header bg-green">
+                                        <h2>Thống kê số lượng sản phẩm đã bán theo quý</h2>
+                                    </div>
+                                    <div class="body" style="max-height: 740px; min-height: 740px; ">
+                                        <div class="col-md-5 pull-right">
+                                            <div class="col-md-5 m-t-10">
+                                                <label>Chọn quý thống kê</label>
+                                            </div>
+                                            <div class="col-md-7 pull-right">
+                                                <div class="input-group">
+                                                    <select class="form-control" id="cbbQuySP">
+                                                        <option value="-1">Chọn quý</option>
+                                                        <option value="1">Quý 1</option>
+                                                        <option value="2">Quý 2</option>
+                                                        <option value="3">Quý 3</option>
+                                                        <option value="4">Quý 4</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div id="pie-chart-quy" class="pie-chart"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                             
                             </div>
                         </div>
 

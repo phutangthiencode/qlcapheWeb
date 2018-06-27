@@ -78,35 +78,44 @@
                                 <div class="card">
                                     <div class="header bg-cyan">
                                         <h2>Thống kê tổng doanh thu theo ngày</h2>
-                                       
                                     </div>
-                                    <div class="body">
+                                    <div class="body" style="max-height: 740px; min-height: 740px; ">
 
-                                        <div class="col-md-5 pull-right">
-                                            <div class="col-md-4 m-t-10">
-                                                <label>Chọn ngày</label>
-                                            </div>
-                                            <div class="col-md-7 pull-right">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon">
-                                                        <i class="material-icons">date_range</i>
-                                                    </span>
-                                                    <div class="form-line">
-                                                        <input class="form-control ngayValidate" id="txtNgay" min="1899-01-01" name="txtNgay"
-                                                               required="true" type="date">
+                                        <div class="row clearfix">
+                                            <div class="col-md-5 pull-right">
+                                                <div class="col-md-4 m-t-10">
+                                                    <label>Chọn ngày</label>
+                                                </div>
+                                                <div class="col-md-7 pull-right">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">
+                                                            <i class="material-icons">date_range</i>
+                                                        </span>
+                                                        <div class="form-line">
+                                                            <input class="form-control ngayValidate" id="txtNgay" min="1899-01-01" name="txtNgay"
+                                                                   required="true" type="date">
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <div id="chart-ngay" class="col-md-12 col-sm-12 col-xs-12 col-lg-12" style="max-width:979px; height:600px"></div>
+                                        <div id="chart-ngay" class="col-md-12 col-sm-12 col-xs-12 col-lg-12 column-chart"></div>
+
                                     </div>
                                 </div>
 
                             </div>
 
                             <div class="row">
-                                <div id="pie-chart-ngay"></div>
+                                <div class="card">
+                                    <div class="header bg-green">
+                                        <h2>Thống kê số lượng sản phẩm đã bán theo ngày</h2>
+                                    </div>
+                                    <div class="body pie-chart">
+                                        <div id="pie-chart-ngay" class="pie-chart"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
