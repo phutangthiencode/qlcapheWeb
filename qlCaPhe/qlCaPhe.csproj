@@ -431,6 +431,9 @@
       <DependentUpon>qlCaPhe.tt</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\thongKeDoanhThuTheoSanPhamTheoNgay_Result.cs">
+      <DependentUpon>qlCaPhe.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\thongKeHoaDonTheoNam_Result.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
     </Compile>

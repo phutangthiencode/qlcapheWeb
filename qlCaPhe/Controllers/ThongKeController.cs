@@ -41,7 +41,7 @@ namespace qlCaPhe.Controllers
             {
                 ViewBag.ScriptAjax = createScriptCarvas.ScriptAjaxThongKeDoanhThu("/ThongKe/GetJsonDoanhThuTheoNgay", "chart-ngay");
                 return View();
-            }                
+            }
             return RedirectToAction("PageNotFound", "Home");
         }
         /// <summary>
@@ -66,6 +66,37 @@ namespace qlCaPhe.Controllers
                             tamTinh = hoaDon.tamTinh,
                         };
                         listHoaDon.Add(x);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    xulyFile.ghiLoi("Class: ThongKeController - Function: tke_DoanhThuTheoThoiDiem", ex.Message);
+                }
+            return Json(listHoaDon, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult GetJsonSanPhamTheoNgay(string param)
+        {
+            List<object> listHoaDon = new List<object>();
+            if (xulyChung.duocTruyCap(idOfPageDoanhThuTheoThoiDiem))
+                try
+                {
+                    DateTime date = xulyDuLieu.doiChuoiSangDateTime(param);
+                    IEnumerable<object> listKQ = new qlCaPheEntities().thongKeDoanhThuTheoSanPhamTheoNgay(new DateTime(2018,6,6));
+                    foreach (object x in listKQ.ToList())
+                    {
+                        string soLanBan = xulyDuLieu.layThuocTinhTrongMotObject(x, "soLanBan");
+                     //   string tenSP = xulyDuLieu.layThuocTinhTrongMotObject(x, "tenSP");
+                        //---------Lấy tổng tiền thanh toán tạm tính của từng ngày
+                        long tongTienTamTinh = xulyDuLieu.doiChuoiSangLong(xulyDuLieu.layThuocTinhTrongMotObject(x, "tongTien"));
+                        object a = new
+                        {
+                            soLanBan = xulyDuLieu.doiChuoiSangInteger(soLanBan),
+                            tenSP = xulyDuLieu.layThuocTinhTrongMotObject(x, "tenSanPham"),
+                            tongTien = tongTienTamTinh
+                        };
+                        listHoaDon.Add(a);
                     }
                 }
                 catch (Exception ex)
@@ -141,12 +172,12 @@ namespace qlCaPhe.Controllers
                 string cbbNam = "";
                 int namHienTai = DateTime.Now.Year;
                 for (int i = 2017; i <= namHienTai; i++)
-                    cbbNam += "<option value=\"" + i.ToString() + "\"" + ">"+i.ToString()+"</option>";
+                    cbbNam += "<option value=\"" + i.ToString() + "\"" + ">" + i.ToString() + "</option>";
                 ViewBag.CbbNam = cbbNam;
                 ViewBag.ScriptAjax = createScriptCarvas.ScriptAjaxThongKeDoanhThu("/ThongKe/GetJsonDoanhThuTheoThang", "chart-tuan");
                 return View();
             }
-                
+
             return RedirectToAction("PageNotFound", "Home");
         }
         /// <summary>

@@ -1,192 +1,75 @@
-﻿-----------------------6/15/2018 4:35:51 PM----------
-Vị trí: Class: BanController - Function: capNhatTrangThai 
- Lỗi: Bàn chổ ngồi có mã ''19' đang sử dụng. không thể cập nhật trạng thái
----------------------------------------------------------------
-
------------------------6/15/2018 4:37:08 PM----------
-Vị trí: Class: BanController - Function: capNhatTrangThai 
- Lỗi: Bàn chổ ngồi có mã ''19' đang sử dụng. không thể cập nhật trạng thái
----------------------------------------------------------------
-
------------------------6/15/2018 5:06:58 PM----------
-Vị trí: Class SlideController - Function: sl_TableSlideShow 
- Lỗi: không có tham số 
----------------------------------------------------------------
-
------------------------6/15/2018 5:35:20 PM----------
-Vị trí: Class: xulyFile - Function: donDepTM 
- Lỗi: The process cannot access the file 'img9.jpg' because it is being used by another process.
----------------------------------------------------------------
-
------------------------6/15/2018 5:41:14 PM----------
-Vị trí: Class: xulyChung - Function: ghiNhatKy 
- Lỗi: An error occurred while updating the entries. See the inner exception for details.
----------------------------------------------------------------
-
------------------------6/15/2018 5:46:34 PM----------
-Vị trí: Class: xulyFile - Function: donDepTM 
- Lỗi: The process cannot access the file 'img5.jpg' because it is being used by another process.
----------------------------------------------------------------
-
------------------------6/15/2018 5:49:59 PM----------
-Vị trí: Class: xulyFile - Function: donDepTM 
- Lỗi: The process cannot access the file 'img4.jpg' because it is being used by another process.
----------------------------------------------------------------
-
------------------------6/15/2018 11:51:38 PM----------
-Vị trí: Class NhapKhoController - Function: AjaxThemChiTietVaTraVeBang 
- Lỗi: Vui lòng chọn nhà cung cấp cho nguyên liệu này <br/>
----------------------------------------------------------------
-
------------------------6/16/2018 12:40:22 AM----------
-Vị trí: Class: XuatKhoController - Function: xk_TaoMoiPhieuXuat_Post 
- Lỗi: Vui lòng chọn kho hàng nhận hàng <br/>
----------------------------------------------------------------
-
------------------------6/16/2018 12:53:10 AM----------
-Vị trí: Class: XuatKhoController - Function: xk_TaoMoiPhieuXuat_Post 
- Lỗi: Vui lòng chọn kho hàng nhận hàng <br/>
----------------------------------------------------------------
-
------------------------6/16/2018 2:02:02 PM----------
-Vị trí: Class: PublicPageController - Function: PartHome_Banner1 
- Lỗi: Lỗi
----------------------------------------------------------------
-
------------------------6/16/2018 2:08:37 PM----------
-Vị trí: Class: PublicPageController - Function: PartHome_Banner1 
- Lỗi: Lỗi
----------------------------------------------------------------
-
------------------------6/16/2018 2:09:47 PM----------
-Vị trí: Class: PublicPageController - Function: PartHome_Banner1 
- Lỗi: Lỗi
----------------------------------------------------------------
-
------------------------6/16/2018 2:09:47 PM----------
-Vị trí: Class: PublicPageController - Function: PartHome_Banner1 
- Lỗi: Lỗi
----------------------------------------------------------------
-
------------------------6/16/2018 2:11:33 PM----------
-Vị trí: Class: PublicPageController - Function: PartHome_Banner1 
- Lỗi: Lỗi
----------------------------------------------------------------
-
------------------------6/16/2018 2:11:33 PM----------
-Vị trí: Class: PublicPageController - Function: PartHome_Banner1 
- Lỗi: Lỗi
----------------------------------------------------------------
-
------------------------6/16/2018 2:11:44 PM----------
-Vị trí: Class: xulyChung - Function: ghiNhatKy 
- Lỗi: An error occurred while updating the entries. See the inner exception for details.
----------------------------------------------------------------
-
------------------------6/16/2018 3:31:58 PM----------
-Vị trí: Class: PublicPageController - Function: PartHome_BaiViet 
- Lỗi: Parameter count mismatch.
----------------------------------------------------------------
-
------------------------6/16/2018 3:33:13 PM----------
-Vị trí: Class: PublicPageController - Function: PartHome_BaiViet 
- Lỗi: Parameter count mismatch.
----------------------------------------------------------------
-
------------------------6/16/2018 4:18:56 PM----------
-Vị trí: Class: xulyChung - Function: ghiNhatKy 
- Lỗi: An error occurred while updating the entries. See the inner exception for details.
----------------------------------------------------------------
-
------------------------6/20/2018 2:51:54 PM----------
-Vị trí: Class: PublicPageController - Function: PartHome_Banner1 
- Lỗi: The underlying provider failed on Open.
----------------------------------------------------------------
-
------------------------6/20/2018 2:51:56 PM----------
-Vị trí: Class: PublicPageController - Function: PartHome_BaiViet 
- Lỗi: The underlying provider failed on Open.
----------------------------------------------------------------
-
------------------------6/20/2018 2:55:23 PM----------
-Vị trí: Class: PublicPageController - Function: PartHome_Banner1 
- Lỗi: The underlying provider failed on Open.
----------------------------------------------------------------
-
------------------------6/20/2018 2:55:25 PM----------
-Vị trí: Class: PublicPageController - Function: PartHome_BaiViet 
- Lỗi: The underlying provider failed on Open.
----------------------------------------------------------------
-
------------------------6/21/2018 1:16:40 AM----------
-Vị trí: Class: PublicPageController - Function: HoanTatOrDer 
- Lỗi: Khách nhập ngày không hợp lệ
----------------------------------------------------------------
-
------------------------6/21/2018 1:18:15 AM----------
-Vị trí: Class: PublicPageController - Function: HoanTatOrDer 
- Lỗi: Khách nhập ngày không hợp lệ
----------------------------------------------------------------
-
------------------------6/21/2018 1:18:32 AM----------
-Vị trí: Class: PublicPageController - Function: HoanTatOrDer 
- Lỗi: Khách nhập ngày không hợp lệ
----------------------------------------------------------------
-
------------------------6/21/2018 1:45:43 AM----------
-Vị trí: Class: PublicPageController - Function: HoanTatOrDer 
- Lỗi: Object reference not set to an instance of an object.
----------------------------------------------------------------
-
------------------------6/21/2018 1:53:08 AM----------
-Vị trí: Class: PublicPageController - Function: HoanTatOrDer 
- Lỗi: Object reference not set to an instance of an object.
----------------------------------------------------------------
-
------------------------6/21/2018 1:53:25 AM----------
-Vị trí: Class: PublicPageController - Function: HoanTatOrDer 
- Lỗi: Object reference not set to an instance of an object.
----------------------------------------------------------------
-
------------------------6/21/2018 1:53:46 AM----------
-Vị trí: Class: PublicPageController - Function: HoanTatOrDer 
- Lỗi: Object reference not set to an instance of an object.
----------------------------------------------------------------
-
------------------------6/22/2018 3:36:16 AM----------
-Vị trí: Class: PublicPageController - Function: layLoaiSanPhamTaiDanhSachBaiViet 
- Lỗi: String cannot be of zero length.
-Parameter name: oldValue
----------------------------------------------------------------
-
------------------------6/22/2018 3:37:57 AM----------
-Vị trí: Class: PublicPageController - Function: layLoaiSanPhamTaiDanhSachBaiViet 
- Lỗi: String cannot be of zero length.
-Parameter name: oldValue
----------------------------------------------------------------
-
------------------------6/22/2018 10:52:39 AM----------
-Vị trí: Class: xulyChung - Function: ghiNhatKy 
- Lỗi: An error occurred while updating the entries. See the inner exception for details.
----------------------------------------------------------------
-
------------------------6/22/2018 11:00:41 AM----------
-Vị trí: Class: xulyChung - Function: ghiNhatKy 
- Lỗi: An error occurred while updating the entries. See the inner exception for details.
----------------------------------------------------------------
-
------------------------6/25/2018 12:27:30 AM----------
+﻿-----------------------6/27/2018 5:38:29 PM----------
 Vị trí: Class: ThongKeController - Function: tke_DoanhThuTheoThoiDiem 
- Lỗi: The result of a query cannot be enumerated more than once.
+ Lỗi: The data reader is incompatible with the specified 'qlCaPheModel.thongKeDoanhThuTheoSanPhamTheoNgay_Result'. A member of the type, 'maSanPham', does not have a corresponding column in the data reader with the same name.
 ---------------------------------------------------------------
 
------------------------6/27/2018 3:49:35 PM----------
-Vị trí: Class: ThongKeController - Function: GetJsonDoanhThuTheoQuy 
- Lỗi: Object reference not set to an instance of an object.
+-----------------------6/27/2018 5:41:10 PM----------
+Vị trí: Class: ThongKeController - Function: tke_DoanhThuTheoThoiDiem 
+ Lỗi: The data reader is incompatible with the specified 'qlCaPheModel.thongKeDoanhThuTheoSanPhamTheoNgay_Result'. A member of the type, 'maSanPham', does not have a corresponding column in the data reader with the same name.
 ---------------------------------------------------------------
 
------------------------6/27/2018 3:50:04 PM----------
-Vị trí: Class: ThongKeController - Function: GetJsonDoanhThuTheoQuy 
- Lỗi: Object reference not set to an instance of an object.
+-----------------------6/27/2018 5:41:50 PM----------
+Vị trí: Class: HomeController - Function: Notifications 
+ Lỗi: No connection string named 'qlCaPheEntities' could be found in the application config file.
+---------------------------------------------------------------
+
+-----------------------6/27/2018 5:41:50 PM----------
+Vị trí: Class: HomeController - Function: Notifications 
+ Lỗi: No connection string named 'qlCaPheEntities' could be found in the application config file.
+---------------------------------------------------------------
+
+-----------------------6/27/2018 5:41:50 PM----------
+Vị trí: Class: HomeController - Function: Notifications 
+ Lỗi: No connection string named 'qlCaPheEntities' could be found in the application config file.
+---------------------------------------------------------------
+
+-----------------------6/27/2018 5:41:50 PM----------
+Vị trí: Class: HomeController - Function: Notifications 
+ Lỗi: No connection string named 'qlCaPheEntities' could be found in the application config file.
+---------------------------------------------------------------
+
+-----------------------6/27/2018 5:41:50 PM----------
+Vị trí: Class: HomeController - Function: Notifications 
+ Lỗi: No connection string named 'qlCaPheEntities' could be found in the application config file.
+---------------------------------------------------------------
+
+-----------------------6/27/2018 5:41:51 PM----------
+Vị trí: Class: HomeController - Function: Notifications 
+ Lỗi: No connection string named 'qlCaPheEntities' could be found in the application config file.
+---------------------------------------------------------------
+
+-----------------------6/27/2018 5:41:51 PM----------
+Vị trí: Class: HomeController - Function: Notifications 
+ Lỗi: No connection string named 'qlCaPheEntities' could be found in the application config file.
+---------------------------------------------------------------
+
+-----------------------6/27/2018 5:41:53 PM----------
+Vị trí: Class: HomeController - Function: Notifications 
+ Lỗi: No connection string named 'qlCaPheEntities' could be found in the application config file.
+---------------------------------------------------------------
+
+-----------------------6/27/2018 5:41:53 PM----------
+Vị trí: Class: HomeController - Function: Notifications 
+ Lỗi: No connection string named 'qlCaPheEntities' could be found in the application config file.
+---------------------------------------------------------------
+
+-----------------------6/27/2018 5:41:54 PM----------
+Vị trí: Class: HomeController - Function: Notifications 
+ Lỗi: No connection string named 'qlCaPheEntities' could be found in the application config file.
+---------------------------------------------------------------
+
+-----------------------6/27/2018 5:41:56 PM----------
+Vị trí: Class: HomeController - Function: Notifications 
+ Lỗi: No connection string named 'qlCaPheEntities' could be found in the application config file.
+---------------------------------------------------------------
+
+-----------------------6/27/2018 5:41:56 PM----------
+Vị trí: Class: HomeController - Function: Notifications 
+ Lỗi: No connection string named 'qlCaPheEntities' could be found in the application config file.
+---------------------------------------------------------------
+
+-----------------------6/27/2018 5:41:57 PM----------
+Vị trí: Class: HomeController - Function: Notifications 
+ Lỗi: No connection string named 'qlCaPheEntities' could be found in the application config file.
 ---------------------------------------------------------------
 

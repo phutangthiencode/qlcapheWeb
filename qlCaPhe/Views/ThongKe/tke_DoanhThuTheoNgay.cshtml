@@ -22,11 +22,121 @@
         $('#txtNgay').change(function () {
             ts = $('#txtNgay').val();
             layDuLieuHoaDon(jsonThongKeDoanhThu, soHDs, tamTinhs, dts, ts, 'chart-ngay', "Thống kê doanh thu hóa đơn theo ngày: " + ts);
+            // drawChart();
         })
     });
 
-   
+
+    //function drawChart() {
+
+    //    // Create the data table.
+    //    var data = new google.visualization.DataTable();
+    //    // Create columns for the DataTable
+    //    data.addColumn('string');
+    //    data.addColumn('number', 'Devices');
+    //    data.addColumn('number', 'Price');
+    //    // Create Rows with data
+    //    data.addRows([
+    //      ['SamSung', 4, 21000000],
+    //      ['Apple', 4, 22000000],
+    //      ['Huawei', 3, 20000000],
+    //      ['LG', 1, 50000000],
+    //      ['Xiaomi', 1, 2350000],
+    //      ['ZTE', 1, 1500000]
+    //    ]);
+
+    //    //Create option for chart
+    //    var options = {
+    //        title: 'Global smartphone share Q2 2015',
+    //        'width': 800,
+    //        'height': 600
+    //    };
+
+    //    // Instantiate and draw our chart, passing in some options.
+    //    var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+    //    chart.draw(data, options);
+    //}
+
 </script>
+
+<script type="text/javascript">
+    var ts = getDateCurrent();
+    google.load("visualization", "1", { packages: ["corechart"] });
+    google.setOnLoadCallback(drawPieChart);
+    function drawPieChart() {
+        var options = {
+            title: "GOOGLE PIE CHART",
+            titleTextStyle: { color: 'blue', fontSize: 16, bold: true },
+            pieSliceText: "percentage",
+            width: 750,
+            height: 500
+        };
+        options.is3D = true;
+        $.ajax({
+            type: "GET",
+            url: '/ThongKe/GetJsonSanPhamTheoNgay',
+            data: 'param=' + ts,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json", async: true,
+            success: function (kq) {
+                //var objectKQ = kq[1];
+                //var soLuong = kq[1]["soLanBan"];
+                //alert(soLuong);
+                drawChart(kq);
+            },
+            failure: function (r) {
+                alert(r.d);
+            },
+            error: function (r) {
+                alert(r.d);
+            }
+        });
+    }
+
+    function drawChart(json) {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        // Create columns for the DataTable
+        data.addColumn('string');
+        data.addColumn('number', 'Devices');
+        // Create Rows with data
+        var jsonLenght = Object.keys(json).length;
+        for (i = 0; i < jsonLenght; i++) {
+            var sp = json[i]["tenSP"];
+            var soLanBan = json[i]["soLanBan"];
+            data.addRows([
+                [sp, soLanBan]
+            ]);
+        }
+
+
+        //data.addRows([
+        //  ['S', 4],
+        //  ['A', 4],
+        //  ['H', 3],
+        //  ['L', 1],
+        //  ['X', 1],
+        //  ['Z', 1]
+        //]);
+
+        //Create option for chart
+        var options = {
+            title: 'Global smartphone share Q2 2015',
+            'width': 800,
+            'height': 600
+        };
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+    }
+
+
+
+
+</script>
+
 
 <section class="content">
     <div class="container-fluid">
@@ -46,7 +156,7 @@
                     <div class="body">
                         <ul class="nav nav-tabs tab-col-pink tabs-thongke" role="tablist">
 
-                            <li role="presentation" class="active"><a class="tab-thongke"><i class="material-icons">looks_6</i>Theo ngày</a></li>
+                            <li role="presentation" class="active"><a href="/ThongKe/tke_DoanhThuTheoTuan"><i class="material-icons">looks_6</i>Theo ngày</a></li>
                             <li role="presentation" class=""><a href="/ThongKe/tke_DoanhThuTheoTuan"><i class="material-icons">view_week</i>Theo tuần</a></li>
                             <li role="presentation" class=""><a href="/ThongKe/tke_DoanhThuTheoThang"><i class="material-icons">date_range</i>Theo tháng</a></li>
                             <li role="presentation" class=""><a href="/ThongKe/tke_DoanhThuTheoQuy"><i class="material-icons">poll</i>Theo quý</a></li>
@@ -74,6 +184,10 @@
                                 </div>
 
                                 <div id="chart-ngay" class="col-md-12 col-sm-12 col-xs-12 col-lg-12" style="max-width:979px; height:600px"></div>
+                            </div>
+
+                            <div class="row">
+                                <div id="chart_div"></div>
                             </div>
                         </div>
 

@@ -53,3 +53,31 @@ function veBieuDoCotDoanhThu(datas, idDivchart, title) {
     chart.draw(data, options);
 
 }
+
+function layDuLieuSanPham(fn, soHoaDons, tongTiens, datas, ts, idDivchart, title) {
+
+    fn(function (data) {
+        soHoaDons = [];
+        tongTiens = [];
+        datas = [];
+
+        $.each(data, function (i, item) {
+            soHoaDons.push([item.maHD]);
+            tongTiens.push([item.tamTinh]);
+            datas = data; // Dành cho biểu đồ cột
+        });
+
+        var data = new google.visualization.DataTable();
+        data.addColumn('number', 'maHD');
+        data.addColumn('number', 'tamTinh');
+
+        //-------Phân tích dữ liệu từ json trả về
+        if (datas.length > 0) {
+            data.addRows(soHoaDons.length);
+            for (var i = 0; i < soHoaDons.length; i++)
+                data.setCell(i, 0, parseInt(tongTiens[i]));
+
+            veBieuDoCotDoanhThu(datas, idDivchart, title);
+        }
+    }, ts);
+}
