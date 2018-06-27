@@ -54,30 +54,35 @@ function veBieuDoCotDoanhThu(datas, idDivchart, title) {
 
 }
 
-function layDuLieuSanPham(fn, soHoaDons, tongTiens, datas, ts, idDivchart, title) {
+//-----------------Hàm vẽ biểu đồ tròn cho việc thống kê sản phẩm theo số lượng đã bán
+//------------json: mảng json object chứa dữ liệu được lấy từ database
+//------------title: Title cho biểu đồ tròn
+//------------chartID: id của div chứa biểu đồ
+function drawPieChartSanPham(json, title, chartID) {
 
-    fn(function (data) {
-        soHoaDons = [];
-        tongTiens = [];
-        datas = [];
+    // Create the data table.
+    var data = new google.visualization.DataTable();
+    // Create columns for the DataTable
+    data.addColumn('string');
+    data.addColumn('number', 'Devices');
+    // Create Rows with data
+    var jsonLenght = Object.keys(json).length;
+    for (i = 0; i < jsonLenght; i++) {
+        var sp = json[i]["tenSP"];
+        var soLanBan = json[i]["soLanBan"];
+        data.addRows([
+            [sp, soLanBan]
+        ]);
+    }
 
-        $.each(data, function (i, item) {
-            soHoaDons.push([item.maHD]);
-            tongTiens.push([item.tamTinh]);
-            datas = data; // Dành cho biểu đồ cột
-        });
+    //Create option for chart
+    var options = {
+        title: title,
+        'width': 800,
+        'height': 600
+    };
 
-        var data = new google.visualization.DataTable();
-        data.addColumn('number', 'maHD');
-        data.addColumn('number', 'tamTinh');
-
-        //-------Phân tích dữ liệu từ json trả về
-        if (datas.length > 0) {
-            data.addRows(soHoaDons.length);
-            for (var i = 0; i < soHoaDons.length; i++)
-                data.setCell(i, 0, parseInt(tongTiens[i]));
-
-            veBieuDoCotDoanhThu(datas, idDivchart, title);
-        }
-    }, ts);
+    // Instantiate and draw our chart, passing in some options.
+    var chart = new google.visualization.PieChart(document.getElementById(chartID));
+    chart.draw(data, options);
 }

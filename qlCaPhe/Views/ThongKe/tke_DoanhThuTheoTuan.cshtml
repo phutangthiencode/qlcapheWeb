@@ -9,7 +9,7 @@
 @Html.Raw(ViewBag.ScriptAjax)
 <script>
     google.load("visualization", "1", { packages: ["corechart"] });
-    var soHDs, tamTinhs, dts;
+    var soHDs, tamTinhs, dts, nextWeek;
     $(document).ready(function () {
 
         var ts;       
@@ -17,12 +17,34 @@
         $('#txtStartNgay').val(getDateCurrent());
         ts = $('#txtStartNgay').val();      
         layDuLieuHoaDon(jsonThongKeDoanhThu, soHDs, tamTinhs, dts, ts, 'chart-tuan', "Thống kê tổng doanh thu theo tuần từ ngày: " + ts + " đến " + convertDateToString(getDateOfNextWeek(ts)));
+        VeBieuDoTronThongKeSanPham(ts);
         $('#txtStartNgay').change(function () {
             ts = $('#txtStartNgay').val();
-            layDuLieuHoaDon(jsonThongKeDoanhThu, soHDs, tamTinhs, dts, ts, 'chart-tuan', "Thống kê tổng doanh thu theo tuần từ ngày: " + ts + " đến " + convertDateToString(getDateOfNextWeek(ts)));
+            nextWeek = convertDateToString(getDateOfNextWeek(ts));
+            layDuLieuHoaDon(jsonThongKeDoanhThu, soHDs, tamTinhs, dts, ts, 'chart-tuan', "Thống kê tổng doanh thu theo tuần từ ngày: " + ts + " đến " + nextWeek);
+            VeBieuDoTronThongKeSanPham(ts, nextWeek);
         })
     });
 
+    function VeBieuDoTronThongKeSanPham(ts, nextWeek) {
+        var title = "Thống kê sản phẩm bán theo tuần từ ngày: " + ts + " đến " + nextWeek;
+        $.ajax({
+            type: "GET",
+            url: '/ThongKe/GetJsonSanPhamTheoTuan',
+            data: 'param=' + ts,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json", async: true,
+            success: function (kq) {
+                drawPieChartSanPham(kq, title, "pie-chart-tuan");
+            },
+            failure: function (r) {
+                alert(r.d);
+            },
+            error: function (r) {
+                alert(r.d);
+            }
+        });
+    }
 
 </script>
 
@@ -76,6 +98,11 @@
                                 </div>
 
                                 <div id="chart-tuan" class="col-md-12 col-sm-12 col-xs-12 col-lg-12" style="max-width:979px; height:600px"></div>
+                            </div>
+
+
+                            <div class="row">
+                                <div id="pie-chart-tuan"></div>
                             </div>
                         </div>
 

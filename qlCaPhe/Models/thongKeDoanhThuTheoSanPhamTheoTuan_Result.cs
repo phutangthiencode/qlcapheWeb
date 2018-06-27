@@ -11,7 +11,7 @@ namespace qlCaPhe.Models
 {
     using System;
     
-    public partial class thongKeDoanhThuTheoSanPhamTheoNgay_Result
+    public partial class thongKeDoanhThuTheoSanPhamTheoTuan_Result
     {
         public Nullable<int> soLanBan { get; set; }
         public string tenSanPham { get; set; }

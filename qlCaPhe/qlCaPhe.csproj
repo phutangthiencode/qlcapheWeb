@@ -224,15 +224,12 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\baiViet.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\BanChoNgoi.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\BangGiaoViec.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\Business\bHoaDonTam.cs" />
     <Compile Include="Models\Business\bMenuTools.cs" />
@@ -243,63 +240,48 @@
     <Compile Include="Models\Business\bTonKho.cs" />
     <Compile Include="Models\caLamViec.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\cauHinh.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\congThucPhaChe.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\ctBangGiaoViec.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\ctCongThuc.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\ctCungCap.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\ctDanhGia.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\ctDatBan.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\ctHoaDonOrder.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\ctHoaDonTam.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\ctPhieuNhapKho.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\ctPhieuXuatKho.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\ctTonKho.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\danhGiaNhanVien.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\datBanOnline.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\EditorHTML.cs" />
     <Compile Include="Models\Entities\MenuTools.cs" />
@@ -315,84 +297,67 @@
     <Compile Include="Models\Entities\Services\svThongBao.cs" />
     <Compile Include="Models\Feedback.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\hoaDonOrder.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\hoaDonTam.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\khoHang.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\khuVuc.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\lichSuGia.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\loaiNguyenLieu.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\loaiSanPham.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\mucTieuDanhGia.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\nguyenLieu.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\nhaCungCap.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\nhatKy.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\nhomTaiKhoan.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\phieuNhapKho.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\phieuXuatKho.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\qlCaPhe.Context.cs">
-      <DependentUpon>qlCaPhe.Context.tt</DependentUpon>
-      <SubType>Code</SubType>
-      <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>qlCaPhe.Context.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\qlCaPhe.cs">
-      <DependentUpon>qlCaPhe.tt</DependentUpon>
-      <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>qlCaPhe.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\qlCaPhe.Designer.cs">
-      <DependentUpon>qlCaPhe.edmx</DependentUpon>
-      <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>qlCaPhe.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\sanPham.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\Services\bKiemKho.cs">
       <SubType>Component</SubType>
@@ -405,33 +370,32 @@
     </Compile>
     <Compile Include="Models\slide.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\sp_helpdiagrams_Result.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\taiKhoan.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\thanhVien.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\thongBao.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\thongKeDoanhThuTheoSanPhamTheoNgay_Result.cs">
+      <DependentUpon>qlCaPhe.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\thongKeDoanhThuTheoSanPhamTheoThang_Result.cs">
+      <DependentUpon>qlCaPhe.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\thongKeDoanhThuTheoSanPhamTheoTuan_Result.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\thongKeHoaDonTheoNam_Result.cs">
@@ -448,7 +412,6 @@
     </Compile>
     <Compile Include="Models\TonKho.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -602,19 +565,6 @@
     <Content Include="images\user-img-background.jpg" />
     <Content Include="images\user.jpg" />
     <Content Include="images\user.png" />
-    <Content Include="Models\qlCaPhe.Context.tt">
-      <DependentUpon>qlCaPhe.edmx</DependentUpon>
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>qlCaPhe.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\qlCaPhe.edmx.diagram">
-      <DependentUpon>qlCaPhe.edmx</DependentUpon>
-    </Content>
-    <Content Include="Models\qlCaPhe.tt">
-      <DependentUpon>qlCaPhe.edmx</DependentUpon>
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>qlCaPhe.cs</LastGenOutput>
-    </Content>
     <Content Include="Models\Services\bKiemKho.asmx" />
     <Content Include="Models\Services\bNghiepVuBan.asmx" />
     <Content Include="Models\Services\bNhanVien.asmx" />
@@ -3976,6 +3926,23 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.woff2" />
     <Content Include="fonts\FontAwesome.otf" />
+    <EntityDeploy Include="Models\qlCaPhe.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>qlCaPhe.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\qlCaPhe.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>qlCaPhe.edmx</DependentUpon>
+      <LastGenOutput>qlCaPhe.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\qlCaPhe.edmx.diagram">
+      <DependentUpon>qlCaPhe.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\qlCaPhe.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>qlCaPhe.edmx</DependentUpon>
+      <LastGenOutput>qlCaPhe.cs</LastGenOutput>
+    </Content>
     <None Include="Properties\PublishProfiles\qlcaphe.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\demo.js" />
@@ -4206,12 +4173,6 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <EntityDeploy Include="Models\qlCaPhe.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>qlCaPhe.Designer.cs</LastGenOutput>
-    </EntityDeploy>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

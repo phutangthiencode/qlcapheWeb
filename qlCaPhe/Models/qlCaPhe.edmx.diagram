@@ -4,94 +4,94 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="fd6c3c6768f542cebf52c3e95fc9a8a2" Name="Diagram1">
-        <EntityTypeShape EntityType="qlCaPheModel.baiViet" Width="1.5" PointX="5.25" PointY="46.625" />
-        <EntityTypeShape EntityType="qlCaPheModel.BanChoNgoi" Width="1.5" PointX="6" PointY="6.125" />
-        <EntityTypeShape EntityType="qlCaPheModel.BangGiaoViec" Width="1.5" PointX="5.25" PointY="32.75" />
-        <EntityTypeShape EntityType="qlCaPheModel.caLamViec" Width="1.5" PointX="5.25" PointY="36.75" />
-        <EntityTypeShape EntityType="qlCaPheModel.cauHinh" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="qlCaPheModel.congThucPhaChe" Width="1.5" PointX="5.25" PointY="19" />
-        <EntityTypeShape EntityType="qlCaPheModel.ctBangGiaoViec" Width="1.5" PointX="7.5" PointY="33" />
-        <EntityTypeShape EntityType="qlCaPheModel.ctCongThuc" Width="1.5" PointX="10.5" PointY="15.25" />
-        <EntityTypeShape EntityType="qlCaPheModel.ctCungCap" Width="1.5" PointX="16.5" PointY="23.125" />
-        <EntityTypeShape EntityType="qlCaPheModel.ctDanhGia" Width="1.5" PointX="7.5" PointY="23.75" />
-        <EntityTypeShape EntityType="qlCaPheModel.ctDatBan" Width="1.5" PointX="8.25" PointY="6.75" />
-        <EntityTypeShape EntityType="qlCaPheModel.ctHoaDonOrder" Width="1.5" PointX="13.5" PointY="19.75" />
-        <EntityTypeShape EntityType="qlCaPheModel.ctHoaDonTam" Width="1.5" PointX="16.5" PointY="19.5" />
-        <EntityTypeShape EntityType="qlCaPheModel.ctPhieuNhapKho" Width="1.5" PointX="13.5" PointY="23.375" />
-        <EntityTypeShape EntityType="qlCaPheModel.ctPhieuXuatKho" Width="1.5" PointX="10.5" PointY="27.625" />
-        <EntityTypeShape EntityType="qlCaPheModel.ctTonKho" Width="1.5" PointX="7.5" PointY="53.75" />
-        <EntityTypeShape EntityType="qlCaPheModel.danhGiaNhanVien" Width="1.5" PointX="5.25" PointY="23.5" />
-        <EntityTypeShape EntityType="qlCaPheModel.datBanOnline" Width="1.5" PointX="6" PointY="2.375" />
-        <EntityTypeShape EntityType="qlCaPheModel.Feedback" Width="1.5" PointX="2.75" PointY="0.75" />
-        <EntityTypeShape EntityType="qlCaPheModel.hoaDonOrder" Width="1.5" PointX="8.25" PointY="18.75" />
-        <EntityTypeShape EntityType="qlCaPheModel.hoaDonTam" Width="1.5" PointX="11.25" PointY="19.25" />
-        <EntityTypeShape EntityType="qlCaPheModel.khoHang" Width="1.5" PointX="9" PointY="36.25" />
-        <EntityTypeShape EntityType="qlCaPheModel.khuVuc" Width="1.5" PointX="3.75" PointY="6.625" />
-        <EntityTypeShape EntityType="qlCaPheModel.lichSuGia" Width="1.5" PointX="5.25" PointY="27.375" />
-        <EntityTypeShape EntityType="qlCaPheModel.loaiNguyenLieu" Width="1.5" PointX="6" PointY="10.75" />
-        <EntityTypeShape EntityType="qlCaPheModel.loaiSanPham" Width="1.5" PointX="0.75" PointY="14.75" />
-        <EntityTypeShape EntityType="qlCaPheModel.mucTieuDanhGia" Width="1.5" PointX="5.25" PointY="15.75" />
-        <EntityTypeShape EntityType="qlCaPheModel.nguyenLieu" Width="1.5" PointX="8.25" PointY="9.5" />
-        <EntityTypeShape EntityType="qlCaPheModel.nhaCungCap" Width="1.5" PointX="11.25" PointY="30.875" />
-        <EntityTypeShape EntityType="qlCaPheModel.nhatKy" Width="1.5" PointX="5.25" PointY="43.25" />
-        <EntityTypeShape EntityType="qlCaPheModel.nhomTaiKhoan" Width="1.5" PointX="0.75" PointY="18.625" />
-        <EntityTypeShape EntityType="qlCaPheModel.phieuNhapKho" Width="1.5" PointX="11.25" PointY="23.375" />
-        <EntityTypeShape EntityType="qlCaPheModel.phieuXuatKho" Width="1.5" PointX="8.25" PointY="27.375" />
-        <EntityTypeShape EntityType="qlCaPheModel.sanPham" Width="1.5" PointX="3" PointY="13.875" />
-        <EntityTypeShape EntityType="qlCaPheModel.slide" Width="1.5" PointX="0.75" PointY="5.75" />
-        <EntityTypeShape EntityType="qlCaPheModel.sysdiagram" Width="1.5" PointX="8.75" PointY="0.75" />
-        <EntityTypeShape EntityType="qlCaPheModel.taiKhoan" Width="1.5" PointX="3" PointY="22.125" />
-        <EntityTypeShape EntityType="qlCaPheModel.thanhVien" Width="1.5" PointX="0.75" PointY="22.5" />
-        <EntityTypeShape EntityType="qlCaPheModel.thongBao" Width="1.5" PointX="5.25" PointY="50.875" />
-        <EntityTypeShape EntityType="qlCaPheModel.TonKho" Width="1.5" PointX="5.25" PointY="54" />
-        <AssociationConnector Association="qlCaPheModel.FK__baiViet__nguoiTa__6DCC4D03" />
-        <AssociationConnector Association="qlCaPheModel.FK__BanChoNgo__maKhu__17036CC0" />
-        <AssociationConnector Association="qlCaPheModel.FK__ctDatBan__maBan__51300E55" />
-        <AssociationConnector Association="qlCaPheModel.FK__hoaDonOrd__maBan__24E777C3" />
-        <AssociationConnector Association="qlCaPheModel.FK__hoaDonTam__maBan__0E04126B" />
-        <AssociationConnector Association="qlCaPheModel.FK__BangGiaoV__tenDa__1ED998B2" />
-        <AssociationConnector Association="qlCaPheModel.FK__ctBangGia__maBan__267ABA7A" />
-        <AssociationConnector Association="qlCaPheModel.FK__ctBangGiao__maCa__276EDEB3" />
-        <AssociationConnector Association="qlCaPheModel.FK__congThucP__maSan__6319B466" />
-        <AssociationConnector Association="qlCaPheModel.FK__congThucP__nguoi__640DD89F" />
-        <AssociationConnector Association="qlCaPheModel.FK__congThucP__nguoi__6501FCD8" />
-        <AssociationConnector Association="qlCaPheModel.FK__ctCongThu__maCon__6CA31EA0" />
-        <AssociationConnector Association="qlCaPheModel.FK__ctCongThu__maNgu__6D9742D9" />
-        <AssociationConnector Association="qlCaPheModel.FK__ctCungCap__maNgu__4222D4EF" />
-        <AssociationConnector Association="qlCaPheModel.FK__ctCungCap__maNha__412EB0B6" />
-        <AssociationConnector Association="qlCaPheModel.FK__ctDanhGia__maDan__7CA47C3F" />
-        <AssociationConnector Association="qlCaPheModel.FK__ctDanhGia__maMuc__7D98A078" />
-        <AssociationConnector Association="qlCaPheModel.FK__ctDatBan__maDatB__503BEA1C" />
-        <AssociationConnector Association="qlCaPheModel.FK__ctHoaDonO__maHoa__3429BB53" />
-        <AssociationConnector Association="qlCaPheModel.FK__ctHoaDonO__maSan__351DDF8C" />
-        <AssociationConnector Association="qlCaPheModel.FK__ctHoaDonT__maBan__1975C517" />
-        <AssociationConnector Association="qlCaPheModel.FK__ctHoaDonTa__maSP__1A69E950" />
-        <AssociationConnector Association="qlCaPheModel.FK__ctPhieuNh__maNgu__1F63A897" />
-        <AssociationConnector Association="qlCaPheModel.FK__ctPhieuNh__maNha__2057CCD0" />
-        <AssociationConnector Association="qlCaPheModel.FK__ctPhieuNh__maPhi__1E6F845E" />
-        <AssociationConnector Association="qlCaPheModel.FK__ctPhieuXu__maNgu__45544755" />
-        <AssociationConnector Association="qlCaPheModel.FK__ctPhieuXu__maPhi__4460231C" />
-        <AssociationConnector Association="qlCaPheModel.FK__ctTonKho__maNguy__5C37ACAD" />
-        <AssociationConnector Association="qlCaPheModel.FK__ctTonKho__maSoKy__5B438874" />
-        <AssociationConnector Association="qlCaPheModel.FK__danhGiaNh__taiKh__5E8A0973" />
-        <AssociationConnector Association="qlCaPheModel.FK__danhGiaNha__maTV__5CA1C101" />
-        <AssociationConnector Association="qlCaPheModel.FK__hoaDonOrd__nguoi__29AC2CE0" />
-        <AssociationConnector Association="qlCaPheModel.FK__hoaDonOrd__nguoi__2AA05119" />
-        <AssociationConnector Association="qlCaPheModel.FK__hoaDonTam__nguoi__12C8C788" />
-        <AssociationConnector Association="qlCaPheModel.FK__phieuNhap__maKho__4E88ABD4" />
-        <AssociationConnector Association="qlCaPheModel.FK__phieuXuat__maKho__60A75C0F" />
-        <AssociationConnector Association="qlCaPheModel.FK__lichSuGia__maSan__047AA831" />
-        <AssociationConnector Association="qlCaPheModel.FK__lichSuGia__nguoi__075714DC" />
-        <AssociationConnector Association="qlCaPheModel.FK__nguyenLie__maLoa__32E0915F" />
-        <AssociationConnector Association="qlCaPheModel.FK__sanPham__maLoai__76969D2E" />
-        <AssociationConnector Association="qlCaPheModel.FK__nhatKy__tenDangN__035179CE" />
-        <AssociationConnector Association="qlCaPheModel.FK__taiKhoan__maNhom__117F9D94" />
-        <AssociationConnector Association="qlCaPheModel.FK__phieuNhap__nguoi__5165187F" />
-        <AssociationConnector Association="qlCaPheModel.FK__phieuXuat__nguoi__6383C8BA" />
-        <AssociationConnector Association="qlCaPheModel.FK__taiKhoan__maTV__108B795B" />
-        <AssociationConnector Association="qlCaPheModel.FK__thongBao__taiKho__64CCF2AE" />
-        <AssociationConnector Association="qlCaPheModel.FK__TonKho__nguoiKie__4EDDB18F" />
+      <Diagram DiagramId="2b081223e05e43e3a0cc4a00d0554607" Name="Diagram1">
+        <EntityTypeShape EntityType="qlCaPheModel.baiViet" Width="1.5" PointX="8.25" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="qlCaPheModel.BanChoNgoi" Width="1.5" PointX="11" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="qlCaPheModel.BangGiaoViec" Width="1.5" PointX="8.25" PointY="21" IsExpanded="true" />
+        <EntityTypeShape EntityType="qlCaPheModel.caLamViec" Width="1.5" PointX="8.25" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="qlCaPheModel.cauHinh" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="qlCaPheModel.congThucPhaChe" Width="1.5" PointX="11.25" PointY="24" IsExpanded="true" />
+        <EntityTypeShape EntityType="qlCaPheModel.ctBangGiaoViec" Width="1.5" PointX="10.5" PointY="21.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="qlCaPheModel.ctCongThuc" Width="1.5" PointX="16.5" PointY="27.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="qlCaPheModel.ctCungCap" Width="1.5" PointX="18.5" PointY="19.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="qlCaPheModel.ctDanhGia" Width="1.5" PointX="8.25" PointY="24.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="qlCaPheModel.ctDatBan" Width="1.5" PointX="13.25" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="qlCaPheModel.ctHoaDonOrder" Width="1.5" PointX="13.5" PointY="31.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="qlCaPheModel.ctHoaDonTam" Width="1.5" PointX="15.5" PointY="19.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="qlCaPheModel.ctPhieuNhapKho" Width="1.5" PointX="16.5" PointY="23.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="qlCaPheModel.ctPhieuXuatKho" Width="1.5" PointX="19.5" PointY="27.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="qlCaPheModel.ctTonKho" Width="1.5" PointX="10.5" PointY="53.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="qlCaPheModel.danhGiaNhanVien" Width="1.5" PointX="3" PointY="23.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="qlCaPheModel.datBanOnline" Width="1.5" PointX="11" PointY="16.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="qlCaPheModel.Feedback" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="qlCaPheModel.hoaDonOrder" Width="1.5" PointX="8.25" PointY="27.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="qlCaPheModel.hoaDonTam" Width="1.5" PointX="13.25" PointY="19.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="qlCaPheModel.khoHang" Width="1.5" PointX="12" PointY="35.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="qlCaPheModel.khuVuc" Width="1.5" PointX="8.75" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="qlCaPheModel.lichSuGia" Width="1.5" PointX="11.25" PointY="28.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="qlCaPheModel.loaiNguyenLieu" Width="1.5" PointX="12" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="qlCaPheModel.loaiSanPham" Width="1.5" PointX="11" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="qlCaPheModel.mucTieuDanhGia" Width="1.5" PointX="6" PointY="28.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="qlCaPheModel.nguyenLieu" Width="1.5" PointX="14.25" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="qlCaPheModel.nhaCungCap" Width="1.5" PointX="14.25" PointY="35.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="qlCaPheModel.nhatKy" Width="1.5" PointX="8.25" PointY="40.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="qlCaPheModel.nhomTaiKhoan" Width="1.5" PointX="3.75" PointY="19.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="qlCaPheModel.phieuNhapKho" Width="1.5" PointX="14.25" PointY="23.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="qlCaPheModel.phieuXuatKho" Width="1.5" PointX="14.25" PointY="27.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="qlCaPheModel.sanPham" Width="1.5" PointX="13.25" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="qlCaPheModel.slide" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="qlCaPheModel.sysdiagram" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="qlCaPheModel.taiKhoan" Width="1.5" PointX="6" PointY="22.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="qlCaPheModel.thanhVien" Width="1.5" PointX="0.75" PointY="22.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="qlCaPheModel.thongBao" Width="1.5" PointX="8.25" PointY="50.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="qlCaPheModel.TonKho" Width="1.5" PointX="8.25" PointY="54" IsExpanded="true" />
+        <AssociationConnector Association="qlCaPheModel.FK__baiViet__nguoiTa__6DCC4D03" ManuallyRouted="false" />
+        <AssociationConnector Association="qlCaPheModel.FK__BanChoNgo__maKhu__17036CC0" ManuallyRouted="false" />
+        <AssociationConnector Association="qlCaPheModel.FK__ctDatBan__maBan__51300E55" ManuallyRouted="false" />
+        <AssociationConnector Association="qlCaPheModel.FK__hoaDonOrd__maBan__24E777C3" ManuallyRouted="false" />
+        <AssociationConnector Association="qlCaPheModel.FK__hoaDonTam__maBan__0E04126B" ManuallyRouted="false" />
+        <AssociationConnector Association="qlCaPheModel.FK__BangGiaoV__tenDa__1ED998B2" ManuallyRouted="false" />
+        <AssociationConnector Association="qlCaPheModel.FK__ctBangGia__maBan__267ABA7A" ManuallyRouted="false" />
+        <AssociationConnector Association="qlCaPheModel.FK__ctBangGiao__maCa__276EDEB3" ManuallyRouted="false" />
+        <AssociationConnector Association="qlCaPheModel.FK__congThucP__maSan__6319B466" ManuallyRouted="false" />
+        <AssociationConnector Association="qlCaPheModel.FK__congThucP__nguoi__640DD89F" ManuallyRouted="false" />
+        <AssociationConnector Association="qlCaPheModel.FK__congThucP__nguoi__6501FCD8" ManuallyRouted="false" />
+        <AssociationConnector Association="qlCaPheModel.FK__ctCongThu__maCon__6CA31EA0" ManuallyRouted="false" />
+        <AssociationConnector Association="qlCaPheModel.FK__ctCongThu__maNgu__6D9742D9" ManuallyRouted="false" />
+        <AssociationConnector Association="qlCaPheModel.FK__ctCungCap__maNgu__4222D4EF" ManuallyRouted="false" />
+        <AssociationConnector Association="qlCaPheModel.FK__ctCungCap__maNha__412EB0B6" ManuallyRouted="false" />
+        <AssociationConnector Association="qlCaPheModel.FK__ctDanhGia__maDan__7CA47C3F" ManuallyRouted="false" />
+        <AssociationConnector Association="qlCaPheModel.FK__ctDanhGia__maMuc__7D98A078" ManuallyRouted="false" />
+        <AssociationConnector Association="qlCaPheModel.FK__ctDatBan__maDatB__503BEA1C" ManuallyRouted="false" />
+        <AssociationConnector Association="qlCaPheModel.FK__ctHoaDonO__maHoa__3429BB53" ManuallyRouted="false" />
+        <AssociationConnector Association="qlCaPheModel.FK__ctHoaDonO__maSan__351DDF8C" ManuallyRouted="false" />
+        <AssociationConnector Association="qlCaPheModel.FK__ctHoaDonT__maBan__1975C517" ManuallyRouted="false" />
+        <AssociationConnector Association="qlCaPheModel.FK__ctHoaDonTa__maSP__1A69E950" ManuallyRouted="false" />
+        <AssociationConnector Association="qlCaPheModel.FK__ctPhieuNh__maNgu__1F63A897" ManuallyRouted="false" />
+        <AssociationConnector Association="qlCaPheModel.FK__ctPhieuNh__maNha__2057CCD0" ManuallyRouted="false" />
+        <AssociationConnector Association="qlCaPheModel.FK__ctPhieuNh__maPhi__1E6F845E" ManuallyRouted="false" />
+        <AssociationConnector Association="qlCaPheModel.FK__ctPhieuXu__maNgu__45544755" ManuallyRouted="false" />
+        <AssociationConnector Association="qlCaPheModel.FK__ctPhieuXu__maPhi__4460231C" ManuallyRouted="false" />
+        <AssociationConnector Association="qlCaPheModel.FK__ctTonKho__maNguy__5C37ACAD" ManuallyRouted="false" />
+        <AssociationConnector Association="qlCaPheModel.FK__ctTonKho__maSoKy__5B438874" ManuallyRouted="false" />
+        <AssociationConnector Association="qlCaPheModel.FK__danhGiaNh__taiKh__5E8A0973" ManuallyRouted="false" />
+        <AssociationConnector Association="qlCaPheModel.FK__danhGiaNha__maTV__5CA1C101" ManuallyRouted="false" />
+        <AssociationConnector Association="qlCaPheModel.FK__hoaDonOrd__nguoi__29AC2CE0" ManuallyRouted="false" />
+        <AssociationConnector Association="qlCaPheModel.FK__hoaDonOrd__nguoi__2AA05119" ManuallyRouted="false" />
+        <AssociationConnector Association="qlCaPheModel.FK__hoaDonTam__nguoi__12C8C788" ManuallyRouted="false" />
+        <AssociationConnector Association="qlCaPheModel.FK__phieuNhap__maKho__4E88ABD4" ManuallyRouted="false" />
+        <AssociationConnector Association="qlCaPheModel.FK__phieuXuat__maKho__60A75C0F" ManuallyRouted="false" />
+        <AssociationConnector Association="qlCaPheModel.FK__lichSuGia__maSan__047AA831" ManuallyRouted="false" />
+        <AssociationConnector Association="qlCaPheModel.FK__lichSuGia__nguoi__075714DC" ManuallyRouted="false" />
+        <AssociationConnector Association="qlCaPheModel.FK__nguyenLie__maLoa__32E0915F" ManuallyRouted="false" />
+        <AssociationConnector Association="qlCaPheModel.FK__sanPham__maLoai__76969D2E" ManuallyRouted="false" />
+        <AssociationConnector Association="qlCaPheModel.FK__nhatKy__tenDangN__035179CE" ManuallyRouted="false" />
+        <AssociationConnector Association="qlCaPheModel.FK__taiKhoan__maNhom__117F9D94" ManuallyRouted="false" />
+        <AssociationConnector Association="qlCaPheModel.FK__phieuNhap__nguoi__5165187F" ManuallyRouted="false" />
+        <AssociationConnector Association="qlCaPheModel.FK__phieuXuat__nguoi__6383C8BA" ManuallyRouted="false" />
+        <AssociationConnector Association="qlCaPheModel.FK__taiKhoan__maTV__108B795B" ManuallyRouted="false" />
+        <AssociationConnector Association="qlCaPheModel.FK__thongBao__taiKho__64CCF2AE" ManuallyRouted="false" />
+        <AssociationConnector Association="qlCaPheModel.FK__TonKho__nguoiKie__4EDDB18F" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

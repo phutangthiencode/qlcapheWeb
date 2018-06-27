@@ -74,7 +74,11 @@ namespace qlCaPhe.Controllers
                 }
             return Json(listHoaDon, JsonRequestBehavior.AllowGet);
         }
-
+        /// <summary>
+        /// Hàm ajax lấy danh sách sản phẩm bán theo ngày
+        /// </summary>
+        /// <param name="param">Ngày cần xem thống kê</param>
+        /// <returns>Mảng Json object chứa danh sách sản phẩm đã bán trong ngày</returns>
         [HttpGet]
         public JsonResult GetJsonSanPhamTheoNgay(string param)
         {
@@ -83,11 +87,10 @@ namespace qlCaPhe.Controllers
                 try
                 {
                     DateTime date = xulyDuLieu.doiChuoiSangDateTime(param);
-                    IEnumerable<object> listKQ = new qlCaPheEntities().thongKeDoanhThuTheoSanPhamTheoNgay(new DateTime(2018,6,6));
+                    IEnumerable<object> listKQ = new qlCaPheEntities().thongKeDoanhThuTheoSanPhamTheoNgay(date);
                     foreach (object x in listKQ.ToList())
                     {
                         string soLanBan = xulyDuLieu.layThuocTinhTrongMotObject(x, "soLanBan");
-                     //   string tenSP = xulyDuLieu.layThuocTinhTrongMotObject(x, "tenSP");
                         //---------Lấy tổng tiền thanh toán tạm tính của từng ngày
                         long tongTienTamTinh = xulyDuLieu.doiChuoiSangLong(xulyDuLieu.layThuocTinhTrongMotObject(x, "tongTien"));
                         object a = new
@@ -156,6 +159,41 @@ namespace qlCaPhe.Controllers
                 }
             return Json(listHoaDon, JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// Hàm ajax lấy danh sách sản phẩm bán theo tuần
+        /// </summary>
+        /// <param name="param">Ngày bắt đầu cần xem</param>
+        /// <returns>Mảng Json object chứa danh sách sản phẩm đã bán trong tuần</returns>
+        [HttpGet]
+        public JsonResult GetJsonSanPhamTheoTuan(string param)
+        {
+            List<object> listHoaDon = new List<object>();
+            if (xulyChung.duocTruyCap(idOfPageDoanhThuTheoThoiDiem))
+                try
+                {
+                    DateTime date = xulyDuLieu.doiChuoiSangDateTime(param);
+                    IEnumerable<object> listKQ = new qlCaPheEntities().thongKeDoanhThuTheoSanPhamTheoTuan(date);
+                    foreach (object x in listKQ.ToList())
+                    {
+                        string soLanBan = xulyDuLieu.layThuocTinhTrongMotObject(x, "soLanBan");
+                        //---------Lấy tổng tiền thanh toán tạm tính của từng ngày
+                        long tongTienTamTinh = xulyDuLieu.doiChuoiSangLong(xulyDuLieu.layThuocTinhTrongMotObject(x, "tongTien"));
+                        object a = new
+                        {
+                            soLanBan = xulyDuLieu.doiChuoiSangInteger(soLanBan),
+                            tenSP = xulyDuLieu.layThuocTinhTrongMotObject(x, "tenSanPham"),
+                            tongTien = tongTienTamTinh
+                        };
+                        listHoaDon.Add(a);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    xulyFile.ghiLoi("Class: ThongKeController - Function: tke_DoanhThuTheoThoiDiem", ex.Message);
+                }
+            return Json(listHoaDon, JsonRequestBehavior.AllowGet);
+        }
         #endregion
 
         #region DOANH THU THEO THÁNG
@@ -210,6 +248,41 @@ namespace qlCaPhe.Controllers
                 catch (Exception ex)
                 {
                     xulyFile.ghiLoi("Class: ThongKeController - Function: GetJsonDoanhThuTheoThang", ex.Message);
+                }
+            return Json(listHoaDon, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// Hàm ajax lấy danh sách sản phẩm bán theo tháng
+        /// </summary>
+        /// <param name="param">Tháng cần thống kê</param>
+        /// <returns>Mảng Json object chứa danh sách sản phẩm đã bán trong tháng</returns>
+        [HttpGet]
+        public JsonResult GetJsonSanPhamTheoThang(string param)
+        {
+            List<object> listHoaDon = new List<object>();
+            if (xulyChung.duocTruyCap(idOfPageDoanhThuTheoThoiDiem))
+                try
+                {
+                    int thang = xulyDuLieu.doiChuoiSangInteger(param);
+                    IEnumerable<object> listKQ = new qlCaPheEntities().thongKeDoanhThuTheoSanPhamTheoThang(thang);
+                    foreach (object x in listKQ.ToList())
+                    {
+                        string soLanBan = xulyDuLieu.layThuocTinhTrongMotObject(x, "soLanBan");
+                        //---------Lấy tổng tiền thanh toán tạm tính của từng ngày
+                        long tongTienTamTinh = xulyDuLieu.doiChuoiSangLong(xulyDuLieu.layThuocTinhTrongMotObject(x, "tongTien"));
+                        object a = new
+                        {
+                            soLanBan = xulyDuLieu.doiChuoiSangInteger(soLanBan),
+                            tenSP = xulyDuLieu.layThuocTinhTrongMotObject(x, "tenSanPham"),
+                            tongTien = tongTienTamTinh
+                        };
+                        listHoaDon.Add(a);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    xulyFile.ghiLoi("Class: ThongKeController - Function: tke_DoanhThuTheoThoiDiem", ex.Message);
                 }
             return Json(listHoaDon, JsonRequestBehavior.AllowGet);
         }

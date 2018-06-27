@@ -16,9 +16,38 @@
 
         $('#cbbNam').change(function () {
             var ts = $('#cbbNam').val();
+            $('#chart-thang').html("");
             layDuLieuHoaDon(jsonThongKeDoanhThu, soHDs, tamTinhs, dts, ts, 'chart-thang', "Thống kê tổng doanh thu theo tháng của năm " + ts);
-        })
+        });
+
+
+        $('#cbbThangSP').change(function () {
+            var ts = $(this).val();
+            var title = "Thống kê sản phẩm bán theo tháng : " + ts;
+            $.ajax({
+                type: "GET",
+                url: '/ThongKe/GetJsonSanPhamTheoThang',
+                data: 'param=' + ts,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json", async: true,
+                success: function (kq) {
+                    drawPieChartSanPham(kq, title, "pie-chart-thang");
+                },
+                failure: function (r) {
+                    alert(r.d);
+                },
+                error: function (r) {
+                    alert(r.d);
+                }
+            });
+        });
     });
+
+   
+
+    function VeBieuDoTronThongKeSanPham(ts, nextWeek) {
+      
+    }
 
 
 </script>
@@ -70,6 +99,36 @@
                                 </div>
 
                                 <div id="chart-thang" class="col-md-12 col-sm-12 col-xs-12 col-lg-12" style="max-width:979px; height:600px"></div>
+
+                                <div class="row">
+                                    <div class="col-md-5 pull-right">
+                                        <div class="col-md-5 m-t-10">
+                                            <label>Chọn tháng thống kê</label>
+                                        </div>
+                                        <div class="col-md-7 pull-right">
+                                            <div class="input-group">
+                                                <select class="form-control" id="cbbThangSP">
+                                                    <option value="-1">Chọn tháng</option>
+                                                    <option value="1">Tháng 1</option>
+                                                    <option value="2">Tháng 2</option>
+                                                    <option value="3">Tháng 3</option>
+                                                    <option value="4">Tháng 4</option>
+                                                    <option value="5">Tháng 5</option>
+                                                    <option value="6">Tháng 6</option>
+                                                    <option value="7">Tháng 7</option>
+                                                    <option value="8">Tháng 8</option>
+                                                    <option value="9">Tháng 9</option>
+                                                    <option value="10">Tháng 10</option>
+                                                    <option value="11">Tháng 11</option>
+                                                    <option value="12">Tháng 12</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div id="pie-chart-thang"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
