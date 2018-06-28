@@ -79,42 +79,6 @@ namespace qlCaPhe.Controllers
                 }
             return Json(listHoaDon, JsonRequestBehavior.AllowGet);
         }
-        /// <summary>
-        /// Hàm Ajax lấy danh sách sản phẩm và tổng doanh thu thu được trong 1 ngày
-        /// </summary>
-        /// <param name="param">Ngày cần lấy dữ liệu</param>
-        /// <returns>mảng Json chứa danh sách sản phẩm</returns>
-        //[HttpGet]
-        //public JsonResult GetJsonSanPhamTheoNgay(string param)
-        //{
-        //    List<object> listSanPham = new List<object>();
-        //    if (xulyChung.duocTruyCap(idOfPageDoanhThuTheoThoiDiem))
-        //        try
-        //        {
-        //            DateTime date = xulyDuLieu.doiChuoiSangDateTime(param);
-        //            IEnumerable<object> listIEnumerable = new qlCaPheEntities().thongKeDoanhThuTheoSanPhamTheoNgay(date);
-        //            foreach (object x in listIEnumerable.ToList())
-        //            {
-        //                string soLanBan = xulyDuLieu.layThuocTinhTrongMotObject(x, "soLanBan");
-        //                //---------Lấy tổng tiền thanh toán tạm tính của từng ngày
-        //                long tongTienTamTinh = xulyDuLieu.doiChuoiSangLong(xulyDuLieu.layThuocTinhTrongMotObject(x, "tongTien"));
-        //                object a = new
-        //                {
-        //                    soLanBan = xulyDuLieu.doiChuoiSangInteger(soLanBan),
-        //                    tenSP = xulyDuLieu.layThuocTinhTrongMotObject(x, "tenSanPham"),
-        //                    tongTien = tongTienTamTinh
-        //                };
-        //                listKQ.Add(a);
-        //            }
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            xulyFile.ghiLoi("Class: ThongKeController - Function: GetJsonSanPhamTheoNgay", ex.Message);
-        //        }
-        //    return Json(listSanPham, JsonRequestBehavior.AllowGet);
-        //}
-
-
         #endregion
 
         #region DOANH THU THEO TUẦN

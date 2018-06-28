@@ -27,7 +27,7 @@
     });
 
     function VeBieuDoTronThongKeSanPham(ts) {
-        var title = "Thống kê sản phẩm bán theo ngày " + ts;
+        var title = "Thống kê số lượng sản phẩm bán theo ngày " + ts;
         var titleDoanhThu = "Thống kê doanh thu bán sản phẩm theo ngày " + ts;
         $.ajax({
             type: "GET",
@@ -130,7 +130,7 @@
                                     <div class="header bg-orange">
                                         <h2>Thống kê doanh thu sản phẩm đã bán theo ngày</h2>
                                     </div>
-                                    <div class="body pie-chart">
+                                    <div class="body" style="max-height: 740px; min-height: 740px; ">
                                         <div id="chart-sanpham-ngay" class="column-chart"></div>
                                     </div>
                                 </div>

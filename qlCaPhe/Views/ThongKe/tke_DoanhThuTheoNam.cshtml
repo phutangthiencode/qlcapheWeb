@@ -17,7 +17,8 @@
 
         $('#cbbNamSP').change(function () {
             var ts = $(this).val();
-            var title = "Thống kê sản phẩm bán theo quý : " + ts;
+            var title = "Thống kê số lượng sản phẩm bán theo năm : " + ts;
+            var titleDoanhThu = "Thống kê doanh thu sản phẩm bán theo năm : " + ts;
             $.ajax({
                 type: "GET",
                 url: '/ThongKe/GetJsonSanPhamTheoNam',
@@ -26,6 +27,7 @@
                 dataType: "json", async: true,
                 success: function (kq) {
                     drawPieChartSanPham(kq, title, "pie-chart-nam");
+                    drawColumnChartDoanhThuTheoSanPham(kq, titleDoanhThu, "chart-sanpham-nam");
                 },
                 failure: function (r) {
                     alert(r.d);
@@ -111,6 +113,17 @@
                                 </div>
 
                               
+                            </div>
+
+                            <div class="row">
+                                <div class="card">
+                                    <div class="header bg-orange">
+                                        <h2>Thống kê doanh thu sản phẩm đã bán theo năm</h2>
+                                    </div>
+                                    <div class="body" style="max-height: 740px; min-height: 740px; ">
+                                        <div id="chart-sanpham-nam" class="column-chart"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 

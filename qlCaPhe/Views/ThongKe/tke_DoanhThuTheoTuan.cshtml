@@ -27,7 +27,8 @@
     });
 
     function VeBieuDoTronThongKeSanPham(ts, nextWeek) {
-        var title = "Thống kê sản phẩm bán theo tuần từ ngày: " + ts + " đến " + nextWeek;
+        var title = "Thống kê số lượng sản phẩm bán theo tuần từ ngày: " + ts + " đến " + nextWeek;
+        var titleDoanhThu = "Thống kê doanh thu sản phẩm bán theo tuần từ ngày: " + ts + " đến " + nextWeek;
         $.ajax({
             type: "GET",
             url: '/ThongKe/GetJsonSanPhamTheoTuan',
@@ -36,6 +37,7 @@
             dataType: "json", async: true,
             success: function (kq) {
                 drawPieChartSanPham(kq, title, "pie-chart-tuan");
+                drawColumnChartDoanhThuTheoSanPham(kq, titleDoanhThu, "chart-sanpham-tuan");
             },
             failure: function (r) {
                 alert(r.d);
@@ -120,6 +122,17 @@
                                     </div>
                                     <div class="body pie-chart">
                                         <div id="pie-chart-tuan" class="pie-chart"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="card">
+                                    <div class="header bg-orange">
+                                        <h2>Thống kê doanh thu sản phẩm đã bán theo tuần</h2>
+                                    </div>
+                                    <div class="body" style="max-height: 740px; min-height: 740px; ">
+                                        <div id="chart-sanpham-tuan" class="column-chart"></div>
                                     </div>
                                 </div>
                             </div>

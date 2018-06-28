@@ -20,7 +20,8 @@
 
         $('#cbbQuySP').change(function () {
             var ts = $(this).val();
-            var title = "Thống kê sản phẩm bán theo quý : " + ts;
+            var title = "Thống kê số lượng sản phẩm bán theo quý : " + ts;
+            var titleDoanhThu = "Thống kê doanh thu sản phẩm bán theo quý : " + ts;
             $.ajax({
                 type: "GET",
                 url: '/ThongKe/GetJsonSanPhamTheoQuy',
@@ -29,6 +30,7 @@
                 dataType: "json", async: true,
                 success: function (kq) {
                     drawPieChartSanPham(kq, title, "pie-chart-quy");
+                    drawColumnChartDoanhThuTheoSanPham(kq, titleDoanhThu, "chart-sanpham-quy");
                 },
                 failure: function (r) {
                     alert(r.d);
@@ -134,6 +136,18 @@
 
                              
                             </div>
+
+                            <div class="row">
+                                <div class="card">
+                                    <div class="header bg-orange">
+                                        <h2>Thống kê doanh thu sản phẩm đã bán theo quý</h2>
+                                    </div>
+                                    <div class="body" style="max-height: 740px; min-height: 740px; ">
+                                        <div id="chart-sanpham-quy" class="column-chart"></div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
 
                     </div>

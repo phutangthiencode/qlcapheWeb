@@ -85,9 +85,9 @@ function drawPieChartSanPham(json, title, chartID) {
     chart.draw(data, options);
 }
 
-//-----------------Hàm vẽ biểu đồ tròn cho việc thống kê sản phẩm theo số lượng đã bán
+//-----------------Hàm vẽ biểu đồ cột cho việc thống kê doanh thu bán sản phẩm
 //------------json: mảng json object chứa dữ liệu được lấy từ database
-//------------title: Title cho biểu đồ tròn
+//------------title: Title cho biểu đồ cột
 //------------chartID: id của div chứa biểu đồ
 function drawColumnChartDoanhThuTheoSanPham(json, title, chartID) {
     // Create the data table.
