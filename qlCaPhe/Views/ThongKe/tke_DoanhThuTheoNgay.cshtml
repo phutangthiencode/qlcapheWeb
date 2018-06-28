@@ -8,7 +8,7 @@
 <script>
     google.load("visualization", "1", { packages: ["corechart"] });
 
-    var soHDs, tamTinhs, dts;
+    var soHDs, tamTinhs, dts, tenSPs, tongThus, dataThus;
 
 
     $(document).ready(function () {
@@ -28,14 +28,20 @@
 
     function VeBieuDoTronThongKeSanPham(ts) {
         var title = "Thống kê sản phẩm bán theo ngày " + ts;
+        var titleDoanhThu = "Thống kê doanh thu bán sản phẩm theo ngày " + ts;
         $.ajax({
             type: "GET",
             url: '/ThongKe/GetJsonSanPhamTheoNgay',
             data: 'param=' + ts,
             contentType: "application/json; charset=utf-8",
             dataType: "json", async: true,
+            beforeSend: function(){
+                $('#pie-chart-ngay').html('');
+                $('#chart-sanpham-ngay').html('');
+            },
             success: function (kq) {
                 drawPieChartSanPham(kq, title, "pie-chart-ngay");
+                drawColumnChartDoanhThuTheoSanPham(kq, titleDoanhThu, "chart-sanpham-ngay");
             },
             failure: function (r) {
                 alert(r.d);
@@ -45,7 +51,6 @@
             }
         });
     }
-
 </script>
 <section class="content">
     <div class="container-fluid">
@@ -117,6 +122,19 @@
                                     </div>
                                 </div>
                             </div>
+
+
+
+                            <div class="row">
+                                <div class="card">
+                                    <div class="header bg-orange">
+                                        <h2>Thống kê doanh thu sản phẩm đã bán theo ngày</h2>
+                                    </div>
+                                    <div class="body pie-chart">
+                                        <div id="chart-sanpham-ngay" class="column-chart"></div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                     </div>
@@ -126,6 +144,3 @@
         <!-- #END# Vertical Layout -->
     </div>
 </section>
-
-
-

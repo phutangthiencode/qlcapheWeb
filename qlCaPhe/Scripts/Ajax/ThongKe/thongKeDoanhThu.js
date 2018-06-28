@@ -59,7 +59,6 @@ function veBieuDoCotDoanhThu(datas, idDivchart, title) {
 //------------title: Title cho biểu đồ tròn
 //------------chartID: id của div chứa biểu đồ
 function drawPieChartSanPham(json, title, chartID) {
-
     // Create the data table.
     var data = new google.visualization.DataTable();
     // Create columns for the DataTable
@@ -82,5 +81,38 @@ function drawPieChartSanPham(json, title, chartID) {
 
     // Instantiate and draw our chart, passing in some options.
     var chart = new google.visualization.PieChart(document.getElementById(chartID));
+    //var c = new google.visualization.ColumnChart(document)
     chart.draw(data, options);
 }
+
+//-----------------Hàm vẽ biểu đồ tròn cho việc thống kê sản phẩm theo số lượng đã bán
+//------------json: mảng json object chứa dữ liệu được lấy từ database
+//------------title: Title cho biểu đồ tròn
+//------------chartID: id của div chứa biểu đồ
+function drawColumnChartDoanhThuTheoSanPham(json, title, chartID) {
+    // Create the data table.
+    var data = new google.visualization.DataTable();
+    // Create columns for the DataTable
+    data.addColumn('string');
+    data.addColumn('number', 'Sản phẩm');
+    // Create Rows with data
+    var jsonLenght = Object.keys(json).length;
+    for (i = 0; i < jsonLenght; i++) {
+        var sp = json[i]["tenSP"];
+        var tongTien = json[i]["tongTien"];
+        data.addRows([
+            [sp, tongTien]
+        ]);
+    }
+
+    //Create option for chart
+    var options = {
+        title: title
+    };
+
+    // Instantiate and draw our chart, passing in some options.
+    var chart = new google.visualization.ColumnChart(document.getElementById(chartID));
+    chart.draw(data, options);
+}
+
+
