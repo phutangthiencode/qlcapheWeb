@@ -1093,6 +1093,26 @@
     <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
   </Function>
   <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="thongKeDoanhThuMotSanPhamTheoNam" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="nam" Type="int" Mode="In" />
+    <Parameter Name="maSP" Type="int" Mode="In" />
+  </Function>
+  <Function Name="thongKeDoanhThuMotSanPhamTheoNgay" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ngay" Type="date" Mode="In" />
+    <Parameter Name="maSP" Type="int" Mode="In" />
+  </Function>
+  <Function Name="thongKeDoanhThuMotSanPhamTheoQuy" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="quy" Type="int" Mode="In" />
+    <Parameter Name="maSP" Type="int" Mode="In" />
+  </Function>
+  <Function Name="thongKeDoanhThuMotSanPhamTheoThang" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="thang" Type="int" Mode="In" />
+    <Parameter Name="maSP" Type="int" Mode="In" />
+  </Function>
+  <Function Name="thongKeDoanhThuMotSanPhamTheoTuan" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="startDate" Type="date" Mode="In" />
+    <Parameter Name="maSP" Type="int" Mode="In" />
+  </Function>
   <Function Name="thongKeDoanhThuTheoSanPhamTheoNam" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="nam" Type="int" Mode="In" />
   </Function>

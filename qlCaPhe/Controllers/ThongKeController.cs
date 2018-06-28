@@ -202,7 +202,7 @@ namespace qlCaPhe.Controllers
                         object a = new
                         {
                             maHD = thang,
-                            tamTinh = tienTamTinh,  
+                            tamTinh = tienTamTinh,
                             tongTien = xulyDuLieu.doiVND(tongTienTamTinh)
                         };
                         listHoaDon.Add(a);
@@ -414,7 +414,7 @@ namespace qlCaPhe.Controllers
         /// <param name="listKQ">List object cần thêm dữ liệu vào JSon</param>
         private void taoDuLieuThongKeSoLanBanSanPham(IEnumerable<object> listIEnumerable, List<object> listKQ)
         {
-            long tongDoanhThu=0;
+            long tongDoanhThu = 0;
             foreach (object x in listIEnumerable.ToList())
             {
                 string soLanBan = xulyDuLieu.layThuocTinhTrongMotObject(x, "soLanBan");
@@ -427,6 +427,254 @@ namespace qlCaPhe.Controllers
                     tenSP = xulyDuLieu.layThuocTinhTrongMotObject(x, "tenSanPham"),
                     tongTien = tongTienTamTinh,
                     tongDoanhThu = xulyDuLieu.doiVND(tongDoanhThu)
+                };
+                listKQ.Add(a);
+            }
+        }
+        #endregion
+
+        #region THỐNG KÊ TỔNG THU THEO SẢN PHẨM
+        private static string idOfPageDoanhThuTheoSanPham = "1202";
+
+        #region THEO NGÀY
+        /// <summary>
+        /// Hàm tạo giao diện thống kê tổng doanh thu của 1 sản phẩm theo ngày
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult tke_ThongKeThuSanPhamNgay()
+        {
+            if (xulyChung.duocTruyCap(idOfPageDoanhThuTheoSanPham))
+            {
+                this.taoCbbSanPham();
+                return View();
+            }
+            return RedirectToAction("PageNotFound", "Home");
+        }
+
+        /// <summary>
+        /// Hàm ajax lấy thống kê tổng doanh thu của sản phẩm theo ngày
+        /// </summary>
+        /// <param name="time">Ngày cần xem thống kê</param>
+        /// <param name="maSP">Mã sản phẩm cần xem thống kê</param>
+        /// <returns>Json object các thởi điểm mua hàng và tổng tiền</returns>
+        [HttpGet]
+        public JsonResult GetJsonDoanhThuSanPhamTheoNgay(string maSP, string time)
+        {
+            List<object> listKQ = new List<object>();
+            if (xulyChung.duocTruyCap(idOfPageDoanhThuTheoThoiDiem))
+                try
+                {
+                    int maSanPham = xulyDuLieu.doiChuoiSangInteger(maSP);
+                    DateTime date = xulyDuLieu.doiChuoiSangDateTime(time);
+                    IEnumerable<object> listIEnumerable = new qlCaPheEntities().thongKeDoanhThuMotSanPhamTheoNgay(date, maSanPham);
+                    this.taoDuLieuThongKeDoanhThuTungSanPham(listIEnumerable, listKQ);
+                }
+                catch (Exception ex)
+                {
+                    xulyFile.ghiLoi("Class: ThongKeController - Function: GetJsonDoanhThuSanPhamTheoNgay", ex.Message);
+                }
+            return Json(listKQ, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
+        #region THEO TUẦN
+        /// <summary>
+        /// Hàm tạo giao diện thống kê tổng doanh thu của 1 sản phẩm theo tuần
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult tke_ThongKeThuSanPhamTuan()
+        {
+            if (xulyChung.duocTruyCap(idOfPageDoanhThuTheoSanPham))
+            {
+                this.taoCbbSanPham();
+                return View();
+            }
+            return RedirectToAction("PageNotFound", "Home");
+        }
+
+        /// <summary>
+        /// Hàm ajax lấy thống kê tổng doanh thu của sản phẩm theo tuần
+        /// </summary>
+        /// <param name="time">Ngày bắt đầu cần xem thống kê</param>
+        /// <param name="maSP">Mã sản phẩm cần xem thống kê</param>
+        /// <returns>Json object các thởi điểm mua hàng và tổng tiền</returns>
+        [HttpGet]
+        public JsonResult GetJsonDoanhThuSanPhamTheoTuan(string maSP, string time)
+        {
+            List<object> listKQ = new List<object>();
+            if (xulyChung.duocTruyCap(idOfPageDoanhThuTheoThoiDiem))
+                try
+                {
+                    int maSanPham = xulyDuLieu.doiChuoiSangInteger(maSP);
+                    DateTime date = xulyDuLieu.doiChuoiSangDateTime(time);
+                    IEnumerable<object> listIEnumerable = new qlCaPheEntities().thongKeDoanhThuMotSanPhamTheoTuan(date, maSanPham);
+                    this.taoDuLieuThongKeDoanhThuTungSanPham(listIEnumerable, listKQ);
+                }
+                catch (Exception ex)
+                {
+                    xulyFile.ghiLoi("Class: ThongKeController - Function: GetJsonDoanhThuSanPhamTheoTuan", ex.Message);
+                }
+            return Json(listKQ, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
+        #region THEO THÁNG
+        /// <summary>
+        /// Hàm tạo giao diện thống kê tổng doanh thu của 1 sản phẩm theo tháng
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult tke_ThongKeThuSanPhamThang()
+        {
+            if (xulyChung.duocTruyCap(idOfPageDoanhThuTheoSanPham))
+            {
+                this.taoCbbSanPham();
+                return View();
+            }
+            return RedirectToAction("PageNotFound", "Home");
+        }
+
+        /// <summary>
+        /// Hàm ajax lấy thống kê tổng doanh thu của sản phẩm theo tháng
+        /// </summary>
+        /// <param name="time">Tháng cần xem thống kê</param>
+        /// <param name="maSP">Mã sản phẩm cần xem thống kê</param>
+        /// <returns>Json object các thởi điểm mua hàng và tổng tiền</returns>
+        [HttpGet]
+        public JsonResult GetJsonDoanhThuSanPhamTheoThang(string maSP, string time)
+        {
+            List<object> listKQ = new List<object>();
+            if (xulyChung.duocTruyCap(idOfPageDoanhThuTheoThoiDiem))
+                try
+                {
+                    int maSanPham = xulyDuLieu.doiChuoiSangInteger(maSP);
+                    int thang = xulyDuLieu.doiChuoiSangInteger(time);
+                    IEnumerable<object> listIEnumerable = new qlCaPheEntities().thongKeDoanhThuMotSanPhamTheoThang(thang, maSanPham);
+                    this.taoDuLieuThongKeDoanhThuTungSanPham(listIEnumerable, listKQ);
+                }
+                catch (Exception ex)
+                {
+                    xulyFile.ghiLoi("Class: ThongKeController - Function: GetJsonDoanhThuSanPhamTheoThang", ex.Message);
+                }
+            return Json(listKQ, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
+        #region THEO QUÝ
+        /// <summary>
+        /// Hàm tạo giao diện thống kê tổng doanh thu của 1 sản phẩm theo quý
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult tke_ThongKeThuSanPhamQuy()
+        {
+            if (xulyChung.duocTruyCap(idOfPageDoanhThuTheoSanPham))
+            {
+                this.taoCbbSanPham();
+                return View();
+            }
+            return RedirectToAction("PageNotFound", "Home");
+        }
+
+        /// <summary>
+        /// Hàm ajax lấy thống kê tổng doanh thu của sản phẩm theo quý
+        /// </summary>
+        /// <param name="time">quý cần xem thống kê</param>
+        /// <param name="maSP">Mã sản phẩm cần xem thống kê</param>
+        /// <returns>Json object các thởi điểm mua hàng và tổng tiền</returns>
+        [HttpGet]
+        public JsonResult GetJsonDoanhThuSanPhamTheoQuy(string maSP, string time)
+        {
+            List<object> listKQ = new List<object>();
+            if (xulyChung.duocTruyCap(idOfPageDoanhThuTheoThoiDiem))
+                try
+                {
+                    int maSanPham = xulyDuLieu.doiChuoiSangInteger(maSP);
+                    int quy = xulyDuLieu.doiChuoiSangInteger(time);
+                    IEnumerable<object> listIEnumerable = new qlCaPheEntities().thongKeDoanhThuMotSanPhamTheoQuy(quy, maSanPham);
+                    this.taoDuLieuThongKeDoanhThuTungSanPham(listIEnumerable, listKQ);
+                }
+                catch (Exception ex)
+                {
+                    xulyFile.ghiLoi("Class: ThongKeController - Function: GetJsonDoanhThuSanPhamTheoThang", ex.Message);
+                }
+            return Json(listKQ, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
+        #region THEO NĂM
+        /// <summary>
+        /// Hàm tạo giao diện thống kê tổng doanh thu của 1 sản phẩm theo năm
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult tke_ThongKeThuSanPhamNam()
+        {
+            if (xulyChung.duocTruyCap(idOfPageDoanhThuTheoSanPham))
+            {
+                this.taoCbbSanPham();
+                this.taoDuLieuChoCbbNam();
+                return View();
+            }
+            return RedirectToAction("PageNotFound", "Home");
+        }
+
+        /// <summary>
+        /// Hàm ajax lấy thống kê tổng doanh thu của sản phẩm theo năm
+        /// </summary>
+        /// <param name="time">quý cần xem thống kê</param>
+        /// <param name="maSP">Mã sản phẩm cần xem thống kê</param>
+        /// <returns>Json object các thởi điểm mua hàng và tổng tiền</returns>
+        [HttpGet]
+        public JsonResult GetJsonDoanhThuSanPhamTheoNam(string maSP, string time)
+        {
+            List<object> listKQ = new List<object>();
+            if (xulyChung.duocTruyCap(idOfPageDoanhThuTheoThoiDiem))
+                try
+                {
+                    int maSanPham = xulyDuLieu.doiChuoiSangInteger(maSP);
+                    int nam = xulyDuLieu.doiChuoiSangInteger(time);
+                    IEnumerable<object> listIEnumerable = new qlCaPheEntities().thongKeDoanhThuMotSanPhamTheoNam(nam, maSanPham);
+                    this.taoDuLieuThongKeDoanhThuTungSanPham(listIEnumerable, listKQ);
+                }
+                catch (Exception ex)
+                {
+                    xulyFile.ghiLoi("Class: ThongKeController - Function: GetJsonDoanhThuSanPhamTheoThang", ex.Message);
+                }
+            return Json(listKQ, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
+        /// <summary>
+        /// Hàm tạo dữ liệu cho combobox hiện danh sách các sản phẩm
+        /// </summary>
+        private void taoCbbSanPham()
+        {
+            try
+            {
+                string htmlCbb = "";
+                foreach (sanPham sp in new qlCaPheEntities().sanPhams.ToList())
+                    htmlCbb += "  <option value=\"" + sp.maSanPham.ToString() + "\">" + xulyDuLieu.traVeKyTuGoc(sp.tenSanPham) + "</option>";
+                ViewBag.CbbSanPham = htmlCbb;
+            }
+            catch (Exception ex)
+            {
+                xulyFile.ghiLoi("Class: ThongKeController - Function: taoCbbSanPham", ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Hàm đọc dữ liệu lấy từ store procedure thống kê doanh thu từng sản phẩm qua các thời điểm
+        /// và thêm vào list object json kết quả
+        /// </summary>
+        /// <param name="listIEnumerable">List chứa dữ liệu được lấy từ store procedure</param>
+        /// <param name="listKQ">List object kết quả cần thêm dữ liệu vào json</param>
+        private void taoDuLieuThongKeDoanhThuTungSanPham(IEnumerable<object> listIEnumerable, List<object> listKQ)
+        {
+            foreach (object x in listIEnumerable.ToList())
+            {
+                DateTime ngay = xulyDuLieu.doiChuoiSangDateTime(xulyDuLieu.layThuocTinhTrongMotObject(x, "thoiDiem"));
+                object a = new
+                {
+                    thoiDiem = ngay.Date.ToShortDateString(),
+                    tongTien = xulyDuLieu.doiChuoiSangLong(xulyDuLieu.layThuocTinhTrongMotObject(x, "tongTien"))
                 };
                 listKQ.Add(a);
             }

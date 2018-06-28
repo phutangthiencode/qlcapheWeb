@@ -202,6 +202,54 @@ namespace qlCaPhe.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
         }
     
+        public virtual ObjectResult<thongKeDoanhThuMotSanPhamTheoNgay_Result> thongKeDoanhThuMotSanPhamTheoNgay(Nullable<System.DateTime> ngay, Nullable<int> maSP)
+        {
+            var ngayParameter = ngay.HasValue ?
+                new ObjectParameter("ngay", ngay) :
+                new ObjectParameter("ngay", typeof(System.DateTime));
+    
+            var maSPParameter = maSP.HasValue ?
+                new ObjectParameter("maSP", maSP) :
+                new ObjectParameter("maSP", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<thongKeDoanhThuMotSanPhamTheoNgay_Result>("thongKeDoanhThuMotSanPhamTheoNgay", ngayParameter, maSPParameter);
+        }
+    
+        public virtual ObjectResult<thongKeDoanhThuMotSanPhamTheoThang_Result> thongKeDoanhThuMotSanPhamTheoThang(Nullable<int> thang, Nullable<int> maSP)
+        {
+            var thangParameter = thang.HasValue ?
+                new ObjectParameter("thang", thang) :
+                new ObjectParameter("thang", typeof(int));
+    
+            var maSPParameter = maSP.HasValue ?
+                new ObjectParameter("maSP", maSP) :
+                new ObjectParameter("maSP", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<thongKeDoanhThuMotSanPhamTheoThang_Result>("thongKeDoanhThuMotSanPhamTheoThang", thangParameter, maSPParameter);
+        }
+    
+        public virtual ObjectResult<thongKeDoanhThuMotSanPhamTheoTuan_Result> thongKeDoanhThuMotSanPhamTheoTuan(Nullable<System.DateTime> startDate, Nullable<int> maSP)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("startDate", startDate) :
+                new ObjectParameter("startDate", typeof(System.DateTime));
+    
+            var maSPParameter = maSP.HasValue ?
+                new ObjectParameter("maSP", maSP) :
+                new ObjectParameter("maSP", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<thongKeDoanhThuMotSanPhamTheoTuan_Result>("thongKeDoanhThuMotSanPhamTheoTuan", startDateParameter, maSPParameter);
+        }
+    
+        public virtual ObjectResult<thongKeDoanhThuTheoSanPhamTheoNam_Result> thongKeDoanhThuTheoSanPhamTheoNam(Nullable<int> nam)
+        {
+            var namParameter = nam.HasValue ?
+                new ObjectParameter("nam", nam) :
+                new ObjectParameter("nam", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<thongKeDoanhThuTheoSanPhamTheoNam_Result>("thongKeDoanhThuTheoSanPhamTheoNam", namParameter);
+        }
+    
         public virtual ObjectResult<thongKeDoanhThuTheoSanPhamTheoNgay_Result> thongKeDoanhThuTheoSanPhamTheoNgay(Nullable<System.DateTime> ngay)
         {
             var ngayParameter = ngay.HasValue ?
@@ -209,6 +257,33 @@ namespace qlCaPhe.Models
                 new ObjectParameter("ngay", typeof(System.DateTime));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<thongKeDoanhThuTheoSanPhamTheoNgay_Result>("thongKeDoanhThuTheoSanPhamTheoNgay", ngayParameter);
+        }
+    
+        public virtual ObjectResult<thongKeDoanhThuTheoSanPhamTheoQuy_Result> thongKeDoanhThuTheoSanPhamTheoQuy(Nullable<int> quy)
+        {
+            var quyParameter = quy.HasValue ?
+                new ObjectParameter("quy", quy) :
+                new ObjectParameter("quy", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<thongKeDoanhThuTheoSanPhamTheoQuy_Result>("thongKeDoanhThuTheoSanPhamTheoQuy", quyParameter);
+        }
+    
+        public virtual ObjectResult<thongKeDoanhThuTheoSanPhamTheoThang_Result> thongKeDoanhThuTheoSanPhamTheoThang(Nullable<int> thang)
+        {
+            var thangParameter = thang.HasValue ?
+                new ObjectParameter("thang", thang) :
+                new ObjectParameter("thang", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<thongKeDoanhThuTheoSanPhamTheoThang_Result>("thongKeDoanhThuTheoSanPhamTheoThang", thangParameter);
+        }
+    
+        public virtual ObjectResult<thongKeDoanhThuTheoSanPhamTheoTuan_Result> thongKeDoanhThuTheoSanPhamTheoTuan(Nullable<System.DateTime> startDate)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("startDate", startDate) :
+                new ObjectParameter("startDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<thongKeDoanhThuTheoSanPhamTheoTuan_Result>("thongKeDoanhThuTheoSanPhamTheoTuan", startDateParameter);
         }
     
         public virtual ObjectResult<thongKeHoaDonTheoNam_Result> thongKeHoaDonTheoNam()
@@ -247,40 +322,30 @@ namespace qlCaPhe.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<thongKeHoaDonTheoTuan_Result>("thongKeHoaDonTheoTuan", startDateParameter, endDateParameter);
         }
     
-        public virtual ObjectResult<thongKeDoanhThuTheoSanPhamTheoTuan_Result> thongKeDoanhThuTheoSanPhamTheoTuan(Nullable<System.DateTime> startDate)
-        {
-            var startDateParameter = startDate.HasValue ?
-                new ObjectParameter("startDate", startDate) :
-                new ObjectParameter("startDate", typeof(System.DateTime));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<thongKeDoanhThuTheoSanPhamTheoTuan_Result>("thongKeDoanhThuTheoSanPhamTheoTuan", startDateParameter);
-        }
-    
-        public virtual ObjectResult<thongKeDoanhThuTheoSanPhamTheoThang_Result> thongKeDoanhThuTheoSanPhamTheoThang(Nullable<int> thang)
-        {
-            var thangParameter = thang.HasValue ?
-                new ObjectParameter("thang", thang) :
-                new ObjectParameter("thang", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<thongKeDoanhThuTheoSanPhamTheoThang_Result>("thongKeDoanhThuTheoSanPhamTheoThang", thangParameter);
-        }
-    
-        public virtual ObjectResult<thongKeDoanhThuTheoSanPhamTheoQuy_Result> thongKeDoanhThuTheoSanPhamTheoQuy(Nullable<int> quy)
+        public virtual ObjectResult<thongKeDoanhThuMotSanPhamTheoQuy_Result> thongKeDoanhThuMotSanPhamTheoQuy(Nullable<int> quy, Nullable<int> maSP)
         {
             var quyParameter = quy.HasValue ?
                 new ObjectParameter("quy", quy) :
                 new ObjectParameter("quy", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<thongKeDoanhThuTheoSanPhamTheoQuy_Result>("thongKeDoanhThuTheoSanPhamTheoQuy", quyParameter);
+            var maSPParameter = maSP.HasValue ?
+                new ObjectParameter("maSP", maSP) :
+                new ObjectParameter("maSP", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<thongKeDoanhThuMotSanPhamTheoQuy_Result>("thongKeDoanhThuMotSanPhamTheoQuy", quyParameter, maSPParameter);
         }
     
-        public virtual ObjectResult<thongKeDoanhThuTheoSanPhamTheoNam_Result> thongKeDoanhThuTheoSanPhamTheoNam(Nullable<int> nam)
+        public virtual ObjectResult<thongKeDoanhThuMotSanPhamTheoNam_Result> thongKeDoanhThuMotSanPhamTheoNam(Nullable<int> nam, Nullable<int> maSP)
         {
             var namParameter = nam.HasValue ?
                 new ObjectParameter("nam", nam) :
                 new ObjectParameter("nam", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<thongKeDoanhThuTheoSanPhamTheoNam_Result>("thongKeDoanhThuTheoSanPhamTheoNam", namParameter);
+            var maSPParameter = maSP.HasValue ?
+                new ObjectParameter("maSP", maSP) :
+                new ObjectParameter("maSP", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<thongKeDoanhThuMotSanPhamTheoNam_Result>("thongKeDoanhThuMotSanPhamTheoNam", namParameter, maSPParameter);
         }
     }
 }
