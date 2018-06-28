@@ -115,4 +115,26 @@ function drawColumnChartDoanhThuTheoSanPham(json, title, chartID) {
     chart.draw(data, options);
 }
 
+function hienTongDoanhThuHoaDon(json) {
+    $('.js-tong-doanh-thu-hoadon').html("");
+    var lenghtJson = Object.keys(json).length;
+    if (lenghtJson > 0) {
+        var lastObject = json[lenghtJson - 1];
+        var tongDoanhThu = lastObject['tongTien'];
+        $('.js-tong-doanh-thu-hoadon').html("Tổng doanh thu thực tế trên hóa đơn là: " + tongDoanhThu);
+    }
+}
+
+//----------Hàm hiển thị tổng doanh thu lên giao diện
+//--------------json: list object json 
+function hienTongDoanhThuSanPham(json) {
+    $('.js-tong-doanh-thu-sanpham').html("");
+    var lenghtJson = Object.keys(json).length;
+    if (lenghtJson > 0) {
+        var lastObject = json[lenghtJson - 1];
+        var tongDoanhThu = lastObject['tongDoanhThu'];
+        $('.js-tong-doanh-thu-sanpham').html("Tổng doanh thu trên sản phẩm là: " + tongDoanhThu);
+    }
+}
+
 

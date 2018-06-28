@@ -5,6 +5,11 @@
 <script src="~/Scripts/jsapi.js"></script>
 <script src="~/Scripts/Ajax/ThongKe/thongKeDoanhThu.js"></script>
 @Html.Raw(ViewBag.ScriptAjax)
+
+<script>
+
+</script>
+
 <script>
     google.load("visualization", "1", { packages: ["corechart"] });
 
@@ -40,6 +45,7 @@
                 $('#chart-sanpham-ngay').html('');
             },
             success: function (kq) {
+                hienTongDoanhThuSanPham(kq);
                 drawPieChartSanPham(kq, title, "pie-chart-ngay");
                 drawColumnChartDoanhThuTheoSanPham(kq, titleDoanhThu, "chart-sanpham-ngay");
             },
@@ -87,6 +93,9 @@
                                     <div class="body" style="max-height: 740px; min-height: 740px; ">
 
                                         <div class="row clearfix">
+                                            <div class="col-md-7">
+                                                <label class="font-18 col-red js-tong-doanh-thu-hoadon"></label>
+                                            </div>
                                             <div class="col-md-5 pull-right">
                                                 <div class="col-md-4 m-t-10">
                                                     <label>Chọn ngày</label>
@@ -131,6 +140,7 @@
                                         <h2>Thống kê doanh thu sản phẩm đã bán theo ngày</h2>
                                     </div>
                                     <div class="body" style="max-height: 740px; min-height: 740px; ">
+                                        <label class="font-18 col-red js-tong-doanh-thu-sanpham"></label>
                                         <div id="chart-sanpham-ngay" class="column-chart"></div>
                                     </div>
                                 </div>

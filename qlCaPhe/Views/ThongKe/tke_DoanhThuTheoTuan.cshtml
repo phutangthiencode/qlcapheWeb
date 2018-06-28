@@ -36,6 +36,7 @@
             contentType: "application/json; charset=utf-8",
             dataType: "json", async: true,
             success: function (kq) {
+                hienTongDoanhThuSanPham(kq);
                 drawPieChartSanPham(kq, title, "pie-chart-tuan");
                 drawColumnChartDoanhThuTheoSanPham(kq, titleDoanhThu, "chart-sanpham-tuan");
             },
@@ -89,6 +90,10 @@
                                     </div>
                                     <div class="body" style="max-height: 740px; min-height: 740px; ">
 
+                                        <div class="col-md-7">
+                                            <label class="font-18 col-red js-tong-doanh-thu-hoadon"></label>
+                                        </div>
+
                                         <div class="col-md-5 pull-right">
                                             <div class="col-md-5 m-t-10">
                                                 <label>Chọn ngày bắt đầu</label>
@@ -132,6 +137,7 @@
                                         <h2>Thống kê doanh thu sản phẩm đã bán theo tuần</h2>
                                     </div>
                                     <div class="body" style="max-height: 740px; min-height: 740px; ">
+                                        <label class="font-18 col-red js-tong-doanh-thu-sanpham"></label>
                                         <div id="chart-sanpham-tuan" class="column-chart"></div>
                                     </div>
                                 </div>

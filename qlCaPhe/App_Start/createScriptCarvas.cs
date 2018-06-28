@@ -106,29 +106,30 @@ namespace qlCaPhe.App_Start
         public static string ScriptAjaxThongKeDoanhThu(string url, string chartID)
         {
             string kq = "";
-            kq += "<script>";
-            kq += "    function jsonThongKeDoanhThu(handleData, ts) {";
-            kq += "        $.ajax({";
-            kq += "            url: \""+url+"\",";
-            kq += "            data: 'param=' + ts,";
-            kq += "            type: \"GET\",";
-            kq += "            contentType: \"application/json; charset=utf-8\",";
-            kq += "            dataType: \"json\",";
-            kq += "            async: true,";
-            kq += "            beforeSend: function () {";
-            kq += "                $('#"+chartID+"').html('');";
-            kq += "                $('.page-loader-wrapper').attr('style', 'display:block');";
-            kq += "            },";
-            kq += "            success: function (result) {";
-            kq += "                handleData(result);";
-            kq += "                $('.page-loader-wrapper').attr('style', 'display:none');";
-            kq += "            },";
-            kq += "            error: function (errormessage) {";
-            kq += "            }";
-            kq += "        });";
-            kq += "        return false;";
-            kq += "    }";
-            kq += "</script>";
+            kq += "<script>\n";
+            kq += "    function jsonThongKeDoanhThu(handleData, ts) {\n";
+            kq += "        $.ajax({\n";
+            kq += "            url: \"" + url + "\",\n";
+            kq += "            data: 'param=' + ts,\n";
+            kq += "            type: \"GET\",\n";
+            kq += "            contentType: \"application/json; charset=utf-8\",\n";
+            kq += "            dataType: \"json\",\n";
+            kq += "            async: true,\n";
+            kq += "            beforeSend: function () {\n";
+            kq += "                $('#" + chartID + "').html('');\n";
+            kq += "                $('.page-loader-wrapper').attr('style', 'display:block');\n";
+            kq += "            },\n";
+            kq += "            success: function (result) {\n";
+            kq += "                handleData(result);\n";
+            kq += "                 hienTongDoanhThuHoaDon(result);\n";
+            kq += "                $('.page-loader-wrapper').attr('style', 'display:none');\n";
+            kq += "            },\n";
+            kq += "            error: function (errormessage) {\n";
+            kq += "            }\n";
+            kq += "        });\n";
+            kq += "        return false;\n";
+            kq += "    }\n";
+            kq += "</script>\n";
             return kq;
         }
     }

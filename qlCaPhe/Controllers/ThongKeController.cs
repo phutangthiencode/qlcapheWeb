@@ -40,13 +40,15 @@ namespace qlCaPhe.Controllers
                 try
                 {
                     DateTime date = xulyDuLieu.doiChuoiSangDateTime(param);
-
+                    long tongTienTamTinh = 0;
                     foreach (hoaDonOrder hoaDon in new qlCaPheEntities().hoaDonOrders.ToList().Where(h => h.ngayLap.Value.Date == date))
                     {
+                        tongTienTamTinh += (long)hoaDon.tamTinh;
                         object x = new
                         {
                             maHD = hoaDon.maHoaDon.ToString(),
                             tamTinh = hoaDon.tamTinh,
+                            tongTien = tongTienTamTinh
                         };
                         listHoaDon.Add(x);
                     }
@@ -110,16 +112,19 @@ namespace qlCaPhe.Controllers
                     DateTime startDate = xulyDuLieu.doiChuoiSangDateTime(param);
                     DateTime endDate = startDate.AddDays(7); //-------Tính đến ngày của tuần sau bắt đầu từ ngày hiện tại
                     IEnumerable<object> listKQ = new qlCaPheEntities().thongKeHoaDonTheoTuan(startDate, endDate);
+                    long tongTienTamTinh = 0;
                     foreach (object x in listKQ.ToList())
                     {
                         string ngay = xulyDuLieu.layThuocTinhTrongMotObject(x, "ngay");
                         DateTime date = xulyDuLieu.doiChuoiSangDateTime(ngay);
                         //---------Lấy tổng tiền thanh toán tạm tính của từng ngày
-                        long tongTienTamTinh = xulyDuLieu.doiChuoiSangLong(xulyDuLieu.layThuocTinhTrongMotObject(x, "tongTien"));
+                        long tienTamTinh = xulyDuLieu.doiChuoiSangLong(xulyDuLieu.layThuocTinhTrongMotObject(x, "tongTien"));
+                        tongTienTamTinh += tienTamTinh;
                         object a = new
                         {
                             maHD = date.Date.ToShortDateString(),
-                            tamTinh = tongTienTamTinh
+                            tamTinh = tienTamTinh,
+                            tongTien = xulyDuLieu.doiVND(tongTienTamTinh)
                         };
                         listHoaDon.Add(a);
                     }
@@ -187,15 +192,18 @@ namespace qlCaPhe.Controllers
                 {
                     int nam = xulyDuLieu.doiChuoiSangInteger(param);
                     IEnumerable<object> listThongKe = new qlCaPheEntities().thongKeHoaDonTheoThang(nam);
+                    long tongTienTamTinh = 0;
                     foreach (object x in listThongKe.ToList())
                     {
                         string thang = xulyDuLieu.layThuocTinhTrongMotObject(x, "thang");
                         //---------Lấy tổng tiền thanh toán tạm tính của từng ngày
-                        long tongTienTamTinh = xulyDuLieu.doiChuoiSangLong(xulyDuLieu.layThuocTinhTrongMotObject(x, "tongTien"));
+                        long tienTamTinh = xulyDuLieu.doiChuoiSangLong(xulyDuLieu.layThuocTinhTrongMotObject(x, "tongTien"));
+                        tongTienTamTinh += tienTamTinh;
                         object a = new
                         {
                             maHD = thang,
-                            tamTinh = tongTienTamTinh
+                            tamTinh = tienTamTinh,  
+                            tongTien = xulyDuLieu.doiVND(tongTienTamTinh)
                         };
                         listHoaDon.Add(a);
                     }
@@ -263,15 +271,18 @@ namespace qlCaPhe.Controllers
                 {
                     int nam = xulyDuLieu.doiChuoiSangInteger(param);
                     IEnumerable<object> listThongKe = new qlCaPheEntities().thongKeHoaDonTheoQuy(nam);
+                    long tongTienTamTinh = 0;
                     foreach (object x in listThongKe.ToList())
                     {
                         string thang = xulyDuLieu.layThuocTinhTrongMotObject(x, "quy");
                         //---------Lấy tổng tiền thanh toán tạm tính của từng ngày
-                        long tongTienTamTinh = xulyDuLieu.doiChuoiSangLong(xulyDuLieu.layThuocTinhTrongMotObject(x, "tongTien"));
+                        long tienTamTinh = xulyDuLieu.doiChuoiSangLong(xulyDuLieu.layThuocTinhTrongMotObject(x, "tongTien"));
+                        tongTienTamTinh += tienTamTinh;
                         object a = new
                         {
                             maHD = thang,
-                            tamTinh = tongTienTamTinh
+                            tamTinh = tienTamTinh,
+                            tongTien = xulyDuLieu.doiVND(tongTienTamTinh)
                         };
                         listHoaDon.Add(a);
                     }
@@ -337,15 +348,18 @@ namespace qlCaPhe.Controllers
                 try
                 {
                     IEnumerable<object> listThongKe = new qlCaPheEntities().thongKeHoaDonTheoNam();
+                    long tongTienTamTinh = 0;
                     foreach (object x in listThongKe.ToList())
                     {
                         string thang = xulyDuLieu.layThuocTinhTrongMotObject(x, "nam");
                         //---------Lấy tổng tiền thanh toán tạm tính của từng ngày
-                        long tongTienTamTinh = xulyDuLieu.doiChuoiSangLong(xulyDuLieu.layThuocTinhTrongMotObject(x, "tongTien"));
+                        long tienTamTinh = xulyDuLieu.doiChuoiSangLong(xulyDuLieu.layThuocTinhTrongMotObject(x, "tongTien"));
+                        tongTienTamTinh += tienTamTinh;
                         object a = new
                         {
                             maHD = thang,
-                            tamTinh = tongTienTamTinh
+                            tamTinh = tienTamTinh,
+                            tongTien = xulyDuLieu.doiVND(tongTienTamTinh)
                         };
                         listHoaDon.Add(a);
                     }
@@ -400,16 +414,19 @@ namespace qlCaPhe.Controllers
         /// <param name="listKQ">List object cần thêm dữ liệu vào JSon</param>
         private void taoDuLieuThongKeSoLanBanSanPham(IEnumerable<object> listIEnumerable, List<object> listKQ)
         {
+            long tongDoanhThu=0;
             foreach (object x in listIEnumerable.ToList())
             {
                 string soLanBan = xulyDuLieu.layThuocTinhTrongMotObject(x, "soLanBan");
                 //---------Lấy tổng tiền thanh toán tạm tính của từng ngày
                 long tongTienTamTinh = xulyDuLieu.doiChuoiSangLong(xulyDuLieu.layThuocTinhTrongMotObject(x, "tongTien"));
+                tongDoanhThu += tongTienTamTinh;
                 object a = new
                 {
                     soLanBan = xulyDuLieu.doiChuoiSangInteger(soLanBan),
                     tenSP = xulyDuLieu.layThuocTinhTrongMotObject(x, "tenSanPham"),
-                    tongTien = tongTienTamTinh
+                    tongTien = tongTienTamTinh,
+                    tongDoanhThu = xulyDuLieu.doiVND(tongDoanhThu)
                 };
                 listKQ.Add(a);
             }
