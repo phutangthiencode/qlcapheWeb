@@ -61,6 +61,7 @@ namespace qlCaPhe.Controllers
                     {
                         this.themCtBangGiaoViecVaoDatabase(bgv, db);
                         ndThongBao = createHTML.taoNoiDungThongBao("Phân công cho thành viên", xulyDuLieu.traVeKyTuGoc(bgv.tenDangNhap), "bct_TableDieuPhoi");
+                        this.resetData();
                         this.taoDuLieuChoCbb(db, 0);
                         xulyChung.ghiNhatKyDtb(2, "Điều phối công tác của \" " + xulyDuLieu.traVeKyTuGoc(bgv.tenDangNhap) + " \"");
                     }
