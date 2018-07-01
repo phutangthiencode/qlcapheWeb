@@ -274,6 +274,7 @@ namespace qlCaPhe.Controllers
                                 this.xoaChiTietDieuPhoi(db, listChiTiet);
                                 this.themCtBangGiaoViecVaoDatabase(bgv, db);
                                 xulyChung.ghiNhatKyDtb(4, "Điều phối công tác của \" " + xulyDuLieu.traVeKyTuGoc(bgv.tenDangNhap) + " \"");
+                                this.resetData();
                                 return RedirectToAction("bct_TableDieuPhoi");
                             }
                         }
