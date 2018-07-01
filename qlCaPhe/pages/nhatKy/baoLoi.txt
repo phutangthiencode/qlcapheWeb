@@ -1,1 +1,10 @@
-﻿
+﻿-----------------------7/2/2018 12:08:32 AM----------
+Vị trí: Class: DoUongController - Function: du_ChinhSuaDoUong_Get 
+ Lỗi: Sản phẩm có mã 37 không tồn tại để cập nhật
+---------------------------------------------------------------
+
+-----------------------7/2/2018 12:08:37 AM----------
+Vị trí: Class: DoUongController - Function: du_ChinhSuaDoUong_Get 
+ Lỗi: Sản phẩm có mã 37 không tồn tại để cập nhật
+---------------------------------------------------------------
+
