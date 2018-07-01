@@ -41,9 +41,9 @@
                     </div>
                     <div class="body">
                         @*<ul class="nav nav-tabs tab-col-pink" role="tablist">
-                            <li role="presentation" class="@ViewBag.Style1"><a href="/CongThuc/ct_TableCongThuc?trangThai=true"><i class="material-icons">check</i>Danh mục công thức còn sử dụng</a></li>
-                            <li role="presentation" class="@ViewBag.Style2"><a href="/CongThuc/ct_TableCongThuc?trangThai=false"><i class="material-icons">clear</i>Danh mục công thức ngưng sử dụng</a></li>
-                        </ul>*@
+                                <li role="presentation" class="@ViewBag.Style1"><a href="/CongThuc/ct_TableCongThuc?trangThai=true"><i class="material-icons">check</i>Danh mục công thức còn sử dụng</a></li>
+                                <li role="presentation" class="@ViewBag.Style2"><a href="/CongThuc/ct_TableCongThuc?trangThai=false"><i class="material-icons">clear</i>Danh mục công thức ngưng sử dụng</a></li>
+                            </ul>*@
                         <div class="dataTables_wrapper form-inline dt-bootstrap">
 
                             <div class="row">
@@ -67,28 +67,28 @@
                                             <tbody>
                                                 @Html.Raw(ViewBag.TableData)
                                                 @*<tr role="row" class="odd">
-                                    <td>
-                                        <a class="goiY" data-toggle="modal" data-target="#modalChiTiet" style="cursor:pointer">
-                                            <b>Cà phê đen đá</b>
-                                            <span class="noiDungGoiY-top">Click để xem chi tiết công thức</span>
-                                        </a>
-                                    </td>
-                                    <td>Công thức pha chế cà phê đen</td>
-                                    <td>Diễn giải công thức</td>
-                                    <td>ttphu</td>
-                                    <td>30/11/2017 12:00:12</td>
-                                    <td>
-                                        <div class="btn-group">
-                                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                                                    Chức năng <span class="caret"></span>
-                                                </button>
-                                                <ul class="dropdown-menu" role="menu">
-                                                    <li><a href="#" class="col-blue waves-effect waves-block"><i class="material-icons">mode_edit</i>Chỉnh sửa</a></li>
-                                                    <li><a href="#" class="col-red waves-effect waves-block"><i class="material-icons">delete</i>Xoá bỏ</a></li>
-                                                </ul>
-                                        </div>
-                                    </td>
-                                </tr>*@
+                                                        <td>
+                                                            <a class="goiY" data-toggle="modal" data-target="#modalChiTiet" style="cursor:pointer">
+                                                                <b>Cà phê đen đá</b>
+                                                                <span class="noiDungGoiY-top">Click để xem chi tiết công thức</span>
+                                                            </a>
+                                                        </td>
+                                                        <td>Công thức pha chế cà phê đen</td>
+                                                        <td>Diễn giải công thức</td>
+                                                        <td>ttphu</td>
+                                                        <td>30/11/2017 12:00:12</td>
+                                                        <td>
+                                                            <div class="btn-group">
+                                                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                                                        Chức năng <span class="caret"></span>
+                                                                    </button>
+                                                                    <ul class="dropdown-menu" role="menu">
+                                                                        <li><a href="#" class="col-blue waves-effect waves-block"><i class="material-icons">mode_edit</i>Chỉnh sửa</a></li>
+                                                                        <li><a href="#" class="col-red waves-effect waves-block"><i class="material-icons">delete</i>Xoá bỏ</a></li>
+                                                                    </ul>
+                                                            </div>
+                                                        </td>
+                                                    </tr>*@
                                             </tbody>
                                         </table>
                                     </div>
@@ -101,6 +101,14 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                                    <a class="col-red"  style="cursor:pointer" href="~/DoUong/du_ChinhSuaDoUong">
+                                        <b>&lt;	&lt;	Trở về trang sản phảm</b>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -108,70 +116,6 @@
         </div>
         <!-- #END# Vertical Layout -->
     </div>
-
-    <!-- Modal cho danh sách chi tiết hoá đơn-->
-    @*<div class="modal fade" id="modalChiTiet" tabindex="-2" role="dialog" style="display: none;">
-        <div class="modal-dialog modal-lg" style="width:90%" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title" id="largeModalLabel">CHI TIẾT CÔNG THỨC PHA CHẾ CÀ PHÊ ĐEN</h3>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-12 col-lg-12">
-                            <div class="card">
-                                <div class="header bg-cyan">
-                                    <h2>
-                                        Danh mục các bước thực hiện
-                                    </h2>
-                                </div>
-                                <div class="body table-responsive">
-                                    <table class="table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th width="10%">Bước số</th>
-                                                <th width="20%">Nguyên liệu</th>
-                                                <th width="20%">Số lượng sử dụng</th>
-                                                <th width="30%">Hành động</th>
-                                                <th width="20%">Ghi chú</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    1
-                                                </td>
-                                                <td>
-                                                    <img width="50px;" height="50px;" src="/images/image-gallery/1.jpg" />
-                                                    <b>Cà phê</b>
-                                                </td>
-                                                <td>50 (mg)</td>
-                                                <td>Đổ vào phin</td>
-                                                <td>
-                                                    <label style="color: #ff0000">Chú ý coi chừng đổ ra ngoài</label> 
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <div class="col-md-9">
-                            <div class="pull-left">
-                                <label class="pull-left col-blue-grey"><i>* Ghi chú: </i>Ghi chú của công thức pha chế cà phê đen</label>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <button type="button" class="btn btn-default waves-effect" data-dismiss="modal"><i class="material-icons">exit_to_app</i>Đóng lại</button>
-                        </div>
-                    </div>
-                </div> 
-            </div>
-        </div>
-    </div>*@ 
-     <!-- Modal cho danh sách chi tiết  -->
 </section>
 
 

@@ -288,3 +288,8 @@ Vị trí: Class: NguyenLieuController - Function: xoaLoaiNguyenLieu
  Lỗi: An error occurred while updating the entries. See the inner exception for details.
 ---------------------------------------------------------------
 
+-----------------------7/1/2018 11:20:37 PM----------
+Vị trí: Class CongThucController - Function: themLichSuGiaVaoDatabase 
+ Lỗi: Vui lòng chọn nguyên liệu
+---------------------------------------------------------------
+
