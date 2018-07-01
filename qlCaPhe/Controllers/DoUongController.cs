@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using qlCaPhe.Models;
 using qlCaPhe.App_Start;
+using qlCaPhe.Models.Business;
 
 namespace qlCaPhe.Controllers
 {
@@ -55,6 +56,7 @@ namespace qlCaPhe.Controllers
                     if (kqLuu > 0)
                     {
                         ndThongBao = this.htmlTaoNoiDungThongBaoLuu(sp);
+                        new bSanPham().themMoiLichSuGiaVaoDtb(sp.maSanPham, sp.donGia, sp.donGia, "Thêm khi nhập mới sản phẩm", db);
                         this.resetDuLieu();
                         this.taoDuLieuChoCbbTao(db);
                         xulyChung.ghiNhatKyDtb(2, "Sản phẩm \" " + xulyDuLieu.traVeKyTuGoc(sp.tenSanPham) + " \"");
@@ -384,6 +386,7 @@ namespace qlCaPhe.Controllers
                     spSua = db.sanPhams.SingleOrDefault(s => s.maSanPham == maSP);
                     if (spSua != null)
                     {
+                        long giaCu = spSua.donGia;
                         this.layDuLieuTuView(spSua, f);
                         spSua.trangThai = 0; //Set lại trạng thái của sản phẩm là chưa duyệt
                         db.Entry(spSua).State = System.Data.Entity.EntityState.Modified;
@@ -391,6 +394,7 @@ namespace qlCaPhe.Controllers
                         if (kqLuu > 0)
                         {
                             this.resetDuLieu();
+                            new bSanPham().themMoiLichSuGiaVaoDtb(spSua.maSanPham, spSua.donGia, giaCu, "Thêm khi cập nhật thông tin sản phẩm", db);
                             xulyChung.ghiNhatKyDtb(4, "Sản phẩm \" " + xulyDuLieu.traVeKyTuGoc(spSua.tenSanPham) + " \"");
                             return RedirectToAction("RouteDoUongChoDuyet");
                         }

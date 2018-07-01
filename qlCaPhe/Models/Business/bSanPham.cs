@@ -1,4 +1,5 @@
-﻿using System;
+﻿using qlCaPhe.App_Start;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,8 +11,6 @@ namespace qlCaPhe.Models.Business
     /// </summary>
     public class bSanPham
     {
-
-
         /// <summary>
         /// Hàm kiểm tra sản phẩm có khả thi để tiếp nhận
         /// </summary>
@@ -54,6 +53,40 @@ namespace qlCaPhe.Models.Business
                     }
                 }
             return true;
+        }
+
+        /// <summary>
+        /// Hàm Thực hiện thêm mới lịch sử giá vào CSDL
+        /// </summary>
+        /// <param name="donGia">Đơn giá cần thêm</param>
+        /// <param name="donGiaGoc">Đơn giá gốc dự vào tiền nguyên liệu hoặc giá cũ</param>
+        /// <param name="ghiChu">Ghi chú cho việc thêm mới lịch sử giá</param>
+        /// <param name="maSP">Mã sản phẩm cần thêm giá</param>
+        /// <param name="db"></param>
+        /// <returns>1: Thêm thành công - 0: Thêm thất bại</returns>
+        public int themMoiLichSuGiaVaoDtb(int maSP, long donGia, long donGiaGoc, string ghiChu, qlCaPheEntities db)
+        {
+            int kq = 0;
+            try
+            {
+                //------Khởi tạo đối tượng lịch sử giá
+                lichSuGia lichSuAdd = new lichSuGia();
+                lichSuAdd.donGia = donGia;
+                lichSuAdd.donGiaGoc = donGiaGoc;
+                lichSuAdd.ghiChu = ghiChu;
+                lichSuAdd.maSanPham = maSP;
+                lichSuAdd.ngayCapNhat = DateTime.Now;
+                lichSuAdd.nguoiTao = xulyChung.layTenDangNhap();
+                //----Thêm lịch sử giá vào CDSL
+                db.lichSuGias.Add(lichSuAdd);
+                kq = db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                xulyFile.ghiLoi("Class: DoUongController - Function: luuLichSuGia", ex.Message);
+                throw new Exception(ex.Message);
+            }
+            return kq;
         }
     }
 }

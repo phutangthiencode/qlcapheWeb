@@ -329,6 +329,18 @@ namespace qlCaPhe.App_Start
             Session.Remove("urlAction"); Session.Add("urlAction", "");
             Session["urlAction"] = param;
         }
+        /// <summary>
+        /// hàm lấy tên đăng nhập hiện hành có trong session 
+        /// </summary>
+        /// <returns>Tên đăng nhập hiện hành</returns>
+        public static string layTenDangNhap()
+        {
+            string kq = "";
+            HttpSessionStateBase Session = new HttpSessionStateWrapper(HttpContext.Current.Session);
+            taiKhoan tkLogin = (taiKhoan)Session["login"];
+            kq = tkLogin.tenDangNhap;
+            return kq;
+        }
     }
   
     

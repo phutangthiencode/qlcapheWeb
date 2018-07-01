@@ -101,7 +101,7 @@ namespace qlCaPhe.Controllers
                 if (lichSu.donGia < lichSu.donGiaGoc)
                     throw new Exception("Giá sản phẩm nhỏ hơn giá gốc");
                 lichSu.ghiChu = "Thêm dựa vào công thức pha chế";
-                lichSu.nguoiTao = ((taiKhoan)Session["login"]).tenDangNhap;
+                lichSu.nguoiTao = xulyChung.layTenDangNhap();
                 lichSu.ngayCapNhat = DateTime.Now;
                 //-----Thêm vào bảng lichSuGia
                 db.lichSuGias.Add(lichSu);

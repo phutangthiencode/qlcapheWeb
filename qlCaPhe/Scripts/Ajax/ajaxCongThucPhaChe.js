@@ -248,8 +248,10 @@ function capNhatCartThanhCong(data) {
     $('#vungDsChiTiet').empty();
     $('#vungDsChiTiet').html(data.split('|')[0]); //-------Hiện danh sách các bước lên bảng
     $('#vungTableNguyenLieu').html(data.split('|')[1]); //----Hiện danh sách nguyên liệu lên bảng
-    $('#tongTienNguyenLieu').text(data.split('|')[2]); //-----Hiển tổng tiền nguyên liệu
-    $('#txtTongTienNguyenLieu').val(data.split('|')[2]);//---Gán tổng tiền gốc để thêm vào thuộc tính tienGoc của bảng  lichSuGa
+    var donGiaGoc = data.split('|')[2];
+    $('#tongTienNguyenLieu').text(donGiaGoc); //-----Hiển tổng tiền nguyên liệu  
+    donGiaGoc = donGiaGoc.replace(',', '').replace(' VNĐ', '');
+    $('#txtTongTienNguyenLieu').val(donGiaGoc);//---Gán tổng tiền gốc để thêm vào thuộc tính tienGoc của bảng  lichSuGa
 }
 
 
