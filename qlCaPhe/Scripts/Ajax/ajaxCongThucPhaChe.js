@@ -198,7 +198,7 @@ function thucThiSuKien() {
 
     //===============SỰ KIỆN CHO NÚT TÍNH TIỀN SẢN PHẨM DỰA VÀO PHẦN TRĂM LỢI NHUẬN MONG MUỐN
     $('#btnTinhPhanTram').click(function () {
-        var tienNguyenLieu = parseInt($('#tongTienNguyenLieu').text(), 10);//Lấy Số tiền gốc
+        var tienNguyenLieu = parseInt($('#txtTongTienNguyenLieu').val(), 10);//Lấy Số tiền gốc
         var phanTram = parseInt($('#txtPhanTramLai').val(), 10);//Lấy Số phần trăm
         var kq = tienNguyenLieu + (tienNguyenLieu * phanTram / 100); //------Tính tiền sản phẩm theo tỷ lệ phần trăm mong muốn
         $('#txtDonGiaMongMuon').val(kq);
