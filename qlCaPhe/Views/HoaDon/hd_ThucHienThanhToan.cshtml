@@ -1,7 +1,7 @@
 ﻿@using qlCaPhe.Models;
 @using qlCaPhe.Models.Business;
 @using qlCaPhe.App_Start;
-@model qlCaPhe.Models.hoaDonTam  
+@model qlCaPhe.Models.hoaDonTam
 @{
     ViewBag.Title = "Thanh toán";
     Layout = "~/Views/Shared/_LayoutTools.cshtml";
@@ -39,8 +39,10 @@
 
                     <div class="body">
 
-                        @using (Html.BeginForm("hd_ThucHienThanhToan", "HoaDon", FormMethod.Post))
-                        {
+                        @*@using (Html.BeginForm("hd_ThucHienThanhToan", "HoaDon", FormMethod.Post))
+                            {*@
+                        <form method="post" action="/HoaDon/hd_ThucHienThanhToan" id="js-form-thanhtoan">
+
                             <div class="row">
                                 <div class="col-md-7 col-lg-7">
                                     <div class="card">
@@ -86,7 +88,7 @@
                                                 <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                                                     <label for="txtTenNhom">Tổng cộng:</label>
                                                     <div class="form-group">
-                                                        <div class="form-line"> 
+                                                        <div class="form-line">
                                                             @{ var tongTien = new bHoaDonTam().layTongTienSanPham(Model); }
                                                             <label class="font-16 font-bold col-pink"><span id="lbTamTinh">@xulyDuLieu.doiVND(tongTien)</span></label>
                                                         </div>
@@ -137,10 +139,13 @@
                                     </div>
                                 </div>
 
-                            </div>                            
-                            <input type="hidden" value="" name="txtTienMat" id="txtTienMat"/>
+                            </div>
+                            <input type="hidden" value="" name="txtTienMat" id="txtTienMat" />
                             <input type="hidden" value="" name="txtTienTra" id="txtTienTra" />
-                        }
+
+
+                        </form>
+                        @*}*@
                     </div>
 
 
@@ -154,6 +159,7 @@
 <script src="~/Scripts/dungChung.js"></script>
 <script>
 
+
     $(document).ready(function () {
         thucThi();
     });
@@ -164,7 +170,7 @@
         $('#btnTinhTien').click(function (e) {
             var status = false
             var tienHoanLai = "Tiền khách trả chưa đủ";
-            var tamTinh = parseInt($('#lbTamTinh').text().replace(",",""));
+            var tamTinh = parseInt($('#lbTamTinh').text().replace(",", ""));
             var tienKhachDua = parseInt($('#txtTienKhachDua').val(), 10);
             if (tienKhachDua > 0) {
                 var tienChietKhau = parseInt($('#txtTienChietKhau').val(), 10);
@@ -181,14 +187,14 @@
             }
             $('#lbTienHoanLai').html(formatTienTe(tienHoanLai, ".", ","));
             $('#txtTienMat').val(tamTinh);
-            $('#txtTienTra').val((tienKhachDua-tamTinh));
+            $('#txtTienTra').val((tienKhachDua - tamTinh));
             thucThi();
 
         });
 
     }
 
-    //-------Hàm mở công cụ in 
+    //-------Hàm mở công cụ in
     function printContent(el) {
         var restorepage = $('body').html();
         var printcontent = $('#' + el).clone();
@@ -196,4 +202,14 @@
         window.print();
         $('body').html(restorepage);
     }
+
+    //------Sự kiện disable nút Enter
+    $('#js-form-thanhtoan').on('keyup keypress', function (e) {
+        var keyCode = e.keyCode || e.which;
+        if (keyCode === 13) {
+            e.preventDefault();
+            return false;
+        }
+    });
+
 </script>
