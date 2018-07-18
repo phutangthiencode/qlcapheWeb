@@ -85,13 +85,9 @@
                                         <div class="form-group">
                                             <div class="demo-radio-button">
                                                 &nbsp;	&nbsp;&nbsp;	&nbsp;
-                                                <input name="Gender" type="radio" id="rdbNam" class="radio-col-blue" @ViewBag.rdbNam>
+                                                <input name="Gender" type="radio" id="rdbNam" class="radio-col-blue" @ViewBag.rdbNam value="1">
                                                 <label for="rdbNam">Nam</label>
-                                                @*@Html.RadioButton("Gender", "1", true, new { @class = "radio-col-blue", @id = "Nam" })
-                                                    @Html.Label("Nam", "Nam")*@
-                                                @*@Html.RadioButton("Gender", "0", new { @class = "radio-col-pink", @id = "Nu" })
-                                                    @Html.Label("Nu", "Nữ")*@
-                                                <input name="Gender" type="radio" id="rdbNu" class="radio-col-pink" @ViewBag.rdbNu>
+                                                <input name="Gender" type="radio" id="rdbNu" class="radio-col-pink" @ViewBag.rdbNu value="0">
                                                 <label for="rdbNu">Nữ</label>
                                             </div>
                                         </div>
