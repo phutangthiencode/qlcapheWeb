@@ -419,6 +419,7 @@ namespace qlCaPhe.Controllers
             {//---Có nguyên liệu thì lấy thông tin nguyên liệu
                 kq += "                               <div class=\"col-lg-6 col-md-6 col-xs-6\">";
                 kq += "                                   <b>NGUYÊN LIỆU SỬ DUNG</b><img src=\"" + xulyDuLieu.chuyenByteHinhThanhSrcImage(ct.nguyenLieu.hinhAnh) + "\">";
+                kq += "<p class=\"lead col-cyan\">"+xulyDuLieu.traVeKyTuGoc(ct.nguyenLieu.tenNguyenLieu)+"</p>";
                 kq += "                                   <p class=\"font-bold col-orange\">Số lượng sử dụng: " + ct.soLuongNguyenLieu.ToString() + " " + xulyDuLieu.traVeKyTuGoc(ct.nguyenLieu.donViPhaChe) + " = " + xulyDuLieu.traVeKyTuGoc(ct.donViSuDung) + "</p>";
                 kq += "                               </div>";
             }
