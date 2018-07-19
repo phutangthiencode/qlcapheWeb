@@ -1,0 +1,42 @@
+﻿@model List<qlCaPhe.Models.Feedback>
+@using qlCaPhe.App_Start
+
+<table class="table table-bordered table-striped table-hover js-basic-example dataTable" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+    <thead>
+        <tr>
+            <th width="25%" rowspan="1" colspan="1">Tiêu đề</th>
+            <th width="20%" rowspan="1" colspan="1">Tên người gủi</th>
+            <th rowspan="1" width="20%" colspan="1">Email</th>
+            <th rowspan="1" width="20%" colspan="1">Ngày đăng</th>
+            <th rowspan="1" width="15%" colspan="1"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var phanHoi in Model)
+        {
+            <tr role="row" class="odd">
+                <td><b class="col-red">@xulyDuLieu.traVeKyTuGoc(phanHoi.tieuDe)</b></td>
+                <td>@xulyDuLieu.traVeKyTuGoc(phanHoi.tenNguoiGui)</td>
+                <td>@xulyDuLieu.traVeKyTuGoc(phanHoi.email)</td>
+                <td>@phanHoi.ngayDang.ToString()</td>
+                <td>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                            Chức năng <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a mafb="@phanHoi.maFB.ToString()" class="js-xem-chitiet col-grey waves-effect waves-block"><i class="material-icons">pageview</i>Xem nội dung</a></li>
+                            @if (phanHoi.trangThai == 0) 
+                            {
+                                //Chỉ hiển thị nút đổi trạng thái và xóa khi trạng thái phản hồi chưa được xử lý
+                                <li><a task="@xulyChung.taoUrlCoTruyenThamSo("/PhanHoi/capNhatTrangThai", phanHoi.maFB.ToString())" class="guiRequest col-orange waves-effect waves-block"><i class="material-icons">done_all</i>Đã trả lời</a></li>
+                                <li><a maxoa="@phanHoi.maFB.ToString()" href="#" class="xoa col-red waves-effect waves-block"><i class="material-icons">delete</i>Xoá bỏ</a></li>
+                            }
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

@@ -53,7 +53,7 @@
 
   <menuItem idCha="0" id="10" name="Bài viết - Phản hồi" link="" cssClass="" description="" icon="border_color">
     <menuItem id="1001" idCha="10" name="Quản lý bài viết" link="../BaiViet/bv_TableBaiVietDaDuyet" cssClass="" description="" icon="subtitles"></menuItem>
-    <menuItem id="1002" idCha="10" name="Danh mục phản hồi" link="../PhanHoi/TablePhanHoi" cssClass="" description="" icon="comment"></menuItem>
+    <menuItem id="1002" idCha="10" name="Danh mục phản hồi" link="../PhanHoi/ph_TableChoPhanHoi" cssClass="" description="" icon="comment"></menuItem>
   </menuItem>
 
   <menuItem idCha="0" id="11" name="Cấu hình - Nhật ký" link="" cssClass="" description="" icon="settings">
