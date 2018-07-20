@@ -11,7 +11,7 @@ namespace qlCaPhe.Controllers
     public class PhanHoiController : Controller
     {
         private static string idOfPage = "1002";
-
+        #region READ
         /// <summary>
         /// Hàm tạo giao diện table chờ Phản hồi
         /// </summary>
@@ -95,6 +95,57 @@ namespace qlCaPhe.Controllers
             }
             return PartialView(listPhanHoi);
         }
+
+        /// <summary>
+        /// Hàm được ajax gọi đến để lấy thông tin chi tiết một phản hồi
+        /// </summary>
+        /// <param name="maFB">Mã feedback cần lấy</param>
+        /// <returns>Chuỗi html tạo giao diện chứa nội dung phản hồi hiện lên model chi tiết</returns>
+        public string AjaxXemChiTietFeedBack(int maFB)
+        {
+            string htmlDetails = "";
+            if (xulyChung.duocTruyCap(idOfPage))
+                try
+                {
+                    Feedback phanHoi = new qlCaPheEntities().Feedbacks.SingleOrDefault(f => f.maFB == maFB);
+                    if (phanHoi != null)
+                    {
+                        htmlDetails += "<div class=\"modal-header\">";
+                        htmlDetails += "      <button type=\"button\" class=\"close\" data-dismiss=\"modal\">×</button>";
+                        htmlDetails += "    <h3 class=\"modal-title\" id=\"largeModalLabel\">NỘI DUNG CHI TIẾT PHẢN HỒI CỦA KHÁCH HÀNG \"" + xulyDuLieu.traVeKyTuGoc(phanHoi.tenNguoiGui) + "\"</h3>";
+                        htmlDetails += "</div>";
+                        htmlDetails += "<div class=\"modal-body\">";
+                        htmlDetails += "    <div class=\"row\">";
+                        htmlDetails += "        <div class=\"col-md-12 col-lg-12\">";
+                        htmlDetails += "            <div class=\"card\">";
+                        htmlDetails += "                <div class=\"header bg-cyan\">";
+                        htmlDetails += "                    <h2>";
+                        htmlDetails += "                        <b>" + xulyDuLieu.traVeKyTuGoc(phanHoi.tieuDe) + "</b>";
+                        htmlDetails += "                    </h2>";
+                        htmlDetails += "                </div>";
+                        htmlDetails += "                <div class=\"body table-responsive\">";
+                        htmlDetails += xulyDuLieu.traVeKyTuGoc(phanHoi.noiDung);
+                        htmlDetails += "                </div>";
+                        htmlDetails += "            </div>";
+                        htmlDetails += "        </div>";
+                        htmlDetails += "</div>";
+                        htmlDetails += "<div class=\"modal-footer\">";
+                        htmlDetails += "    <button type=\"button\" class=\"btn btn-default waves-effect\"";
+                        htmlDetails += "        data-dismiss=\"modal\">";
+                        htmlDetails += "        <i class=\"material-icons\">exit_to_app</i>Đóng lại";
+                        htmlDetails += "    </button>";
+                        htmlDetails += "</div>";
+                        htmlDetails += "</div>";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    xulyFile.ghiLoi("Class: PhanHoiController - Function: AjaxXemChiTietFeedBack", ex.Message);
+                }
+            return htmlDetails;
+        }
+        #endregion
+        #region UPDATE
         /// <summary>
         /// Hàm thực hiện cập nhật trạng thái Đã trả lời của 1 phản hồi.
         /// </summary>
@@ -129,6 +180,8 @@ namespace qlCaPhe.Controllers
             }
             return RedirectToAction("ph_TableChoPhanHoi");
         }
+        #endregion
+        #region DELETE
         /// <summary>
         /// Hàm thực hiện xóa 1 phản hồi từ người dùng
         /// </summary>
@@ -156,55 +209,7 @@ namespace qlCaPhe.Controllers
                 }
             }
         }
-        /// <summary>
-        /// Hàm được ajax gọi đến để lấy thông tin chi tiết một phản hồi
-        /// </summary>
-        /// <param name="maFB">Mã feedback cần lấy</param>
-        /// <returns>Chuỗi html tạo giao diện chứa nội dung phản hồi hiện lên model chi tiết</returns>
-        public string AjaxXemChiTietFeedBack(int maFB)
-        {
-            string htmlDetails = "";
-            if(xulyChung.duocTruyCap(idOfPage))
-                try
-                {
-                    Feedback phanHoi = new qlCaPheEntities().Feedbacks.SingleOrDefault(f=>f.maFB==maFB);
-                    if (phanHoi != null)
-                    {
-                        htmlDetails += "<div class=\"modal-header\">";
-                        htmlDetails += "      <button type=\"button\" class=\"close\" data-dismiss=\"modal\">×</button>";
-                        htmlDetails += "    <h3 class=\"modal-title\" id=\"largeModalLabel\">NỘI DUNG CHI TIẾT PHẢN HỒI CỦA KHÁCH HÀNG \""+xulyDuLieu.traVeKyTuGoc(phanHoi.tenNguoiGui)+"\"</h3>";
-                        htmlDetails += "</div>";
-                        htmlDetails += "<div class=\"modal-body\">";
-                        htmlDetails += "    <div class=\"row\">";
-                        htmlDetails += "        <div class=\"col-md-12 col-lg-12\">";
-                        htmlDetails += "            <div class=\"card\">";
-                        htmlDetails += "                <div class=\"header bg-cyan\">";
-                        htmlDetails += "                    <h2>";
-                        htmlDetails += "                        <b>" + xulyDuLieu.traVeKyTuGoc(phanHoi.tieuDe) + "</b>";
-                        htmlDetails += "                    </h2>";
-                        htmlDetails += "                </div>";
-                        htmlDetails += "                <div class=\"body table-responsive\">";
-                        htmlDetails += xulyDuLieu.traVeKyTuGoc(phanHoi.noiDung);
-                        htmlDetails += "                </div>";
-                        htmlDetails += "            </div>";
-                        htmlDetails += "        </div>";
-                        htmlDetails += "</div>";
-                        htmlDetails += "<div class=\"modal-footer\">";
-                        htmlDetails += "    <button type=\"button\" class=\"btn btn-default waves-effect\"";
-                        htmlDetails += "        data-dismiss=\"modal\">";
-                        htmlDetails += "        <i class=\"material-icons\">exit_to_app</i>Đóng lại";
-                        htmlDetails += "    </button>";
-                        htmlDetails += "</div>";
-                        htmlDetails += "</div>";
-                    }
-                }
-                catch (Exception ex)
-                {
-                    xulyFile.ghiLoi("Class: PhanHoiController - Function: AjaxXemChiTietFeedBack", ex.Message);
-                }
-            return htmlDetails;
-        }
-
+        #endregion
         /// <summary>
         /// Hàm nhúng các đoạn script, html cần thiết lên trang
         /// Script xóa phản hồi, Scrip Ajax xem chi tiết phản hồi
