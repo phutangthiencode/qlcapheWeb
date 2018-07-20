@@ -30,6 +30,7 @@ namespace qlCaPhe.Controllers
                     ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, createHTML.pageSize, trangHienHanh, "/PhanHoi/ph_TableChoPhanHoi");
                     //-----Nhúng script để xủ lý 1 số chức năng
                     this.nhungScript();
+                    xulyChung.ghiNhatKyDtb(1, "Danh mục phản hồi từ khách hàng đang chờ trả lời");
                 }
                 catch (Exception ex)
                 {
@@ -58,6 +59,7 @@ namespace qlCaPhe.Controllers
                     ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, createHTML.pageSize, trangHienHanh, "/PhanHoi/ph_TableChoPhanHoi");
                     //-----Nhúng script để xủ lý 1 số chức năng
                     this.nhungScript();
+                    xulyChung.ghiNhatKyDtb(1, "Danh mục phản hồi từ khách hàng đã trả lời");
                 }
                 catch (Exception ex)
                 {
@@ -93,20 +95,65 @@ namespace qlCaPhe.Controllers
             }
             return PartialView(listPhanHoi);
         }
-
-        public void capNhatTrangThai()
+        /// <summary>
+        /// Hàm thực hiện cập nhật trạng thái Đã trả lời của 1 phản hồi.
+        /// </summary>
+        /// <returns>Trả về giao diện phàn hồi chờ trả lời</returns>
+        public ActionResult capNhatTrangThai()
         {
             if (xulyChung.duocCapNhat(idOfPage, "7"))
             {
-
+                try
+                {
+                    int kqLuu = 0;
+                    string urlAction = xulyChung.nhanThamSoTrongSession();
+                    if (urlAction.Length > 0)
+                    {
+                        int maFB = xulyDuLieu.doiChuoiSangInteger(urlAction);
+                        qlCaPheEntities db = new qlCaPheEntities();
+                        Feedback fbSua = db.Feedbacks.SingleOrDefault(f => f.maFB == maFB);
+                        if (fbSua != null)
+                        {
+                            fbSua.trangThai = 1; //------Cập nhật trạng thái feedback đã phản hồi
+                            db.Entry(fbSua).State = System.Data.Entity.EntityState.Modified;
+                            kqLuu=   db.SaveChanges();
+                            if (kqLuu > 0)
+                                xulyChung.ghiNhatKyDtb(4, "Cập nhật trạng thái của phản hồi\" " + xulyDuLieu.traVeKyTuGoc(fbSua.tieuDe) + " \"");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    xulyFile.ghiLoi("Class: PhanHoiController - Function: capNhatTrangThai", ex.Message);
+                }
             }
+            return RedirectToAction("ph_TableChoPhanHoi");
         }
-
+        /// <summary>
+        /// Hàm thực hiện xóa 1 phản hồi từ người dùng
+        /// </summary>
+        /// <param name="maFB">Mã phản hồi cần xóa</param>
         public void xoaPhanHoi(int maFB)
         {
             if (xulyChung.duocCapNhat(idOfPage, "7"))
             {
-
+                try
+                {
+                    int kqLuu = 0;
+                    qlCaPheEntities db = new qlCaPheEntities();
+                    Feedback fbXoa = db.Feedbacks.SingleOrDefault(f => f.maFB == maFB);
+                    if (fbXoa != null)
+                    {
+                        db.Feedbacks.Remove(fbXoa);
+                        kqLuu = db.SaveChanges();
+                        if(kqLuu>0)
+                            xulyChung.ghiNhatKyDtb(3, "Phản hồi \"" + xulyDuLieu.traVeKyTuGoc(fbXoa.tieuDe) + " \"");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    xulyFile.ghiLoi("Class: PhanHoiController - Function: capNhatTrangThai", ex.Message);
+                }
             }
         }
         /// <summary>
