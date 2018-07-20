@@ -1,0 +1,65 @@
+﻿@{
+    ViewBag.Title = "Danh mục tiếp nhận bàn đã đặt trực tuyến";
+    Layout = "~/Views/Shared/_LayoutTools.cshtml";
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <h2>Đặt bàn - Thanh Toán > Danh mục đặt bàn online</h2>
+        </div>
+        <!-- Vertical Layout -->
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>
+                            <i class="material-icons">room_service</i>
+                            DANH SÁCH YÊU CẦU ĐẶT CHỖ CỦA KHÁCH
+                        </h2>
+                    </div>
+                    <div class="body">
+                        <ul class="nav nav-tabs tab-col-pink" role="tablist">
+
+                            <li role="presentation" class=""><a href="/DatBanOnline/db_DatBanDaChoTiepNhan"><i class="material-icons">find_replace</i>Chờ tiếp nhận</a></li>
+                            <li role="presentation" class="active"><a href="/DatBanOnline/db_DatBanDaTiepNhan"><i class="material-icons">done</i>Đã tiếp nhận</a></li>
+                            <li role="presentation" class=""><a href="/DatBanOnline/db_DatBanDaTuChoi"><i class="material-icons">clear</i>Đã từ chối</a></li>
+
+                        </ul>
+                        <div class="tab-content">
+                            <div class="">
+                                <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="table-responsive">
+                                                @Html.Action("db_PartTable", "DatBanOnline", new { trangThai = 1 })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12 pull-right">
+                                            <div class="pull-right" id="DataTables_Table_0_paginate">
+                                                @Html.Raw(ViewBag.PhanTrang)
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #END# Vertical Layout -->
+    </div>
+
+    @Html.Action("db_PartModalChiTiet", "DatBanOnline")
+    <!--Modal xem chi tiết thành viên-->
+    @Html.Raw(ViewBag.ModalChiTiet)
+    @Html.Raw(ViewBag.ScriptAjaxXemChiTiet)
+</section>
+

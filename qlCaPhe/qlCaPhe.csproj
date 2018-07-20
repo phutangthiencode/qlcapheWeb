@@ -194,6 +194,7 @@
     <Compile Include="Controllers\CauHinhController.cs" />
     <Compile Include="Controllers\CongThucController.cs" />
     <Compile Include="Controllers\DanhGiaController.cs" />
+    <Compile Include="Controllers\DatBanOnlineController.cs" />
     <Compile Include="Controllers\DoUongController.cs" />
     <Compile Include="Controllers\HoaDonController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -4179,6 +4180,11 @@
     <Content Include="Views\PhanHoi\ph_TableChoPhanHoi.cshtml" />
     <Content Include="Views\PhanHoi\ph_PartTable.cshtml" />
     <Content Include="Views\PhanHoi\ph_TableDaPhanHoi.cshtml" />
+    <Content Include="Views\DatBanOnline\db_PartTable.cshtml" />
+    <Content Include="Views\DatBanOnline\db_DatBanDaTuChoi.cshtml" />
+    <Content Include="Views\DatBanOnline\db_DatBanDaTiepNhan.cshtml" />
+    <Content Include="Views\DatBanOnline\db_DatBanChoTiepNhan.cshtml" />
+    <Content Include="Views\DatBanOnline\db_PartModalChiTiet.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

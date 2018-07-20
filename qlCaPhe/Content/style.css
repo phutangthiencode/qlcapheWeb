@@ -10837,6 +10837,11 @@ html.ie11 .bs-searchbox .form-control {
     height: 600px;
 }
 
+.table-ordered tr, .table-ordered th {
+    text-align: center;
+}
+
+
 /*RESPONSIVE BIỂU ĐỒ*/
 
 /*IPAD*/

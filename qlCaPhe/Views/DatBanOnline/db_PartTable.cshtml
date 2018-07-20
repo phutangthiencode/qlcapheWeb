@@ -1,0 +1,58 @@
+﻿@model List<qlCaPhe.Models.datBanOnline>
+@using qlCaPhe.App_Start
+
+<table class="table table-bordered table-striped table-hover js-basic-example dataTable" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+    <thead>
+        <tr>
+            <th rowspan="1" colspan="1">Họ và tên</th>
+            <th rowspan="1" colspan="1">SĐT</th>
+            <th rowspan="1" colspan="1">Ngày đặt</th>
+            <th rowspan="1" colspan="1">Ngày đến dự kiến</th>
+            <th rowspan="1" colspan="1">Số lượng khách</th>
+            <th rowspan="1" colspan="1"></th>
+        </tr>
+    </thead>
+    <tfoot>
+
+    </tfoot>
+    <tbody>
+        @foreach (var datBan in Model)
+        {
+            <tr role="row" class="odd">
+                <td class="Bold">@xulyDuLieu.traVeKyTuGoc(datBan.hoTenKH)</td>
+                <td>@xulyDuLieu.traVeKyTuGoc(datBan.SDT)</td>
+                <td>@datBan.ngayDat.ToString()</td>
+                <td>@datBan.ngayDenDuKien.ToString()</td>
+                <td>@datBan.soLuongKhach.ToString()</td>
+                <td>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                            Chức năng <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a madatban="@datBan.maDatBan.ToString()" class="js-xem-chitiet col-grey waves-effect waves-block">
+                                    <i class="material-icons">search</i>Xem chi tiết
+                                </a>
+                            </li>
+                            @if (datBan.trangThai == 0)
+                            {
+                                //Trạng thái đặt bàn chưa tiếp nhận
+                                <li>
+                                    <a href="#" class="col-blue waves-effect waves-block">
+                                        <i class="material-icons">create</i>Tiếp nhận
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="col-red waves-effect waves-block">
+                                        <i class="material-icons">clear</i>Từ chối
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

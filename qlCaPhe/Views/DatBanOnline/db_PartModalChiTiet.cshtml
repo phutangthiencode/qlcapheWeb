@@ -1,0 +1,62 @@
+﻿@model qlCaPhe.Models.datBanOnline
+@using qlCaPhe.App_Start
+
+<div class="modal-header">
+    <h3 class="modal-title" id="largeModalLabel">@xulyDuLieu.traVeKyTuGoc(Model.hoTenKH) ĐÃ ĐẶT</h3>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-7 col-lg-7">
+
+            <div class="card">
+                <div class="header bg-cyan">
+                    <h2>
+                        Danh mục bàn đã đặt
+                    </h2>
+                </div>
+                <div class="body table-responsive">
+                    <table class="table table-hover table-ordered">
+                        <thead>
+                            <tr>
+                                <th style="width:40%">Tên bàn</th>
+                                <th style="width:10%">Khu vực</th>
+                                <th style="width:10%">Sức chứa</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var ct in Model.ctDatBans)
+                            {
+                                <tr>
+                                    <td>
+                                        <img style="width:75%; height:auto" src="@xulyDuLieu.chuyenByteHinhThanhSrcImage(ct.BanChoNgoi.hinhAnh)" />
+                                        <br/>
+                                        <b class="table-ordered-tablename font-16">@xulyDuLieu.traVeKyTuGoc(ct.BanChoNgoi.tenBan)</b>
+                                    </td>
+                                    <td>@xulyDuLieu.traVeKyTuGoc(ct.BanChoNgoi.khuVuc.tenKhuVuc)</td>
+                                    <td>@ct.BanChoNgoi.sucChua.ToString()</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5 col-lg-5">
+            <div class="card">
+                <div class="header bg-green">
+                    <h2>
+                        Yêu cầu thêm
+                    </h2>
+                </div>
+                <div class="body table-responsive">
+                    <p class="font-italic col-pink">@xulyDuLieu.traVeKyTuGoc(Model.yeuCauThem)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-info waves-effect" data-dismiss="modal"><i class="material-icons">done</i>Tiếp nhận</button>
+        <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal"><i class="material-icons">clear</i>Từ chối</button>
+        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal"><i class="material-icons">exit_to_app</i>Đóng lại</button>
+    </div>
+</div>

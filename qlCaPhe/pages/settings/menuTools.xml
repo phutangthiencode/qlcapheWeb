@@ -23,7 +23,7 @@
 		<menuItem id="501" idCha="5" name="Đặt bàn - Order" link="../NghiepVuBan/nvb_QuanLyDatBanTaiQuan" cssClass="" description="" icon="receipt"></menuItem>
 		<menuItem id="502" idCha="5" name="Thanh toán - tính tiền" link="../HoaDon/hd_TableHoaDonChoThanhToan" cssClass="" description="" icon="payment"></menuItem>
 		<menuItem id="503" idCha="5" name="Danh mục hoá đơn" link="../HoaDon/hd_TableHoaDonOrderTrongNgay" cssClass="" description="" icon="playlist_add_check"></menuItem>
-		<menuItem id="504" idCha="5" name="Danh mục đặt bàn online" link="../NhanBan/TableNhanBanOnline" cssClass="" description="" icon=""></menuItem>
+		<menuItem id="504" idCha="5" name="Danh mục đặt bàn online" link="../DatBanOnline/db_DatBanChoTiepNhan" cssClass="" description="" icon="room_service"></menuItem>
 	</menuItem>
 
 	<menuItem idCha="0" id="6" name="Pha chế - Phục vụ" link="" cssClass="" description="" icon="local_dining">
