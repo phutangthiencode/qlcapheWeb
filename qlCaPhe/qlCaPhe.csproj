@@ -4084,7 +4084,6 @@
     <Content Include="Views\PublicPage\Index.cshtml" />
     <Content Include="Views\PublicPage\DanhSachSanPham.cshtml" />
     <Content Include="Views\PublicPage\ChiTietSanPham.cshtml" />
-    <Content Include="Views\PublicPage\DatBanDatCho.cshtml" />
     <Content Include="Views\PublicPage\DanhSachBan.cshtml" />
     <Content Include="Views\PublicPage\DanhSachBaiViet.cshtml" />
     <Content Include="Views\PublicPage\ChiTietBaiViet.cshtml" />

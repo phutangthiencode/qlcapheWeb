@@ -24,6 +24,8 @@ namespace qlCaPhe.Controllers
                 try
                 {
                     qlCaPheEntities db = new qlCaPheEntities();
+                    taiKhoan tkLogin = (taiKhoan)Session["login"];
+                    ViewBag.txtNguoiLapPhieu = xulyDuLieu.traVeKyTuGoc(tkLogin.thanhVien.hoTV + " " + tkLogin.thanhVien.tenTV);
                     this.taoDuLieuChoCbbKhoHang(db);
                     this.taoDuLieuChoCbbNhaCungCap(db);
                     this.resetData();
@@ -610,7 +612,7 @@ namespace qlCaPhe.Controllers
             ViewBag.txtMaPhieu = phieu.maPhieu.ToString();
             ViewBag.txtNgayNhap = string.Format("{0:yyyy-MM-dd}", phieu.ngayNhap);
             ViewBag.txtTongTien = phieu.tongTien.ToString();
-            ViewBag.txtNguoiLapPhieu = xulyDuLieu.traVeKyTuGoc(phieu.nguoiLapPhieu);
+            ViewBag.txtNguoiLapPhieu = xulyDuLieu.traVeKyTuGoc(phieu.taiKhoan.thanhVien.hoTV + " " + phieu.taiKhoan.thanhVien.tenTV);
             ViewBag.txtGhiChu = xulyDuLieu.traVeKyTuGoc(phieu.ghiChu);
         }
         #endregion
