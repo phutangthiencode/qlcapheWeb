@@ -29,7 +29,7 @@
                             @if (phanHoi.trangThai == 0) 
                             {
                                 //Chỉ hiển thị nút đổi trạng thái và xóa khi trạng thái phản hồi chưa được xử lý
-                                <li><a task="@xulyChung.taoUrlCoTruyenThamSo("/PhanHoi/capNhatTrangThai", phanHoi.maFB.ToString())" class="guiRequest col-orange waves-effect waves-block"><i class="material-icons">done_all</i>Đã trả lời</a></li>
+                                <li><a task="@xulyChung.taoUrlCoTruyenThamSo("/PhanHoi/capNhatTrangThai", phanHoi.maFB.ToString() + "&1") " class="guiRequest col-orange waves-effect waves-block"><i class="material-icons">done_all</i>Đã trả lời</a></li>
                                 <li><a maxoa="@phanHoi.maFB.ToString()" href="#" class="xoa col-red waves-effect waves-block"><i class="material-icons">delete</i>Xoá bỏ</a></li>
                             }
                         </ul>

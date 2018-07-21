@@ -11,6 +11,7 @@ namespace qlCaPhe.Controllers
     public class DatBanOnlineController : Controller
     {
         private static string idOfPage = "504";
+        #region READ
         /// <summary>
         /// Hàm tạo giao diện hiện đặt bàn chờ tiếp nhận
         /// </summary>
@@ -142,6 +143,42 @@ namespace qlCaPhe.Controllers
             }
             return PartialView(datBan);
         }
+        #endregion
+        #region UPDATE
+        /// <summary>
+        /// Hàm thực hiện cập nhật trạng thái Tiếp nhận, từ chối đặt bàn
+        /// </summary>
+        /// <param name="trangThai">Trạng thái cần cập nhật: 1: Tiếp nhận - 2: Từ chối</param>
+        /// <returns>Trả về giao diện chờ tiếp nhận</returns>
+        public ActionResult capNhatTrangThai()
+        {
+            int trangThai = xulyDuLieu.doiChuoiSangInteger(xulyChung.nhanThamSoTrongSession(1));
+            if (trangThai > 0) 
+            if (xulyChung.duocCapNhat(idOfPage, "7"))
+            {
+                try
+                {
+                    int kqLuu = 0;
+                    int maDatBan = xulyDuLieu.doiChuoiSangInteger(xulyChung.nhanThamSoTrongSession(0)); //-----Nhận mã đặt bàn
+                    qlCaPheEntities db = new qlCaPheEntities();
+                    datBanOnline datBan = db.datBanOnlines.SingleOrDefault(f => f.maDatBan == maDatBan);
+                    if (datBan != null)
+                    {
+                        datBan.trangThai = trangThai; //------Cập nhật trạng thái feedback đã phản hồi
+                        db.Entry(datBan).State = System.Data.Entity.EntityState.Modified;
+                        kqLuu = db.SaveChanges();
+                        if (kqLuu > 0)
+                            xulyChung.ghiNhatKyDtb(4, "Cập nhật trạng thái của đặt bàn của khách\" " + xulyDuLieu.traVeKyTuGoc(datBan.hoTenKH) + " \"");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    xulyFile.ghiLoi("Class: DatBanOnlineController - Function: capNhatTrangThai", ex.Message);
+                }
+            }
+            return RedirectToAction("db_DatBanChoTiepNhan");
+        }
+        #endregion
         /// <summary>
         /// Hàm thực hiện nhúng các đoạn script xử lý vào giao diện
         /// </summary>

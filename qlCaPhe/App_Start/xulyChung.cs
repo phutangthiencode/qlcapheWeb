@@ -60,6 +60,27 @@ namespace qlCaPhe.App_Start
             urlAction = urlAction.Replace("request=", ""); //urlAction có dạng: maTV
             return urlAction;
         }
+        /// <summary>
+        /// Hàm nhận tham số trong session tại 1 vị trí
+        /// </summary>
+        /// <param name="index">Vị trí cần lấy tham số. Bắt đầu từ 0</param>
+        /// <returns>giá trị của tham số</returns>
+        public static string nhanThamSoTrongSession(int index)
+        {
+            //---------Lấy session
+            //HttpSessionStateBase Session = new HttpSessionStateWrapper(HttpContext.Current.Session);
+            //string urlAction = (string)Session["urlAction"]; //urlAction có dạng: page=bv_capnhattrangthai|request=maBV&trangthai        
+            ////-----Xử lý request trong session
+            //urlAction = urlAction.Split('|')[1];  //urlAction có dạng: request=maTV&trangThai
+            //urlAction = urlAction.Replace("request=", ""); //urlAction có dạng: maTV&trangThai
+            string kq = "";
+            if (index >= 0)
+            {
+                kq = nhanThamSoTrongSession(); //-----trả về với dạng giá trị của thamSo1&thamSo2
+                kq = kq.Split('&')[index];
+            }
+            return kq;
+        }
 
         /// <summary>
         /// Hàm kiểm tra quyền hạn tài khoản đăng nhập có được phép truy cập vào trang

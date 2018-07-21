@@ -29,7 +29,7 @@
                                 <tr>
                                     <td>
                                         <img style="width:75%; height:auto" src="@xulyDuLieu.chuyenByteHinhThanhSrcImage(ct.BanChoNgoi.hinhAnh)" />
-                                        <br/>
+                                        <br />
                                         <b class="table-ordered-tablename font-16">@xulyDuLieu.traVeKyTuGoc(ct.BanChoNgoi.tenBan)</b>
                                     </td>
                                     <td>@xulyDuLieu.traVeKyTuGoc(ct.BanChoNgoi.khuVuc.tenKhuVuc)</td>
@@ -42,6 +42,22 @@
             </div>
         </div>
         <div class="col-md-5 col-lg-5">
+
+            <div class="card">
+                <div class="header bg-red">
+                    <h2>Thông tin đặt bàn</h2>
+                </div>
+                <div class="body table-responsive">
+                    <ul class="profile-thanhvien">
+                        <li><strong>Khách hàng:&nbsp; </strong>@xulyDuLieu.traVeKyTuGoc(Model.hoTenKH)</li>
+                        <li><strong>SĐT:&nbsp;</strong>@xulyDuLieu.traVeKyTuGoc(Model.SDT)</li>
+                        <li><strong>Ngày đặt:&nbsp;</strong>@Model.ngayDat.ToString()</li>
+                        <li><strong>Số lượng khách:&nbsp;</strong>@Model.soLuongKhach.ToString()</li>
+                        <li><strong>Ngày đến dự kiện:&nbsp;</strong>@Model.ngayDenDuKien.ToString()</li>
+                    </ul>
+                </div>
+            </div>
+
             <div class="card">
                 <div class="header bg-green">
                     <h2>
@@ -55,8 +71,11 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-info waves-effect" data-dismiss="modal"><i class="material-icons">done</i>Tiếp nhận</button>
-        <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal"><i class="material-icons">clear</i>Từ chối</button>
+        @if (Model.trangThai == 0)
+        {
+            <button task="@xulyChung.taoUrlCoTruyenThamSo("/DatBanOnline/capNhatTrangThai", Model.maDatBan.ToString() + "&1")" class="guiRequest btn btn-info waves-effect" data-dismiss="modal"><i class="material-icons">done</i>Tiếp nhận</button>
+            <button task="@xulyChung.taoUrlCoTruyenThamSo("/DatBanOnline/capNhatTrangThai", Model.maDatBan.ToString() + "&2")" class="guiRequest btn btn-danger waves-effect" data-dismiss="modal"><i class="material-icons">clear</i>Từ chối</button>
+        }
         <button type="button" class="btn btn-default waves-effect" data-dismiss="modal"><i class="material-icons">exit_to_app</i>Đóng lại</button>
     </div>
 </div>
