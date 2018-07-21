@@ -16,11 +16,12 @@ namespace qlCaPhe.Controllers
         /// Hàm tạo giao diện hiện đặt bàn chờ tiếp nhận
         /// </summary>
         /// <returns>View giao diện trang</returns>
-        public ActionResult db_DatBanChoTiepNhan(int ?page)
+        public ActionResult db_DatBanChoTiepNhan(int? page)
         {
             if (xulyChung.duocTruyCap(idOfPage))
             {
-                try {
+                try
+                {
                     qlCaPheEntities db = new qlCaPheEntities();
                     int trangHienHanh = (page ?? 1);
                     //------Lấy danh sách đặt bàn online chờ tiếp nhận
@@ -29,7 +30,7 @@ namespace qlCaPhe.Controllers
                     ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, createHTML.pageSize, trangHienHanh, "/DatBanOnline/db_DatBanDaChoTiepNhan");
                     //-----Nhúng script để xủ lý 1 số chức năng
                     this.nhungScript();
-                  //  xulyChung.ghiNhatKyDtb(1, "Danh mục đặt bàn đang chờ tiếp nhận");
+                    xulyChung.ghiNhatKyDtb(1, "Danh mục đặt bàn đang chờ tiếp nhận");
                 }
                 catch (Exception ex)
                 {
@@ -58,7 +59,7 @@ namespace qlCaPhe.Controllers
                     ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, createHTML.pageSize, trangHienHanh, "/DatBanOnline/db_DatBanDaChoTiepNhan");
                     //-----Nhúng script để xủ lý 1 số chức năng
                     this.nhungScript();
-                    //  xulyChung.ghiNhatKyDtb(1, "Danh mục đặt bàn đang đã tiếp nhận");
+                    xulyChung.ghiNhatKyDtb(1, "Danh mục đặt bàn đã tiếp nhận");
                 }
                 catch (Exception ex)
                 {
@@ -87,7 +88,7 @@ namespace qlCaPhe.Controllers
                     ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, createHTML.pageSize, trangHienHanh, "/DatBanOnline/db_DatBanDaChoTiepNhan");
                     //-----Nhúng script để xủ lý 1 số chức năng
                     this.nhungScript();
-                    //  xulyChung.ghiNhatKyDtb(1, "Danh mục đặt bàn đang đã hủy");
+                    xulyChung.ghiNhatKyDtb(1, "Danh mục đặt bàn đã hủy");
                 }
                 catch (Exception ex)
                 {
@@ -103,7 +104,7 @@ namespace qlCaPhe.Controllers
         /// <param name="page">Trang hiện hành</param>
         /// <param name="trangThai">Trạng thái cần lấy danh sách</param>
         /// <returns>Phần <table></table> trên trang</returns>
-        public ActionResult db_PartTable(int? page,int? trangThai)
+        public ActionResult db_PartTable(int? page, int? trangThai)
         {
             List<datBanOnline> listDatBan = new List<datBanOnline>();
             if (xulyChung.duocTruyCap(idOfPage))
@@ -133,7 +134,7 @@ namespace qlCaPhe.Controllers
             {
                 try
                 {
-                    datBan = new qlCaPheEntities().datBanOnlines.SingleOrDefault(d=>d.maDatBan==maDatBan);
+                    datBan = new qlCaPheEntities().datBanOnlines.SingleOrDefault(d => d.maDatBan == maDatBan);
                 }
                 catch (Exception ex)
                 {
@@ -153,29 +154,29 @@ namespace qlCaPhe.Controllers
         public ActionResult capNhatTrangThai()
         {
             int trangThai = xulyDuLieu.doiChuoiSangInteger(xulyChung.nhanThamSoTrongSession(1));
-            if (trangThai > 0) 
-            if (xulyChung.duocCapNhat(idOfPage, "7"))
-            {
-                try
+            if (trangThai > 0)
+                if (xulyChung.duocCapNhat(idOfPage, "7"))
                 {
-                    int kqLuu = 0;
-                    int maDatBan = xulyDuLieu.doiChuoiSangInteger(xulyChung.nhanThamSoTrongSession(0)); //-----Nhận mã đặt bàn
-                    qlCaPheEntities db = new qlCaPheEntities();
-                    datBanOnline datBan = db.datBanOnlines.SingleOrDefault(f => f.maDatBan == maDatBan);
-                    if (datBan != null)
+                    try
                     {
-                        datBan.trangThai = trangThai; //------Cập nhật trạng thái feedback đã phản hồi
-                        db.Entry(datBan).State = System.Data.Entity.EntityState.Modified;
-                        kqLuu = db.SaveChanges();
-                        if (kqLuu > 0)
-                            xulyChung.ghiNhatKyDtb(4, "Cập nhật trạng thái của đặt bàn của khách\" " + xulyDuLieu.traVeKyTuGoc(datBan.hoTenKH) + " \"");
+                        int kqLuu = 0;
+                        int maDatBan = xulyDuLieu.doiChuoiSangInteger(xulyChung.nhanThamSoTrongSession(0)); //-----Nhận mã đặt bàn
+                        qlCaPheEntities db = new qlCaPheEntities();
+                        datBanOnline datBan = db.datBanOnlines.SingleOrDefault(f => f.maDatBan == maDatBan);
+                        if (datBan != null)
+                        {
+                            datBan.trangThai = trangThai; //------Cập nhật trạng thái feedback đã phản hồi
+                            db.Entry(datBan).State = System.Data.Entity.EntityState.Modified;
+                            kqLuu = db.SaveChanges();
+                            if (kqLuu > 0)
+                                xulyChung.ghiNhatKyDtb(4, "Cập nhật trạng thái của đặt bàn của khách\" " + xulyDuLieu.traVeKyTuGoc(datBan.hoTenKH) + " \"");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        xulyFile.ghiLoi("Class: DatBanOnlineController - Function: capNhatTrangThai", ex.Message);
                     }
                 }
-                catch (Exception ex)
-                {
-                    xulyFile.ghiLoi("Class: DatBanOnlineController - Function: capNhatTrangThai", ex.Message);
-                }
-            }
             return RedirectToAction("db_DatBanChoTiepNhan");
         }
         #endregion
@@ -186,5 +187,5 @@ namespace qlCaPhe.Controllers
         {
             ViewBag.ScriptAjaxXemChiTiet = createScriptAjax.scriptAjaxXemChiTietKhiClick("js-xem-chitiet", "maDatBan", "DatBanOnline/db_PartModalChiTiet?maDatBan=", "vungChiTiet", "modalChiTiet");
         }
-	}
+    }
 }
