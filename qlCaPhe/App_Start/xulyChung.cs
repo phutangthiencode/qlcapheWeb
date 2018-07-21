@@ -16,7 +16,7 @@ namespace qlCaPhe.App_Start
         /// <summary>
         /// Hàm thực hiện trả về đường dẫn chứa domain name hiện tại
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Trả về dạng: localhost:54272</returns>
         public static string layTenMien()
         {
             return HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) + "/";
@@ -24,7 +24,7 @@ namespace qlCaPhe.App_Start
         /// <summary>
         /// Hàm thực hiện lấy đường dẫn hiện tại trên host của project
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Trả về dạng C:\Project\qlCaPhe</returns>
         public static string layDuongDanHost()
         {
             return AppDomain.CurrentDomain.BaseDirectory;
@@ -67,12 +67,6 @@ namespace qlCaPhe.App_Start
         /// <returns>giá trị của tham số</returns>
         public static string nhanThamSoTrongSession(int index)
         {
-            //---------Lấy session
-            //HttpSessionStateBase Session = new HttpSessionStateWrapper(HttpContext.Current.Session);
-            //string urlAction = (string)Session["urlAction"]; //urlAction có dạng: page=bv_capnhattrangthai|request=maBV&trangthai        
-            ////-----Xử lý request trong session
-            //urlAction = urlAction.Split('|')[1];  //urlAction có dạng: request=maTV&trangThai
-            //urlAction = urlAction.Replace("request=", ""); //urlAction có dạng: maTV&trangThai
             string kq = "";
             if (index >= 0)
             {

@@ -10841,6 +10841,11 @@ html.ie11 .bs-searchbox .form-control {
     text-align: center;
 }
 
+.link-download-app, .link-download-app:hover{
+    color: #666666;
+    text-decoration: none;
+}
+
 
 /*RESPONSIVE BIỂU ĐỒ*/
 

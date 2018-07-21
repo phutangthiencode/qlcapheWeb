@@ -3965,6 +3965,7 @@
       <DependentUpon>qlCaPhe.edmx</DependentUpon>
       <LastGenOutput>qlCaPhe.cs</LastGenOutput>
     </Content>
+    <Content Include="pages\app\coffeemanager.apk" />
     <None Include="Properties\PublishProfiles\qlcaphe.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\demo.js" />
@@ -4185,6 +4186,7 @@
     <Content Include="Views\DatBanOnline\db_DatBanDaTiepNhan.cshtml" />
     <Content Include="Views\DatBanOnline\db_DatBanChoTiepNhan.cshtml" />
     <Content Include="Views\DatBanOnline\db_PartModalChiTiet.cshtml" />
+    <Content Include="Views\Tools_VungLamViec\tools_PartDownloadApp.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

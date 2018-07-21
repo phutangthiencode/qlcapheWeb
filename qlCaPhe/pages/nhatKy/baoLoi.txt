@@ -33,3 +33,143 @@ Vị trí: Class: xulyChung - Function: duocTruyCap
  Lỗi: Cannot redirect after HTTP headers have been sent.
 ---------------------------------------------------------------
 
+-----------------------7/22/2018 12:37:17 AM----------
+Vị trí: Class: xulyChung - Function: duocTruyCap 
+ Lỗi: Cannot redirect after HTTP headers have been sent.
+---------------------------------------------------------------
+
+-----------------------7/22/2018 12:44:28 AM----------
+Vị trí: Class: xulyChung - Function: ghiNhatKy 
+ Lỗi: An error occurred while updating the entries. See the inner exception for details.
+---------------------------------------------------------------
+
+-----------------------7/22/2018 1:09:26 AM----------
+Vị trí: Class: xulyChung - Function: duocTruyCap 
+ Lỗi: Cannot redirect after HTTP headers have been sent.
+---------------------------------------------------------------
+
+-----------------------7/22/2018 1:09:44 AM----------
+Vị trí: Class: xulyChung - Function: ghiNhatKy 
+ Lỗi: An error occurred while updating the entries. See the inner exception for details.
+---------------------------------------------------------------
+
+-----------------------7/22/2018 1:09:57 AM----------
+Vị trí: Class: xulyChung - Function: duocTruyCap 
+ Lỗi: Cannot redirect after HTTP headers have been sent.
+---------------------------------------------------------------
+
+-----------------------7/22/2018 1:11:02 AM----------
+Vị trí: Class: xulyChung - Function: duocTruyCap 
+ Lỗi: Cannot redirect after HTTP headers have been sent.
+---------------------------------------------------------------
+
+-----------------------7/22/2018 1:11:32 AM----------
+Vị trí: Class: xulyChung - Function: duocTruyCap 
+ Lỗi: Cannot redirect after HTTP headers have been sent.
+---------------------------------------------------------------
+
+-----------------------7/22/2018 1:18:56 AM----------
+Vị trí: Class: xulyChung - Function: duocTruyCap 
+ Lỗi: Cannot redirect after HTTP headers have been sent.
+---------------------------------------------------------------
+
+-----------------------7/22/2018 1:19:05 AM----------
+Vị trí: Class: xulyChung - Function: ghiNhatKy 
+ Lỗi: An error occurred while updating the entries. See the inner exception for details.
+---------------------------------------------------------------
+
+-----------------------7/22/2018 1:19:10 AM----------
+Vị trí: Class: xulyChung - Function: duocTruyCap 
+ Lỗi: Cannot redirect after HTTP headers have been sent.
+---------------------------------------------------------------
+
+-----------------------7/22/2018 1:21:28 AM----------
+Vị trí: Class: xulyChung - Function: ghiNhatKy 
+ Lỗi: An error occurred while updating the entries. See the inner exception for details.
+---------------------------------------------------------------
+
+-----------------------7/22/2018 1:21:31 AM----------
+Vị trí: Class: xulyChung - Function: duocTruyCap 
+ Lỗi: Cannot redirect after HTTP headers have been sent.
+---------------------------------------------------------------
+
+-----------------------7/22/2018 1:22:08 AM----------
+Vị trí: Class: xulyChung - Function: duocTruyCap 
+ Lỗi: Cannot redirect after HTTP headers have been sent.
+---------------------------------------------------------------
+
+-----------------------7/22/2018 1:26:01 AM----------
+Vị trí: Class: xulyChung - Function: ghiNhatKy 
+ Lỗi: An error occurred while updating the entries. See the inner exception for details.
+---------------------------------------------------------------
+
+-----------------------7/22/2018 1:27:21 AM----------
+Vị trí: Class: xulyChung - Function: ghiNhatKy 
+ Lỗi: An error occurred while updating the entries. See the inner exception for details.
+---------------------------------------------------------------
+
+-----------------------7/22/2018 1:27:54 AM----------
+Vị trí: Class: xulyChung - Function: ghiNhatKy 
+ Lỗi: An error occurred while updating the entries. See the inner exception for details.
+---------------------------------------------------------------
+
+-----------------------7/22/2018 1:28:48 AM----------
+Vị trí: Class: xulyChung - Function: ghiNhatKy 
+ Lỗi: An error occurred while updating the entries. See the inner exception for details.
+---------------------------------------------------------------
+
+-----------------------7/22/2018 1:29:44 AM----------
+Vị trí: Class: xulyChung - Function: ghiNhatKy 
+ Lỗi: An error occurred while updating the entries. See the inner exception for details.
+---------------------------------------------------------------
+
+-----------------------7/22/2018 1:30:49 AM----------
+Vị trí: Class: xulyChung - Function: ghiNhatKy 
+ Lỗi: An error occurred while updating the entries. See the inner exception for details.
+---------------------------------------------------------------
+
+-----------------------7/22/2018 1:33:26 AM----------
+Vị trí: Class: xulyChung - Function: ghiNhatKy 
+ Lỗi: An error occurred while updating the entries. See the inner exception for details.
+---------------------------------------------------------------
+
+-----------------------7/22/2018 1:34:11 AM----------
+Vị trí: Class: xulyChung - Function: ghiNhatKy 
+ Lỗi: An error occurred while updating the entries. See the inner exception for details.
+---------------------------------------------------------------
+
+-----------------------7/22/2018 1:38:58 AM----------
+Vị trí: Class: xulyChung - Function: duocTruyCap 
+ Lỗi: Cannot redirect after HTTP headers have been sent.
+---------------------------------------------------------------
+
+-----------------------7/22/2018 1:39:06 AM----------
+Vị trí: Class: xulyChung - Function: duocTruyCap 
+ Lỗi: Cannot redirect after HTTP headers have been sent.
+---------------------------------------------------------------
+
+-----------------------7/22/2018 1:39:44 AM----------
+Vị trí: Class: xulyChung - Function: duocTruyCap 
+ Lỗi: Cannot redirect after HTTP headers have been sent.
+---------------------------------------------------------------
+
+-----------------------7/22/2018 1:40:36 AM----------
+Vị trí: Class: xulyChung - Function: duocTruyCap 
+ Lỗi: Cannot redirect after HTTP headers have been sent.
+---------------------------------------------------------------
+
+-----------------------7/22/2018 1:41:51 AM----------
+Vị trí: Class: xulyChung - Function: duocTruyCap 
+ Lỗi: Cannot redirect after HTTP headers have been sent.
+---------------------------------------------------------------
+
+-----------------------7/22/2018 1:42:34 AM----------
+Vị trí: Class: xulyChung - Function: duocTruyCap 
+ Lỗi: Cannot redirect after HTTP headers have been sent.
+---------------------------------------------------------------
+
+-----------------------7/22/2018 1:46:00 AM----------
+Vị trí: Class: xulyChung - Function: ghiNhatKy 
+ Lỗi: An error occurred while updating the entries. See the inner exception for details.
+---------------------------------------------------------------
+

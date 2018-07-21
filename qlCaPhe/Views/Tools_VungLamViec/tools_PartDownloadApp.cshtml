@@ -1,0 +1,44 @@
+﻿@model qlCaPhe.Models.taiKhoan
+@using qlCaPhe.App_Start
+
+@{
+    if (Model.nhomTaiKhoan != null)
+    {
+        string quyenHan = Model.nhomTaiKhoan.quyenHan;
+        if (quyenHan.Contains(":501") || quyenHan.Contains(":602") || quyenHan.Contains(":803"))
+        {
+            <div class="row clearfix">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="panel-group" id="accordion_1" role="tablist" aria-multiselectable="true">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading" role="tab" id="headingOne_1">
+                                <h4 class="panel-title">
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion_1" href="#collapseOne_1" aria-expanded="true" aria-controls="collapseOne_1" class="">
+                                        Tải ứng dụng
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseOne_1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne_1" aria-expanded="true" style="">
+                                <div class="dropzone dz-clickable">
+
+                                    <a href="/Tools_VungLamViec/DownloadApp" class="link-download-app">
+                                        <div class="dz-message">
+                                            <div class="drag-icon-cph">
+                                                <i class="material-icons">file_download</i>
+                                            </div>
+                                            <h3>Click vào đây để tải ứng dụng CoffeeManager</h3>
+                                            <em>(Ứng dụng chỉ hỗ trợ cho thiết bị chạy hệ điều hành Android)</em>
+
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+
+
+}
