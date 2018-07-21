@@ -211,8 +211,10 @@ namespace qlCaPhe.Controllers
                 kq += "       <a href=\"" + urlDetail + "\">";
                 kq += "           <img src=\"" + xulyDuLieu.chuyenByteHinhThanhSrcImage(sp.hinhAnh) + "\" class=\"img-responsive\" alt=\"" + xulyDuLieu.traVeKyTuGoc(sp.tenSanPham) + "\">";
                 kq += "       </a>";
-                kq += "       <h5><a href=\"" + urlDetail + "\">" + tenSP + "</a></h5>";
-                kq += "       <p>" + xulyDuLieu.doiVND(sp.donGia) + "</p>";
+                kq += "       <div class=\"item-detail-table\">";
+                kq += "         <h5><a href=\"" + urlDetail + "\">" + tenSP + "</a></h5>";
+                kq += "         <p>" + xulyDuLieu.doiVND(sp.donGia) + "</p>";
+                kq += "       </div>";
                 kq += "   </div>";
                 if (index == 4)
                 {

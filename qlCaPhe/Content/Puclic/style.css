@@ -843,8 +843,9 @@ i.goog {
 
 .special-in p {
     font-size: 1.3em;
-    color: #3e3e3e;
+    color: #ffffff;
     text-align: center;
+    font-weight: 600;
 }
 
 .special-top {
