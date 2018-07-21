@@ -45,7 +45,7 @@
                             <div class="col-md-offset-4">
                                 <button type="button" class="btn bg-blue btn-lg waves-effect " id="btnModalNguyenLieuKiemKho">
                                     <i class="material-icons">print</i>
-                                    <span>IN DANH SÁCH NGUYÊN LIỆU KIỂM KHO</span>
+                                    <span>IN DANH SÁCH NGUYÊN LIỆU CẦN KIỂM KÊ</span>
                                 </button>
                             </div>
                         </div>
@@ -138,7 +138,7 @@
                                         <i class="material-icons">settings_backup_restore</i><span>KIỂM LẠI KHO HÀNG</span>
                                     </a>
                                     <button type="submit" class="btn btn-primary waves-effect">
-                                        <i class="material-icons">check</i><span>HOÀN TẤT KIỂM KHO</span>
+                                        <i class="material-icons">check</i><span>HOÀN TẤT KIỂM KÊ</span>
                                     </button>
                                 </div>
                             </form>
@@ -198,5 +198,8 @@
 
     @Html.Raw(ViewBag.ThongBao)
 </section>
-<script src="~/Scripts/Ajax/kiemKho.js"></script>
 
+
+@section sciptajax{
+<script src="~/Scripts/Ajax/kiemKho.js"></script>
+}

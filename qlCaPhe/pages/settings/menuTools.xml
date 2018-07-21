@@ -40,7 +40,7 @@
   <menuItem idCha="0" id="8" name="Nhập - Xuất kho" link="" cssClass="" description="" icon="store_mall_directory">
     <menuItem id="801" idCha="8" name="Nhập hàng" link="../NhapKho/nk_TablePhieuNhap" cssClass="" description="" icon="cloud_download"></menuItem>
     <menuItem id="802" idCha="8" name="Xuất hàng" link="../XuatKho/xk_TableXuatKho" cssClass="" description="" icon="cloud_upload"></menuItem>
-    <menuItem id="803" idCha="8" name="Kiểm kho" link="../TonKho/tkho_KiemKho" cssClass="" description="" icon="spellcheck"></menuItem>
+    <menuItem id="803" idCha="8" name="Kiểm kê kho hàng" link="../TonKho/tkho_KiemKho" cssClass="" description="" icon="spellcheck"></menuItem>
     <menuItem id="804" idCha="8" name="Tồn kho" link="../TonKho/tkho_TableTonKho" cssClass="" description="" icon="view_list"></menuItem>
   </menuItem>
 
