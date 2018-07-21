@@ -24,6 +24,8 @@ namespace qlCaPhe.Controllers
             if (xulyChung.duocTruyCap(idOfPage))
                 try
                 {
+                    taiKhoan tkLogin = (taiKhoan)Session["login"];
+                    ViewBag.txtNguoiLapPhieu = xulyDuLieu.traVeKyTuGoc(tkLogin.thanhVien.hoTV + " " + tkLogin.thanhVien.tenTV);
                     this.taoDuLieuChoCbbKhoHang(new qlCaPheEntities());
                     this.resetSession();
                     xulyChung.ghiNhatKyDtb(1, "Tạo mới phiếu xuất kho");
