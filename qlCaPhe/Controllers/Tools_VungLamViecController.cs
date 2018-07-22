@@ -122,5 +122,23 @@ namespace qlCaPhe.Controllers
                 }
             return PartialView(listPhanHoi);
         }
+        /// <summary>
+        /// Hàm tạo vùng giao diện liệt kê các bài viết chưa duyệt
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult tools_PartBaiViet()
+        {
+            List<baiViet> listBaiViet = new List<baiViet>();
+            if (xulyChung.duocTruyCap("1002"))
+                try
+                {
+                    listBaiViet = new qlCaPheEntities().baiViets.Where(b => b.trangThai == 0).ToList();
+                }
+                catch (Exception ex)
+                {
+                    xulyFile.ghiLoi("Class: Tools_VungLamViecController - Function: tools_PartBaiViet", ex.Message);
+                }
+            return PartialView(listBaiViet);
+        }
     }
 }

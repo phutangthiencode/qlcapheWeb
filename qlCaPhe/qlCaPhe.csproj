@@ -4190,6 +4190,7 @@
     <Content Include="Views\Tools_VungLamViec\tools_PartThongKeSoLuongBan.cshtml" />
     <Content Include="Views\Tools_VungLamViec\tools_PartDatBanOnline.cshtml" />
     <Content Include="Views\Tools_VungLamViec\tools_PartPhanHoi.cshtml" />
+    <Content Include="Views\Tools_VungLamViec\tools_PartBaiViet.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

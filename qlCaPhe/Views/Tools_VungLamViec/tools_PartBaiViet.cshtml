@@ -1,0 +1,21 @@
+﻿@model List<qlCaPhe.Models.baiViet>
+@using qlCaPhe.App_Start
+@if (Model.Count > 0)
+{
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        <div class="card">
+            <div class="body bg-teal">
+                <div class="font-bold m-b--35">BÀI VIẾT MỚI</div>
+                <ul class="dashboard-stat-list">
+                    @foreach (var baiViet in Model)
+                    {
+                        <li>
+                            <b>@xulyDuLieu.xulyCatChuoi(xulyDuLieu.traVeKyTuGoc(baiViet.tenBaiViet),26)</b>
+                            <a class="pull-right" href="/BaiViet/bv_TableBaiVietChoDuyet">Xem chi tiết</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+}
