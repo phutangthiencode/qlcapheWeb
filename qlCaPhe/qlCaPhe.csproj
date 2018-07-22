@@ -4188,6 +4188,7 @@
     <Content Include="Views\DatBanOnline\db_PartModalChiTiet.cshtml" />
     <Content Include="Views\Tools_VungLamViec\tools_PartDownloadApp.cshtml" />
     <Content Include="Views\Tools_VungLamViec\tools_PartThongKeSoLuongBan.cshtml" />
+    <Content Include="Views\Tools_VungLamViec\tools_PartDatBanOnline.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

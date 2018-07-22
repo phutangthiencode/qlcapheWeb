@@ -193,3 +193,18 @@ Vị trí: Class: xulyChung - Function: ghiNhatKy
  Lỗi: An error occurred while updating the entries. See the inner exception for details.
 ---------------------------------------------------------------
 
+-----------------------7/23/2018 12:22:27 AM----------
+Vị trí: Class: xulyChung - Function: duocTruyCap 
+ Lỗi: Cannot redirect after HTTP headers have been sent.
+---------------------------------------------------------------
+
+-----------------------7/23/2018 12:34:10 AM----------
+Vị trí: Class: xulyChung - Function: duocTruyCap 
+ Lỗi: Cannot redirect after HTTP headers have been sent.
+---------------------------------------------------------------
+
+-----------------------7/23/2018 12:34:11 AM----------
+Vị trí: Class: xulyChung - Function: duocTruyCap 
+ Lỗi: Cannot redirect after HTTP headers have been sent.
+---------------------------------------------------------------
+

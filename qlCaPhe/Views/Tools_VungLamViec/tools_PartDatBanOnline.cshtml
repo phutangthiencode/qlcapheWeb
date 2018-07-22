@@ -1,0 +1,20 @@
+﻿@model List<qlCaPhe.Models.datBanOnline>
+@using qlCaPhe.App_Start
+
+<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+    <div class="card">
+        <div class="body bg-pink">
+            <div class="m-b--35 font-bold">ĐẶT BÀN ONLINE</div>
+            <ul class="dashboard-stat-list" >
+                @foreach (var datBan in Model)
+                {
+                    string noiDung = xulyDuLieu.traVeKyTuGoc(datBan.hoTenKH.ToUpper()) + " (x" + datBan.soLuongKhach.ToString() + ")";
+                    <li>
+                        @noiDung
+                        <a class="pull-right" href="/DatBanOnline/db_DatBanChoTiepNhan">Xem chi tiết</a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>

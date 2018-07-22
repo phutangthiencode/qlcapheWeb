@@ -86,5 +86,23 @@ namespace qlCaPhe.Controllers
             }
             return null;
         }
+        /// <summary>
+        /// Hàm tạo vùng giao diện đặt bàn online
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult tools_PartDatBanOnline()
+        {
+            List<datBanOnline> listDatBan = new List<datBanOnline>();
+            if (xulyChung.duocTruyCap("504"))
+                try
+                {
+                    listDatBan = new qlCaPheEntities().datBanOnlines.Where(d => d.trangThai == 0).ToList();
+                }
+                catch (Exception ex)
+                {
+                    xulyFile.ghiLoi("Class: Tools_VungLamViecController - Function: tools_PartDatBanOnline", ex.Message);
+                }
+            return PartialView(listDatBan);
+        }
     }
 }

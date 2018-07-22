@@ -3168,6 +3168,10 @@ section.content {
         padding: 16px 0 0 0;
     }
 
+    .dashboard-stat-list li a {
+        color: #ffffff;
+    }
+
         .dashboard-stat-list li small {
             font-size: 8px;
         }
@@ -10832,7 +10836,8 @@ html.ie11 .bs-searchbox .form-control {
     max-width: 979px;
     height: 600px;
 }
-.pie-chart{
+
+.pie-chart {
     max-width: 800px;
     height: 600px;
 }
@@ -10841,7 +10846,7 @@ html.ie11 .bs-searchbox .form-control {
     text-align: center;
 }
 
-.link-download-app, .link-download-app:hover{
+.link-download-app, .link-download-app:hover {
     color: #666666;
     text-decoration: none;
 }
@@ -10855,10 +10860,11 @@ html.ie11 .bs-searchbox .form-control {
         max-width: 979px;
         height: 600px;
     }
-    .pie-chart{
-    max-width: 800px;
-    height: 600px;
-}
+
+    .pie-chart {
+        max-width: 800px;
+        height: 600px;
+    }
 }
 
 
@@ -10868,8 +10874,9 @@ html.ie11 .bs-searchbox .form-control {
         max-width: 979px;
         height: 600px;
     }
-    .pie-chart{
-    max-width: 800px;
-    height: 600px;
-}
+
+    .pie-chart {
+        max-width: 800px;
+        height: 600px;
+    }
 }
