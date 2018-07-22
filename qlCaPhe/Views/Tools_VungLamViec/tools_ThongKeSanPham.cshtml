@@ -1,0 +1,46 @@
+﻿<script src="~/Scripts/jsapi.js"></script>
+<script src="~/Scripts/Ajax/ThongKe/thongKeDoanhThu.js"></script>
+
+<script>
+    google.load("visualization", "1", { packages: ["corechart"] });
+    $(document).ready(function () {
+        var ts = getDateCurrent();
+        VeBieuDoTronThongKeSanPham(ts);
+    });
+
+
+    function VeBieuDoTronThongKeSanPham(ts) {
+        var title = "Thống kê số lượng sản phẩm bán theo ngày hôm nay";
+        $.ajax({
+            type: "GET",
+            url: '/ThongKe/GetJsonSanPhamTheoNgay',
+            data: 'param=' + ts,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json", async: true,
+            beforeSend: function () {
+                $('#pie-chart-ngay').html('');
+            },
+            success: function (kq) {
+                hienTongDoanhThuSanPham(kq);
+                drawPieChartSanPham(kq, title, "pie-chart-ngay");
+            },
+            failure: function (r) {
+                alert(r.d);
+            },
+            error: function (r) {
+                alert(r.d);
+            }
+        });
+    }
+</script>
+
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="card">
+        <div class="header">
+            <h2>SẢN PHẨM BÁN CHẠY</h2>
+        </div>
+        <div class="body">
+            <div id="pie-chart-ngay" class="pie-chart"></div>
+        </div>
+    </div>
+</div>

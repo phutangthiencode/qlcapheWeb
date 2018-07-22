@@ -1,0 +1,39 @@
+﻿<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="card">
+        <div class="header">
+            <h2>NHẬT KÝ TRUY CẬP</h2>
+            <ul class="header-dropdown m-r--5">
+                <li class="dropdown">
+                    <a href="/NhatKy/nky_NhatKyTruyCap">
+                        <i class="material-icons">link</i>
+                    </a>
+
+                </li>
+            </ul>
+        </div>
+        <div class="body">
+            <div class="table-responsive">
+                <table class="table table-hover dashboard-task-infos">
+                    <thead>
+                        <tr>
+                            <th width="5%">#</th>
+                            <th width="29%">Tài khoản</th>
+                            <th width="27%">Thời điểm</th>
+                            <th width="45%">Chức năng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 1; i <= 5; i++) { 
+                        <tr role="row" class="odd">
+                            <td>@i</td>
+                            <td><b class="col-blue">admin -- Tăng Thiên Phú</b></td>
+                            <td>7/23/2018 1:18:50 AM</td>
+                            <td><b>( Truy cập ) Vùng làm việc chính...</b></td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

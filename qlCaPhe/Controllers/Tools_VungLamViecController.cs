@@ -140,5 +140,21 @@ namespace qlCaPhe.Controllers
                 }
             return PartialView(listBaiViet);
         }
+        /// <summary>
+        /// Hàm tạo vùng giao diện danh sách 5 nhật ký truy cập của thành viên
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult tools_PartNhatKy()
+        {
+            return PartialView();
+        }
+        /// <summary>
+        /// hàm thống kê sản phẩm bán chạy trong ngày
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult tools_ThongKeSanPham()
+        {
+            return PartialView();
+        }
     }
 }
