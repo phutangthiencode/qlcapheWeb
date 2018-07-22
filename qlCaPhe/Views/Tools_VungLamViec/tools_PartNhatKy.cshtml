@@ -1,51 +1,54 @@
 ﻿@model List<qlCaPhe.Models.nhatKy>
 @using qlCaPhe.App_Start
 
-<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-    <div class="card">
-        <div class="header">
-            <h2>NHẬT KÝ TRUY CẬP</h2>
-            <ul class="header-dropdown m-r--5">
-                <li class="dropdown">
-                    <a href="/NhatKy/nky_NhatKyTruyCap">
-                        <i class="material-icons">link</i>
-                    </a>
+@if (Model.Count > 0)
+{
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="card">
+            <div class="header">
+                <h2>NHẬT KÝ TRUY CẬP</h2>
+                <ul class="header-dropdown m-r--5">
+                    <li class="dropdown">
+                        <a href="/NhatKy/nky_NhatKyTruyCap">
+                            <i class="material-icons">link</i>
+                        </a>
 
-                </li>
-            </ul>
-        </div>
-        <div class="body">
-            <div class="table-responsive">
-                <table class="table table-hover dashboard-task-infos">
-                    <thead>
-                        <tr>
-                            <th width="5%">#</th>
-                            <th width="28%">Tài khoản</th>
-                            <th width="18%">Thời điểm</th>
-                            <th width="12%">Địa chỉ IP</th>
-                            <th width="37%">Chức năng truy cập</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @{
-                            int index = 1;
-                        }
-
-                        @foreach (var nhatKy in Model)
-                        {
-                            var taiKhoan = xulyDuLieu.traVeKyTuGoc(nhatKy.tenDangNhap + " -- " + nhatKy.taiKhoan.thanhVien.hoTV + " " + nhatKy.taiKhoan.thanhVien.tenTV);
-                            <tr role="row" class="odd">
-                                <td>@index</td>
-                                <td><b class="col-blue">@taiKhoan</b></td>
-                                <td>@nhatKy.thoiDiem.ToString()</td>
-                                <td>@nhatKy.IP</td>
-                                <td><b>@xulyDuLieu.traVeKyTuGoc(nhatKy.chucNang)</b></td>
+                    </li>
+                </ul>
+            </div>
+            <div class="body">
+                <div class="table-responsive">
+                    <table class="table table-hover dashboard-task-infos">
+                        <thead>
+                            <tr>
+                                <th width="5%">#</th>
+                                <th width="28%">Tài khoản</th>
+                                <th width="18%">Thời điểm</th>
+                                <th width="12%">Địa chỉ IP</th>
+                                <th width="37%">Chức năng truy cập</th>
                             </tr>
-                            index++;
-                        }
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @{
+    int index = 1;
+                            }
+
+                            @foreach (var nhatKy in Model)
+                            {
+                                var taiKhoan = xulyDuLieu.traVeKyTuGoc(nhatKy.tenDangNhap + " -- " + nhatKy.taiKhoan.thanhVien.hoTV + " " + nhatKy.taiKhoan.thanhVien.tenTV);
+                                <tr role="row" class="odd">
+                                    <td>@index</td>
+                                    <td><b class="col-blue">@taiKhoan</b></td>
+                                    <td>@nhatKy.thoiDiem.ToString()</td>
+                                    <td>@nhatKy.IP</td>
+                                    <td><b>@xulyDuLieu.traVeKyTuGoc(nhatKy.chucNang)</b></td>
+                                </tr>
+                                index++;
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-</div>
+}

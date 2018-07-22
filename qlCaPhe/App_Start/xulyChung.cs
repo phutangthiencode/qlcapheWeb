@@ -102,6 +102,32 @@ namespace qlCaPhe.App_Start
             }
             return false;
         }
+        /// <summary>
+        /// Hàm kiểm tra quyền hạn tài khoản đăng nhập có được phép truy cập vào trang. <para/>
+        /// Nếu không thì trả về true mà không chuyển sang trang báo quyền hạn
+        /// </summary>
+        /// <param name="idMenu">ID menu của trang dựa có trong file menuTools</param>
+        /// <returns>True: Được truy cập <para/> False: không được truy cập</returns>
+        public static bool duocTruyCapKhongChuyenTiep(string idMenu)
+        {
+            try
+            {
+                HttpSessionStateBase Session = new HttpSessionStateWrapper(HttpContext.Current.Session);
+                taiKhoan tkLogin = (taiKhoan)Session["login"];
+                if (tkLogin.tenDangNhap != null)
+                {
+                    string quyenHan = xulyDuLieu.traVeKyTuGoc(tkLogin.nhomTaiKhoan.quyenHan);
+                    if (quyenHan.Contains(":" + idMenu)) //------Nếu như quyền hạn có menu trang cần truy cập
+                        return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                xulyFile.ghiLoi("Class: xulyChung - Function: duocTruyCap", ex.Message);
+            }
+            return false;
+        }
+
 
         /// <summary>
         /// Hàm kiểm tra quyền hạn tài khoản đăng nhập được phép cập nhật thông tin

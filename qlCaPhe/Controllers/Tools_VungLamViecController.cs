@@ -7,7 +7,6 @@ using qlCaPhe.App_Start;
 using qlCaPhe.Models;
 using qlCaPhe.Models.Entities;
 using qlCaPhe.Models.Business;
-using qlCaPhe.App_Start;
 
 namespace qlCaPhe.Controllers
 {
@@ -20,8 +19,6 @@ namespace qlCaPhe.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-            if (xulyChung.duocTruyCap(idOfpage))
-                xulyChung.ghiNhatKyDtb(1, "Vùng làm việc chính");
             return View();
         }
         /// <summary>
@@ -32,7 +29,7 @@ namespace qlCaPhe.Controllers
         public ActionResult tools_PartThongKeSoLuongBan()
         {
             SoLuongBan soLuong = new SoLuongBan();
-            if (xulyChung.duocTruyCap(idOfpage))
+            if (xulyChung.duocTruyCapKhongChuyenTiep(idOfpage))
                 try
                 {
                     List<int> listSoLuong = new bNghiepVuBan().thongKeBanTheoTrangThai();
@@ -93,7 +90,7 @@ namespace qlCaPhe.Controllers
         public ActionResult tools_PartDatBanOnline()
         {
             List<datBanOnline> listDatBan = new List<datBanOnline>();
-            if (xulyChung.duocTruyCap("504"))
+            if (xulyChung.duocTruyCapKhongChuyenTiep("504"))
                 try
                 {
                     listDatBan = new qlCaPheEntities().datBanOnlines.Where(d => d.trangThai == 0).ToList();
@@ -111,7 +108,7 @@ namespace qlCaPhe.Controllers
         public ActionResult tools_PartPhanHoi()
         {
             List<Feedback> listPhanHoi = new List<Feedback>();
-            if(xulyChung.duocTruyCap("1002"))
+            if (xulyChung.duocTruyCapKhongChuyenTiep("1002"))
                 try
                 {
                     listPhanHoi = new qlCaPheEntities().Feedbacks.Where(f => f.trangThai == 0).ToList();
@@ -129,7 +126,7 @@ namespace qlCaPhe.Controllers
         public ActionResult tools_PartBaiViet()
         {
             List<baiViet> listBaiViet = new List<baiViet>();
-            if (xulyChung.duocTruyCap("1002"))
+            if (xulyChung.duocTruyCapKhongChuyenTiep("1002"))
                 try
                 {
                     listBaiViet = new qlCaPheEntities().baiViets.Where(b => b.trangThai == 0).ToList();
@@ -147,10 +144,10 @@ namespace qlCaPhe.Controllers
         public ActionResult tools_PartNhatKy()
         {
             List<nhatKy> listNhatKy = new List<nhatKy>();
-            if(xulyChung.duocTruyCap("1103"))
+            if (xulyChung.duocTruyCapKhongChuyenTiep("1103"))
                 try
                 {
-                    listNhatKy = new qlCaPheEntities().nhatKies.Take(5).ToList();//----Lấy 5 nhật ký gần đây
+                    listNhatKy = new qlCaPheEntities().nhatKies.Take(5).OrderByDescending(n=>n.thoiDiem).ToList();//----Lấy 5 nhật ký gần đây
                 }
                 catch (Exception ex)
                 {

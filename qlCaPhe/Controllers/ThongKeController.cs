@@ -68,7 +68,7 @@ namespace qlCaPhe.Controllers
         public JsonResult GetJsonSanPhamTheoNgay(string param)
         {
             List<object> listHoaDon = new List<object>();
-            if (xulyChung.duocTruyCap(idOfPageDoanhThuTheoThoiDiem))
+            if (xulyChung.duocTruyCapKhongChuyenTiep(idOfPageDoanhThuTheoThoiDiem))
                 try
                 {
                     DateTime date = xulyDuLieu.doiChuoiSangDateTime(param);

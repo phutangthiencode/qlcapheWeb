@@ -21,8 +21,13 @@
                 $('#pie-chart-ngay').html('');
             },
             success: function (kq) {
-                hienTongDoanhThuSanPham(kq);
-                drawPieChartSanPham(kq, title, "pie-chart-ngay");
+                var lenghtJson = Object.keys(kq).length;
+                if (lenghtJson > 0) {
+
+                    $('#js-vung-thongke').attr('style', 'display:block');
+                    hienTongDoanhThuSanPham(kq);
+                    drawPieChartSanPham(kq, title, "pie-chart-ngay");
+                }
             },
             failure: function (r) {
                 alert(r.d);
@@ -34,7 +39,7 @@
     }
 </script>
 
-<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="display:none;" id="js-vung-thongke">
     <div class="card">
         <div class="header">
             <h2>SẢN PHẨM BÁN CHẠY</h2>
