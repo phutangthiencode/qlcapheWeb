@@ -208,3 +208,23 @@ Vị trí: Class: xulyChung - Function: duocTruyCap
  Lỗi: Cannot redirect after HTTP headers have been sent.
 ---------------------------------------------------------------
 
+-----------------------7/23/2018 12:52:38 AM----------
+Vị trí: Class: xulyChung - Function: duocTruyCap 
+ Lỗi: Cannot redirect after HTTP headers have been sent.
+---------------------------------------------------------------
+
+-----------------------7/23/2018 12:53:22 AM----------
+Vị trí: Class: xulyChung - Function: duocTruyCap 
+ Lỗi: Cannot redirect after HTTP headers have been sent.
+---------------------------------------------------------------
+
+-----------------------7/23/2018 12:53:23 AM----------
+Vị trí: Class: xulyChung - Function: duocTruyCap 
+ Lỗi: Cannot redirect after HTTP headers have been sent.
+---------------------------------------------------------------
+
+-----------------------7/23/2018 12:53:23 AM----------
+Vị trí: Class: xulyChung - Function: duocTruyCap 
+ Lỗi: Cannot redirect after HTTP headers have been sent.
+---------------------------------------------------------------
+
