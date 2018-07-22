@@ -146,7 +146,17 @@ namespace qlCaPhe.Controllers
         /// <returns></returns>
         public ActionResult tools_PartNhatKy()
         {
-            return PartialView();
+            List<nhatKy> listNhatKy = new List<nhatKy>();
+            if(xulyChung.duocTruyCap("1103"))
+                try
+                {
+                    listNhatKy = new qlCaPheEntities().nhatKies.Take(5).ToList();//----Lấy 5 nhật ký gần đây
+                }
+                catch (Exception ex)
+                {
+                    xulyFile.ghiLoi("Class: Tools_VungLamViecController - Function: tools_PartBaiViet", ex.Message);
+                }
+            return PartialView(listNhatKy);
         }
         /// <summary>
         /// hàm thống kê sản phẩm bán chạy trong ngày
