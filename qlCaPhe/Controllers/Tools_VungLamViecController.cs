@@ -5,18 +5,58 @@ using System.Web;
 using System.Web.Mvc;
 using qlCaPhe.App_Start;
 using qlCaPhe.Models;
+using qlCaPhe.Models.Entities;
+using qlCaPhe.Models.Business;
 using qlCaPhe.App_Start;
 
 namespace qlCaPhe.Controllers
 {
     public class Tools_VungLamViecController : Controller
     {
-        //
-        // GET: /Tools_VungLamViec/
+        private static string idOfpage = "1";
+        /// <summary>
+        /// Hàm tạo giao diện vùng làm việc
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
-            xulyChung.ghiNhatKyDtb(1, "Vùng làm việc chính");
+            if (xulyChung.duocTruyCap(idOfpage))
+                xulyChung.ghiNhatKyDtb(1, "Vùng làm việc chính");
             return View();
+        }
+        /// <summary>
+        /// Hàm tạo vùng giao diện thống kê số lượng bàn theo trạng thái: <para/>
+        /// Bàn trống, bàn chờ order, bàn đã order, bàn chờ thanh toán, bàn đã thanh toán
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult tools_PartThongKeSoLuongBan()
+        {
+            SoLuongBan soLuong = new SoLuongBan();
+            if (xulyChung.duocTruyCap(idOfpage))
+                try
+                {
+                    List<int> listSoLuong = new bNghiepVuBan().thongKeBanTheoTrangThai();
+                    int index = 1; //------Biến lưu lại vị trí đang duyệt trong listSoLUong để gán vào thuộc tính của soLUongBan
+                    foreach (int giaTriSoLuong in listSoLuong)
+                    {
+                        switch (index)
+                        {
+                            case 1: soLuong.trong = giaTriSoLuong; break;
+                            case 2: soLuong.choOrder = giaTriSoLuong; break;
+                            case 3: soLuong.daOrder = giaTriSoLuong; break;
+                            case 4: soLuong.choThanhToan = giaTriSoLuong; break;
+                            case 5: soLuong.daThanhToan = giaTriSoLuong; break;
+                        }
+                        index++;
+                    }
+                    //-----Lấy tổng số bàn còn hoạt động
+                    soLuong.tongCongBan = listSoLuong.Sum();
+                }
+                catch (Exception ex)
+                {
+                    xulyFile.ghiLoi("Class: Tools_VungLamViecController - Function: tools_PartThongKeSoLuongBan", ex.Message);
+                }
+            return PartialView(soLuong);
         }
         /// <summary>
         /// Hàm tạo vùng giao diện tải ứng dụng cho người phục vụ và quản lý kho.

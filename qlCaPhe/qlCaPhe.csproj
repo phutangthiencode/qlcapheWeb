@@ -296,6 +296,7 @@
     <Compile Include="Models\Entities\Services\svTaiKhoan.cs" />
     <Compile Include="Models\Entities\Services\svThanhVien.cs" />
     <Compile Include="Models\Entities\Services\svThongBao.cs" />
+    <Compile Include="Models\Entities\SoLuongBan.cs" />
     <Compile Include="Models\Feedback.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
     </Compile>
@@ -4186,6 +4187,7 @@
     <Content Include="Views\DatBanOnline\db_DatBanChoTiepNhan.cshtml" />
     <Content Include="Views\DatBanOnline\db_PartModalChiTiet.cshtml" />
     <Content Include="Views\Tools_VungLamViec\tools_PartDownloadApp.cshtml" />
+    <Content Include="Views\Tools_VungLamViec\tools_PartThongKeSoLuongBan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
