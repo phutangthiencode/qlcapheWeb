@@ -456,6 +456,7 @@
     <Content Include="Content\themeLogin\font-awesome.min.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="images\background_access_denied.png" />
+    <Content Include="images\icon-website.png" />
     <Content Include="images\img-login-page.png" />
     <Content Include="Content\themeLogin\main.css" />
     <Content Include="Content\themeLogin\util.css" />

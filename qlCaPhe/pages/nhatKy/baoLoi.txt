@@ -1,1 +1,15 @@
-﻿
+﻿-----------------------7/24/2018 1:25:19 AM----------
+Vị trí: Class: xulyFile - Function: donDepTM 
+ Lỗi: The process cannot access the file 'logo.png' because it is being used by another process.
+---------------------------------------------------------------
+
+-----------------------7/24/2018 1:39:40 AM----------
+Vị trí: Class: xulyFile - Function: donDepTM 
+ Lỗi: The process cannot access the file 'logo_final.png' because it is being used by another process.
+---------------------------------------------------------------
+
+-----------------------7/24/2018 1:40:15 AM----------
+Vị trí: Class: xulyFile - Function: donDepTM 
+ Lỗi: The process cannot access the file 'tải xuống.png' because it is being used by another process.
+---------------------------------------------------------------
+
