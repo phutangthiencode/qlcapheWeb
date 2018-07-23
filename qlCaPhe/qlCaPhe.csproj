@@ -4130,8 +4130,6 @@
     <Content Include="Views\PhaChe\pc_ThucHienPhaCheTheoBan.cshtml" />
     <Content Include="Views\TonKho\tkho_TableTonKho.cshtml" />
     <Content Include="Views\PhaChe\pc_PhaCheTheoBan.cshtml" />
-    <Content Include="Views\PhaChe\pc_PhaCheTheoSanPham.cshtml" />
-    <Content Include="Views\PhaChe\pc_PhaCheTheoThoiGian.cshtml" />
     <Content Include="Views\PhucVu\pv_DanhSachBanCanPhucVuDoUong.cshtml" />
     <Content Include="Views\HoaDon\hd_ThucHienThanhToan.cshtml" />
     <Content Include="Views\XuatKho\xk_TableXuatKho.cshtml" />

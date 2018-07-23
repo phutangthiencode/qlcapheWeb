@@ -72,28 +72,6 @@ namespace qlCaPhe.Controllers
             }
             return null;
         }
-        /// <summary>
-        /// hàm tạo danh sách pha chế theo sản phẩm. DANH SÁCH NHỮNG SẢN PHẨM CÙNG NHAU.
-        /// VD. CÀ PHÊ => click vào item này sẽ qua trang pha chế hiện danh sách cần pha chế là toàn cà phê
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult pc_PhaCheTheoSanPham()
-        {
-            if (xulyChung.duocCapNhat(idOfPage, "7"))
-                return View();
-            return null;
-        }
-        /// <summary>
-        /// Hàm tạo danh sách pha chế theo tổng thời gian pha chế. Được sắp xếp theo thứ tự tăng dần.
-        /// Khi click vào item thời gian => chuyển đến trang danh sách pha chế những món theo thời gian pha chế như vậy.
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult pc_PhaCheTheoThoiGian()
-        {
-            if (xulyChung.duocCapNhat(idOfPage, "7"))
-                return View();
-            return null;
-        }
 
 
         /// <summary>
