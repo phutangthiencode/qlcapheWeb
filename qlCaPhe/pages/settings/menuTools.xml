@@ -64,7 +64,7 @@
 
   <menuItem idCha="0" id="12" name="Thống kê" link="" cssClass="" description="" icon="pie_chart">
     <menuItem id="1201" idCha="12" name="Thống kê doanh thu theo thời điểm" link="../ThongKe/tke_DoanhThuTheoNgay" cssClass="" description="" icon="insert_chart"></menuItem>
-    <menuItem id="1202" idCha="12" name="Thống kê doanh thu theo sản phẩm" link="../ThongKe/tke_ThongThuSanPhamNgay" cssClass="" description="" icon="local_cafe"></menuItem>
+    <menuItem id="1202" idCha="12" name="Thống kê doanh thu theo sản phẩm" link="../ThongKe/tke_ThongKeThuSanPhamNgay" cssClass="" description="" icon="local_cafe"></menuItem>
     <menuItem id="1203" idCha="12" name="Thống kê 3" link="#" cssClass="" description="" icon=""></menuItem>
   </menuItem>
 </root>

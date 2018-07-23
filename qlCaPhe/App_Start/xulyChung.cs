@@ -236,20 +236,7 @@ namespace qlCaPhe.App_Start
         /// Hàm lấy địa chi ip của người dùng truy cập
         /// </summary>
         /// <returns></returns>
-        private static string getLocalIPAddress()
-        {
-            var host = Dns.GetHostEntry(Dns.GetHostName());
-            foreach (var ip in host.AddressList)
-            {
-                if (ip.AddressFamily == AddressFamily.InterNetwork)
-                {
-                    return ip.ToString();
-                }
-            }
-            throw new Exception("No network adapters with an IPv4 address in the system!");
-        }
-
-        protected static string GetIPAddress()
+        private static string GetIPAddress()
         {
             System.Web.HttpContext context = System.Web.HttpContext.Current;
             string ipAddress = context.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
@@ -265,24 +252,6 @@ namespace qlCaPhe.App_Start
 
             return context.Request.ServerVariables["REMOTE_ADDR"];
         }
-
-        //public static string GetIPAddress()
-        //{
-        //    string kq = "";
-        //    IPHostEntry Host = default(IPHostEntry);
-        //    string Hostname = null;
-        //    Hostname = System.Environment.MachineName;
-        //    Host = Dns.GetHostEntry(Hostname);
-        //    foreach (IPAddress IP in Host.AddressList)
-        //    {
-        //        if (IP.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
-        //        {
-        //            kq = Convert.ToString(IP);
-        //        }
-        //    }
-        //    return kq;
-        //}
-
         /// <summary>
         /// Hàm lấy OS người dùng truy cập
         /// </summary>

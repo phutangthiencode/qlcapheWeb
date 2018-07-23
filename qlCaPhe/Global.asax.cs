@@ -49,7 +49,6 @@ namespace qlCaPhe
             Session["login"] = new taiKhoan();
             //--Tạo session object chứa các bàn đã đặt
             Session["datBan"] = new cartDatBan();
-
         }
     }
 }
