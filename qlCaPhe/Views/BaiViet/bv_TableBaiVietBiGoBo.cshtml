@@ -15,29 +15,54 @@
         <div class="row clearfix">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="card">
+
                     <div class="header">
-                        <h2>
-                            DANH MỤC BÀI VIẾT BỊ GỞ BỎ
-                        </h2>
+                        <div class="row">
+                            <div class="col-md-5 col-lg-5 col-xs-12 col-sm-5">
+                                <i class="material-icons">subtitles</i>
+                                <span class="font-20">QUẢN LÝ BÀI VIẾT</span>
+                            </div>
+                            <div class="col-md-7 col-lg-7 col-sm-7 col-xs-12">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" style="float:right">
+                                    <li class="">
+                                        <a href="~/BaiViet/bv_TaoMoiBaiViet">
+                                            <i class="material-icons">add</i> ĐĂNG BÀI VIẾT
+                                        </a>
+                                    </li>
+                                    <li class="active">
+                                        <a href="~/BaiViet/bv_TableBaiVietDaDuyet">
+                                            <i class="material-icons">list</i> DANH MỤC BÀI VIẾT
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
+
                     <div class="body">
-                        <ul class="nav nav-tabs tab-nav-right" role="tablist">
+                        <ul class="nav nav-tabs tab-col-pink tab-nav-right" role="tablist">
                             <li role="presentation" class="">
                                 <a href="/BaiViet/bv_TableBaiVietDaDuyet">
+                                    <i class="material-icons">done</i>
                                     Danh mục bài viết đã duyệt
                                 </a>
                             </li>
                             <li role="presentation" class="">
                                 <a href="/BaiViet/bv_TableBaiVietChoDuyet">
+                                    <i class="material-icons">find_replace</i>
                                     Danh mục bài viết chờ duyệt
                                 </a>
                             </li>
                             <li role="presentation" class="active">
                                 <a href="/BaiViet/bv_TableBaiVietBiGoBo">
+                                    <i class="material-icons">delete_sweep</i>
                                     Danh mục bài viết bị gở bỏ
                                 </a>
                             </li>
                         </ul>
+
+
                         <div class="tab-content">
                             <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
 
