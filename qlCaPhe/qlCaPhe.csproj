@@ -4148,7 +4148,6 @@
     <Content Include="Views\NhomTaiKhoan\ntk_PartListPagePermission.cshtml" />
     <Content Include="Views\NhomTaiKhoan\ntk_Script.cshtml" />
     <Content Include="Views\Home\h_AccessDenied.cshtml" />
-    <Content Include="Views\HoaDon\hd_ThongKeHoaDon.cshtml" />
     <Content Include="Views\Home\Notifications.cshtml" />
     <Content Include="Views\TonKho\tkho_KiemKho.cshtml" />
     <Content Include="Views\TonKho\tkho_TonThucTe.cshtml" />

@@ -443,14 +443,14 @@ namespace qlCaPhe.Controllers
         private string layDanhSachHoaDon(int loaiOrder, int ?page)
         {
             string kq = "", url = "/HoaDon/";
-            int trangHienHanh = (page ?? 1); int soPhanTu = 0;//--------Số tất cả phần tử trong list            
+            int pageSize = 25; int trangHienHanh = (page ?? 1); int soPhanTu = 0;//--------Số tất cả phần tử trong list            
             qlCaPheEntities db = new qlCaPheEntities();List<hoaDonOrder> listHoaDon = new List<hoaDonOrder>();
             switch (loaiOrder)
             {
                 case 1: //---------Lấy hóa đơn theo ngày
                     url += "hd_TableHoaDonOrderTrongNgay";
                     soPhanTu = db.hoaDonOrders.Where(h => h.ngayLap.Value.Day == DateTime.Now.Day && h.ngayLap.Value.Month == DateTime.Now.Month && h.ngayLap.Value.Year == DateTime.Now.Year).Count();
-                    listHoaDon = db.hoaDonOrders.Where(h => h.ngayLap.Value.Day == DateTime.Now.Day && h.ngayLap.Value.Month == DateTime.Now.Month && h.ngayLap.Value.Year == DateTime.Now.Year).OrderByDescending(h=>h.ngayLap).Skip((trangHienHanh - 1) * createHTML.pageSize).Take(createHTML.pageSize).ToList();
+                    listHoaDon = db.hoaDonOrders.Where(h => h.ngayLap.Value.Day == DateTime.Now.Day && h.ngayLap.Value.Month == DateTime.Now.Month && h.ngayLap.Value.Year == DateTime.Now.Year).OrderByDescending(h=>h.ngayLap).Skip((trangHienHanh - 1) * pageSize).Take(pageSize).ToList();
                     break;
                 case 2: //--------Lấy hóa đơn theo ca
                    
@@ -459,12 +459,12 @@ namespace qlCaPhe.Controllers
                     url += "hd_TableHoaDonOrderTrongTuan";
                     DateTime dateLastWeek = DateTime.Now.AddDays(-7); //-------Lấy ngảy này của tuần trước
                     soPhanTu = db.hoaDonOrders.Where(h => h.ngayLap >= dateLastWeek && h.ngayLap <= DateTime.Now).Count();
-                    listHoaDon = db.hoaDonOrders.Where(h => h.ngayLap >= dateLastWeek && h.ngayLap <= DateTime.Now).OrderByDescending(h => h.ngayLap).Skip((trangHienHanh - 1) * createHTML.pageSize).Take(createHTML.pageSize).ToList();
+                    listHoaDon = db.hoaDonOrders.Where(h => h.ngayLap >= dateLastWeek && h.ngayLap <= DateTime.Now).OrderByDescending(h => h.ngayLap).Skip((trangHienHanh - 1) * pageSize).Take(pageSize).ToList();
                     break;
                 case 4: //---------Lấy tất cả hóa đơn
                     url += "hd_TableTatCaHoaDonOrder";
                     soPhanTu = db.hoaDonOrders.ToList().Count();
-                    listHoaDon = db.hoaDonOrders.OrderByDescending(n=>n.ngayLap).Skip((trangHienHanh-1) * createHTML.pageSize).Take(createHTML.pageSize).ToList();
+                    listHoaDon = db.hoaDonOrders.OrderByDescending(n=>n.ngayLap).Skip((trangHienHanh-1) * pageSize).Take(pageSize).ToList();
                     break;
                 default: break;
             }
@@ -590,18 +590,5 @@ namespace qlCaPhe.Controllers
                 
         #endregion
 
-        #region THỐNG KÊ
-
-        /// <summary>
-        /// Hàm tạo giao diện biểu đồ thống kê hóa đơn đã thanh toán
-        /// </summary>
-        /// <param name="loaiThongKe">Loại danh sách hóa đơn cần thống kê: <para/> 1: Theo ngày, 2: Theo ca, 3: Theo tuần, 4: tất cả</param>
-        /// <returns></returns>
-        public ActionResult hd_ThongKeHoaDon(int loaiThongKe)
-        {
-            xulyChung.ghiNhatKyDtb(1, "Thông kê hóa đơn");
-            return View();
-        }
-        #endregion
     }
 }
