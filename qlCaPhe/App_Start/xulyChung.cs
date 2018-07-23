@@ -217,7 +217,7 @@ namespace qlCaPhe.App_Start
                 nhatKy nkAdd = new nhatKy();
                 nkAdd.tenDangNhap = tkLogin.tenDangNhap;
                 nkAdd.thoiDiem = DateTime.Now;
-                nkAdd.IP = getLocalIPAddress();
+                nkAdd.IP = GetIPAddress();
                 System.Web.HttpBrowserCapabilities browser = HttpContext.Current.Request.Browser;
                 nkAdd.trinhDuyet = browser.Browser;
                 nkAdd.OS = GetUserPlatform(HttpContext.Current.Request);
@@ -248,6 +248,41 @@ namespace qlCaPhe.App_Start
             }
             throw new Exception("No network adapters with an IPv4 address in the system!");
         }
+
+        protected static string GetIPAddress()
+        {
+            System.Web.HttpContext context = System.Web.HttpContext.Current;
+            string ipAddress = context.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+
+            if (!string.IsNullOrEmpty(ipAddress))
+            {
+                string[] addresses = ipAddress.Split(',');
+                if (addresses.Length != 0)
+                {
+                    return addresses[0];
+                }
+            }
+
+            return context.Request.ServerVariables["REMOTE_ADDR"];
+        }
+
+        //public static string GetIPAddress()
+        //{
+        //    string kq = "";
+        //    IPHostEntry Host = default(IPHostEntry);
+        //    string Hostname = null;
+        //    Hostname = System.Environment.MachineName;
+        //    Host = Dns.GetHostEntry(Hostname);
+        //    foreach (IPAddress IP in Host.AddressList)
+        //    {
+        //        if (IP.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+        //        {
+        //            kq = Convert.ToString(IP);
+        //        }
+        //    }
+        //    return kq;
+        //}
+
         /// <summary>
         /// Hàm lấy OS người dùng truy cập
         /// </summary>
