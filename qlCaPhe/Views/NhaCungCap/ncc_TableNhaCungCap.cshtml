@@ -2,8 +2,15 @@
     ViewBag.Title = "Danh mục nhà cung cấp";
     Layout = "~/Views/Shared/_LayoutTools.cshtml";
 }
+
+
+
+@section stylecustom{
 <link href="~/Content/toolTipGoiY.css" rel="stylesheet" />
+}
+@section sciptajax{
 @Html.Raw(ViewBag.ScriptAjax)
+}
 <section class="content">
     <div class="container-fluid">
         <div class="block-header">

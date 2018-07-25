@@ -35,53 +35,55 @@
                                 </ul>
                             </div>
                         </div>
-                    <div class="body">
-                        @using (Html.BeginForm())
+                        <div class="body">
+                            @using (Html.BeginForm())
 {
-    <input type="hidden" value="@ViewBag.txtMaLoai" name="txtMaLoai" />
-                            <div class="row">
-                                <div class="col-md-7 col-lg-7">
-                                    <label for="txtTenLoai">Tên loại</label>
+                        <input type="hidden" value="@ViewBag.txtMaLoai" name="txtMaLoai" />
+                        <div class="row">
+                            <div class="col-md-7 col-lg-7">
+                                <label for="txtTenLoai">Tên loại</label>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input type="text" id="txtTenLoai" name="txtTenLoai" class="form-control" required pattern=".{2,50}"
+                                               placeholder="Nhập tên loại đồ uống tại đây" value="@ViewBag.txtTenLoai">
+                                    </div>
+                                </div>
+                                <label for="txtDienGiai">Diễn giải</label>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <textarea rows="4" id="txtDienGiai" name="txtDienGiai" class="form-control no-resize"
+                                                  required maxlength="250" placeholder="Nhập thông tin diễn giải cho loại đồ uống">
+                                            @ViewBag.txtDienGiai
+                                            </textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-lg-4">
+                                    <label for="txtGhiChu">Ghi chú</label>
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="text" id="txtTenLoai" name="txtTenLoai" class="form-control" required pattern=".{2,50}"
-                                                   placeholder="Nhập tên loại đồ uống tại đây" value="@ViewBag.txtTenLoai">
+                                            <textarea rows="8" id="txtGhiChu" class="form-control no-resize" name="txtGhiChu" placeholder="Nhập thêm ghi chú cho loại đồ uống">@ViewBag.txtGhiChu</textarea>
                                         </div>
-                                    </div>
-                                    <label for="txtDienGiai">Diễn giải</label>
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <textarea rows="4" id="txtDienGiai" name="txtDienGiai" class="form-control no-resize"
-                                                      required maxlength="250" placeholder="Nhập thông tin diễn giải cho loại đồ uống">@ViewBag.txtDienGiai
-                                                </textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 col-lg-4">
-                                        <label for="txtGhiChu">Ghi chú</label>
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <textarea rows="8" id="txtGhiChu" class="form-control no-resize" name="txtGhiChu" placeholder="Nhập thêm ghi chú cho loại đồ uống">@ViewBag.txtGhiChu</textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-7"></div>
-
-                                    <div class="col-md-5">
-                                        <br>
-                                        <button type="submit" class="btn btn-primary m-t-15 waves-effect">Lưu lại</button>
-                                        <a href="/LoaiDoUong/ldu_TaoMoiLoaiDoUong" class="btn btn-default m-t-15 waves-effect">Reset</a>
-                                        <button type="button" onclick="troVeTrangTruoc()" class="btn btn-default m-t-15 waves-effect">Trở lại</button>
                                     </div>
                                 </div>
 
+                                <div class="col-md-7"></div>
+
+                                <div class="col-md-5">
+                                    <br>
+                                    <button type="submit" class="btn btn-primary m-t-15 waves-effect">Lưu lại</button>
+                                    <a href="/LoaiDoUong/ldu_TaoMoiLoaiDoUong" class="btn btn-default m-t-15 waves-effect">Reset</a>
+                                    <button type="button" onclick="troVeTrangTruoc()" class="btn btn-default m-t-15 waves-effect">Trở lại</button>
+                                </div>
+                            </div>
+
                         }
+                        </div>
                     </div>
                 </div>
             </div>
+            <!-- #END# Vertical Layout -->
         </div>
-        <!-- #END# Vertical Layout -->
     </div>
 </section>
 <!-- Modal -->

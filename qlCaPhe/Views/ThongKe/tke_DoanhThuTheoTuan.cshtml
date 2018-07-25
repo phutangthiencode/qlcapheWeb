@@ -4,6 +4,7 @@
     Layout = "~/Views/Shared/_LayoutTools.cshtml";
 }
 
+@section sciptajax{
 <script src="~/Scripts/jsapi.js"></script>
 <script src="~/Scripts/Ajax/ThongKe/thongKeDoanhThu.js"></script>
 @Html.Raw(ViewBag.ScriptAjax)
@@ -12,10 +13,10 @@
     var soHDs, tamTinhs, dts, nextWeek;
     $(document).ready(function () {
 
-        var ts;       
+        var ts;
 
         $('#txtStartNgay').val(getDateCurrent());
-        ts = $('#txtStartNgay').val();      
+        ts = $('#txtStartNgay').val();
         layDuLieuHoaDon(jsonThongKeDoanhThu, soHDs, tamTinhs, dts, ts, 'chart-tuan', "Thống kê tổng doanh thu theo tuần từ ngày: " + ts + " đến " + convertDateToString(getDateOfNextWeek(ts)));
         VeBieuDoTronThongKeSanPham(ts);
         $('#txtStartNgay').change(function () {
@@ -50,6 +51,10 @@
     }
 
 </script>
+
+}
+
+
 
 
 

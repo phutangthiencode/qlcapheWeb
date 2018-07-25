@@ -1461,6 +1461,9 @@
       <Parameter Name="nam" Mode="In" Type="Int32" />
       <Parameter Name="maSP" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="thongKeHoaDonTheoNgay" ReturnType="Collection(qlCaPheModel.thongKeHoaDonTheoNgay_Result)">
+      <Parameter Name="ngay" Mode="In" Type="DateTime" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="sp_helpdiagramdefinition_Result">
     <Property Type="Int32" Name="version" Nullable="true" />
@@ -1533,5 +1536,9 @@
   <ComplexType Name="thongKeDoanhThuMotSanPhamTheoNam_Result">
     <Property Type="DateTime" Name="thoiDiem" Nullable="true" />
     <Property Type="Int64" Name="tongTien" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="thongKeHoaDonTheoNgay_Result">
+    <Property Type="Int64" Name="tongTien" Nullable="true" />
+    <Property Type="String" Name="gio" Nullable="true" MaxLength="5" />
   </ComplexType>
 </Schema>

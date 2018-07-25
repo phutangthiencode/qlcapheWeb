@@ -3,15 +3,22 @@
     Layout = "~/Views/Shared/_LayoutTools.cshtml";
 }
 
+@section stylecustom{
 
-<link href="~/Content/styleTool.css" rel="stylesheet" />
+    <link href="~/Content/styleTool.css" rel="stylesheet" />
 
-<link href="~/Content/jquery.Jcrop.min.css" rel="stylesheet" />
-<script src="~/Scripts/jquery.Jcrop.js"></script>
+    <link href="~/Content/jquery.Jcrop.min.css" rel="stylesheet" />
+}
 
-<script type="text/javascript">
-    @Html.Raw(ViewBag.ScriptCropImage)
-</script>
+@section sciptajax{
+    <script src="~/Scripts/jquery.Jcrop.js"></script>
+
+    <script type="text/javascript">
+        @Html.Raw(ViewBag.ScriptCropImage)
+    </script>
+}
+
+
 <section class="content">
     <div class="container-fluid">
         <div class="block-header">
@@ -48,7 +55,7 @@
                         @using (Html.BeginForm("b_ChinhSuaBan", "Ban", FormMethod.Post, new { @enctype = "multipart/form-data" }))
                         {
                             <div class="row">
-                                <input name="txtMaBan" id="txtMaBan" value="@ViewBag.txtMaBan" type="hidden"/>
+                                <input name="txtMaBan" id="txtMaBan" value="@ViewBag.txtMaBan" type="hidden" />
                                 <div class="col-md-7 col-lg-7">
                                     <label for="txtTenNhom">Chọn khu vực</label>
                                     <select class="form-control show-tick" id="cbbKhuVuc" name="cbbKhuVuc" required>
@@ -68,9 +75,11 @@
                                     <label for="txtGioiThieu">Giới thiệu</label>
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <textarea rows="3" id="txtGioiThieu" class="form-control no-resize" 
+                                            <textarea rows="3" id="txtGioiThieu" class="form-control no-resize"
                                                       name="txtGioiThieu" maxlength="100"
-                                                      placeholder="Nhập thông tin giởi thiệu về bàn (Kiểu, màu sắc...)">@ViewBag.txtGioiThieu</textarea>
+                                                      placeholder="Nhập thông tin giởi thiệu về bàn (Kiểu, màu sắc...)">
+                                                @ViewBag.txtGioiThieu
+                                                </textarea>
                                             </div>
                                         </div>
 
@@ -103,7 +112,9 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <textarea rows="4" id="txtGhiChu" class="form-control no-resize" name="txtGhiChu"
-                                                          placeholder="Nhập thêm ghi chú cho nhóm tài khoản">@ViewBag.txtGhiChu</textarea>
+                                                          placeholder="Nhập thêm ghi chú cho nhóm tài khoản">
+                                                    @ViewBag.txtGhiChu
+                                                    </textarea>
                                                 </div>
                                             </div>
 

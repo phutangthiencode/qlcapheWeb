@@ -424,6 +424,9 @@
     <Compile Include="Models\thongKeHoaDonTheoNam_Result.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\thongKeHoaDonTheoNgay_Result.cs">
+      <DependentUpon>qlCaPhe.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\thongKeHoaDonTheoQuy_Result.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
     </Compile>

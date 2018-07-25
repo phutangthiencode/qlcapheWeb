@@ -3,9 +3,16 @@
     ViewBag.Title = "Danh mục phiếu xuất kho";
     Layout = "~/Views/Shared/_LayoutTools.cshtml";
 }
+
+
+@section stylecustom{
+
 <link href="~/Content/toolTipGoiY.css" rel="stylesheet" />
+}
+@section sciptajax{
 @Html.Raw(ViewBag.ScriptAjax)
 @Html.Raw(ViewBag.ScriptAjaxXemChiTiet)
+}
 <section class="content">
     <div class="container-fluid">
         <div class="block-header">

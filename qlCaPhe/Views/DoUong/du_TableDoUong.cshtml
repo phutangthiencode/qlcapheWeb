@@ -3,11 +3,18 @@
     Layout = "~/Views/Shared/_LayoutTools.cshtml";
 }
 
+
+
+@section stylecustom{
+
 <link href="~/Content/toolTipGoiY.css" rel="stylesheet" />
 <link href="~/Content/formWizard.css" rel="stylesheet" />
+}
+@section sciptajax{
 @Html.Raw(ViewBag.ScriptAjax)
 @Html.Raw(ViewBag.ScriptAjaxXemHinh)
 @Html.Raw(ViewBag.ScriptAjaxXemCongThuc)
+}
 
 <section class="content">
     <div class="container-fluid">

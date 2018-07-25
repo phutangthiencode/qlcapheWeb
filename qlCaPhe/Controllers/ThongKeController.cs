@@ -40,17 +40,22 @@ namespace qlCaPhe.Controllers
                 try
                 {
                     DateTime date = xulyDuLieu.doiChuoiSangDateTime(param);
+                    IEnumerable<object> listKQ = new qlCaPheEntities().thongKeHoaDonTheoNgay(date);
                     long tongTienTamTinh = 0;
-                    foreach (hoaDonOrder hoaDon in new qlCaPheEntities().hoaDonOrders.ToList().Where(h => h.ngayLap.Value.Date == date))
+                    foreach (object x in listKQ.ToList())
                     {
-                        tongTienTamTinh += (long)hoaDon.tamTinh;
-                        object x = new
+                        string gio = xulyDuLieu.layThuocTinhTrongMotObject(x, "gio");
+                        //TimeSpan time = xulyDuLieu.doiChuoiSangDateTime(gio);
+                        //---------Lấy tổng tiền thanh toán tạm tính của từng ngày
+                        long tienTamTinh = xulyDuLieu.doiChuoiSangLong(xulyDuLieu.layThuocTinhTrongMotObject(x, "tongTien"));
+                        tongTienTamTinh += tienTamTinh;
+                        object a = new
                         {
-                            maHD = hoaDon.maHoaDon.ToString(),
-                            tamTinh = hoaDon.tamTinh,
-                            tongTien = tongTienTamTinh
+                            maHD = gio,
+                            tamTinh = tienTamTinh,
+                            tongTien = xulyDuLieu.doiVND(tongTienTamTinh)
                         };
-                        listHoaDon.Add(x);
+                        listHoaDon.Add(a);
                     }
                 }
                 catch (Exception ex)

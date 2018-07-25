@@ -4,16 +4,21 @@
     Layout = "~/Views/Shared/_LayoutTools.cshtml";
 }
 
+
+@section scripts {
+
+}
+
+@section stylecustom{
+
+<link href="~/Content/styleTool.css" rel="stylesheet" />
+}
+@section sciptajax{
 <script src="~/Scripts/googleMap.js"></script>
 @*<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZNCVxHLF2rphFSa3Otn3BlbkXB_ecBwg&callback=initMap"
-        type="text/javascript"></script>*@
+    type="text/javascript"></script>*@
 @Html.Raw(ViewBag.ScriptAPI)
-<link href="~/Content/styleTool.css" rel="stylesheet" />
-<!-- Enclose the Javascript in a "section" so that it is rendered in the correct order after scripts have been loaded etc -->
-@section scripts {
-    <section class="scripts">
-        @Html.Raw(ViewBag.ScriptMap)
-    </section>
+@Html.Raw(ViewBag.ScriptMap)
 }
 <section class="content">
     <div class="container-fluid">

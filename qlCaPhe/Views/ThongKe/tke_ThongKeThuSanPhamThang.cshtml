@@ -2,6 +2,8 @@
     ViewBag.Title = "Thống kê tổng thu sản phẩm theo tháng";
     Layout = "~/Views/Shared/_LayoutTools.cshtml";
 }
+@section sciptajax{
+
 <script src="~/Scripts/jsapi.js"></script>
 <script src="~/Scripts/Ajax/ThongKe/thongKeDoanhThu.js"></script>
 <script>
@@ -47,6 +49,8 @@
         });
     }
 </script>
+}
+
 
 <section class="content">
     <div class="container-fluid">

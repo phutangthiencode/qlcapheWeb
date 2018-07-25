@@ -3,17 +3,24 @@
     Layout = "~/Views/Shared/_LayoutTools.cshtml";
 }
 
+
+
+@section stylecustom{
 <link href="~/Content/toolTipGoiY.css" rel="stylesheet" />
 <link href="~/Content/styleTool.css" rel="stylesheet" />
 <link href="~/Content/jquery.Jcrop.min.css" rel="stylesheet" />
+}
+@section sciptajax{
+
+
 <script src="~/Scripts/jquery.Jcrop.js"></script>
+
 
 <script type="text/javascript">
 
     @Html.Raw(ViewBag.ScriptCropImage)
 </script>
-
-
+}
 <section class="content">
     <div class="container-fluid">
         <div class="block-header">

@@ -2,9 +2,16 @@
     ViewBag.Title = "Danh mục bàn - chổ ngồi";
     Layout = "~/Views/Shared/_LayoutTools.cshtml";
 }
-<link href="~/Content/toolTipGoiY.css" rel="stylesheet" />
-@Html.Raw(ViewBag.ScriptAjaxXemHinh)
-@Html.Raw(ViewBag.ScriptAjax)
+
+
+@section stylecustom{
+    <link href="~/Content/toolTipGoiY.css" rel="stylesheet" />
+}
+
+@section sciptajax{
+    @Html.Raw(ViewBag.ScriptAjaxXemHinh)
+    @Html.Raw(ViewBag.ScriptAjax)
+}
 <section class="content">
     <div class="container-fluid">
         <div class="block-header">

@@ -665,5 +665,13 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="thongKeHoaDonTheoNgay" FunctionName="qlCaPheModel.Store.thongKeHoaDonTheoNgay">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="qlCaPheModel.thongKeHoaDonTheoNgay_Result">
+          <ScalarProperty Name="tongTien" ColumnName="tongTien" />
+          <ScalarProperty Name="gio" ColumnName="gio" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

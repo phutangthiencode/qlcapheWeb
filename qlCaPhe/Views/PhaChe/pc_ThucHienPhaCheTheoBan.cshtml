@@ -2,8 +2,11 @@
     ViewBag.Title = "Pha chế theo bàn";
     Layout = "~/Views/Shared/_LayoutTools.cshtml";
 }
+@section stylecustom{
 
 <link href="~/Content/toolTipGoiY.css" rel="stylesheet" />
+}
+@section sciptajax{
 @Html.Raw(ViewBag.ScriptAjaxXemChiTiet)
 
 <link href="~/Content/formWizard.css" rel="stylesheet" />
@@ -95,7 +98,7 @@
                 }
             });
         });
-        //-----------SỰ KIỆN CẬP NHẬT TRẠNG THÁI ĐỀ XUẤT THAY THẾ CHO SẢN PHẨM HẾT HÀNG 
+        //-----------SỰ KIỆN CẬP NHẬT TRẠNG THÁI ĐỀ XUẤT THAY THẾ CHO SẢN PHẨM HẾT HÀNG
         $('#listChoPhaChe').on('click', '.btnThayThe', function (e) {
             var ts = $(this).attr('mact');
             $.ajax({
@@ -146,6 +149,7 @@
     }
 
 </script>
+}
 <section class="content">
     <div class="container-fluid">
         <div class="block-header">

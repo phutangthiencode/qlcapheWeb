@@ -111,54 +111,59 @@
         <!-- #END# Vertical Layout -->
     </div>
 
-    <script type="text/javascript">
-
-        $(document).ready(function (e) {
-            var page = getCurrentPageInRequest();
-            AjaxLayDanhSachNhatKy(getParam(), page);
-        });
-
-        function eventLietKeNhatKy() {
-            $('#js-btnLietKe').click(function (e) {
-                var param = getParam() + "|1";//-----xác định có thay đổi liệt kê
-                AjaxLayDanhSachNhatKy(param, 1);
-            });
-        }
-
-        function AjaxLayDanhSachNhatKy(param, page) {            
-            $.ajax({
-                url: getDuongDan() + 'NhatKy/AjaxLietKeNhatKy',
-                data: 'param=' + param + '&page=' + page,
-                context: this,
-                dataType: 'html',
-                type: 'GET',
-                beforeSend: function (xhr, opts) {
-                    event.preventDefault();
-                    event.stopImmediatePropagation();
-                    $('.page-loader-wrapper').attr('style', 'display:block');
-                },
-                success: function (data) {
-                    $('#js-vungDanhSach').html("");
-                    $('#js-vungDanhSach').html(data.split('&&&')[0]);
-
-                    $('#js-vungPhanTrang').html("");
-                    $('#js-vungPhanTrang').html(data.split('&&&')[1]);
-
-                    $('.page-loader-wrapper').attr('style', 'display:none');
-                    eventLietKeNhatKy();
-                },
-                error: function (err) {
-                    eventLietKeNhatKy();
-                }
-            });
-        }
-
-        function getParam() {
-            var tk = $('#cbbTaiKhoan').val();
-            var startDate = $('#txtStartDate').val();
-            var endDate = $('#txtEndDate').val();
-            var param = tk + "|" + startDate + "|" + endDate;
-            return param;
-        }
-    </script>
+    
 </section>
+
+@section sciptajax{
+<script type="text/javascript">
+
+    $(document).ready(function (e) {
+        var page = getCurrentPageInRequest();
+        AjaxLayDanhSachNhatKy(getParam(), page);
+    });
+
+    function eventLietKeNhatKy() {
+        $('#js-btnLietKe').click(function (e) {
+            var param = getParam() + "|1";//-----xác định có thay đổi liệt kê
+            AjaxLayDanhSachNhatKy(param, 1);
+        });
+    }
+
+    function AjaxLayDanhSachNhatKy(param, page) {
+        $.ajax({
+            url: getDuongDan() + 'NhatKy/AjaxLietKeNhatKy',
+            data: 'param=' + param + '&page=' + page,
+            context: this,
+            dataType: 'html',
+            type: 'GET',
+            beforeSend: function (xhr, opts) {
+                event.preventDefault();
+                event.stopImmediatePropagation();
+                $('.page-loader-wrapper').attr('style', 'display:block');
+            },
+            success: function (data) {
+                $('#js-vungDanhSach').html("");
+                $('#js-vungDanhSach').html(data.split('&&&')[0]);
+
+                $('#js-vungPhanTrang').html("");
+                $('#js-vungPhanTrang').html(data.split('&&&')[1]);
+
+                $('.page-loader-wrapper').attr('style', 'display:none');
+                eventLietKeNhatKy();
+            },
+            error: function (err) {
+                eventLietKeNhatKy();
+            }
+        });
+    }
+
+    function getParam() {
+        var tk = $('#cbbTaiKhoan').val();
+        var startDate = $('#txtStartDate').val();
+        var endDate = $('#txtEndDate').val();
+        var param = tk + "|" + startDate + "|" + endDate;
+        return param;
+    }
+</script>
+
+}

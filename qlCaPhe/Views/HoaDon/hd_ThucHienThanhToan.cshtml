@@ -8,6 +8,9 @@
 }
 
 
+
+
+@section stylecustom{
 <style>
     #printBill {
         background-color: #ffffff;
@@ -16,6 +19,7 @@
         border: 1px solid;
     }
 </style>
+}
 
 
 <section class="content">
@@ -68,7 +72,7 @@
                                                                 <b> @xulyDuLieu.traVeKyTuGoc(ct.sanPham.tenSanPham)</b>
                                                             </td>
                                                             <td>@ct.soLuong.ToString() </td>
-                                                            <td><b class="col-pink">@xulyDuLieu.doiVND(ct.sanPham.donGia)</b></td>
+                                                            <td><b class="col-pink">@xulyDuLieu.doiVND(ct.donGia)</b></td>
                                                         </tr>
                                                     }
                                                 </tbody>
@@ -156,6 +160,9 @@
     </div>
 </section>
 @Html.Raw(ViewBag.ModalBill)
+
+
+@section sciptajax{
 <script src="~/Scripts/dungChung.js"></script>
 <script>
 
@@ -213,3 +220,5 @@
     });
 
 </script>
+}
+

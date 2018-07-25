@@ -2,8 +2,15 @@
     ViewBag.Title = "Danh mục nhà cung cấp tạm ngưng";
     Layout = "~/Views/Shared/_LayoutTools.cshtml";
 }
-<link href="~/Content/toolTipGoiY.css" rel="stylesheet" />
-@Html.Raw(ViewBag.ScriptAjax)
+
+
+
+@section stylecustom{
+    <link href="~/Content/toolTipGoiY.css" rel="stylesheet" />
+}
+@section sciptajax{
+    @Html.Raw(ViewBag.ScriptAjax)
+}
 <section class="content">
     <div class="container-fluid">
         <div class="block-header">
@@ -47,36 +54,36 @@
                                                     <tbody>
                                                         @Html.Raw(ViewBag.TableData)
                                                         @*<tr role="row" class="odd">
-                    <td>
-                        <a href="http://www.trungnguyen.com.vn/" target="_blank" class="goiY">
-                            Cà phê Trung Nguyên
-                            <span class="noiDungGoiY-right">Click để vào trang web</span>
-                        </a>
+                                                                <td>
+                                                                    <a href="http://www.trungnguyen.com.vn/" target="_blank" class="goiY">
+                                                                        Cà phê Trung Nguyên
+                                                                        <span class="noiDungGoiY-right">Click để vào trang web</span>
+                                                                    </a>
 
-                    </td>
-                    <td>325456545</td>
-                    <td>123 Nguyễn Trãi, Q.5, TP.HCM</td>
-                    <td>0909888444</td>
-                    <td>caphetrungnguyen@mail.com</td>
-                    <td>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                Chức năng <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#" class="col-blue"><i class="material-icons">mode_edit</i>Chỉnh sửa</a></li>
-                                <li><a href="#" class="col-orange"><i class="material-icons">clear</i>Ngừng cung cấp</a></li>
-                                <li><a href="#" class="col-red"><i class="material-icons">delete</i>Xoá bỏ</a></li>
-                            </ul>
-                        </div>
-                    </td>
-                </tr>*@
+                                                                </td>
+                                                                <td>325456545</td>
+                                                                <td>123 Nguyễn Trãi, Q.5, TP.HCM</td>
+                                                                <td>0909888444</td>
+                                                                <td>caphetrungnguyen@mail.com</td>
+                                                                <td>
+                                                                    <div class="btn-group">
+                                                                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                                                            Chức năng <span class="caret"></span>
+                                                                        </button>
+                                                                        <ul class="dropdown-menu" role="menu">
+                                                                            <li><a href="#" class="col-blue"><i class="material-icons">mode_edit</i>Chỉnh sửa</a></li>
+                                                                            <li><a href="#" class="col-orange"><i class="material-icons">clear</i>Ngừng cung cấp</a></li>
+                                                                            <li><a href="#" class="col-red"><i class="material-icons">delete</i>Xoá bỏ</a></li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>*@
                                                     </tbody>
                                                 </table>
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="row">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12 pull-right">
                                             <div class="pull-right" id="DataTables_Table_0_paginate">
@@ -93,6 +100,7 @@
             </div>
             <!-- #END# Vertical Layout -->
         </div>
+    </div>
 </section>
 
 @*modal Xóa*@

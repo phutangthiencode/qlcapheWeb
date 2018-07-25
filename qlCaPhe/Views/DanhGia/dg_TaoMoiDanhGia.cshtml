@@ -2,7 +2,12 @@
     ViewBag.Title = "Đánh giá nhân viên";
     Layout = "~/Views/Shared/_LayoutTools.cshtml";
 }
+@section sciptajax{
 @Html.Raw(ViewBag.ScriptAjax)
+
+<script src="~/Scripts/Ajax/ajaxDanhGia.js"></script>
+}
+
 <section class="content">
     <div class="container-fluid">
         <div class="block-header">
@@ -148,8 +153,6 @@
         </div>
         <!-- #END# Vertical Layout -->
     </div>
-    <script src="~/Scripts/Ajax/ajaxDanhGia.js"></script>
-
     @Html.Raw(ViewBag.ThongBao)
     @Html.Raw(ViewBag.ToastThongBao)
 </section>

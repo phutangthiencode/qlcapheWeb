@@ -3,16 +3,22 @@
     Layout = "~/Views/Shared/_LayoutTools.cshtml";
 }
 
-
-
+@section stylecustom{
 
 <link href="~/Content/styleTool.css" rel="stylesheet" />
 <link href="~/Content/jquery.Jcrop.min.css" rel="stylesheet" />
+}
+@section sciptajax{
+
+
 <script src="~/Scripts/jquery.Jcrop.js"></script>
 
-<script type="text/javascript">    
+<script type="text/javascript">
+
     @Html.Raw(ViewBag.ScriptCropImage)
 </script>
+}
+
 
 
 

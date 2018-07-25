@@ -158,6 +158,9 @@
     </div>
     @Html.Raw(ViewBag.ThongBao)
 
-    @Html.Raw(ViewBag.ScriptAjax)
-    <script src="~/Scripts/Ajax/ajaxDieuPhoi.js"></script>
 </section>
+
+@section sciptajax{
+@Html.Raw(ViewBag.ScriptAjax)
+<script src="~/Scripts/Ajax/ajaxDieuPhoi.js"></script>
+}

@@ -3,6 +3,11 @@
     ViewBag.Title = "Chỉnh sửa công thức pha chế";
     Layout = "~/Views/Shared/_LayoutTools.cshtml";
 }
+
+
+
+
+@section stylecustom{
 <style type="text/css">
     .media {
         cursor: pointer;
@@ -11,8 +16,11 @@
 
 
 <link href="~/Content/toolTipGoiY.css" rel="stylesheet" />
+}
+@section sciptajax{
 <script src="~/Scripts/Ajax/ajaxCongThucPhaChe.js"></script>
 @Html.Raw(ViewBag.ScriptAjax)
+}
 <section class="content">
     <div class="container-fluid">
         <div class="block-header">

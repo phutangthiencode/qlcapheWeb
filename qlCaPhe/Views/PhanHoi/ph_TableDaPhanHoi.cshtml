@@ -61,7 +61,11 @@
     @Html.Raw(ViewBag.ModalXoa)
     <!--Modal xem chi tiết thành viên-->
     @Html.Raw(ViewBag.ModalChiTiet)
-    @Html.Raw(ViewBag.ScriptAjaxXemChiTiet)
-    @Html.Raw(ViewBag.ScriptAjaxXoaFeedBack)
+
 
 </section>
+
+@section sciptajax{
+@Html.Raw(ViewBag.ScriptAjaxXemChiTiet)
+@Html.Raw(ViewBag.ScriptAjaxXoaFeedBack)
+}

@@ -2,7 +2,10 @@
     ViewBag.Title = "Quản lý đặt bàn";
     Layout = "~/Views/Shared/_LayoutTools.cshtml";
 }
-<script src="~/Scripts/Ajax/ajaxNghiepVuBan.js"></script>
+
+@section stylecustom{
+
+
 <link href="~/Content/styleTool.css" rel="stylesheet" />
 <style>
     #btnSearch {
@@ -26,6 +29,11 @@
     }
 </style>
 <link href="~/Content/toolTipGoiY.css" rel="stylesheet" />
+}
+@section sciptajax{
+<script src="~/Scripts/Ajax/ajaxNghiepVuBan.js"></script>
+}
+
 <section class="content">
     <div class="container-fluid">
         <div class="block-header">

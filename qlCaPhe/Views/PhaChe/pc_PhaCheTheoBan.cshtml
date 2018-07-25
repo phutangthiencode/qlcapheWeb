@@ -4,8 +4,12 @@
 }
 
 
-<link href="~/Content/toolTipGoiY.css" rel="stylesheet" />
 @*@Html.Raw(ViewBag.ScriptAjaxXemChiTiet)*@
+
+@section stylecustom{
+
+<link href="~/Content/toolTipGoiY.css" rel="stylesheet" />
+}
 
 
 <section class="content">
@@ -310,7 +314,7 @@
         </div>
     </div>
 </div>  Modal cho danh sách chi tiết  -->
-
+@section sciptajax{
 <script>
     $(document).ready(function (event) {
         layDanhSachOrder();
@@ -319,14 +323,14 @@
         AjaxLayDanhSachBanOrDer(event); //-------Lấy danh sách lần 1
         setInterval(function (e) { //-------Chờ 30s rồi lấy danh sách 1 lần
             AjaxLayDanhSachBanOrDer(e);
-        }, 30000);        
+        }, 30000);
     }
     //-----Script load danh sách bàn đã order
     function AjaxLayDanhSachBanOrDer(e) {
         var res = getCurrentPageInRequest();
         $.ajax({
             url: getDuongDan() + 'PhaChe/AjaxLayDanhSachBanCanPhaChe',
-            data:'page='+res,
+            data: 'page=' + res,
             context: this,
             dataType: 'html',
             beforeSend: function () {
@@ -368,3 +372,5 @@
         });
     }
 </script>
+
+}

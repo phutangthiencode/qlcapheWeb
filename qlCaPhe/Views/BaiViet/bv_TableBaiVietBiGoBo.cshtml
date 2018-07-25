@@ -2,10 +2,9 @@
     ViewBag.Title = "Danh mục bài viết";
     Layout = "~/Views/Shared/_LayoutTools.cshtml";
 }
-
-<link href="~/Content/toolTipGoiY.css" rel="stylesheet" />
-@Html.Raw(ViewBag.ScriptAjax)
-@Html.Raw(ViewBag.ScriptAjaxXemChiTiet)
+@section stylecustom{
+    <link href="~/Content/toolTipGoiY.css" rel="stylesheet" />
+}
 <section class="content">
     <div class="container-fluid">
         <div class="block-header">
@@ -109,3 +108,9 @@
 @Html.Raw(ViewBag.ModalXoa)
 <!--Modal xem nội dung bài viết-->
 @Html.Raw(ViewBag.ModalChiTiet)
+
+@section sciptajax{
+    @Html.Raw(ViewBag.ScriptAjax)
+    @Html.Raw(ViewBag.ScriptAjaxXemChiTiet)
+}
+

@@ -2,8 +2,13 @@
     ViewBag.Title = "Danh mục nhóm tài khoản";
     Layout = "~/Views/Shared/_LayoutTools.cshtml";
 }
-@*Ajax*@
+
+@section stylecustom{
+
+}
+@section sciptajax{
 @Html.Raw(ViewBag.ScriptAjax)
+}
 <section class="content">
     <div class="container-fluid">
         <div class="block-header">

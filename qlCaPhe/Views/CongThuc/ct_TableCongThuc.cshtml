@@ -2,11 +2,19 @@
     ViewBag.Title = "Danh mục công thức pha chế";
     Layout = "~/Views/Shared/_LayoutTools.cshtml";
 }
+
+
+
+@section stylecustom{
 <link href="~/Content/toolTipGoiY.css" rel="stylesheet" />
+
+<link href="~/Content/formWizard.css" rel="stylesheet" />
+}
+@section sciptajax{
+<script src="~/Scripts/formWizard.js"></script>
 @Html.Raw(ViewBag.ScriptAjax)
 @Html.Raw(ViewBag.ScriptAjaxXemChiTiet)
-<link href="~/Content/formWizard.css" rel="stylesheet" />
-<script src="~/Scripts/formWizard.js"></script>
+}
 <section class="content">
     <div class="container-fluid">
         <div class="block-header">
