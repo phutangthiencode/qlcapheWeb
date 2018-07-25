@@ -13,3 +13,15 @@ Vị trí: Class: xulyFile - Function: donDepTM
  Lỗi: The process cannot access the file 'tải xuống.png' because it is being used by another process.
 ---------------------------------------------------------------
 
+-----------------------7/26/2018 12:18:34 AM----------
+Vị trí: Class: ThanhVienController - Function: getInfoThanhVienForCreateTaiKhoan 
+ Lỗi: Value cannot be null.
+Parameter name: inArray
+---------------------------------------------------------------
+
+-----------------------7/26/2018 12:18:48 AM----------
+Vị trí: Class: ThanhVienController - Function: getInfoThanhVienForCreateTaiKhoan 
+ Lỗi: Value cannot be null.
+Parameter name: inArray
+---------------------------------------------------------------
+

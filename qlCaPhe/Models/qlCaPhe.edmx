@@ -1147,6 +1147,9 @@
           <Parameter Name="startDate" Type="date" Mode="In" />
           <Parameter Name="endDate" Type="date" Mode="In" />
         </Function>
+        <Function Name="thongKeTongTienNhapKhoTheoNgay" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ngay" Type="date" Mode="In" />
+        </Function>
         <EntityContainer Name="qlCaPheModelStoreContainer">
           <EntitySet Name="baiViet" EntityType="Self.baiViet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BanChoNgoi" EntityType="Self.BanChoNgoi" Schema="dbo" store:Type="Tables" />
@@ -2843,6 +2846,9 @@
             <Parameter Name="maSP" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="thongKeHoaDonTheoNgay" ReturnType="Collection(qlCaPheModel.thongKeHoaDonTheoNgay_Result)">
+          <Parameter Name="ngay" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="thongKeTongTienNhapKhoTheoNgay" ReturnType="Collection(qlCaPheModel.thongKeTongTienNhapKhoTheoNgay_Result)">
             <Parameter Name="ngay" Mode="In" Type="DateTime" />
           </FunctionImport>
         </EntityContainer>
@@ -2919,6 +2925,10 @@
           <Property Type="Int64" Name="tongTien" Nullable="true" />
         </ComplexType>
         <ComplexType Name="thongKeHoaDonTheoNgay_Result">
+          <Property Type="Int64" Name="tongTien" Nullable="true" />
+          <Property Type="String" Name="gio" Nullable="true" MaxLength="5" />
+        </ComplexType>
+        <ComplexType Name="thongKeTongTienNhapKhoTheoNgay_Result">
           <Property Type="Int64" Name="tongTien" Nullable="true" />
           <Property Type="String" Name="gio" Nullable="true" MaxLength="5" />
         </ComplexType>
@@ -3595,6 +3605,14 @@
           <FunctionImportMapping FunctionImportName="thongKeHoaDonTheoNgay" FunctionName="qlCaPheModel.Store.thongKeHoaDonTheoNgay">
             <ResultMapping>
               <ComplexTypeMapping TypeName="qlCaPheModel.thongKeHoaDonTheoNgay_Result">
+                <ScalarProperty Name="tongTien" ColumnName="tongTien" />
+                <ScalarProperty Name="gio" ColumnName="gio" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="thongKeTongTienNhapKhoTheoNgay" FunctionName="qlCaPheModel.Store.thongKeTongTienNhapKhoTheoNgay">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="qlCaPheModel.thongKeTongTienNhapKhoTheoNgay_Result">
                 <ScalarProperty Name="tongTien" ColumnName="tongTien" />
                 <ScalarProperty Name="gio" ColumnName="gio" />
               </ComplexTypeMapping>

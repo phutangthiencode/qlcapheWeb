@@ -685,6 +685,66 @@ namespace qlCaPhe.Controllers
             }
         }
         #endregion
+
+
+        #region THỐNG KÊ NHẬP XUẤT TỒN
+        #region NHẬP
+        private static string idOfPageThongKeNhapKho = "1203";
+        #region NHẬP KHO THEO NGÀY
+
+        /// <summary>
+        /// Hàm tạo giao diện thống kê tiền nhập kho theo ngày
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult tke_NhapKhoTheoNgay()
+        {
+            if (xulyChung.duocTruyCap(idOfPageThongKeNhapKho))
+            {
+                ViewBag.ScriptAjax = createScriptCarvas.ScriptAjaxThongKeDoanhThu("/ThongKe/GetJsonTongTienNhapTheoNgay", "chart-ngay");
+                return View();
+            }
+            return RedirectToAction("PageNotFound", "Home");
+        }
+
+        /// <summary>
+        /// Hàm ajax lấy danh sách hóa đơn theo ngày
+        /// </summary>
+        /// <param name="param">Ngày cần lấy danh sách hóa đơn</param>
+        /// <returns>Json object các hóa đơn</returns>
+        [HttpGet]
+        public JsonResult GetJsonTongTienNhapTheoNgay(string param)
+        {
+            List<object> listHoaDon = new List<object>();
+            if (xulyChung.duocTruyCap(idOfPageThongKeNhapKho))
+                try
+                {
+                    DateTime date = xulyDuLieu.doiChuoiSangDateTime(param);
+                    IEnumerable<object> listKQ = new qlCaPheEntities().thongKeTongTienNhapKhoTheoNgay(date);
+                    long tongTienTamTinh = 0;
+                    foreach (object x in listKQ.ToList())
+                    {
+                        string gio = xulyDuLieu.layThuocTinhTrongMotObject(x, "gio");
+                        //---------Lấy tổng tiền thanh toán tạm tính của từng ngày
+                        long tienTamTinh = xulyDuLieu.doiChuoiSangLong(xulyDuLieu.layThuocTinhTrongMotObject(x, "tongTien"));
+                        tongTienTamTinh += tienTamTinh;
+                        object a = new
+                        {
+                            maHD = gio,
+                            tamTinh = tienTamTinh,
+                            tongTien = xulyDuLieu.doiVND(tongTienTamTinh)
+                        };
+                        listHoaDon.Add(a);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    xulyFile.ghiLoi("Class: ThongKeController - Function: GetJsonTongTienNhapTheoNgay", ex.Message);
+                }
+            return Json(listHoaDon, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+        #endregion
+        #endregion
     }
 
 }

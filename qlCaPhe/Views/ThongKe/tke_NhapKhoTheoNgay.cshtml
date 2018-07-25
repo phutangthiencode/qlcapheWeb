@@ -1,0 +1,157 @@
+﻿@{
+    ViewBag.Title = "Thống kê tiền nhập kho theo ngày";
+    Layout = "~/Views/Shared/_LayoutTools.cshtml";
+}
+
+@section sciptajax{
+    <script src="~/Scripts/jsapi.js"></script>
+    <script src="~/Scripts/Ajax/ThongKe/thongKeDoanhThu.js"></script>
+    @Html.Raw(ViewBag.ScriptAjax)
+
+
+    <script>
+        google.load("visualization", "1", { packages: ["corechart"] });
+
+        var soHDs, tamTinhs, dts, tenSPs, tongThus, dataThus;
+
+
+        $(document).ready(function () {
+
+            var ts;
+
+            $('#txtNgay').val(getDateCurrent());
+            ts = $('#txtNgay').val();
+            layDuLieuHoaDon(jsonThongKeDoanhThu, soHDs, tamTinhs, dts, ts, 'chart-ngay', "Thống kê doanh thu hóa đơn theo ngày: " + ts);
+            VeBieuDoTronThongKeSanPham(ts);
+            $('#txtNgay').change(function () {
+                ts = $('#txtNgay').val();
+                layDuLieuHoaDon(jsonThongKeDoanhThu, soHDs, tamTinhs, dts, ts, 'chart-ngay', "Thống kê doanh thu hóa đơn theo ngày: " + ts);
+                VeBieuDoTronThongKeSanPham(ts);
+            })
+        });
+
+        function VeBieuDoTronThongKeSanPham(ts) {
+            var title = "Thống kê số lượng sản phẩm bán theo ngày " + ts;
+            var titleDoanhThu = "Thống kê doanh thu bán sản phẩm theo ngày " + ts;
+            $.ajax({
+                type: "GET",
+                url: '/ThongKe/GetJsonSanPhamTheoNgay',
+                data: 'param=' + ts,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json", async: true,
+                beforeSend: function () {
+                    $('#pie-chart-ngay').html('');
+                    $('#chart-sanpham-ngay').html('');
+                },
+                success: function (kq) {
+                    hienTongDoanhThuSanPham(kq);
+                    drawPieChartSanPham(kq, title, "pie-chart-ngay");
+                    drawColumnChartDoanhThuTheoSanPham(kq, titleDoanhThu, "chart-sanpham-ngay");
+                },
+                failure: function (r) {
+                    alert(r.d);
+                },
+                error: function (r) {
+                    alert(r.d);
+                }
+            });
+        }
+    </script>
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <h2>Thống kê > Doanh thu theo thời điểm</h2>
+        </div>
+        <!-- Vertical Layout -->
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>
+                            <i class="material-icons">insert_chart</i>
+                            THỐNG KÊ DOANH THU THEO THỜI ĐIỂM
+                        </h2>
+                    </div>
+                    <div class="body">
+                        <ul class="nav nav-tabs tab-col-pink tabs-thongke" role="tablist">
+
+                            <li role="presentation" class="active"><a href="/ThongKe/tke_DoanhThuTheoTuan"><i class="material-icons">looks_6</i>Theo ngày</a></li>
+                            <li role="presentation" class=""><a href="/ThongKe/tke_DoanhThuTheoTuan"><i class="material-icons">view_week</i>Theo tuần</a></li>
+                            <li role="presentation" class=""><a href="/ThongKe/tke_DoanhThuTheoThang"><i class="material-icons">date_range</i>Theo tháng</a></li>
+                            <li role="presentation" class=""><a href="/ThongKe/tke_DoanhThuTheoQuy"><i class="material-icons">poll</i>Theo quý</a></li>
+                            <li role="presentation" class=""><a href="/ThongKe/tke_DoanhThuTheoNam"><i class="material-icons">present_to_all</i>Theo năm</a></li>
+
+                        </ul>
+
+                        <div class="tab-content">
+                            <div class="row">
+                                <div class="card">
+                                    <div class="header bg-cyan">
+                                        <h2>Thống kê tổng doanh thu theo ngày</h2>
+                                    </div>
+                                    <div class="body" style="max-height: 740px; min-height: 740px; ">
+
+                                        <div class="row clearfix">
+                                            <div class="col-md-7">
+                                                <label class="font-18 col-red js-tong-doanh-thu-hoadon"></label>
+                                            </div>
+                                            <div class="col-md-5 pull-right">
+                                                <div class="col-md-4 m-t-10">
+                                                    <label>Chọn ngày</label>
+                                                </div>
+                                                <div class="col-md-7 pull-right">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">
+                                                            <i class="material-icons">date_range</i>
+                                                        </span>
+                                                        <div class="form-line">
+                                                            <input class="form-control ngayValidate" id="txtNgay" min="1899-01-01" name="txtNgay"
+                                                                   required="true" type="date">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div id="chart-ngay" class="col-md-12 col-sm-12 col-xs-12 col-lg-12 column-chart"></div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="card">
+                                    <div class="header bg-green">
+                                        <h2>Thống kê số lượng sản phẩm đã bán theo ngày</h2>
+                                    </div>
+                                    <div class="body pie-chart">
+                                        <div id="pie-chart-ngay" class="pie-chart"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="row">
+                                <div class="card">
+                                    <div class="header bg-orange">
+                                        <h2>Thống kê doanh thu sản phẩm đã bán theo ngày</h2>
+                                    </div>
+                                    <div class="body" style="max-height: 740px; min-height: 740px; ">
+                                        <label class="font-18 col-red js-tong-doanh-thu-sanpham"></label>
+                                        <div id="chart-sanpham-ngay" class="column-chart"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #END# Vertical Layout -->
+    </div>
+</section>
