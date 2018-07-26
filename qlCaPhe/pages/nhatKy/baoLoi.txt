@@ -25,3 +25,23 @@ Vị trí: Class: ThanhVienController - Function: getInfoThanhVienForCreateTaiKh
 Parameter name: inArray
 ---------------------------------------------------------------
 
+-----------------------7/26/2018 3:28:06 PM----------
+Vị trí: Class: ThongKeController - Function: GetJsonSoLuongNhapKhoTheoNgay 
+ Lỗi: Object reference not set to an instance of an object.
+---------------------------------------------------------------
+
+-----------------------7/26/2018 3:29:04 PM----------
+Vị trí: Class: ThongKeController - Function: GetJsonSoLuongNhapKhoTheoNgay 
+ Lỗi: Object reference not set to an instance of an object.
+---------------------------------------------------------------
+
+-----------------------7/26/2018 3:29:58 PM----------
+Vị trí: Class: ThongKeController - Function: GetJsonSoLuongNhapKhoTheoNgay 
+ Lỗi: Object reference not set to an instance of an object.
+---------------------------------------------------------------
+
+-----------------------7/26/2018 3:33:35 PM----------
+Vị trí: Class: ThongKeController - Function: GetJsonSoLuongNhapKhoTheoNgay 
+ Lỗi: Object reference not set to an instance of an object.
+---------------------------------------------------------------
+

@@ -1142,6 +1142,9 @@
     <Parameter Name="startDate" Type="date" Mode="In" />
     <Parameter Name="endDate" Type="date" Mode="In" />
   </Function>
+  <Function Name="thongKeSoLuongNhapKhoTheoNgay" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ngay" Type="date" Mode="In" />
+  </Function>
   <Function Name="thongKeTongTienNhapKhoTheoNgay" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="ngay" Type="date" Mode="In" />
   </Function>

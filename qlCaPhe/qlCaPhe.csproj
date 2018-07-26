@@ -436,6 +436,9 @@
     <Compile Include="Models\thongKeHoaDonTheoTuan_Result.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\thongKeSoLuongNhapKhoTheoNgay_Result.cs">
+      <DependentUpon>qlCaPhe.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\thongKeTongTienNhapKhoTheoNgay_Result.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
     </Compile>
@@ -3838,6 +3841,7 @@
     <Content Include="Scripts\Ajax\ajaxXuatKho.js" />
     <Content Include="Scripts\Ajax\kiemKho.js" />
     <Content Include="Scripts\Ajax\ThongKe\thongKeDoanhThu.js" />
+    <Content Include="Scripts\Ajax\ThongKe\thongKeKho.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="plugins\bootstrap-colorpicker\css\bootstrap-colorpicker.css.map" />

@@ -1147,6 +1147,9 @@
           <Parameter Name="startDate" Type="date" Mode="In" />
           <Parameter Name="endDate" Type="date" Mode="In" />
         </Function>
+        <Function Name="thongKeSoLuongNhapKhoTheoNgay" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ngay" Type="date" Mode="In" />
+        </Function>
         <Function Name="thongKeTongTienNhapKhoTheoNgay" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ngay" Type="date" Mode="In" />
         </Function>
@@ -2849,6 +2852,9 @@
           <Parameter Name="ngay" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="thongKeTongTienNhapKhoTheoNgay" ReturnType="Collection(qlCaPheModel.thongKeTongTienNhapKhoTheoNgay_Result)">
+          <Parameter Name="ngay" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="thongKeSoLuongNhapKhoTheoNgay" ReturnType="Collection(qlCaPheModel.thongKeSoLuongNhapKhoTheoNgay_Result)">
             <Parameter Name="ngay" Mode="In" Type="DateTime" />
           </FunctionImport>
         </EntityContainer>
@@ -2931,6 +2937,13 @@
         <ComplexType Name="thongKeTongTienNhapKhoTheoNgay_Result">
           <Property Type="Int64" Name="tongTien" Nullable="true" />
           <Property Type="String" Name="gio" Nullable="true" MaxLength="5" />
+        </ComplexType>
+        <ComplexType Name="thongKeSoLuongNhapKhoTheoNgay_Result">
+          <Property Type="Int32" Name="maNguyenLieu" Nullable="false" />
+          <Property Type="String" Name="tennguyenlieu" Nullable="false" MaxLength="50" />
+          <Property Type="Double" Name="soLuongNhap" Nullable="true" />
+          <Property Type="String" Name="donViHienThi" Nullable="true" MaxLength="50" />
+          <Property Type="Double" Name="donGiaNhap" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -3615,6 +3628,17 @@
               <ComplexTypeMapping TypeName="qlCaPheModel.thongKeTongTienNhapKhoTheoNgay_Result">
                 <ScalarProperty Name="tongTien" ColumnName="tongTien" />
                 <ScalarProperty Name="gio" ColumnName="gio" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="thongKeSoLuongNhapKhoTheoNgay" FunctionName="qlCaPheModel.Store.thongKeSoLuongNhapKhoTheoNgay">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="qlCaPheModel.thongKeSoLuongNhapKhoTheoNgay_Result">
+                <ScalarProperty Name="maNguyenLieu" ColumnName="maNguyenLieu" />
+                <ScalarProperty Name="tennguyenlieu" ColumnName="tennguyenlieu" />
+                <ScalarProperty Name="soLuongNhap" ColumnName="soLuongNhap" />
+                <ScalarProperty Name="donViHienThi" ColumnName="donViHienThi" />
+                <ScalarProperty Name="donGiaNhap" ColumnName="donGiaNhap" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

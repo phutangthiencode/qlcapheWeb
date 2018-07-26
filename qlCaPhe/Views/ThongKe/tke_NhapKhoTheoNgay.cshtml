@@ -5,14 +5,39 @@
 
 @section sciptajax{
     <script src="~/Scripts/jsapi.js"></script>
-    <script src="~/Scripts/Ajax/ThongKe/thongKeDoanhThu.js"></script>
+    <script src="~/Scripts/Ajax/ThongKe/thongKeKho.js"></script>
     @Html.Raw(ViewBag.ScriptAjax)
 
 
+
     <script>
+
+        function jsonThongKe(handleData, ts) {
+            $.ajax({
+                url: "/ThongKe/GetJsonTongTienNhapTheoNgay",
+                data: 'param=' + ts,
+                type: "GET",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                async: true,
+                beforeSend: function () {
+                    $('#chart-ngay').html('');
+                    $('.page-loader-wrapper').attr('style', 'display:block');
+                },
+                success: function (result) {
+                    handleData(result);
+                    hienTongTienNhapKho(result);
+                    $('.page-loader-wrapper').attr('style', 'display:none');
+                },
+                error: function (errormessage) {
+                }
+            });
+            return false;
+        }
+
         google.load("visualization", "1", { packages: ["corechart"] });
 
-        var soHDs, tamTinhs, dts, tenSPs, tongThus, dataThus;
+        var phieuNhaps, tienNhaps, dts;
 
 
         $(document).ready(function () {
@@ -21,21 +46,21 @@
 
             $('#txtNgay').val(getDateCurrent());
             ts = $('#txtNgay').val();
-            layDuLieuHoaDon(jsonThongKeDoanhThu, soHDs, tamTinhs, dts, ts, 'chart-ngay', "Thống kê doanh thu hóa đơn theo ngày: " + ts);
-            VeBieuDoTronThongKeSanPham(ts);
+            layDuLieuTongTienNhap(jsonThongKe, phieuNhaps, tienNhaps, dts, ts, 'chart-ngay', "Thống kê tổng tiền nhập kho theo ngày: " + ts);
+            VeBieuDoTronThongKeNguyenLieuNhap(ts);
             $('#txtNgay').change(function () {
                 ts = $('#txtNgay').val();
-                layDuLieuHoaDon(jsonThongKeDoanhThu, soHDs, tamTinhs, dts, ts, 'chart-ngay', "Thống kê doanh thu hóa đơn theo ngày: " + ts);
-                VeBieuDoTronThongKeSanPham(ts);
+                layDuLieuTongTienNhap(jsonThongKe, phieuNhaps, tienNhaps, dts, ts, 'chart-ngay', "Thống kê tổng tiền nhập kho theo ngày: " + ts);
+                VeBieuDoTronThongKeNguyenLieuNhap(ts);
             })
         });
 
-        function VeBieuDoTronThongKeSanPham(ts) {
-            var title = "Thống kê số lượng sản phẩm bán theo ngày " + ts;
-            var titleDoanhThu = "Thống kê doanh thu bán sản phẩm theo ngày " + ts;
+        function VeBieuDoTronThongKeNguyenLieuNhap(ts) {
+            var titleSoLuong = "Thống kê số lượng nguyên liệu nhập theo ngày " + ts;
+            var titleTienNhap = "Thống kê tổng tiền nhập của nguyên liệu theo ngày " + ts;
             $.ajax({
                 type: "GET",
-                url: '/ThongKe/GetJsonSanPhamTheoNgay',
+                url: '/ThongKe/GetJsonSoLuongNhapKhoTheoNgay',
                 data: 'param=' + ts,
                 contentType: "application/json; charset=utf-8",
                 dataType: "json", async: true,
@@ -44,9 +69,9 @@
                     $('#chart-sanpham-ngay').html('');
                 },
                 success: function (kq) {
-                    hienTongDoanhThuSanPham(kq);
-                    drawPieChartSanPham(kq, title, "pie-chart-ngay");
-                    drawColumnChartDoanhThuTheoSanPham(kq, titleDoanhThu, "chart-sanpham-ngay");
+                    hienTongTienNhapKho(kq);
+                    drawPieChartNguyenLieu(kq, titleSoLuong, "pie-chart-ngay");
+                    drawColumnChartPriceOfMeterial(kq, titleTienNhap, "chart-nguyenlieu-ngay");
                 },
                 failure: function (r) {
                     alert(r.d);
@@ -62,7 +87,7 @@
 <section class="content">
     <div class="container-fluid">
         <div class="block-header">
-            <h2>Thống kê > Doanh thu theo thời điểm</h2>
+            <h2>Thống kê > Thống kê tiền nhập kho</h2>
         </div>
         <!-- Vertical Layout -->
         <div class="row clearfix">
@@ -71,13 +96,13 @@
                     <div class="header">
                         <h2>
                             <i class="material-icons">insert_chart</i>
-                            THỐNG KÊ DOANH THU THEO THỜI ĐIỂM
+                            THỐNG KÊ NHẬP KHO NGUYÊN LIỆU
                         </h2>
                     </div>
                     <div class="body">
                         <ul class="nav nav-tabs tab-col-pink tabs-thongke" role="tablist">
 
-                            <li role="presentation" class="active"><a href="/ThongKe/tke_DoanhThuTheoTuan"><i class="material-icons">looks_6</i>Theo ngày</a></li>
+                            <li role="presentation" class="active"><a href="/ThongKe/tke_NhapKhoTheoNgay"><i class="material-icons">looks_6</i>Theo ngày</a></li>
                             <li role="presentation" class=""><a href="/ThongKe/tke_DoanhThuTheoTuan"><i class="material-icons">view_week</i>Theo tuần</a></li>
                             <li role="presentation" class=""><a href="/ThongKe/tke_DoanhThuTheoThang"><i class="material-icons">date_range</i>Theo tháng</a></li>
                             <li role="presentation" class=""><a href="/ThongKe/tke_DoanhThuTheoQuy"><i class="material-icons">poll</i>Theo quý</a></li>
@@ -89,13 +114,13 @@
                             <div class="row">
                                 <div class="card">
                                     <div class="header bg-cyan">
-                                        <h2>Thống kê tổng doanh thu theo ngày</h2>
+                                        <h2>Thống kê tổng tiền nhập kho theo ngày</h2>
                                     </div>
                                     <div class="body" style="max-height: 740px; min-height: 740px; ">
 
                                         <div class="row clearfix">
                                             <div class="col-md-7">
-                                                <label class="font-18 col-red js-tong-doanh-thu-hoadon"></label>
+                                                <label class="font-18 col-red js-tong-tien"></label>
                                             </div>
                                             <div class="col-md-5 pull-right">
                                                 <div class="col-md-4 m-t-10">
@@ -125,7 +150,7 @@
                             <div class="row">
                                 <div class="card">
                                     <div class="header bg-green">
-                                        <h2>Thống kê số lượng sản phẩm đã bán theo ngày</h2>
+                                        <h2>Thống kê số lượng nguyên liệu đạ nhập theo ngày</h2>
                                     </div>
                                     <div class="body pie-chart">
                                         <div id="pie-chart-ngay" class="pie-chart"></div>
@@ -138,11 +163,11 @@
                             <div class="row">
                                 <div class="card">
                                     <div class="header bg-orange">
-                                        <h2>Thống kê doanh thu sản phẩm đã bán theo ngày</h2>
+                                        <h2>Thống kê tiền nhập trên từng nguyên liệu theo ngày</h2>
                                     </div>
                                     <div class="body" style="max-height: 740px; min-height: 740px; ">
-                                        <label class="font-18 col-red js-tong-doanh-thu-sanpham"></label>
-                                        <div id="chart-sanpham-ngay" class="column-chart"></div>
+                                        <label class="font-18 col-red js-tong-tien"></label>
+                                        <div id="chart-nguyenlieu-ngay" class="column-chart"></div>
                                     </div>
                                 </div>
                             </div>
