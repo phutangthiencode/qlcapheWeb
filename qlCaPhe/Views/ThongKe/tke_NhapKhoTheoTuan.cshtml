@@ -14,7 +14,7 @@
 
         function jsonThongKe(handleData, ts) {
             $.ajax({
-                url: "/ThongKe/GetJsonTongTienNhapTheoNgay",
+                url: "/ThongKe/GetJsonTongTienNhapTheoTuan",
                 data: 'param=' + ts,
                 type: "GET",
                 contentType: "application/json; charset=utf-8",
@@ -41,32 +41,33 @@
 
 
         $(document).ready(function () {
-
             var ts;
-
             $('#txtNgay').val(getDateCurrent());
             ts = $('#txtNgay').val();
-            layDuLieuTongTienNhap(jsonThongKe, phieuNhaps, tienNhaps, dts, ts, 'column-chart-total', "Thống kê tổng tiền nhập kho theo ngày: " + ts);
-            VeBieuDoTronThongKeNguyenLieuNhap(ts);
+            executeThongKe(ts);
             $('#txtNgay').change(function () {
                 ts = $('#txtNgay').val();
-                layDuLieuTongTienNhap(jsonThongKe, phieuNhaps, tienNhaps, dts, ts, 'column-chart-total', "Thống kê tổng tiền nhập kho theo ngày: " + ts);
-                VeBieuDoTronThongKeNguyenLieuNhap(ts);
+                executeThongKe(ts);
             })
         });
 
+        function executeThongKe(ts) {
+            layDuLieuTongTienNhap(jsonThongKe, phieuNhaps, tienNhaps, dts, ts, 'column-chart-total', "Từ ngày: " + ts + " đền " + convertDateToString(getDateOfNextWeek(ts)));
+            VeBieuDoTronThongKeNguyenLieuNhap(ts);
+        }
+
         function VeBieuDoTronThongKeNguyenLieuNhap(ts) {
-            var titleSoLuong = "Thống kê số lượng nguyên liệu nhập theo ngày " + ts;
-            var titleTienNhap = "Thống kê tổng tiền nhập của nguyên liệu theo ngày " + ts;
+            var titleSoLuong = "Từ ngày " + ts + " đến " + convertDateToString(getDateOfNextWeek(ts));
+            var titleTienNhap = "Từ ngày " + ts + " đến " + convertDateToString(getDateOfNextWeek(ts));
             $.ajax({
                 type: "GET",
-                url: '/ThongKe/GetJsonSoLuongNhapKhoTheoNgay',
+                url: '/ThongKe/GetJsonSoLuongNhapKhoTheoTuan',
                 data: 'param=' + ts,
                 contentType: "application/json; charset=utf-8",
                 dataType: "json", async: true,
                 beforeSend: function () {
                     $('#pie-chart-nguyenlieu').html('');
-                    $('#chart-sanpham-ngay').html('');
+                    $('#column-chart-nguyenlieu').html('');
                 },
                 success: function (kq) {
                     hienTongTienNhapKho(kq);
@@ -102,17 +103,17 @@
                     <div class="body">
                         <ul class="nav nav-tabs tab-col-pink tabs-thongke" role="tablist">
 
-                            <li role="presentation" class="active"><a href="/ThongKe/tke_NhapKhoTheoNgay"><i class="material-icons">looks_6</i>Theo ngày</a></li>
-                            <li role="presentation" class=""><a href="/ThongKe/tke_NhapKhoTheoTuan"><i class="material-icons">view_week</i>Theo tuần</a></li>
+                            <li role="presentation" class=""><a href="/ThongKe/tke_NhapKhoTheoNgay"><i class="material-icons">looks_6</i>Theo ngày</a></li>
+                            <li role="presentation" class="active"><a href="/ThongKe/tke_NhapKhoTheoTuan"><i class="material-icons">view_week</i>Theo tuần</a></li>
                             <li role="presentation" class=""><a href="/ThongKe/tke_NhapKhoTheoThang"><i class="material-icons">date_range</i>Theo tháng</a></li>
-                            
+
                         </ul>
 
                         <div class="tab-content">
                             <div class="row">
                                 <div class="card">
                                     <div class="header bg-cyan">
-                                        <h2>Thống kê tổng tiền nhập kho theo ngày</h2>
+                                        <h2>Thống kê tổng tiền nhập kho theo tuần</h2>
                                     </div>
                                     <div class="body" style="max-height: 740px; min-height: 740px; ">
 
@@ -148,7 +149,7 @@
                             <div class="row">
                                 <div class="card">
                                     <div class="header bg-green">
-                                        <h2>Thống kê số lượng nguyên liệu đã nhập theo ngày</h2>
+                                        <h2>Thống kê số lượng nguyên liệu đã nhập theo tuần</h2>
                                     </div>
                                     <div class="body pie-chart">
                                         <div id="pie-chart-nguyenlieu" class="pie-chart"></div>
@@ -161,7 +162,7 @@
                             <div class="row">
                                 <div class="card">
                                     <div class="header bg-orange">
-                                        <h2>Thống kê tiền nhập trên từng nguyên liệu theo tuan</h2>
+                                        <h2>Thống kê tiền nhập trên từng nguyên liệu theo tuần</h2>
                                     </div>
                                     <div class="body" style="max-height: 740px; min-height: 740px; ">
                                         <label class="font-18 col-red js-tong-tien"></label>

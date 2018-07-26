@@ -803,19 +803,19 @@ namespace qlCaPhe.Controllers
                 try
                 {
                     DateTime date = xulyDuLieu.doiChuoiSangDateTime(param);
-                    IEnumerable<object> listKQ = new qlCaPheEntities().thongKeTongTienNhapKhoTheoNgay(date);
-                    long tongTienTamTinh = 0;
+                    IEnumerable<object> listKQ = new qlCaPheEntities().thongKeTongTienNhapKhoTheoTuan(date);
+                    long tongTienTatCa = 0;
                     foreach (object x in listKQ.ToList())
                     {
-                        string gio = xulyDuLieu.layThuocTinhTrongMotObject(x, "gio");
+                        string ngayLap = xulyDuLieu.layThuocTinhTrongMotObject(x, "ngay");
                         //---------Lấy tổng tiền thanh toán tạm tính của từng ngày
-                        long tienTamTinh = xulyDuLieu.doiChuoiSangLong(xulyDuLieu.layThuocTinhTrongMotObject(x, "tongTien"));
-                        tongTienTamTinh += tienTamTinh;
+                        long tongTienTrenPhieu = xulyDuLieu.doiChuoiSangLong(xulyDuLieu.layThuocTinhTrongMotObject(x, "tongTien"));
+                        tongTienTatCa += tongTienTrenPhieu;
                         object a = new
                         {
-                            time = gio,
-                            price = tienTamTinh,
-                            totalPrice = xulyDuLieu.doiVND(tongTienTamTinh)
+                            time = ngayLap,
+                            price = tongTienTrenPhieu,
+                            tongTien = xulyDuLieu.doiVND(tongTienTatCa)
                         };
                         listHoaDon.Add(a);
                     }
@@ -840,7 +840,7 @@ namespace qlCaPhe.Controllers
                 try
                 {
                     DateTime date = xulyDuLieu.doiChuoiSangDateTime(param);
-                    IEnumerable<object> listKQ = new qlCaPheEntities().thongKeSoLuongNhapKhoTheoNgay(date);
+                    IEnumerable<object> listKQ = new qlCaPheEntities().thongKeSoLuongNhapKhoTheoTuan(date);
                     long tongTienNhap = 0;
                     foreach (object x in listKQ.ToList())
                     {

@@ -68,24 +68,7 @@ function drawPieChartNguyenLieu(json, title, chartID) {
     data.addColumn('string');
     data.addColumn('number', 'Devices');
     // Create Rows with data
-    var jsonLenght = Object.keys(json).length;
-    for (i = 0; i < jsonLenght; i++) {
-        var tenNguyenLieu = json[i]["tenNguyenLieu"];
-        var soLuongNhap = json[i]["soLuongNhap"];
-        data.addRows([
-            [tenNguyenLieu, soLuongNhap]
-        ]);
-    }
-
-    //Create option for chart
-    var options = {
-        title: title
-    };
-
-    // Instantiate and draw our chart, passing in some options.
-    var chart = new google.visualization.PieChart(document.getElementById(chartID));
-    //var c = new google.visualization.ColumnChart(document)
-    chart.draw(data, options);
+    drawChart(json, data, 1, chartID, title);
 }
 
 //-----------------Hàm vẽ biểu đồ cột cho việc thống kê số tiền từng nguyên liệu đã nhập
@@ -97,27 +80,36 @@ function drawColumnChartPriceOfMeterial(json, title, chartID) {
     var data = new google.visualization.DataTable();
     // Create columns for the DataTable
     data.addColumn('string');
-    data.addColumn('number', 'Nguyên liệu');
-    // Create Rows with data
-    var jsonLenght = Object.keys(json).length;
-    for (i = 0; i < jsonLenght; i++) {
-        var tenNguyenLieu = json[i]["tenNguyenLieu"];
-        var tongTienNhap = json[i]["tongTienNguyenLieu"];
-        data.addRows([
-            [tenNguyenLieu, tongTienNhap]
-        ]);
-    }
+    data.addColumn('number', 'Tiền nhập');
 
-    //Create option for chart
-    var options = {
-        title: title
-    };
-
-    // Instantiate and draw our chart, passing in some options.
-    var chart = new google.visualization.ColumnChart(document.getElementById(chartID));
-    chart.draw(data, options);
+    drawChart(json, data, 2, chartID, title);
 }
-
+//--------Hàm vẽ đồ thị
+//---------------json: json object chứa dữ liệu cần hiện lên đồ thị
+//---------------typeChart: Loại biểu đồ: 1: Tròn 2 Cột
+//---------------chartID: id của elemnt div chứa chart
+//---------------title: Tiêu để của biểu đồ
+function drawChart(json, data, typeChart, chartID, title) {
+    var jsonLenght = Object.keys(json).length;
+    if (jsonLenght > 0) {
+        for (i = 0; i < jsonLenght; i++) {
+            var tenNguyenLieu = json[i]["tenNguyenLieu"];
+            var tongTienNhap = json[i]["tongTienNguyenLieu"];
+            data.addRows([
+                [tenNguyenLieu, tongTienNhap]
+            ]);
+        }
+        //Create option for chart
+        var options = {
+            title: title
+        };
+        if (typeChart == 1)
+            var chart = new google.visualization.PieChart(document.getElementById(chartID));
+        else
+            var chart = new google.visualization.ColumnChart(document.getElementById(chartID));
+        chart.draw(data, options);
+    }
+}
 
 
 //-----------------Hàm vẽ biểu đồ cột cho việc thống kê doanh thu bán sản phẩm
@@ -162,5 +154,6 @@ function docTongTien(json) {
 function hienTongTienNhapKho(json) {
     $('.js-tong-tien').html("");
     var tongTien = docTongTien(json);
-    $('.js-tong-tien').html("Tổng tiền nhập kho nguyên liệu là: " + tongTien);
+    if (typeof (tongTien) != 'undefined')
+        $('.js-tong-tien').html("Tổng tiền nhập kho nguyên liệu là: " + tongTien);
 }

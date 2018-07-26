@@ -121,7 +121,7 @@ namespace qlCaPhe.App_Start
             kq += "            },\n";
             kq += "            success: function (result) {\n";
             kq += "                handleData(result);\n";
-            kq += "                 hienTongTongTienNhapXuatKho(result);\n";
+            kq += "                 hienTongDoanhThuHoaDon(result);\n";
             kq += "                $('.page-loader-wrapper').attr('style', 'display:none');\n";
             kq += "            },\n";
             kq += "            error: function (errormessage) {\n";
