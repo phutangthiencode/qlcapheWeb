@@ -605,7 +605,7 @@ namespace qlCaPhe.Controllers
             try
             {
                 phieuXuatKho phieuXuatAdd = new phieuXuatKho();
-                phieuXuatAdd.maKho = 1; //----------CẬP NHẬT LẠI KHO TRONG CẤU HÌNH. (LỰA CHỌN KHO TIẾP NHẬN NGUYÊN LIỆU CỦA NHÂN VIÊN).......
+                phieuXuatAdd.maKho = db.khoHangs.First().maKhoHang; //-------Lấy thông tin kho hàng
                 phieuXuatAdd.ngayXuat = DateTime.Now;
                 phieuXuatAdd.nguoiLapPhieu = xulyChung.layTenDangNhap();
                 phieuXuatAdd.ghiChu = "XUẤT NGUYÊN LIỆU PHA CHẾ CHO BÀN CÓ MÃ: " + maBan.ToString();
