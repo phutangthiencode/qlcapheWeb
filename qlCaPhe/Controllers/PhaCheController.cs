@@ -607,7 +607,7 @@ namespace qlCaPhe.Controllers
                 phieuXuatKho phieuXuatAdd = new phieuXuatKho();
                 phieuXuatAdd.maKho = 1; //----------CẬP NHẬT LẠI KHO TRONG CẤU HÌNH. (LỰA CHỌN KHO TIẾP NHẬN NGUYÊN LIỆU CỦA NHÂN VIÊN).......
                 phieuXuatAdd.ngayXuat = DateTime.Now;
-                phieuXuatAdd.nguoiLapPhieu = "admin"; //-----------CẬP NHẬT LẠI LẤY TÊN TÀI KHOẢN TỪ SESSION LOGIN
+                phieuXuatAdd.nguoiLapPhieu = xulyChung.layTenDangNhap();
                 phieuXuatAdd.ghiChu = "XUẤT NGUYÊN LIỆU PHA CHẾ CHO BÀN CÓ MÃ: " + maBan.ToString();
                 db.phieuXuatKhoes.Add(phieuXuatAdd);
                 db.SaveChanges();
