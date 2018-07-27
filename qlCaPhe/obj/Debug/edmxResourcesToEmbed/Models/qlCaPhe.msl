@@ -749,5 +749,24 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="thongKeSoLuongXuatKhoTheoTuan" FunctionName="qlCaPheModel.Store.thongKeSoLuongXuatKhoTheoTuan">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="qlCaPheModel.thongKeSoLuongXuatKhoTheoTuan_Result">
+          <ScalarProperty Name="maNguyenLieu" ColumnName="maNguyenLieu" />
+          <ScalarProperty Name="tennguyenlieu" ColumnName="tennguyenlieu" />
+          <ScalarProperty Name="soLuongNhap" ColumnName="soLuongNhap" />
+          <ScalarProperty Name="donViHienThi" ColumnName="donViHienThi" />
+          <ScalarProperty Name="donGiaNhap" ColumnName="donGiaNhap" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="thongKeTongTienXuatKhoTheoTuan" FunctionName="qlCaPheModel.Store.thongKeTongTienXuatKhoTheoTuan">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="qlCaPheModel.thongKeTongTienXuatKhoTheoTuan_Result">
+          <ScalarProperty Name="tongTien" ColumnName="tongTien" />
+          <ScalarProperty Name="time" ColumnName="time" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

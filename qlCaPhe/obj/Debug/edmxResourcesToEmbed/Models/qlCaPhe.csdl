@@ -1488,6 +1488,12 @@
     <FunctionImport Name="thongKeSoLuongXuatKhoTheoNgay" ReturnType="Collection(qlCaPheModel.thongKeSoLuongXuatKhoTheoNgay_Result)">
       <Parameter Name="ngay" Mode="In" Type="DateTime" />
     </FunctionImport>
+    <FunctionImport Name="thongKeSoLuongXuatKhoTheoTuan" ReturnType="Collection(qlCaPheModel.thongKeSoLuongXuatKhoTheoTuan_Result)">
+      <Parameter Name="startDate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="thongKeTongTienXuatKhoTheoTuan" ReturnType="Collection(qlCaPheModel.thongKeTongTienXuatKhoTheoTuan_Result)">
+      <Parameter Name="startDate" Mode="In" Type="DateTime" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="sp_helpdiagramdefinition_Result">
     <Property Type="Int32" Name="version" Nullable="true" />
@@ -1608,5 +1614,16 @@
     <Property Type="Double" Name="soLuongNhap" Nullable="true" />
     <Property Type="String" Name="donViHienThi" Nullable="true" MaxLength="50" />
     <Property Type="Double" Name="donGiaNhap" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="thongKeSoLuongXuatKhoTheoTuan_Result">
+    <Property Type="Int32" Name="maNguyenLieu" Nullable="false" />
+    <Property Type="String" Name="tennguyenlieu" Nullable="false" MaxLength="50" />
+    <Property Type="Double" Name="soLuongNhap" Nullable="true" />
+    <Property Type="String" Name="donViHienThi" Nullable="true" MaxLength="50" />
+    <Property Type="Double" Name="donGiaNhap" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="thongKeTongTienXuatKhoTheoTuan_Result">
+    <Property Type="Int64" Name="tongTien" Nullable="true" />
+    <Property Type="DateTime" Name="time" Nullable="true" />
   </ComplexType>
 </Schema>

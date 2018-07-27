@@ -1159,6 +1159,9 @@
         <Function Name="thongKeSoLuongXuatKhoTheoNgay" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ngay" Type="date" Mode="In" />
         </Function>
+        <Function Name="thongKeSoLuongXuatKhoTheoTuan" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="startDate" Type="date" Mode="In" />
+        </Function>
         <Function Name="thongKeTongTienNhapKhoTheoNgay" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ngay" Type="date" Mode="In" />
         </Function>
@@ -1170,6 +1173,9 @@
         </Function>
         <Function Name="thongKeTongTienXuatKhoTheoNgay" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ngay" Type="date" Mode="In" />
+        </Function>
+        <Function Name="thongKeTongTienXuatKhoTheoTuan" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="startDate" Type="date" Mode="In" />
         </Function>
         <EntityContainer Name="qlCaPheModelStoreContainer">
           <EntitySet Name="baiViet" EntityType="Self.baiViet" Schema="dbo" store:Type="Tables" />
@@ -2891,7 +2897,13 @@
           <Parameter Name="ngay" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="thongKeSoLuongXuatKhoTheoNgay" ReturnType="Collection(qlCaPheModel.thongKeSoLuongXuatKhoTheoNgay_Result)">
-            <Parameter Name="ngay" Mode="In" Type="DateTime" />
+          <Parameter Name="ngay" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="thongKeSoLuongXuatKhoTheoTuan" ReturnType="Collection(qlCaPheModel.thongKeSoLuongXuatKhoTheoTuan_Result)">
+            <Parameter Name="startDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="thongKeTongTienXuatKhoTheoTuan" ReturnType="Collection(qlCaPheModel.thongKeTongTienXuatKhoTheoTuan_Result)">
+            <Parameter Name="startDate" Mode="In" Type="DateTime" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
@@ -3013,6 +3025,17 @@
           <Property Type="Double" Name="soLuongNhap" Nullable="true" />
           <Property Type="String" Name="donViHienThi" Nullable="true" MaxLength="50" />
           <Property Type="Double" Name="donGiaNhap" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="thongKeSoLuongXuatKhoTheoTuan_Result">
+          <Property Type="Int32" Name="maNguyenLieu" Nullable="false" />
+          <Property Type="String" Name="tennguyenlieu" Nullable="false" MaxLength="50" />
+          <Property Type="Double" Name="soLuongNhap" Nullable="true" />
+          <Property Type="String" Name="donViHienThi" Nullable="true" MaxLength="50" />
+          <Property Type="Double" Name="donGiaNhap" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="thongKeTongTienXuatKhoTheoTuan_Result">
+          <Property Type="Int64" Name="tongTien" Nullable="true" />
+          <Property Type="DateTime" Name="time" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -3765,6 +3788,25 @@
                 <ScalarProperty Name="soLuongNhap" ColumnName="soLuongNhap" />
                 <ScalarProperty Name="donViHienThi" ColumnName="donViHienThi" />
                 <ScalarProperty Name="donGiaNhap" ColumnName="donGiaNhap" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="thongKeSoLuongXuatKhoTheoTuan" FunctionName="qlCaPheModel.Store.thongKeSoLuongXuatKhoTheoTuan">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="qlCaPheModel.thongKeSoLuongXuatKhoTheoTuan_Result">
+                <ScalarProperty Name="maNguyenLieu" ColumnName="maNguyenLieu" />
+                <ScalarProperty Name="tennguyenlieu" ColumnName="tennguyenlieu" />
+                <ScalarProperty Name="soLuongNhap" ColumnName="soLuongNhap" />
+                <ScalarProperty Name="donViHienThi" ColumnName="donViHienThi" />
+                <ScalarProperty Name="donGiaNhap" ColumnName="donGiaNhap" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="thongKeTongTienXuatKhoTheoTuan" FunctionName="qlCaPheModel.Store.thongKeTongTienXuatKhoTheoTuan">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="qlCaPheModel.thongKeTongTienXuatKhoTheoTuan_Result">
+                <ScalarProperty Name="tongTien" ColumnName="tongTien" />
+                <ScalarProperty Name="time" ColumnName="time" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

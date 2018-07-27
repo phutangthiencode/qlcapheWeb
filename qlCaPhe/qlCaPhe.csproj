@@ -448,6 +448,9 @@
     <Compile Include="Models\thongKeSoLuongXuatKhoTheoNgay_Result.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\thongKeSoLuongXuatKhoTheoTuan_Result.cs">
+      <DependentUpon>qlCaPhe.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\thongKeTongTienNhapKhoTheoNgay_Result.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
     </Compile>
@@ -458,6 +461,9 @@
       <DependentUpon>qlCaPhe.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\thongKeTongTienXuatKhoTheoNgay_Result.cs">
+      <DependentUpon>qlCaPhe.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\thongKeTongTienXuatKhoTheoTuan_Result.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TonKho.cs">
@@ -4223,6 +4229,7 @@
     <Content Include="Views\ThongKe\tke_NhapKhoTheoTuan.cshtml" />
     <Content Include="Views\ThongKe\tke_NhapKhoTheoThang.cshtml" />
     <Content Include="Views\ThongKe\tke_XuatKhoTheoNgay.cshtml" />
+    <Content Include="Views\ThongKe\tke_XuatKhoTheoTuan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
