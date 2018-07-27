@@ -1160,6 +1160,9 @@
   <Function Name="thongKeTongTienNhapKhoTheoTuan" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="startDate" Type="date" Mode="In" />
   </Function>
+  <Function Name="thongKeTongTienXuatKhoTheoNgay" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ngay" Type="date" Mode="In" />
+  </Function>
   <EntityContainer Name="qlCaPheModelStoreContainer">
     <EntitySet Name="baiViet" EntityType="Self.baiViet" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BanChoNgoi" EntityType="Self.BanChoNgoi" Schema="dbo" store:Type="Tables" />

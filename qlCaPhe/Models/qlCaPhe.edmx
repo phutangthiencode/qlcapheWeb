@@ -1165,6 +1165,9 @@
         <Function Name="thongKeTongTienNhapKhoTheoTuan" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="startDate" Type="date" Mode="In" />
         </Function>
+        <Function Name="thongKeTongTienXuatKhoTheoNgay" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ngay" Type="date" Mode="In" />
+        </Function>
         <EntityContainer Name="qlCaPheModelStoreContainer">
           <EntitySet Name="baiViet" EntityType="Self.baiViet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BanChoNgoi" EntityType="Self.BanChoNgoi" Schema="dbo" store:Type="Tables" />
@@ -2879,7 +2882,10 @@
           <Parameter Name="nam" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="thongKeSoLuongNhapKhoTheoThang" ReturnType="Collection(qlCaPheModel.thongKeSoLuongNhapKhoTheoThang_Result)">
-            <Parameter Name="thang" Mode="In" Type="Byte" />
+          <Parameter Name="thang" Mode="In" Type="Byte" />
+          </FunctionImport>
+          <FunctionImport Name="thongKeTongTienXuatKhoTheoNgay" ReturnType="Collection(qlCaPheModel.thongKeTongTienXuatKhoTheoNgay_Result)">
+            <Parameter Name="ngay" Mode="In" Type="DateTime" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
@@ -2990,6 +2996,10 @@
           <Property Type="Double" Name="soLuongNhap" Nullable="true" />
           <Property Type="String" Name="donViHienThi" Nullable="true" MaxLength="50" />
           <Property Type="Double" Name="donGiaNhap" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="thongKeTongTienXuatKhoTheoNgay_Result">
+          <Property Type="Int64" Name="tongTien" Nullable="true" />
+          <Property Type="String" Name="time" Nullable="true" MaxLength="5" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -3723,6 +3733,14 @@
                 <ScalarProperty Name="soLuongNhap" ColumnName="soLuongNhap" />
                 <ScalarProperty Name="donViHienThi" ColumnName="donViHienThi" />
                 <ScalarProperty Name="donGiaNhap" ColumnName="donGiaNhap" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="thongKeTongTienXuatKhoTheoNgay" FunctionName="qlCaPheModel.Store.thongKeTongTienXuatKhoTheoNgay">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="qlCaPheModel.thongKeTongTienXuatKhoTheoNgay_Result">
+                <ScalarProperty Name="tongTien" ColumnName="tongTien" />
+                <ScalarProperty Name="time" ColumnName="time" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

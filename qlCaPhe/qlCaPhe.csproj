@@ -454,6 +454,9 @@
     <Compile Include="Models\thongKeTongTienNhapKhoTheoTuan_Result.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\thongKeTongTienXuatKhoTheoNgay_Result.cs">
+      <DependentUpon>qlCaPhe.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\TonKho.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
     </Compile>

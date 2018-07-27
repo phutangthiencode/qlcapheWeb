@@ -656,6 +656,7 @@ namespace qlCaPhe.Controllers
                         else //-------Cập nhật số lượng nguyên liệu
                         {
                             ctXuat.soLuongXuat += ctCongThuc.soLuongNguyenLieu;
+                            tongTienCapNhat += Convert.ToInt64((new bNguyenLieu().chuyenDoiDonViNhoSangLon(ctXuat.soLuongXuat, ctCongThuc.nguyenLieu) * ctXuat.donGiaXuat));
                             db.Entry(ctXuat).State = System.Data.Entity.EntityState.Modified;
                             db.SaveChanges();
                         }
@@ -679,7 +680,7 @@ namespace qlCaPhe.Controllers
             try
             {
                 //------Nhận tham số là mã phiếu từ session
-                int maPhieu = this.layThamSoTrongSession(1);
+                int maPhieu = this.layThamSoTrongSession(2);
                 phieuXuatKho phieuSua = db.phieuXuatKhoes.SingleOrDefault(p => p.maPhieu == maPhieu);
                 if (phieuSua != null)
                 {

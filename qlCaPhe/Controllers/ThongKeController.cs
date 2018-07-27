@@ -926,7 +926,7 @@ namespace qlCaPhe.Controllers
                 try
                 {
                     DateTime date = xulyDuLieu.doiChuoiSangDateTime(param);
-                    IEnumerable<object> listStore = new qlCaPheEntities().thongKeTongTienNhapKhoTheoNgay(date);
+                    IEnumerable<object> listStore = new qlCaPheEntities().thongKeTongTienXuatKhoTheoNgay(date);
                     listKQ = this.ganDuLieuTongTienTrongPhieu(listStore);
                 }
                 catch (Exception ex)

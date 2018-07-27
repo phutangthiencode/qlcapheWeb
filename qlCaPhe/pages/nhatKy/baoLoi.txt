@@ -45,3 +45,8 @@ Vị trí: Class: ThongKeController - Function: GetJsonSoLuongNhapKhoTheoNgay
  Lỗi: Object reference not set to an instance of an object.
 ---------------------------------------------------------------
 
+-----------------------7/27/2018 3:40:28 PM----------
+Vị trí: Class: PhaCheController - Function: updateTongTienPhieuXuatKho 
+ Lỗi: Index was outside the bounds of the array.
+---------------------------------------------------------------
+
