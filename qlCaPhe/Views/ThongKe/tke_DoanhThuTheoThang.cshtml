@@ -14,38 +14,49 @@
     var soHDs, tamTinhs, dts;
     $(document).ready(function () {
 
+        var ts = getYearCurrent();
+        thongKeTong(ts);
         $('#cbbNam').change(function () {
-            var ts = $('#cbbNam').val();
+            ts = $('#cbbNam').val();
             $('#chart-thang').html("");
-            layDuLieuHoaDon(jsonThongKeDoanhThu, soHDs, tamTinhs, dts, ts, 'chart-thang', "Thống kê tổng doanh thu theo tháng của năm " + ts);
+            thongKeTong(ts);
         });
 
+        var tsThang = getMonthCurrent();
+        thongKeSanPham(tsThang);
 
         $('#cbbThangSP').change(function () {
             var ts = $(this).val();
-            var title = "Thống kê số lượng sản phẩm bán theo tháng : " + ts;
-            var titleDoanhThu = "Thống kê doanh thu sản phẩm bán theo tháng : " + ts;
-            $.ajax({
-                type: "GET",
-                url: '/ThongKe/GetJsonSanPhamTheoThang',
-                data: 'param=' + ts,
-                contentType: "application/json; charset=utf-8",
-                dataType: "json", async: true,
-                success: function (kq) {
-                    hienTongDoanhThuSanPham(kq);
-                    drawPieChartSanPham(kq, title, "pie-chart-thang");
-                    drawColumnChartDoanhThuTheoSanPham(kq, titleDoanhThu, "chart-sanpham-thang");
-                },
-                failure: function (r) {
-                    alert(r.d);
-                },
-                error: function (r) {
-                    alert(r.d);
-                }
-            });
+            thongKeSanPham(tsThang);
         });
     });
 
+    function thongKeTong(ts) {
+        layDuLieuHoaDon(jsonThongKeDoanhThu, soHDs, tamTinhs, dts, ts, 'chart-thang', "Thống kê tổng doanh thu theo tháng của năm " + ts);
+    }
+
+    function thongKeSanPham(ts) {
+        var title = "Thống kê số lượng sản phẩm bán theo tháng : " + ts;
+        var titleDoanhThu = "Thống kê doanh thu sản phẩm bán theo tháng : " + ts;
+        $.ajax({
+            type: "GET",
+            url: '/ThongKe/GetJsonSanPhamTheoThang',
+            data: 'param=' + ts,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json", async: true,
+            success: function (kq) {
+                hienTongDoanhThuSanPham(kq);
+                drawPieChartSanPham(kq, title, "pie-chart-thang");
+                drawColumnChartDoanhThuTheoSanPham(kq, titleDoanhThu, "chart-sanpham-thang");
+            },
+            failure: function (r) {
+                alert(r.d);
+            },
+            error: function (r) {
+                alert(r.d);
+            }
+        });
+    }
 
 </script>
 

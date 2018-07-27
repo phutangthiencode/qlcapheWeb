@@ -166,3 +166,8 @@ function getYearCurrent() {
 function getMonthCurrent() {
     return (new Date()).getMonth() + 1;
 }
+//------Hàm lấy quý hiện tại
+function getQuarterCurrent() {
+    var today = new Date();
+    return Math.floor((today.getMonth() + 3) / 3);
+}

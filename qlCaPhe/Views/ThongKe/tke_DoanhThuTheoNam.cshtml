@@ -16,30 +16,37 @@
     $(document).ready(function () {
         layDuLieuHoaDon(jsonThongKeDoanhThu, soHDs, tamTinhs, dts, "", 'chart-nam', "Thống kê tổng doanh thu qua các năm ");
 
+
+        var ts = getYearCurrent();
+        thongKeSanPham(ts);
         $('#cbbNamSP').change(function () {
-            var ts = $(this).val();
-            var title = "Thống kê số lượng sản phẩm bán theo năm : " + ts;
-            var titleDoanhThu = "Thống kê doanh thu sản phẩm bán theo năm : " + ts;
-            $.ajax({
-                type: "GET",
-                url: '/ThongKe/GetJsonSanPhamTheoNam',
-                data: 'param=' + ts,
-                contentType: "application/json; charset=utf-8",
-                dataType: "json", async: true,
-                success: function (kq) {
-                    hienTongDoanhThuSanPham(kq);
-                    drawPieChartSanPham(kq, title, "pie-chart-nam");
-                    drawColumnChartDoanhThuTheoSanPham(kq, titleDoanhThu, "chart-sanpham-nam");
-                },
-                failure: function (r) {
-                    alert(r.d);
-                },
-                error: function (r) {
-                    alert(r.d);
-                }
-            });
+            ts = $(this).val();
+            thongKeSanPham(ts);
         });
     });
+
+    function thongKeSanPham(ts) {
+        var title = "Thống kê số lượng sản phẩm bán theo năm : " + ts;
+        var titleDoanhThu = "Thống kê doanh thu sản phẩm bán theo năm : " + ts;
+        $.ajax({
+            type: "GET",
+            url: '/ThongKe/GetJsonSanPhamTheoNam',
+            data: 'param=' + ts,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json", async: true,
+            success: function (kq) {
+                hienTongDoanhThuSanPham(kq);
+                drawPieChartSanPham(kq, title, "pie-chart-nam");
+                drawColumnChartDoanhThuTheoSanPham(kq, titleDoanhThu, "chart-sanpham-nam");
+            },
+            failure: function (r) {
+                alert(r.d);
+            },
+            error: function (r) {
+                alert(r.d);
+            }
+        });
+    }
 
 
 </script>
