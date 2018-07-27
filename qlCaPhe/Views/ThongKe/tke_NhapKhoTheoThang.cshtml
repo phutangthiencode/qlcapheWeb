@@ -1,0 +1,223 @@
+﻿@{
+    ViewBag.Title = "Thống kê tiền nhập kho theo ngày";
+    Layout = "~/Views/Shared/_LayoutTools.cshtml";
+}
+
+@section sciptajax{
+    <script src="~/Scripts/jsapi.js"></script>
+    <script src="~/Scripts/Ajax/ThongKe/thongKeKho.js"></script>
+    @Html.Raw(ViewBag.ScriptAjax)
+
+
+
+    <script>
+
+    
+
+        google.load("visualization", "1", { packages: ["corechart"] });
+
+        var phieuNhaps, tienNhaps, dts;
+
+
+        $(document).ready(function () {
+            var tsNam = getYearCurrent(); //------mặc định lấy năm hiện tại khi người dùng vào trang
+            var tsThang = getMonthCurrent();
+            thongKeTrenPhieu(tsNam);
+            VeBieuDoTronThongKeNguyenLieuNhap(tsThang, tsNam);
+            $('#cbbNam').change(function () {
+                tsNam = $('#cbbNam').val();
+                thongKeTrenPhieu(tsNam);
+            });
+
+            $('#cbbThang').change(function () {
+                tsThang = $(this).val();
+                VeBieuDoTronThongKeNguyenLieuNhap(tsThang, tsNam);
+            });
+
+        });
+
+        function thongKeTrenPhieu(tsNam) {
+            layDuLieuTongTienNhap(jsonThongKe, phieuNhaps, tienNhaps, dts, tsNam, 'column-chart-total', "Theo các tháng trong năm " + tsNam);
+        }
+
+        function jsonThongKe(handleData, ts) {
+            $.ajax({
+                url: "/ThongKe/GetJsonTongTienNhapTheoThang",
+                data: 'param=' + ts,
+                type: "GET",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                async: true,
+                beforeSend: function () {
+                    $('#column-chart-total').html('');
+                    $('.page-loader-wrapper').attr('style', 'display:block');
+                },
+                success: function (result) {
+                    handleData(result);
+                    hienTongTienNhapKhoTrenPhieu(result);
+                    $('.page-loader-wrapper').attr('style', 'display:none');
+                },
+                error: function (errormessage) {
+                }
+            });
+            return false;
+        }
+
+        function hienTongTienNhapKhoTrenPhieu(json) {
+            $('.js-tong-tien-tren-phieu').html("");
+            var tongTien = docTongTien(json);
+            if (typeof (tongTien) != 'undefined')
+                $('.js-tong-tien-tren-phieu').html("Tổng tiền nhập kho nguyên liệu là: " + tongTien);
+        }
+
+        function VeBieuDoTronThongKeNguyenLieuNhap(ts, tsNam) {
+            var titleSoLuong = "Tháng " + ts + " năm " + tsNam;
+            var titleTienNhap = "Tháng " + ts + " năm " + tsNam;
+            $.ajax({
+                type: "GET",
+                url: '/ThongKe/GetJsonSoLuongNhapKhoTheoThang',
+                data: 'param=' + ts,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json", async: true,
+                beforeSend: function () {
+                    $('#pie-chart-nguyenlieu').html('');
+                    $('#column-chart-nguyenlieu').html('');
+                },
+                success: function (kq) {
+                    hienTongTienNhapKho(kq);
+                    drawPieChartNguyenLieu(kq, titleSoLuong, "pie-chart-nguyenlieu");
+                    drawColumnChartPriceOfMeterial(kq, titleTienNhap, "column-chart-nguyenlieu");
+                },
+                failure: function (r) {
+                    alert(r.d);
+                },
+                error: function (r) {
+                    alert(r.d);
+                }
+            });
+        }
+    </script>
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <h2>Thống kê > Thống kê tiền nhập kho</h2>
+        </div>
+        <!-- Vertical Layout -->
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>
+                            <i class="material-icons">insert_chart</i>
+                            THỐNG KÊ NHẬP KHO NGUYÊN LIỆU
+                        </h2>
+                    </div>
+                    <div class="body">
+                        <ul class="nav nav-tabs tab-col-pink tabs-thongke" role="tablist">
+
+                            <li role="presentation" class=""><a href="/ThongKe/tke_NhapKhoTheoNgay"><i class="material-icons">looks_6</i>Theo ngày</a></li>
+                            <li role="presentation" class=""><a href="/ThongKe/tke_NhapKhoTheoTuan"><i class="material-icons">view_week</i>Theo tuần</a></li>
+                            <li role="presentation" class="active"><a href="/ThongKe/tke_NhapKhoTheoThang"><i class="material-icons">date_range</i>Theo tháng</a></li>
+
+                        </ul>
+
+                        <div class="tab-content">
+                            <div class="row">
+                                <div class="card">
+                                    <div class="header bg-cyan">
+                                        <h2>Thống kê tổng tiền nhập kho theo tháng</h2>
+                                    </div>
+                                    <div class="body" style="max-height: 740px; min-height: 740px; ">
+
+                                        <div class="row clearfix">
+                                            <div class="col-md-6">
+                                                <label class="font-18 col-red js-tong-tien-tren-phieu"></label>
+                                            </div>
+
+                                            <div class="col-md-6 pull-right">
+                                                <div class="col-md-5 m-t-10">
+                                                    <label>Chọn năm thống kê</label>
+                                                </div>
+                                                <div class="col-md-6 pull-right">
+                                                    <div class="input-group">
+                                                        <select class="form-control" id="cbbNam">
+                                                            <option value="-1">Chọn năm</option>
+                                                            @Html.Raw(ViewBag.CbbNam)
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div id="column-chart-total" class="col-md-12 col-sm-12 col-xs-12 col-lg-12 column-chart"></div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="card">
+                                    <div class="header bg-green">
+                                        <h2>Thống kê số lượng nguyên liệu đã nhập theo tháng</h2>
+                                    </div>
+                                    <div class="body ">
+                                        <div class="row">
+                                            <div class="col-md-5 pull-right">
+                                                <div class="col-md-5 m-t-10">
+                                                    <label>Chọn tháng thống kê</label>
+                                                </div>
+                                                <div class="col-md-6 pull-right">
+                                                    <div class="input-group">
+                                                        <select class="form-control" id="cbbThang">
+                                                            <option value="-1">Chọn tháng</option>
+                                                            <option value="1">Tháng 1</option>
+                                                            <option value="2">Tháng 2</option>
+                                                            <option value="3">Tháng 3</option>
+                                                            <option value="4">Tháng 4</option>
+                                                            <option value="5">Tháng 5</option>
+                                                            <option value="6">Tháng 6</option>
+                                                            <option value="7">Tháng 7</option>
+                                                            <option value="8">Tháng 8</option>
+                                                            <option value="9">Tháng 9</option>
+                                                            <option value="10">Tháng 10</option>
+                                                            <option value="11">Tháng 11</option>
+                                                            <option value="12">Tháng 12</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div id="pie-chart-nguyenlieu" class="pie-chart"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="row">
+                                <div class="card">
+                                    <div class="header bg-orange">
+                                        <h2>Thống kê tiền nhập trên từng nguyên liệu theo tháng</h2>
+                                    </div>
+                                    <div class="body" style="max-height: 740px; min-height: 740px; ">
+                                        <label class="font-18 col-red js-tong-tien"></label>
+                                        <div id="column-chart-nguyenlieu" class="column-chart"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #END# Vertical Layout -->
+    </div>
+</section>

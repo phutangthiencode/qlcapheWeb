@@ -158,3 +158,11 @@ function getDateOfNextWeek(startDate) {
     var nextWeek = new Date(firstDay.getTime() + 7 * 24 * 60 * 60 * 1000);
     return nextWeek;
 }
+//-------Hàm lấy số năm hiện tại
+function getYearCurrent() {
+    return (new Date()).getFullYear()
+}
+//-------Hàm lấy tháng hiện tại
+function getMonthCurrent() {
+    return (new Date()).getMonth() + 1;
+}
