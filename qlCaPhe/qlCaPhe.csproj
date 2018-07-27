@@ -4216,6 +4216,7 @@
     <Content Include="Views\ThongKe\tke_NhapKhoTheoNgay.cshtml" />
     <Content Include="Views\ThongKe\tke_NhapKhoTheoTuan.cshtml" />
     <Content Include="Views\ThongKe\tke_NhapKhoTheoThang.cshtml" />
+    <Content Include="Views\ThongKe\tke_XuatKhoTheoNgay.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
