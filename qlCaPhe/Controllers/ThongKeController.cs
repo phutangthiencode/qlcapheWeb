@@ -944,34 +944,19 @@ namespace qlCaPhe.Controllers
         [HttpGet]
         public JsonResult GetJsonSoLuongXuatKhoTheoNgay(string param)
         {
-            List<object> listHoaDon = new List<object>();
+            List<object> listKQ = new List<object>();
             if (xulyChung.duocTruyCap(idOfPageThongKeNhapKho))
                 try
                 {
                     DateTime date = xulyDuLieu.doiChuoiSangDateTime(param);
-                    IEnumerable<object> listKQ = new qlCaPheEntities().thongKeSoLuongNhapKhoTheoNgay(date);
-                    long tongTienNhap = 0;
-                    foreach (object x in listKQ.ToList())
-                    {
-                        string soLuongNhap = xulyDuLieu.layThuocTinhTrongMotObject(x, "soLuongNhap");
-                        //---------Lấy tổng tiền thanh toán tạm tính của từng ngày
-                        long donGiaNhap = xulyDuLieu.doiChuoiSangLong(xulyDuLieu.layThuocTinhTrongMotObject(x, "donGiaNhap"));
-                        tongTienNhap += donGiaNhap;
-                        object a = new
-                        {
-                            soLuongNhap = xulyDuLieu.doiChuoiSangInteger(soLuongNhap),
-                            tenNguyenLieu = xulyDuLieu.layThuocTinhTrongMotObject(x, "tennguyenlieu") + " / " + soLuongNhap.ToString() + " " + xulyDuLieu.layThuocTinhTrongMotObject(x, "donViHienThi"),
-                            tongTienNguyenLieu = donGiaNhap,
-                            tongTien = xulyDuLieu.doiVND(tongTienNhap)
-                        };
-                        listHoaDon.Add(a);
-                    }
+                    IEnumerable<object> listStore = new qlCaPheEntities().thongKeSoLuongXuatKhoTheoNgay(date);
+                    listKQ = this.ganDuLieuSoLuongNguyenLieu(listStore);
                 }
                 catch (Exception ex)
                 {
                     xulyFile.ghiLoi("Class: ThongKeController - Function: GetJsonSoLuongNhapKhoTheoNgay", ex.Message);
                 }
-            return Json(listHoaDon, JsonRequestBehavior.AllowGet);
+            return Json(listKQ, JsonRequestBehavior.AllowGet);
         }
         #endregion
 
