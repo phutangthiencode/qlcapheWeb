@@ -162,6 +162,8 @@ namespace qlCaPhe.Controllers
             return html;
         }
         #endregion
+
+
         #region NHÓM HÀM PHA CHẾ SẢN PHẨM THEO BÀN
         /// <summary>
         /// Hàm tạo giao diện pha chế theo bàn <para/> và CẬP NHẬT TRẠNG THÁI pha chế
@@ -209,6 +211,7 @@ namespace qlCaPhe.Controllers
             }
             return View();
         }
+        #region Tạo element hiện dữ liệu
         /// <summary>
         /// hàm tạo danh sách các sản phẩm của bàn đả order
         /// </summary>
@@ -331,6 +334,7 @@ namespace qlCaPhe.Controllers
             html += "</tr>";
             return html;
         }
+        #endregion
 
         /// <summary>
         /// Hàm xử lý pha chế sản phẩm. Thực hiện các giai đoạn:
@@ -612,7 +616,7 @@ namespace qlCaPhe.Controllers
                 db.phieuXuatKhoes.Add(phieuXuatAdd);
                 db.SaveChanges();
                 //--------Gán lại mã phiếu vào session để xác định phiếu cần thêm nguyên liệu xuất
-                Session["urlAction"] = "page=tv_ChinhSuaThanhVien|request?maBan=" + maBan.ToString() + "&maPhieu=" + phieuXuatAdd.maPhieu.ToString(); ;
+                Session["urlAction"] = "page=pc_ThucHienPhaCheTheoBan|request?maBan=" + maBan.ToString() + "&maPhieu=" + phieuXuatAdd.maPhieu.ToString(); ;
             }
             catch (Exception ex)
             {
@@ -635,7 +639,6 @@ namespace qlCaPhe.Controllers
                 congThucPhaChe congThucSanPham = ct.sanPham.congThucPhaChes.SingleOrDefault(c => c.trangThai == true);
                 if (congThucSanPham != null)
                 {
-                    long tongTienCapNhat = 0; //------Biến nhận tổng số tiền xuất nguyên liệu để cập nhật cho phiếu
                     //----------Lặp qua từng nguyên liệu trong công thức pha chế sản phẩm
                     foreach (ctCongThuc ctCongThuc in congThucSanPham.ctCongThucs.Where(c => c.maNguyenLieu > 0).ToList())
                     {
@@ -648,21 +651,13 @@ namespace qlCaPhe.Controllers
                             ctXuat.maNguyenLieu = (int)ctCongThuc.maNguyenLieu;
                             ctXuat.soLuongXuat = ctCongThuc.soLuongNguyenLieu;
                             ctXuat.donGiaXuat = new bTonKho().layDonGiaNguyenLieuTonKho(ctXuat.maNguyenLieu);
-                            tongTienCapNhat += Convert.ToInt64((new bNguyenLieu().chuyenDoiDonViNhoSangLon(ctXuat.soLuongXuat, ctCongThuc.nguyenLieu) * ctXuat.donGiaXuat));
                             ctXuat.ghiChu = "XUẤT NGUYÊN LIỆU KHI PHA CHẾ";
                             db.ctPhieuXuatKhoes.Add(ctXuat);
                             db.SaveChanges();
                         }
                         else //-------Cập nhật số lượng nguyên liệu
-                        {
-                            ctXuat.soLuongXuat += ctCongThuc.soLuongNguyenLieu;
-                            tongTienCapNhat += Convert.ToInt64((new bNguyenLieu().chuyenDoiDonViNhoSangLon(ctXuat.soLuongXuat, ctCongThuc.nguyenLieu) * ctXuat.donGiaXuat));
-                            db.Entry(ctXuat).State = System.Data.Entity.EntityState.Modified;
-                            db.SaveChanges();
-                        }
+                            this.capNhatSoLuongNguyenLieuTrongChiTiet(db, ctXuat, (double)ctCongThuc.soLuongNguyenLieu);
                     }
-                    //------Cập nhật lại tổng tiền trên phiếu
-                    this.updateTongTienPhieuXuatKho(tongTienCapNhat, db);
                 }
             }
             catch (Exception ex)
@@ -670,32 +665,25 @@ namespace qlCaPhe.Controllers
                 xulyFile.ghiLoi("Class: PhaCheController - Function: insertCtPhieuXuatKho", ex.Message);
             }
         }
-        /// <summary>
-        /// Hàm cập nhật lại tongTien trong bảng phieuXuatKho khi đã nhập nguyên liệu xuất.
-        /// </summary>
-        /// <param name="tongTien">Tổng số tiền cần cập nhật</param>
-        /// <param name="db"></param>
-        private void updateTongTienPhieuXuatKho(long tongTien, qlCaPheEntities db)
-        {
-            try
-            {
-                //------Nhận tham số là mã phiếu từ session
-                int maPhieu = this.layThamSoTrongSession(2);
-                phieuXuatKho phieuSua = db.phieuXuatKhoes.SingleOrDefault(p => p.maPhieu == maPhieu);
-                if (phieuSua != null)
-                {
-                    phieuSua.tongTien = tongTien;
-                    db.Entry(phieuSua).State = System.Data.Entity.EntityState.Modified;
-                    db.SaveChanges();
-                }
-                else throw new Exception(" không thể cập nhật tổng tiền cho phiếu xuất");
-            }
-            catch (Exception ex)
-            {
-                xulyFile.ghiLoi("Class: PhaCheController - Function: updateTongTienPhieuXuatKho", ex.Message);
-            }
 
+        /// <summary>
+        /// Thực hiện xóa ct cũ và cập nhật lại để thực hiện trigger
+        /// </summary>
+        /// <param name="db"></param>
+        /// <param name="ctXuat">Số lượng nguyên liệu</param>
+        private void capNhatSoLuongNguyenLieuTrongChiTiet(qlCaPheEntities db, ctPhieuXuatKho ctXuat, double soLuong)
+        {
+            ctPhieuXuatKho ctNew = new ctPhieuXuatKho();
+            ctNew = ctXuat;
+            //--------Cộng dồn số lượng nguyên liệu
+            ctNew.soLuongXuat += soLuong;
+            db.ctPhieuXuatKhoes.Remove(ctXuat);
+            db.SaveChanges();
+            //----Thêm mới
+            db.ctPhieuXuatKhoes.Add(ctNew);
+            db.SaveChanges();
         }
+      
         /// <summary>
         /// Hàm lấy 1 tham số từ trong Session
         /// </summary>

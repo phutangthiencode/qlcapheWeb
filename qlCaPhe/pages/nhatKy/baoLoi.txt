@@ -50,3 +50,43 @@ Vị trí: Class: PhaCheController - Function: updateTongTienPhieuXuatKho
  Lỗi: Index was outside the bounds of the array.
 ---------------------------------------------------------------
 
+-----------------------7/27/2018 4:26:04 PM----------
+Vị trí: Class: PhaCheController - Function: updateTongTienPhieuXuatKho 
+ Lỗi: Index was outside the bounds of the array.
+---------------------------------------------------------------
+
+-----------------------7/27/2018 5:24:34 PM----------
+Vị trí: Class CongThucController - Function: xoaCongThuc 
+ Lỗi: Object reference not set to an instance of an object.
+---------------------------------------------------------------
+
+-----------------------7/27/2018 5:27:34 PM----------
+Vị trí: Class CongThucController - Function: themLichSuGiaVaoDatabase 
+ Lỗi: Vui lòng nhập số tiền cho sản phẩm
+---------------------------------------------------------------
+
+-----------------------7/27/2018 5:40:43 PM----------
+Vị trí: Class CongThucController - Function: themLichSuGiaVaoDatabase 
+ Lỗi: Vui lòng nhập số tiền cho sản phẩm
+---------------------------------------------------------------
+
+-----------------------7/27/2018 5:43:20 PM----------
+Vị trí: Class CongThucController - Function: xoaCongThuc 
+ Lỗi: Object reference not set to an instance of an object.
+---------------------------------------------------------------
+
+-----------------------7/27/2018 5:47:01 PM----------
+Vị trí: Class CongThucController - Function: themLichSuGiaVaoDatabase 
+ Lỗi: Vui lòng nhập số tiền cho sản phẩm
+---------------------------------------------------------------
+
+-----------------------7/27/2018 5:48:47 PM----------
+Vị trí: Class CongThucController - Function: themLichSuGiaVaoDatabase 
+ Lỗi: Vui lòng nhập số tiền cho sản phẩm
+---------------------------------------------------------------
+
+-----------------------7/27/2018 5:53:15 PM----------
+Vị trí: Class CongThucController - Function: themLichSuGiaVaoDatabase 
+ Lỗi: Vui lòng nhập số tiền cho sản phẩm
+---------------------------------------------------------------
+
