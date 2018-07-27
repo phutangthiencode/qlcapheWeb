@@ -967,7 +967,7 @@ namespace qlCaPhe.Controllers
         /// <returns></returns>
         public ActionResult tke_XuatKhoTheoTuan()
         {
-            if (xulyChung.duocTruyCap(idOfPageThongKeNhapKho))
+            if (xulyChung.duocTruyCap(idOfPageThongKeXuatKho))
                 return View();
             return RedirectToAction("PageNotFound", "Home");
         }
@@ -1019,94 +1019,65 @@ namespace qlCaPhe.Controllers
         }
         #endregion
 
-        //#region NHẬP KHO THEO THÁNG
-        ///// <summary>
-        ///// Hàm tạo giao diện thống kê tiền nhập kho theo tháng
-        ///// </summary>
-        ///// <returns></returns>
-        //public ActionResult tke_NhapKhoTheoThang()
-        //{
-        //    if (xulyChung.duocTruyCap(idOfPageThongKeNhapKho))
-        //    {
-        //        this.taoDuLieuChoCbbNam();
-        //        return View();
-        //    }
-        //    return RedirectToAction("PageNotFound", "Home");
-        //}
+        #region XUẤT KHO THEO THÁNG
+        /// <summary>
+        /// Hàm tạo giao diện thống kê tiền xuất kho theo tháng
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult tke_XuatKhoTheoThang()
+        {
+            if (xulyChung.duocTruyCap(idOfPageThongKeXuatKho))
+            {
+                this.taoDuLieuChoCbbNam();
+                return View();
+            }
+            return RedirectToAction("PageNotFound", "Home");
+        }
 
-        ///// <summary>
-        ///// Hàm ajax lấy danh sách hóa đơn theo tháng
-        ///// </summary>
-        ///// <param name="param">năm cần liệt kê phiếu nhập kho</param>
-        ///// <returns>Json object các phiếu nhập kho</returns>
-        //[HttpGet]
-        //public JsonResult GetJsonTongTienNhapTheoThang(int? param)
-        //{
-        //    List<object> listHoaDon = new List<object>();
-        //    if (xulyChung.duocTruyCap(idOfPageThongKeNhapKho))
-        //        try
-        //        {
-        //            IEnumerable<object> listKQ = new qlCaPheEntities().thongKeTongTienNhapKhoTheoThang(param);
-        //            long tongTienTatCa = 0;
-        //            foreach (object x in listKQ.ToList())
-        //            {
-        //                string ngayLap = xulyDuLieu.layThuocTinhTrongMotObject(x, "time");
-        //                //---------Lấy tổng tiền thanh toán tạm tính của từng ngày
-        //                long tongTienTrenPhieu = xulyDuLieu.doiChuoiSangLong(xulyDuLieu.layThuocTinhTrongMotObject(x, "tongTien"));
-        //                tongTienTatCa += tongTienTrenPhieu;
-        //                object a = new
-        //                {
-        //                    time = ngayLap,
-        //                    price = tongTienTrenPhieu,
-        //                    tongTien = xulyDuLieu.doiVND(tongTienTatCa)
-        //                };
-        //                listHoaDon.Add(a);
-        //            }
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            xulyFile.ghiLoi("Class: ThongKeController - Function: GetJsonTongTienNhapTheoThang", ex.Message);
-        //        }
-        //    return Json(listHoaDon, JsonRequestBehavior.AllowGet);
-        //}
-        ///// <summary>
-        ///// Hàm ajax lấy danh sách các nguyên liệu nhập kho theo tháng.
-        ///// Thông tin lấy gồm: maNguyenLieu, tennguyenlieu, soLuongNhap, donViHienThi, donGiaNhap
-        ///// </summary>
-        ///// <param name="param">Tháng cần thống kê cần lấy</param>
-        ///// <returns>Json object để vẽ biểu đồ</returns>
-        //[HttpGet]
-        //public JsonResult GetJsonSoLuongNhapKhoTheoThang(byte? param)
-        //{
-        //    List<object> listHoaDon = new List<object>();
-        //    if (xulyChung.duocTruyCap(idOfPageThongKeNhapKho))
-        //        try
-        //        {
-        //            IEnumerable<object> listKQ = new qlCaPheEntities().thongKeSoLuongNhapKhoTheoThang(param);
-        //            long tongTienNhap = 0;
-        //            foreach (object x in listKQ.ToList())
-        //            {
-        //                string soLuongNhap = xulyDuLieu.layThuocTinhTrongMotObject(x, "soLuongNhap");
-        //                //---------Lấy tổng tiền thanh toán tạm tính của từng ngày
-        //                long donGiaNhap = xulyDuLieu.doiChuoiSangLong(xulyDuLieu.layThuocTinhTrongMotObject(x, "donGiaNhap"));
-        //                tongTienNhap += donGiaNhap;
-        //                object a = new
-        //                {
-        //                    soLuongNhap = xulyDuLieu.doiChuoiSangInteger(soLuongNhap),
-        //                    tenNguyenLieu = xulyDuLieu.layThuocTinhTrongMotObject(x, "tennguyenlieu") + " / " + soLuongNhap.ToString() + " " + xulyDuLieu.layThuocTinhTrongMotObject(x, "donViHienThi"),
-        //                    tongTienNguyenLieu = donGiaNhap,
-        //                    tongTien = xulyDuLieu.doiVND(tongTienNhap)
-        //                };
-        //                listHoaDon.Add(a);
-        //            }
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            xulyFile.ghiLoi("Class: ThongKeController - Function: GetJsonSoLuongNhapKhoTheoThang", ex.Message);
-        //        }
-        //    return Json(listHoaDon, JsonRequestBehavior.AllowGet);
-        //}
-        //#endregion
+        /// <summary>
+        /// Hàm ajax lấy danh sách phiếu xuất kho 
+        /// </summary>
+        /// <param name="param">năm cần liệt kê phiếu xuất kho</param>
+        /// <returns>Json object các phiếu xuất kho</returns>
+        [HttpGet]
+        public JsonResult GetJsonTongTienXuatTheoThang(int? param)
+        {
+            List<object> listKQ = new List<object>();
+            if (xulyChung.duocTruyCap(idOfPageThongKeNhapKho))
+                try
+                {
+                    IEnumerable<object> listStore = new qlCaPheEntities().thongKeTongTienNhapKhoTheoThang(param);
+                    listKQ = this.ganDuLieuTongTienTrongPhieu(listStore);
+                }
+                catch (Exception ex)
+                {
+                    xulyFile.ghiLoi("Class: ThongKeController - Function: GetJsonTongTienNhapTheoThang", ex.Message);
+                }
+            return Json(listKQ, JsonRequestBehavior.AllowGet);
+        }
+        /// <summary>
+        /// Hàm ajax lấy danh sách các nguyên liệu xuất kho theo tháng.
+        /// Thông tin lấy gồm: maNguyenLieu, tennguyenlieu, soLuongNhap, donViHienThi, donGiaNhap
+        /// </summary>
+        /// <param name="param">Tháng cần thống kê cần lấy</param>
+        /// <returns>Json object để vẽ biểu đồ</returns>
+        [HttpGet]
+        public JsonResult GetJsonSoLuongXuatKhoTheoThang(byte? param)
+        {
+            List<object> listKQ = new List<object>();
+            if (xulyChung.duocTruyCap(idOfPageThongKeNhapKho))
+                try
+                {
+                    IEnumerable<object> listStore = new qlCaPheEntities().thongKeSoLuongNhapKhoTheoThang(param);
+                    listKQ = this.ganDuLieuSoLuongNguyenLieu(listStore);
+                }
+                catch (Exception ex)
+                {
+                    xulyFile.ghiLoi("Class: ThongKeController - Function: GetJsonSoLuongNhapKhoTheoThang", ex.Message);
+                }
+            return Json(listKQ, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
 
      
         #endregion
