@@ -23,10 +23,12 @@ namespace qlCaPhe.Controllers
                 try
                 {
                     this.resetDuLieu();
-                    cauHinh chSua = new qlCaPheEntities().cauHinhs.First();
+                    qlCaPheEntities db = new qlCaPheEntities();
+                    cauHinh chSua = db.cauHinhs.First();
                     if (chSua != null)
                     {
                         this.doDuLieuLenView(chSua);
+                        this.taoDuLieuChoCbbTaiKhoan(db);
                         xulyChung.ghiNhatKyDtb(1, "Thiết lập thông số chung");
                     }
                 }
@@ -75,6 +77,49 @@ namespace qlCaPhe.Controllers
                 this.doDuLieuLenView(chSua);
             }
             return View();
+        }
+
+        /// <summary>
+        /// Hàm cập nhật thời điểm kiểm kê kho hàng
+        /// </summary>
+        /// <param name="f"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult ch_LenLichKiemKe(FormCollection f)
+        {
+            if (xulyChung.duocCapNhat(idOfPage, "7"))
+            {
+                string ndthongBao = ""; int kqLuu = 0;
+                cauHinh chSua = new cauHinh();
+                qlCaPheEntities db = new qlCaPheEntities();
+                try
+                {
+                    chSua = db.cauHinhs.First();
+                    this.layDuLieuTuViewKiemKe(chSua, f);
+                    db.Entry(chSua).State = System.Data.Entity.EntityState.Modified;
+                    kqLuu = db.SaveChanges();
+                    if (kqLuu > 0)
+                    {
+                        //------Tạo thông báo đến thành viên kiểm kê
+                        kqLuu+=  this.taoThongBaoNhacNhoKiemKeDtb(db, f["cbbTaiKhoan"], chSua);
+                        if (kqLuu > 1)
+                        {
+                            ndthongBao = "Cấu hình kế hoạch kiểm kê thành công";
+                            this.resetDuLieu();
+                            xulyChung.ghiNhatKyDtb(4, ndthongBao);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ndthongBao = ex.Message;
+                    xulyFile.ghiLoi("Class: CauHinhController - Function: ch_ThietLapThongSoChung_Post", ex.Message);
+                    this.resetDuLieu();
+                }
+                ViewBag.ThongBao = createHTML.taoThongBaoLuu(ndthongBao);
+                this.doDuLieuLenView(chSua);
+            }
+            return View("ch_ThietLapThongSoChung");
         }
         #endregion
         #region ORTHERS
@@ -148,6 +193,74 @@ namespace qlCaPhe.Controllers
             ViewBag.ScriptCropImage = createScriptAjax.scriptAjaxUpLoadAndCropImage("cauHinh", 120, 120, 120, 120);
             //Gán modal up và crop hình ảnh lên view
             ViewBag.modalChonHinh = createHTML.taoModalUpHinh();
+        }
+
+        /// <summary>
+        /// Hàm tạo dữ liệu cho combobox tài khoản thành viên được phân công kiểm kê
+        /// </summary>
+        /// <param name="db"></param>
+        /// <param name="maTV">Mã thành viên đã chọn </param>
+        private void taoDuLieuChoCbbTaiKhoan(qlCaPheEntities db)
+        {
+            try
+            {
+                //-----Tạo dữ liệu combobox cho thành viên
+                string html = "";
+                foreach (taiKhoan tk in db.taiKhoans.ToList().Where(t => t.trangThai == true))
+                    html += "<option value=\"" + xulyDuLieu.traVeKyTuGoc(tk.tenDangNhap) + "\">" + xulyDuLieu.traVeKyTuGoc(tk.tenDangNhap) + " - " + xulyDuLieu.traVeKyTuGoc(tk.thanhVien.hoTV + " " + tk.thanhVien.tenTV)+ "</option>";
+                ViewBag.cbbTaiKhoan = html;
+            }
+            catch (Exception ex)
+            {
+                xulyFile.ghiLoi("Class: BangCongTacController - Function: taoDuLieuChoCbb", ex.Message);
+            }
+        }
+        /// <summary>
+        /// Hàm lấy dữ liệu tại form kế hoạch kiểm kho
+        /// </summary>
+        /// <param name="ch"></param>
+        /// <param name="f"></param>
+        private void layDuLieuTuViewKiemKe(cauHinh ch, FormCollection f)
+        {
+            string loi = "";
+            ch.batDauKiem = xulyDuLieu.doiChuoiSangDateTime(f["txtNgayBatDau"]);
+            if (ch.batDauKiem < DateTime.Now.Date)
+                loi += "Ngày bắt đầu kiểm phải lớn hơn hoặc bằng ngày hiện tại";
+            ch.ketThucKiem = xulyDuLieu.doiChuoiSangDateTime(f["txtNgayKetThuc"]);
+            if (ch.ketThucKiem < DateTime.Now.Date)
+                loi += "Ngày kết thúc phải lớn hơn ngày hiện tại";
+            if (loi.Length > 0)
+                throw new Exception(loi);
+        }
+
+        /// <summary>
+        /// Hàm tạo thông báo nhắc nhở kiểm kê trong CSDL
+        /// </summary>
+        /// <param name="db"></param>
+        /// <param name="tenTK">Tên tài khoản cần tạo thông báo</param>
+        /// <param name="ch">Object cấu hình để lấy ngày bắt đầu và kết thúc</param>
+        private int taoThongBaoNhacNhoKiemKeDtb(qlCaPheEntities db, string tenTK, cauHinh ch)
+        {
+            int kq = 0;
+            try
+            {
+                if (tenTK.Length >= 5)
+                {
+                    thongBao tbAdd = new thongBao();
+                    tbAdd.ndThongBao = "Đến đợt kiểm kê kho hàng " + ch.batDauKiem.ToString() + " - " + ch.ketThucKiem.ToString();
+                    tbAdd.taiKhoan = tenTK;
+                    tbAdd.ngayTao = DateTime.Now;
+                    tbAdd.daXem = false;
+                    tbAdd.ghiChu = "Thông báo kiểm kho";
+                    db.thongBaos.Add(tbAdd);
+                    kq=   db.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                xulyFile.ghiLoi("Class: CauHinhController - Function: taoThongBaoNhacNhoKiemKeDtb", ex.Message);
+            }
+            return kq;
         }
         #endregion
     }

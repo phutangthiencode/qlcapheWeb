@@ -76,6 +76,8 @@
     <Property Name="loGo" Type="Binary" MaxLength="Max" FixedLength="false" />
     <Property Name="ghiChu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="idQuan" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="batDauKiem" Type="DateTime" Precision="0" />
+    <Property Name="ketThucKiem" Type="DateTime" Precision="0" />
   </EntityType>
   <EntityType Name="congThucPhaChe">
     <Key>
@@ -382,7 +384,6 @@
     <Property Name="moTa" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="maLoai" Type="Int32" Nullable="false" />
     <Property Name="thoiHanSuDung" Type="Double" Nullable="false" />
-    <Property Name="tongSoLuong" Type="Int32" />
     <Property Name="donViPhaChe" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="hinhAnh" Type="Binary" MaxLength="Max" FixedLength="false" />
     <Property Name="trangThai" Type="Boolean" Nullable="false" />
@@ -1494,6 +1495,12 @@
     <FunctionImport Name="thongKeTongTienXuatKhoTheoTuan" ReturnType="Collection(qlCaPheModel.thongKeTongTienXuatKhoTheoTuan_Result)">
       <Parameter Name="startDate" Mode="In" Type="DateTime" />
     </FunctionImport>
+    <FunctionImport Name="thongKeSoLuongXuatKhoTheoThang" ReturnType="Collection(qlCaPheModel.thongKeSoLuongXuatKhoTheoThang_Result)">
+      <Parameter Name="thang" Mode="In" Type="Byte" />
+    </FunctionImport>
+    <FunctionImport Name="thongKeTongTienXuatKhoTheoThang" ReturnType="Collection(qlCaPheModel.thongKeTongTienXuatKhoTheoThang_Result)">
+      <Parameter Name="nam" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="sp_helpdiagramdefinition_Result">
     <Property Type="Int32" Name="version" Nullable="true" />
@@ -1625,5 +1632,16 @@
   <ComplexType Name="thongKeTongTienXuatKhoTheoTuan_Result">
     <Property Type="Int64" Name="tongTien" Nullable="true" />
     <Property Type="DateTime" Name="time" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="thongKeSoLuongXuatKhoTheoThang_Result">
+    <Property Type="Int32" Name="maNguyenLieu" Nullable="false" />
+    <Property Type="String" Name="tennguyenlieu" Nullable="false" MaxLength="50" />
+    <Property Type="Double" Name="soLuongNhap" Nullable="true" />
+    <Property Type="String" Name="donViHienThi" Nullable="true" MaxLength="50" />
+    <Property Type="Double" Name="donGiaNhap" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="thongKeTongTienXuatKhoTheoThang_Result">
+    <Property Type="Int64" Name="tongTien" Nullable="true" />
+    <Property Type="Int32" Name="time" Nullable="true" />
   </ComplexType>
 </Schema>

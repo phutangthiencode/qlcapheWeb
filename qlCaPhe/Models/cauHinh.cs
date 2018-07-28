@@ -27,5 +27,7 @@ namespace qlCaPhe.Models
         public byte[] loGo { get; set; }
         public string ghiChu { get; set; }
         public int idQuan { get; set; }
+        public Nullable<System.DateTime> batDauKiem { get; set; }
+        public Nullable<System.DateTime> ketThucKiem { get; set; }
     }
 }

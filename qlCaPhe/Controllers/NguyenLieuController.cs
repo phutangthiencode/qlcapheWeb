@@ -127,7 +127,7 @@ namespace qlCaPhe.Controllers
                     htmlTable += "      </td>";
                     htmlTable += "      <td>" + xulyDuLieu.traVeKyTuGoc(nl.loaiNguyenLieu.tenLoai) + "</td>";
                     htmlTable += "      <td>" + xulyDuLieu.xulyCatChuoi(xulyDuLieu.traVeKyTuGoc(nl.moTa), 100) + "</td>";
-                    htmlTable += "      <td>" + nl.tongSoLuong.ToString() + " " + xulyDuLieu.traVeKyTuGoc(nl.donViHienThi) + "</td>";
+                    htmlTable += "      <td>" +xulyDuLieu.traVeKyTuGoc(nl.donViHienThi) + "</td>";
                     htmlTable += "      <td>" + nl.thoiHanSuDung.ToString() + " ngày</td>";
                     htmlTable += "      <td>";
                     htmlTable += "          <div class=\"btn-group\">";

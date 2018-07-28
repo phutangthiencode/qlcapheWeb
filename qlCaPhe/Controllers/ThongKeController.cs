@@ -1046,12 +1046,12 @@ namespace qlCaPhe.Controllers
             if (xulyChung.duocTruyCap(idOfPageThongKeNhapKho))
                 try
                 {
-                    IEnumerable<object> listStore = new qlCaPheEntities().thongKeTongTienNhapKhoTheoThang(param);
+                    IEnumerable<object> listStore = new qlCaPheEntities().thongKeTongTienXuatKhoTheoThang(param);
                     listKQ = this.ganDuLieuTongTienTrongPhieu(listStore);
                 }
                 catch (Exception ex)
                 {
-                    xulyFile.ghiLoi("Class: ThongKeController - Function: GetJsonTongTienNhapTheoThang", ex.Message);
+                    xulyFile.ghiLoi("Class: ThongKeController - Function: GetJsonTongTienXuatTheoThang", ex.Message);
                 }
             return Json(listKQ, JsonRequestBehavior.AllowGet);
         }
@@ -1068,12 +1068,12 @@ namespace qlCaPhe.Controllers
             if (xulyChung.duocTruyCap(idOfPageThongKeNhapKho))
                 try
                 {
-                    IEnumerable<object> listStore = new qlCaPheEntities().thongKeSoLuongNhapKhoTheoThang(param);
+                    IEnumerable<object> listStore = new qlCaPheEntities().thongKeSoLuongXuatKhoTheoThang(param);
                     listKQ = this.ganDuLieuSoLuongNguyenLieu(listStore);
                 }
                 catch (Exception ex)
                 {
-                    xulyFile.ghiLoi("Class: ThongKeController - Function: GetJsonSoLuongNhapKhoTheoThang", ex.Message);
+                    xulyFile.ghiLoi("Class: ThongKeController - Function: GetJsonSoLuongXuatKhoTheoThang", ex.Message);
                 }
             return Json(listKQ, JsonRequestBehavior.AllowGet);
         }

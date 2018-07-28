@@ -68,6 +68,8 @@
     <Property Name="loGo" Type="varbinary(max)" />
     <Property Name="ghiChu" Type="ntext" />
     <Property Name="idQuan" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="batDauKiem" Type="date" />
+    <Property Name="ketThucKiem" Type="date" />
   </EntityType>
   <EntityType Name="congThucPhaChe">
     <Key>
@@ -330,7 +332,6 @@
     <Property Name="moTa" Type="ntext" />
     <Property Name="maLoai" Type="int" Nullable="false" />
     <Property Name="thoiHanSuDung" Type="float" Nullable="false" />
-    <Property Name="tongSoLuong" Type="int" />
     <Property Name="donViPhaChe" Type="nvarchar" MaxLength="50" />
     <Property Name="hinhAnh" Type="varbinary(max)" />
     <Property Name="trangThai" Type="bit" Nullable="false" />
@@ -1154,6 +1155,9 @@
   <Function Name="thongKeSoLuongXuatKhoTheoNgay" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="ngay" Type="date" Mode="In" />
   </Function>
+  <Function Name="thongKeSoLuongXuatKhoTheoThang" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="thang" Type="tinyint" Mode="In" />
+  </Function>
   <Function Name="thongKeSoLuongXuatKhoTheoTuan" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="startDate" Type="date" Mode="In" />
   </Function>
@@ -1168,6 +1172,9 @@
   </Function>
   <Function Name="thongKeTongTienXuatKhoTheoNgay" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="ngay" Type="date" Mode="In" />
+  </Function>
+  <Function Name="thongKeTongTienXuatKhoTheoThang" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="nam" Type="int" Mode="In" />
   </Function>
   <Function Name="thongKeTongTienXuatKhoTheoTuan" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="startDate" Type="date" Mode="In" />

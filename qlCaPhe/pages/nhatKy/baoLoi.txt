@@ -90,3 +90,33 @@ Vị trí: Class CongThucController - Function: themLichSuGiaVaoDatabase
  Lỗi: Vui lòng nhập số tiền cho sản phẩm
 ---------------------------------------------------------------
 
+-----------------------7/28/2018 6:13:34 PM----------
+Vị trí: Class: CauHinhController - Function: ch_ThietLapThongSoChung_Post 
+ Lỗi: Ngày bắt đầu kiểm phải lớn hơn hoặc bằng ngày hiện tạiNgày kết thúc phải lớn hơn hoặc bằng ngày hiện tại
+---------------------------------------------------------------
+
+-----------------------7/28/2018 6:13:53 PM----------
+Vị trí: Class: CauHinhController - Function: ch_ThietLapThongSoChung_Post 
+ Lỗi: Ngày bắt đầu kiểm phải lớn hơn hoặc bằng ngày hiện tạiNgày kết thúc phải lớn hơn hoặc bằng ngày hiện tại
+---------------------------------------------------------------
+
+-----------------------7/28/2018 6:16:09 PM----------
+Vị trí: Class: CauHinhController - Function: ch_ThietLapThongSoChung_Post 
+ Lỗi: Ngày kết thúc phải lớn hơn hoặc bằng ngày hiện tại
+---------------------------------------------------------------
+
+-----------------------7/28/2018 6:18:15 PM----------
+Vị trí: Class: CauHinhController - Function: ch_ThietLapThongSoChung_Post 
+ Lỗi: Ngày bắt đầu kiểm phải lớn hơn hoặc bằng ngày hiện tạiNgày kết thúc phải lớn hơn hoặc bằng ngày hiện tại
+---------------------------------------------------------------
+
+-----------------------7/28/2018 6:46:16 PM----------
+Vị trí: Class: CauHinhController - Function: ch_ThietLapThongSoChung_Post 
+ Lỗi: Ngày bắt đầu kiểm phải lớn hơn hoặc bằng ngày hiện tại
+---------------------------------------------------------------
+
+-----------------------7/28/2018 6:47:15 PM----------
+Vị trí: Class: CauHinhController - Function: ch_ThietLapThongSoChung_Post 
+ Lỗi: Ngày bắt đầu kiểm phải lớn hơn hoặc bằng ngày hiện tại
+---------------------------------------------------------------
+

@@ -197,17 +197,44 @@
                                 </div>
                                 <div id="collapseOne_2" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingOne_1" aria-expanded="true" style="">
                                     <div class="dropzone dz-clickable" style="background-color:#ffffff!important;">
+                                            <form action="/CauHinh/ch_LenLichKiemKe" method="post">
+                                                <h4>Lên kế hoạch kiểm kê kho hàng</h4>
 
-                                        <a href="/Tools_VungLamViec/DownloadApp" class="link-download-app">
-                                            <div class="dz-message">
-                                                <div class="drag-icon-cph">
-                                                    <i class="material-icons">file_download</i>
+                                                <div class="row">
+                                                    <div class="col-md-3 col-lg-3 col-sm-3 col-xs-6">
+                                                        <label for="txtBatDau">Ngày bắt đầu</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon">
+                                                                <i class="material-icons">date_range</i>
+                                                            </span>
+                                                            <div class="form-line">
+                                                                <input class="form-control " id="txtNgayBatDau" min="1899-01-01" name="txtNgayBatDau" required="true" type="date" value="">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3 col-lg-3 col-sm-3 col-xs-6">
+                                                        <label for="txtBatDau">Ngày kết thúc</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon">
+                                                                <i class="material-icons">date_range</i>
+                                                            </span>
+                                                            <div class="form-line">
+                                                                <input class="form-control " id="txtNgayKetThuc" min="1899-01-01" name="txtNgayKetThuc" required="true" type="date" value="">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3 col-lg-3 col-sm-3 col-xs-6">
+                                                        <label for="txtTenLoai">Tài khoản kiểm kê</label>
+                                                        <select class="form-control" name="cbbTaiKhoan" id="cbbTaiKhoan">
+                                                            <option value="-1">-- Lựa chọn tài khoản thành viên điều phối kiểm kê--</option>
+                                                            @Html.Raw(ViewBag.cbbTaiKhoan)
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-3 col-lg-3 col-sm-3 col-xs-6">
+                                                        <input type="submit" value="Lên kế hoạch" class="btn btn-primary m-t-20" />
+                                                    </div>
                                                 </div>
-                                                <h3>Click vào đây để tải ứng dụng CoffeeManager</h3>
-                                                <em>(Ứng dụng chỉ hỗ trợ cho thiết bị chạy hệ điều hành Android)</em>
-
-                                            </div>
-                                        </a>
+                                            </form>
                                     </div>
                                 </div>
                             </div>

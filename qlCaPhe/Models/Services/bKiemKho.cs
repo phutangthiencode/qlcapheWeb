@@ -165,15 +165,17 @@ public class bKiemKho : System.Web.Services.WebService
         List<svThongBao> kq = new List<svThongBao>();
         try
         {
-            //-------NGÀY KHỐNG
-            DateTime startDate = new DateTime(2018, 5, 22);
-            DateTime endDate = DateTime.Now;
-            svThongBao itemKQ = new svThongBao();
-            itemKQ.daXem = false;
-            itemKQ.ghiChu = "Thông báo kiểm kho";
-            itemKQ.maThongBao = 1;
-            itemKQ.ndThongBao = "Đến đợt kiểm kê kho hàng " + startDate.ToShortDateString() + " - " + endDate.ToShortDateString();
-            kq.Add(itemKQ);
+            cauHinh ch = new qlCaPheEntities().cauHinhs.First();
+            if (ch != null)
+                if (DateTime.Now >= ch.batDauKiem && DateTime.Now <= ch.ketThucKiem)
+                {
+                    svThongBao itemKQ = new svThongBao();
+                    itemKQ.daXem = false;
+                    itemKQ.ghiChu = "Thông báo kiểm kho";
+                    itemKQ.maThongBao = 1;
+                    itemKQ.ndThongBao = "Đến đợt kiểm kê kho hàng " + ch.batDauKiem.ToString() + " - " + ch.ketThucKiem.ToString();
+                    kq.Add(itemKQ);
+                }
         }
         catch (Exception ex)
         {

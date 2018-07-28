@@ -59,6 +59,8 @@
     <EntitySetMapping Name="cauHinhs">
       <EntityTypeMapping TypeName="qlCaPheModel.cauHinh">
         <MappingFragment StoreEntitySet="cauHinh">
+          <ScalarProperty Name="ketThucKiem" ColumnName="ketThucKiem" />
+          <ScalarProperty Name="batDauKiem" ColumnName="batDauKiem" />
           <ScalarProperty Name="tenQuan" ColumnName="tenQuan" />
           <ScalarProperty Name="gioiThieu" ColumnName="gioiThieu" />
           <ScalarProperty Name="diaChi" ColumnName="diaChi" />
@@ -349,7 +351,6 @@
           <ScalarProperty Name="moTa" ColumnName="moTa" />
           <ScalarProperty Name="maLoai" ColumnName="maLoai" />
           <ScalarProperty Name="thoiHanSuDung" ColumnName="thoiHanSuDung" />
-          <ScalarProperty Name="tongSoLuong" ColumnName="tongSoLuong" />
           <ScalarProperty Name="donViPhaChe" ColumnName="donViPhaChe" />
           <ScalarProperty Name="hinhAnh" ColumnName="hinhAnh" />
           <ScalarProperty Name="trangThai" ColumnName="trangThai" />
@@ -763,6 +764,25 @@
     <FunctionImportMapping FunctionImportName="thongKeTongTienXuatKhoTheoTuan" FunctionName="qlCaPheModel.Store.thongKeTongTienXuatKhoTheoTuan">
       <ResultMapping>
         <ComplexTypeMapping TypeName="qlCaPheModel.thongKeTongTienXuatKhoTheoTuan_Result">
+          <ScalarProperty Name="tongTien" ColumnName="tongTien" />
+          <ScalarProperty Name="time" ColumnName="time" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="thongKeSoLuongXuatKhoTheoThang" FunctionName="qlCaPheModel.Store.thongKeSoLuongXuatKhoTheoThang">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="qlCaPheModel.thongKeSoLuongXuatKhoTheoThang_Result">
+          <ScalarProperty Name="maNguyenLieu" ColumnName="maNguyenLieu" />
+          <ScalarProperty Name="tennguyenlieu" ColumnName="tennguyenlieu" />
+          <ScalarProperty Name="soLuongNhap" ColumnName="soLuongNhap" />
+          <ScalarProperty Name="donViHienThi" ColumnName="donViHienThi" />
+          <ScalarProperty Name="donGiaNhap" ColumnName="donGiaNhap" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="thongKeTongTienXuatKhoTheoThang" FunctionName="qlCaPheModel.Store.thongKeTongTienXuatKhoTheoThang">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="qlCaPheModel.thongKeTongTienXuatKhoTheoThang_Result">
           <ScalarProperty Name="tongTien" ColumnName="tongTien" />
           <ScalarProperty Name="time" ColumnName="time" />
         </ComplexTypeMapping>

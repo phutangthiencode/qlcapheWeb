@@ -28,7 +28,6 @@ namespace qlCaPhe.Models
         public string moTa { get; set; }
         public int maLoai { get; set; }
         public double thoiHanSuDung { get; set; }
-        public Nullable<int> tongSoLuong { get; set; }
         public string donViPhaChe { get; set; }
         public byte[] hinhAnh { get; set; }
         public bool trangThai { get; set; }
