@@ -31,137 +31,188 @@
                 <div class="card">
                     <div class="header">
                         <h2>
-                            THIẾT LẬP THÔNG SỐ CHUNG
+                            THIẾT LẬP CẤU HÌNH CHUNG
                         </h2>
 
                     </div>
                     <div class="body">
-                        @using (Html.BeginForm("ch_ThietLapThongSoChung", "CauHinh", FormMethod.Post, new { @enctype = "multipart/form-data" }))
-                        {
-                            <div class="row">
-                                <div class="col-md-7 col-lg-7">
-
-                                    <label for="txtTenQuan">Tên quán</label>
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input type="text" id="txtTenQuan" class="form-control" required maxlength="50" name="txtTenQuan"
-                                                   placeholder="Nhập tên quán cà phê tại đây" value="@ViewBag.txtTenQuan">
-                                        </div>
-                                    </div>
-
-                                    <label for="txtGioiThieu">Giới thiệu</label>
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <textarea rows="4" id="txtGioiThieu" class="form-control no-resize" name="txtGioiThieu" required maxlength="128"
-                                                      placeholder="Nhập thông tin giới thiệu về quán tại đây">@ViewBag.txtGioiThieu</textarea>
-                                        </div>
-                                    </div>
-
-                                    <label for="txtDiaChi">Địa chỉ</label>
-                                    <div class="form-group">
-                                        <div class="form-line"> 
-                                            <input type="text" id="txtDiaChi" class="form-control" name="txtDiaChi" required max="128"
-                                                   placeholder="Nhập địa chỉ của quán tại đây" value="@ViewBag.txtDiaChi">
-                                        </div>
-                                    </div>
-
-
-                                    <label for="txtHotline">Hotline</label>
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input type="number" id="txtHotline" class="form-control" name="txtHotline" maxlength="15"
-                                                   placeholder="Nhập số điện thoại của quán tại đây" value="@ViewBag.txtHotline">
-                                        </div>
-                                    </div>
-
-                                    <label for="txtEmail">Email</label>
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input type="text" id="txtEmail" class="form-control" name="txtEmail" maxlength="256"
-                                                   placeholder="Nhập địa chỉ email của quán tại đây" value="@ViewBag.txtEmail">
-                                        </div>
-                                    </div>
-
-
-
-                                    <label for="txtFacebook">Facebook</label>
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input type="text" id="txtFacebook" class="form-control" name="txtFacebook" maxlength="200"
-                                                   placeholder="Nhập đường dẫn facebook của quán tại đây" value="@ViewBag.txtFacebook">
-                                        </div>
-                                    </div>
-
-                                    <label for="txtGooglePlus">Google Plus</label>
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input type="text" id="txtGooglePlus" class="form-control" name="txtGooglePlus" maxlength="200"
-                                                   placeholder="Nhập đường dẫn Google Plus của quán tại đây" value="@ViewBag.txtGooglePlus">
-                                        </div>
-                                    </div>
-
-                                    <label for="txtTwitter">Twitter</label>
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input type="text" id="txtTwitter" class="form-control" name="txtTwitter" maxlength="200"
-                                                   placeholder="Nhập đường dẫn Twitter của quán tại đây" value="@ViewBag.txtTwitter">
-                                        </div>
-                                    </div>
-
-
-
+                        <!--Collapse thông số quán-->
+                        <div class="panel-group" id="accordion_1" role="tablist" aria-multiselectable="true">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading" role="tab" id="headingOne_1">
+                                    <h4 class="panel-title">
+                                        <a role="button" data-toggle="collapse" data-parent="#accordion_1" href="#collapseOne_1" aria-expanded="true" aria-controls="collapseOne_1" class="">
+                                            Thông số quán
+                                        </a>
+                                    </h4>
                                 </div>
-                                <div class="col-md-5 col-lg-5">
-                                    <label for="txtKinhDo">Toạ độ quán trên Google Maps</label>
-                                    <div class="row clearfix">
-                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                            <div class="form-group">
-                                                <div class="form-line">
-                                                    <input type="text" id="txtKinhDo" class="form-control" name="txtKinhDo" maxlength="20"
-                                                           placeholder="Kinh độ" value="@ViewBag.txtKinhDo">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                            <div class="form-group">
-                                                <div class="form-line">
-                                                    <input type="text" class="form-control" id="txtViDo" name="txtViDo" maxlength="20"
-                                                           placeholder="Vĩ độ" value="@ViewBag.txtViDo">
-                                                </div>
-                                            </div>
-                                        </div>
+                                <div id="collapseOne_1" class="panel-collapse on " role="tabpanel" aria-labelledby="headingOne_1" aria-expanded="true" style="">
+                                    <div class="dropzone dz-clickable" style="background-color:#ffffff!important;">
+
+                                        @using (Html.BeginForm("ch_ThietLapThongSoChung", "CauHinh", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+                                        {
+                                            <div class="row">
+                                                <div class="col-md-7 col-lg-7">
+
+                                                    <label for="txtTenQuan">Tên quán</label>
+                                                    <div class="form-group">
+                                                        <div class="form-line">
+                                                            <input type="text" id="txtTenQuan" class="form-control" required maxlength="50" name="txtTenQuan"
+                                                                   placeholder="Nhập tên quán cà phê tại đây" value="@ViewBag.txtTenQuan">
+                                                        </div>
+                                                    </div>
+
+                                                    <label for="txtGioiThieu">Giới thiệu</label>
+                                                    <div class="form-group">
+                                                        <div class="form-line">
+                                                            <textarea rows="4" id="txtGioiThieu" class="form-control no-resize" name="txtGioiThieu" required maxlength="128"
+                                                                      placeholder="Nhập thông tin giới thiệu về quán tại đây">
+                                                                @ViewBag.txtGioiThieu
+                                                                </textarea>
+                                                            </div>
+                                                        </div>
+
+                                                        <label for="txtDiaChi">Địa chỉ</label>
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <input type="text" id="txtDiaChi" class="form-control" name="txtDiaChi" required max="128"
+                                                                       placeholder="Nhập địa chỉ của quán tại đây" value="@ViewBag.txtDiaChi">
+                                                            </div>
+                                                        </div>
+
+
+                                                        <label for="txtHotline">Hotline</label>
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <input type="number" id="txtHotline" class="form-control" name="txtHotline" maxlength="15"
+                                                                       placeholder="Nhập số điện thoại của quán tại đây" value="@ViewBag.txtHotline">
+                                                            </div>
+                                                        </div>
+
+                                                        <label for="txtEmail">Email</label>
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <input type="text" id="txtEmail" class="form-control" name="txtEmail" maxlength="256"
+                                                                       placeholder="Nhập địa chỉ email của quán tại đây" value="@ViewBag.txtEmail">
+                                                            </div>
+                                                        </div>
+
+
+
+                                                        <label for="txtFacebook">Facebook</label>
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <input type="text" id="txtFacebook" class="form-control" name="txtFacebook" maxlength="200"
+                                                                       placeholder="Nhập đường dẫn facebook của quán tại đây" value="@ViewBag.txtFacebook">
+                                                            </div>
+                                                        </div>
+
+                                                        <label for="txtGooglePlus">Google Plus</label>
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <input type="text" id="txtGooglePlus" class="form-control" name="txtGooglePlus" maxlength="200"
+                                                                       placeholder="Nhập đường dẫn Google Plus của quán tại đây" value="@ViewBag.txtGooglePlus">
+                                                            </div>
+                                                        </div>
+
+                                                        <label for="txtTwitter">Twitter</label>
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <input type="text" id="txtTwitter" class="form-control" name="txtTwitter" maxlength="200"
+                                                                       placeholder="Nhập đường dẫn Twitter của quán tại đây" value="@ViewBag.txtTwitter">
+                                                            </div>
+                                                        </div>
+
+
+
+                                                    </div>
+                                                    <div class="col-md-5 col-lg-5">
+                                                        <label for="txtKinhDo">Toạ độ quán trên Google Maps</label>
+                                                        <div class="row clearfix">
+                                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                                                <div class="form-group">
+                                                                    <div class="form-line">
+                                                                        <input type="text" id="txtKinhDo" class="form-control" name="txtKinhDo" maxlength="20"
+                                                                               placeholder="Kinh độ" value="@ViewBag.txtKinhDo">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                                                <div class="form-group">
+                                                                    <div class="form-line">
+                                                                        <input type="text" class="form-control" id="txtViDo" name="txtViDo" maxlength="20"
+                                                                               placeholder="Vĩ độ" value="@ViewBag.txtViDo">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <label for="hinhDD">Logo</label>
+                                                        <br />
+                                                        <img id="hinhDD" class='img img-responsive img-thumbnail'
+                                                             src="@ViewBag.Logo" width="250px" height="auto" />
+                                                        <br />
+                                                        <button type="button" class="btn btn-default " id="btnChonHinh"
+                                                                data-toggle="modal" data-target="#modalChonHinh">
+                                                            Chọn hình
+                                                        </button>
+                                                        <input id="pathHinh" type="hidden" name="pathHinh" value="">
+
+                                                        <br /><br />
+                                                        <label for="txtGhiChu">Ghi chú</label>
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <textarea rows="4" id="txtGhiChu" name="txtGhiChu" class="form-control no-resize"
+                                                                          placeholder="Nhập thêm ghi chú cho đồ uống">
+                                                                    @ViewBag.txtGhiChu
+                                                                    </textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-7"></div>
+
+                                                        <div class="col-md-5">
+                                                            <br>
+                                                            <button type="submit" class="btn btn-primary m-t-15 waves-effect">Lưu lại</button>
+                                                            <button onclick="troVeTrangTruoc()" type="button" class="btn btn-default m-t-15 waves-effect">Trở lại</button>
+                                                        </div>
+                                                    </div>
+                                        }
                                     </div>
-
-                                    <label for="hinhDD">Logo</label>
-                                    <br />
-                                    <img id="hinhDD" class='img img-responsive img-thumbnail'
-                                         src="@ViewBag.Logo" width="250px" height="auto" />
-                                    <br />
-                                    <button type="button" class="btn btn-default " id="btnChonHinh"
-                                            data-toggle="modal" data-target="#modalChonHinh">
-                                        Chọn hình
-                                    </button>
-                                    <input id="pathHinh" type="hidden" name="pathHinh" value="">
-
-                                    <br /><br />
-                                    <label for="txtGhiChu">Ghi chú</label>
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <textarea rows="4" id="txtGhiChu" name="txtGhiChu" class="form-control no-resize" 
-                                                      placeholder="Nhập thêm ghi chú cho đồ uống">@ViewBag.txtGhiChu</textarea>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-7"></div>
-
-                                <div class="col-md-5">
-                                    <br>
-                                    <button type="submit" class="btn btn-primary m-t-15 waves-effect">Lưu lại</button>
-                                    <button onclick="troVeTrangTruoc()" type="button" class="btn btn-default m-t-15 waves-effect">Trở lại</button>
                                 </div>
                             </div>
-                        }
+                        </div>
+                        <!--End collapse thông số quán-->
+
+                        <!--Collapse kế hoạch kiểm kho-->
+                        <div class="panel-group" id="accordion_1" role="tablist" aria-multiselectable="true">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading" role="tab" id="headingOne_1">
+                                    <h4 class="panel-title">
+                                        <a role="button" data-toggle="collapse" data-parent="#accordion_1" href="#collapseOne_2" aria-expanded="true" aria-controls="collapseOne_1" class="">
+                                            Kế hoạch kiểm kho
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseOne_2" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingOne_1" aria-expanded="true" style="">
+                                    <div class="dropzone dz-clickable" style="background-color:#ffffff!important;">
+
+                                        <a href="/Tools_VungLamViec/DownloadApp" class="link-download-app">
+                                            <div class="dz-message">
+                                                <div class="drag-icon-cph">
+                                                    <i class="material-icons">file_download</i>
+                                                </div>
+                                                <h3>Click vào đây để tải ứng dụng CoffeeManager</h3>
+                                                <em>(Ứng dụng chỉ hỗ trợ cho thiết bị chạy hệ điều hành Android)</em>
+
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--End collapse kế hoạch-->
                     </div>
                 </div>
             </div>
