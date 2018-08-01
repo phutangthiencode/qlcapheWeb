@@ -10,15 +10,19 @@
 
     <link href="~/Content/jquery.Jcrop.min.css" rel="stylesheet" />
 }
+
+@section scripthead{<!--Script chart-->
+<script src="~/plugins/ChartCustom/Chart.bundle.js"></script>
+<script src="~/plugins/ChartCustom/utils.js"></script>
+}
+
+
 @section sciptajax{
     <script src="~/Scripts/jquery.Jcrop.js"></script>
 
     <script type="text/javascript">
         @Html.Raw(ViewBag.ScriptCropImage)
     </script>
-    <!--Script chart-->
-    <script src="~/plugins/ChartCustom/Chart.bundle.js"></script>
-    <script src="~/plugins/ChartCustom/utils.js"></script>
 }
 
 <section class="content">

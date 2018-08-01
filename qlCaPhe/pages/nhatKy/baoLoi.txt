@@ -120,3 +120,8 @@ Vị trí: Class: CauHinhController - Function: ch_ThietLapThongSoChung_Post
  Lỗi: Ngày bắt đầu kiểm phải lớn hơn hoặc bằng ngày hiện tại
 ---------------------------------------------------------------
 
+-----------------------8/2/2018 12:27:51 AM----------
+Vị trí: Class: DoUongController - Function: du_ChinhSuaDoUong_Get 
+ Lỗi: Sản phẩm có mã 33 không tồn tại để cập nhật
+---------------------------------------------------------------
+
