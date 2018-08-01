@@ -21,6 +21,14 @@
 </style>
 }
 
+<script>
+    $(document).ready(function () {
+        $('#txtTienKhachDua').focus(function () {
+            $(this).val("");
+        });
+    });
+</script>
+
 
 <section class="content">
     <div class="container-fluid">
@@ -105,7 +113,7 @@
                                                     <label for="txtTienKhachDua">Khách đưa</label>
                                                     <div class="form-group">
                                                         <div class="form-line">
-                                                            <input type="number" id="txtTienKhachDua" placeholder="Nhập số tiền khách đưa..." class="form-control">
+                                                            <input type="number" id="txtTienKhachDua" value="@tongTien" placeholder="Nhập số tiền khách đưa..." class="form-control">
                                                         </div>
                                                     </div>
                                                 </div>
