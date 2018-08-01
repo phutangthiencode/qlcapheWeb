@@ -23,6 +23,7 @@ namespace qlCaPhe.Controllers
             if (xulyChung.duocTruyCap(idOfPageDoanhThuTheoThoiDiem))
             {
                 ViewBag.ScriptAjax = createScriptCarvas.ScriptAjaxThongKeDoanhThu("/ThongKe/GetJsonDoanhThuTheoNgay", "chart-ngay");
+                xulyChung.ghiNhatKyDtb(1, "THỐNG KÊ DOANH THU THEO NGÀY");
                 return View();
             }
             return RedirectToAction("PageNotFound", "Home");
@@ -98,6 +99,7 @@ namespace qlCaPhe.Controllers
             if (xulyChung.duocTruyCap(idOfPageDoanhThuTheoThoiDiem))
             {
                 ViewBag.ScriptAjax = createScriptCarvas.ScriptAjaxThongKeDoanhThu("/ThongKe/GetJsonDoanhThuTheoTuan", "chart-tuan");
+                xulyChung.ghiNhatKyDtb(1, "THỐNG KÊ DOANH THU THEO TUẦN");
                 return View();
             }
             return RedirectToAction("PageNotFound", "Home");
@@ -178,6 +180,7 @@ namespace qlCaPhe.Controllers
                 //--------Tạo dữ liệu cho cbb năm
                 this.taoDuLieuChoCbbNam();
                 ViewBag.ScriptAjax = createScriptCarvas.ScriptAjaxThongKeDoanhThu("/ThongKe/GetJsonDoanhThuTheoThang", "chart-tuan");
+                xulyChung.ghiNhatKyDtb(1, "THỐNG KÊ DOANH THU THEO THÁNG");
                 return View();
             }
 
@@ -257,6 +260,7 @@ namespace qlCaPhe.Controllers
                 //--------Tạo dữ liệu cho cbb năm
                 this.taoDuLieuChoCbbNam();
                 ViewBag.ScriptAjax = createScriptCarvas.ScriptAjaxThongKeDoanhThu("/ThongKe/GetJsonDoanhThuTheoQuy", "chart-quy");
+                xulyChung.ghiNhatKyDtb(1, "THỐNG KÊ DOANH THU THEO QUÝ");
                 return View();
             }
 
@@ -336,6 +340,7 @@ namespace qlCaPhe.Controllers
                 //--------Tạo dữ liệu cho cbb năm
                 this.taoDuLieuChoCbbNam();
                 ViewBag.ScriptAjax = createScriptCarvas.ScriptAjaxThongKeDoanhThu("/ThongKe/GetJsonDoanhThuTheoNam", "chart-nam");
+                xulyChung.ghiNhatKyDtb(1, "THỐNG KÊ DOANH THU THEO NĂM");
                 return View();
             }
 
@@ -451,6 +456,7 @@ namespace qlCaPhe.Controllers
             if (xulyChung.duocTruyCap(idOfPageDoanhThuTheoSanPham))
             {
                 this.taoCbbSanPham();
+                xulyChung.ghiNhatKyDtb(1, "THỐNG KÊ DOANH THU THEO SẢN PHẨM THEO NGÀY");
                 return View();
             }
             return RedirectToAction("PageNotFound", "Home");
@@ -492,6 +498,7 @@ namespace qlCaPhe.Controllers
             if (xulyChung.duocTruyCap(idOfPageDoanhThuTheoSanPham))
             {
                 this.taoCbbSanPham();
+                xulyChung.ghiNhatKyDtb(1, "THỐNG KÊ DOANH THU THEO SẢN PHẨM THEO TUẦN");
                 return View();
             }
             return RedirectToAction("PageNotFound", "Home");
@@ -533,6 +540,7 @@ namespace qlCaPhe.Controllers
             if (xulyChung.duocTruyCap(idOfPageDoanhThuTheoSanPham))
             {
                 this.taoCbbSanPham();
+                xulyChung.ghiNhatKyDtb(1, "THỐNG KÊ DOANH THU THEO SẢN PHẨM THEO THÁNG");
                 return View();
             }
             return RedirectToAction("PageNotFound", "Home");
@@ -574,6 +582,7 @@ namespace qlCaPhe.Controllers
             if (xulyChung.duocTruyCap(idOfPageDoanhThuTheoSanPham))
             {
                 this.taoCbbSanPham();
+                xulyChung.ghiNhatKyDtb(1, "THỐNG KÊ DOANH THU THEO SẢN PHẨM THEO QUÝ");
                 return View();
             }
             return RedirectToAction("PageNotFound", "Home");
@@ -616,6 +625,7 @@ namespace qlCaPhe.Controllers
             {
                 this.taoCbbSanPham();
                 this.taoDuLieuChoCbbNam();
+                xulyChung.ghiNhatKyDtb(1, "THỐNG KÊ DOANH THU THEO SẢN PHẨM THEO NĂM");
                 return View();
             }
             return RedirectToAction("PageNotFound", "Home");
@@ -698,7 +708,10 @@ namespace qlCaPhe.Controllers
         public ActionResult tke_NhapKhoTheoNgay()
         {
             if (xulyChung.duocTruyCap(idOfPageThongKeNhapKho))
+            {
+                xulyChung.ghiNhatKyDtb(1, " THỐNG KÊ NHẬP KHO NGUYÊN LIỆU THEO NGÀY");
                 return View();
+            }
             return RedirectToAction("PageNotFound", "Home");
         }
 
@@ -772,7 +785,10 @@ namespace qlCaPhe.Controllers
         public ActionResult tke_NhapKhoTheoTuan()
         {
             if (xulyChung.duocTruyCap(idOfPageThongKeNhapKho))
+            {
+                xulyChung.ghiNhatKyDtb(1, " THỐNG KÊ NHẬP KHO NGUYÊN LIỆU THEO TUẦN");
                 return View();
+            }
             return RedirectToAction("PageNotFound", "Home");
         }
 
@@ -847,6 +863,7 @@ namespace qlCaPhe.Controllers
             if (xulyChung.duocTruyCap(idOfPageThongKeNhapKho))
             {
                 this.taoDuLieuChoCbbNam();
+                xulyChung.ghiNhatKyDtb(1, " THỐNG KÊ NHẬP KHO NGUYÊN LIỆU THEO THÁNG");
                 return View();
             }
             return RedirectToAction("PageNotFound", "Home");
@@ -886,9 +903,9 @@ namespace qlCaPhe.Controllers
             if (xulyChung.duocTruyCap(idOfPageThongKeNhapKho))
                 try
                 {
-                    IEnumerable<object> listStore= new qlCaPheEntities().thongKeSoLuongNhapKhoTheoThang(param);
+                    IEnumerable<object> listStore = new qlCaPheEntities().thongKeSoLuongNhapKhoTheoThang(param);
                     listKQ = this.ganDuLieuSoLuongNguyenLieu(listStore);
-                    
+
                 }
                 catch (Exception ex)
                 {
@@ -909,7 +926,10 @@ namespace qlCaPhe.Controllers
         public ActionResult tke_XuatKhoTheoNgay()
         {
             if (xulyChung.duocTruyCap(idOfPageThongKeXuatKho))
+            {
+                xulyChung.ghiNhatKyDtb(1, " THỐNG KÊ XUẤT KHO NGUYÊN LIỆU THEO NGÀY");
                 return View();
+            }
             return RedirectToAction("PageNotFound", "Home");
         }
 
@@ -968,7 +988,10 @@ namespace qlCaPhe.Controllers
         public ActionResult tke_XuatKhoTheoTuan()
         {
             if (xulyChung.duocTruyCap(idOfPageThongKeXuatKho))
+            {
+                xulyChung.ghiNhatKyDtb(1, " THỐNG KÊ XUẤT KHO NGUYÊN LIỆU THEO TUẦN");
                 return View();
+            }
             return RedirectToAction("PageNotFound", "Home");
         }
 
@@ -1029,6 +1052,7 @@ namespace qlCaPhe.Controllers
             if (xulyChung.duocTruyCap(idOfPageThongKeXuatKho))
             {
                 this.taoDuLieuChoCbbNam();
+                xulyChung.ghiNhatKyDtb(1, " THỐNG KÊ XUẤT KHO NGUYÊN LIỆU THEO THÁNG");
                 return View();
             }
             return RedirectToAction("PageNotFound", "Home");
@@ -1079,7 +1103,7 @@ namespace qlCaPhe.Controllers
         }
         #endregion
 
-     
+
         #endregion
 
         /// <summary>
