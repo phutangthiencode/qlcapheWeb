@@ -36,9 +36,41 @@
                             <li role="presentation" class=""><a href="/HoaDon/hd_TableHoaDonOrderTrongCa"><i class="material-icons">timeline</i>Hóa đơn trong ca</a></li>
                             <li role="presentation" class=""><a href="/HoaDon/hd_TableHoaDonOrderTrongTuan"><i class="material-icons">view_week</i>Hóa đơn trong tuần</a></li>
                             <li role="presentation" class="active"><a href="/HoaDon/hd_TableTatCaHoaDonOrder"><i class="material-icons">present_to_all</i>Tất cả hóa đơn</a></li>
+
+                            <li class="pull-right"><button type="button" class="btn bg-purple btn-circle waves-effect waves-circle waves-float" data-toggle="collapse" data-target="#collapseExample" aria-expanded="true" aria-controls="collapseExample"><i class="material-icons">search</i></button></li>
                         </ul>
 
                         <div class="tab-content">
+
+                            <div class="row">
+                                <div class="collapse" id="collapseExample" aria-expanded="true" style="">
+
+                                    <form class="form-horizontal" action="/HoaDon/hd_TableTatCaHoaDonOrder" method="post">
+                                        <div class="row clearfix">
+                                            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                                <label for="email_address_2">Số hóa đơn</label>
+                                            </div>
+
+                                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                                                <div class="form-group">
+                                                    <div class="form-line">
+                                                        <input type="number" id="txtSoHoaDon" class="form-control" name="txtSoHoaDon"
+                                                               placeholder="Nhập số hóa đơn cần tìm">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-4 col-xs-offset-5">
+                                                <button type="submit" class="btn btn-primary waves-effect"><i class="material-icons">search</i>
+                                                    <span>TÌM</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        
+ 
+                                    </form>
+                                </div>
+                            </div>
 
                             <div class="row">
                                 <div class="col-sm-12">

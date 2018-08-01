@@ -394,6 +394,33 @@ namespace qlCaPhe.Controllers
             }
             return View();
         }
+
+        /// <summary>
+        /// Hàm tạo danh sách theo tham số mã hóa đơn cần tìm
+        /// </summary>
+        /// <param name="param">Mã hóa đơn cần tìm</param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult hd_TableTatCaHoaDonOrder(FormCollection param)
+        {
+            if (xulyChung.duocCapNhat(idOfPage, "7"))
+            {
+                try
+                {
+                    int maHoaDon = xulyDuLieu.doiChuoiSangInteger(param["txtSoHoaDon"]);
+                    //-------Lấy danh sách tất cả hóa đơn
+                    ViewBag.TableData = this.layHoaDonTimKiem(maHoaDon);
+                    xulyChung.ghiNhatKyDtb(1, "Tìm kiếm hóa đơn có mã " + maHoaDon.ToString());
+                }
+                catch (Exception ex)
+                {
+                    xulyFile.ghiLoi("Class: HoaDonController - Function: hd_TableTatCaHoaDonOrder_timKiem", ex.Message);
+                }
+            }
+            return View();
+        }
+
+
         /// <summary>
         /// Hàm tạo danh sách các hóa đơn ĐÃ THANH TOÁN TRONG NGÀY
         /// </summary>
@@ -438,7 +465,7 @@ namespace qlCaPhe.Controllers
         /// <summary>
         /// Hàm lấy danh sách hóa đơn
         /// </summary>
-        /// <param name="loaiOrder">Loại hóa đơn cần lấy: <para/> 1: Theo ngày, 2: Theo ca, 3: Theo tuần, 4: tất cả</param>
+        /// <param name="loaiOrder">Loại hóa đơn cần lấy: <para/> 1: Theo ngày, 2: Theo ca, 3: Theo tuần, 4: tất cả, 5: Tìm kiếm</param>
         /// <returns>Danh sách hóa đơn đã được lấy theo điều kiện cần lấy</returns>
         private string layDanhSachHoaDon(int loaiOrder, int ?page)
         {
@@ -469,12 +496,47 @@ namespace qlCaPhe.Controllers
                 default: break;
             }
             kq += taoBangHoaDon(listHoaDon);
+            this.nhungScriptTableHoaDon(soPhanTu, trangHienHanh, url);
+            return kq;
+        }
+
+        /// <summary>
+        /// Hàm lấy danh sách các hóa đơn cần tìm kiếm
+        /// </summary>
+        /// <param name="param">Tham số chứa mã hóa đơn cần tìm</param>
+        /// <returns>Chuỗi html tạo giao diện bảng hóa đơn kết quả</returns>
+        private string layHoaDonTimKiem(int param)
+        {
+            string kq = "", url = "/HoaDon/";int soPhanTu=0;
+            List<hoaDonOrder> listHoaDon = new List<hoaDonOrder>();
+            try
+            {
+                qlCaPheEntities db = new qlCaPheEntities();
+                soPhanTu = db.hoaDonOrders.Where(h => h.maHoaDon == param).Count();
+                listHoaDon = db.hoaDonOrders.Where(h => h.maHoaDon == param).ToList();
+                kq += taoBangHoaDon(listHoaDon);
+                this.nhungScriptTableHoaDon(soPhanTu, 1, url);
+            }
+            catch (Exception ex)
+            {
+                xulyFile.ghiLoi("Class: HoaDonController - Function: layHoaDonTimKiem", ex.Message);
+            }
+            return kq;
+        }
+
+        /// <summary>
+        /// Hàm nhúng những script ajax và script phân trang lên table hóa đơn
+        /// </summary>
+        /// <param name="soPhanTu">Số phần tử lấy được</param>
+        /// <param name="trangHienHanh">Số trang hiện hành</param>
+        /// <param name="url">Đường dẫn vào giao diện</param>
+        private void nhungScriptTableHoaDon(int soPhanTu, int trangHienHanh, string url)
+        {
             ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, createHTML.pageSize, trangHienHanh, url); //------cấu hình phân trang
             //----Nhúng script ajax hiển thị chi tiết hóa đơn khi người dùng click vào mã số hóa đơn trên bảng
             ViewBag.ScriptAjaxXemChiTiet = createScriptAjax.scriptAjaxXemChiTietKhiClick("btnXemChiTiet", "maHD", "HoaDon/AjaxXemChiTietHoaDonOrder?maHD=", "vungChiTiet", "modalChiTiet");
             //----Nhúng các tag html cho modal chi tiết
             ViewBag.ModalChiTiet = createHTML.taoModalChiTiet("modalChiTiet", "vungChiTiet", 2);
-            return kq;
         }
         /// <summary>
         /// Hàm tạo bảng danh sách hóa đơn
