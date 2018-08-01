@@ -21,15 +21,6 @@
 </style>
 }
 
-<script>
-    $(document).ready(function () {
-        $('#txtTienKhachDua').focus(function () {
-            $(this).val("");
-        });
-    });
-</script>
-
-
 <section class="content">
     <div class="container-fluid">
         <div class="block-header">
@@ -177,6 +168,11 @@
 
     $(document).ready(function () {
         thucThi();
+
+        //---------Sự kiện click vào textbox nhập tổng tiền thì clear dữ liệu đã nhập
+        $('#txtTienKhachDua').focus(function () {
+            $(this).val("");
+        });
     });
 
 
