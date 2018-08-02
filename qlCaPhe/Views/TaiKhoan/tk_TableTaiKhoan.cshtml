@@ -42,8 +42,42 @@
                         <ul class="nav nav-tabs tab-col-pink" role="tablist">
                             <li role="presentation" class="@ViewBag.Style1"><a href="/TaiKhoan/RouteTaiKhoanHoatDong"><i class="material-icons">done</i>Danh mục tài khoản còn hoạt động</a></li>
                             <li role="presentation" class="@ViewBag.Style2"><a href="/TaiKhoan/RouteTaiKhoanCamTruyCap"><i class="material-icons">clear</i>Danh mục tài khoản bị cấm truy cập</a></li>
+
+                            <li class="pull-right"><button type="button" class="btn bg-purple btn-circle waves-effect waves-circle waves-float" data-toggle="collapse" data-target="#collapse-search" aria-expanded="true" aria-controls="collapse-search"><i class="material-icons">search</i></button></li>
                         </ul>
                         <div class="tab-content">
+                            <div class="row">
+
+                                <div class="collapse" id="collapse-search" aria-expanded="true" style="">
+
+                                    <form class="form-horizontal" action="/TaiKhoan/tk_TableTaiKhoan" method="post">
+                                        <div class="row clearfix">
+                                            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                                <label for="email_address_2">Tên tài khoản</label>
+                                            </div>
+
+                                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                                                <div class="form-group">
+                                                    <div class="form-line">
+                                                        <input type="text" id="txtTenTaiKhoan" class="form-control" name="txtTenTaiKhoan"
+                                                               placeholder="Nhập tên tài khoản tìm">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-4 col-xs-offset-5">
+                                                <button type="submit" class="btn btn-primary waves-effect">
+                                                    <i class="material-icons">search</i>
+                                                    <span>TÌM</span>
+                                                </button>
+                                            </div>
+                                        </div>
+
+
+                                    </form>
+                                </div>
+                            </div>
+
                             <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
                                 <div class="row">
                                     <div class="col-sm-12">

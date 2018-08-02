@@ -130,6 +130,40 @@ namespace qlCaPhe.Controllers
             }
             return View();
         }
+
+        /// <summary>
+        /// Hàm tạo giao diện danh sách tài khoản được tìm kiếm
+        /// </summary>
+        /// <param name="page">Trang hiện hành</param>
+        /// <param name="param">Tên tài khoản cần tìm</param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult tk_TableTaiKhoan(int? page, FormCollection param)
+        {
+            int trangHienHanh = (page ?? 1);
+            if (xulyChung.duocTruyCap(idOfPage))
+            {
+                string htmlTable = "";
+                try
+                {
+                    string tenTK = xulyDuLieu.xulyKyTuHTML(param["txtTenTaiKhoan"]);
+                    qlCaPheEntities db = new qlCaPheEntities();
+
+                    int soPhanTu = db.taiKhoans.Where(t => t.tenDangNhap.Contains(tenTK)).Count();
+                    ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, createHTML.pageSize, trangHienHanh, "/TaiKhoan/tk_TableTaiKhoan");
+                    List<taiKhoan> listTaiKhoan = db.taiKhoans.Where(t => t.tenDangNhap.Contains(tenTK)).ToList();
+                    foreach (taiKhoan tk in listTaiKhoan)
+                        htmlTable += this.createRowTable(tk);
+                }
+                catch (Exception ex)
+                {
+                    xulyFile.ghiLoi("Class TaiKhoanController - Function: tk_TableTaiKhoan", ex.Message);
+                    return RedirectToAction("PageNotFound", "Home");
+                }
+                ViewBag.TableData = htmlTable;
+            }
+            return View();
+        }
         /// <summary>
         /// Hàm tạo một dòng dữ liệu trên bảng
         /// </summary>
