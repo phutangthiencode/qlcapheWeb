@@ -125,3 +125,8 @@ Vị trí: Class: DoUongController - Function: du_ChinhSuaDoUong_Get
  Lỗi: Sản phẩm có mã 33 không tồn tại để cập nhật
 ---------------------------------------------------------------
 
+-----------------------8/2/2018 4:59:45 PM----------
+Vị trí: Class: ThanhVienController - Function: tv_TaoMoiThanhVien 
+ Lỗi: The method 'Skip' is only supported for sorted input in LINQ to Entities. The method 'OrderBy' must be called before the method 'Skip'.
+---------------------------------------------------------------
+

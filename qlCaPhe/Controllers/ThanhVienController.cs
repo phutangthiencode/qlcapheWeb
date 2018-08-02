@@ -81,41 +81,42 @@ namespace qlCaPhe.Controllers
                     int soPhanTu = db.thanhViens.Count();
                     ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, createHTML.pageSize, trangHienHanh, "/ThanhVien/tv_TableThanhVien"); //------cấu hình phân trang
                     var thanhVienList = db.thanhViens.OrderBy(t => t.tenTV).Skip((trangHienHanh - 1) * createHTML.pageSize).Take(createHTML.pageSize).ToList();
-                    string htmlTable = "";
-                    foreach (thanhVien tv in thanhVienList)
-                    {
-                        htmlTable += "<tr role=\"row\" class=\"odd\">";
-                        htmlTable += "<td>";
-                        htmlTable += "  <a data-toggle=\"modal\" maTV=\"" + tv.maTV.ToString() + "\" class=\"goiY\">";
-                        htmlTable += "          <b>" + tv.hoTV + " " + tv.tenTV + "</b>";
-                        htmlTable += "      <span class=\"noiDungGoiY-right\">Click để xem hình</span>";
-                        htmlTable += "  </a>";
-                        htmlTable += "</td>";
-                        htmlTable += "<td>" + (tv.gioiTinh == true ? "Nam" : "Nữ") + "</td>";
-                        htmlTable += "<td>" + string.Format("{0:dd/MM/yyyy}", tv.ngaySinh) + "</td>";
-                        htmlTable += "<td>" + tv.diaChi + "</td>";
-                        htmlTable += "<td>" + tv.soDT + "</td>";
-                        htmlTable += "<td>" + string.Format("{0:dd/MM/yyyy}", tv.ngayThamGia) + "</td>";
-                        htmlTable += "<td>";
-                        htmlTable += "      <div class=\"btn-group\">";
-                        htmlTable += "          <button type=\"button\" class=\"btn btn-primary dropdown-toggle\" data-toggle=\"dropdown\">";
-                        htmlTable += "              Chức năng <span class=\"caret\"></span>";
-                        htmlTable += "          </button>";
-                        htmlTable += "          <ul class=\"dropdown-menu\" role=\"menu\">";
-                        htmlTable += createTableData.taoNutChinhSua("/ThanhVien/tv_ChinhSuaThanhVien", tv.maTV.ToString());
-                        htmlTable += createTableData.taoNutXoaBo(tv.maTV.ToString());
-                        htmlTable += "          </ul>";
-                        htmlTable += "      </div>";
-                        htmlTable += "</td>";
-                        htmlTable += "</tr>";
-                    }
-                    ViewBag.TableData = htmlTable;
-                    ViewBag.ScriptAjax = createScriptAjax.scriptAjaxXoaDoiTuong("ThanhVien/xoaThanhVien?maTV=");
-                    ViewBag.ModalXoa = createHTML.taoCanhBaoXoa("Thành viên");
-                    //----Nhúng script ajax hiển thị hình khi người dùng click vào tên sản phẩm
-                    ViewBag.ScriptAjaxXemChiTiet = createScriptAjax.scriptAjaxXemChiTietKhiClick("goiY", "maTV", "ThanhVien/AjaxXemThanhVienModal?maTV=", "vungChiTiet", "modalChiTiet");
-                    //----Nhúng các tag html cho modal chi tiết
-                    ViewBag.ModalChiTiet = createHTML.taoModalChiTiet("modalChiTiet", "vungChiTiet", 3);
+                    //string htmlTable = "";
+                    //foreach (thanhVien tv in thanhVienList)
+                    //{
+                    //    htmlTable += "<tr role=\"row\" class=\"odd\">";
+                    //    htmlTable += "<td>";
+                    //    htmlTable += "  <a data-toggle=\"modal\" maTV=\"" + tv.maTV.ToString() + "\" class=\"goiY\">";
+                    //    htmlTable += "          <b>" + tv.hoTV + " " + tv.tenTV + "</b>";
+                    //    htmlTable += "      <span class=\"noiDungGoiY-right\">Click để xem hình</span>";
+                    //    htmlTable += "  </a>";
+                    //    htmlTable += "</td>";
+                    //    htmlTable += "<td>" + (tv.gioiTinh == true ? "Nam" : "Nữ") + "</td>";
+                    //    htmlTable += "<td>" + string.Format("{0:dd/MM/yyyy}", tv.ngaySinh) + "</td>";
+                    //    htmlTable += "<td>" + tv.diaChi + "</td>";
+                    //    htmlTable += "<td>" + tv.soDT + "</td>";
+                    //    htmlTable += "<td>" + string.Format("{0:dd/MM/yyyy}", tv.ngayThamGia) + "</td>";
+                    //    htmlTable += "<td>";
+                    //    htmlTable += "      <div class=\"btn-group\">";
+                    //    htmlTable += "          <button type=\"button\" class=\"btn btn-primary dropdown-toggle\" data-toggle=\"dropdown\">";
+                    //    htmlTable += "              Chức năng <span class=\"caret\"></span>";
+                    //    htmlTable += "          </button>";
+                    //    htmlTable += "          <ul class=\"dropdown-menu\" role=\"menu\">";
+                    //    htmlTable += createTableData.taoNutChinhSua("/ThanhVien/tv_ChinhSuaThanhVien", tv.maTV.ToString());
+                    //    htmlTable += createTableData.taoNutXoaBo(tv.maTV.ToString());
+                    //    htmlTable += "          </ul>";
+                    //    htmlTable += "      </div>";
+                    //    htmlTable += "</td>";
+                    //    htmlTable += "</tr>";
+                    //}
+                    //ViewBag.TableData = htmlTable;
+                    //ViewBag.ScriptAjax = createScriptAjax.scriptAjaxXoaDoiTuong("ThanhVien/xoaThanhVien?maTV=");
+                    //ViewBag.ModalXoa = createHTML.taoCanhBaoXoa("Thành viên");
+                    ////----Nhúng script ajax hiển thị hình khi người dùng click vào tên sản phẩm
+                    //ViewBag.ScriptAjaxXemChiTiet = createScriptAjax.scriptAjaxXemChiTietKhiClick("goiY", "maTV", "ThanhVien/AjaxXemThanhVienModal?maTV=", "vungChiTiet", "modalChiTiet");
+                    ////----Nhúng các tag html cho modal chi tiết
+                    //ViewBag.ModalChiTiet = createHTML.taoModalChiTiet("modalChiTiet", "vungChiTiet", 3);
+                    this.nhungDuLieuLenGiaoDien(thanhVienList);
                     xulyChung.ghiNhatKyDtb(1, "Danh mục thành viên");
                 }
                 catch (Exception ex)
@@ -125,6 +126,80 @@ namespace qlCaPhe.Controllers
                 }
             }
             return View();
+        }
+
+        /// <summary>
+        /// Hàm thực hiện tạo giao diện danh sách thành viên theo tên thành viên cần tìm kiếm
+        /// </summary>
+        /// <param name="page">Trang hiện hành</param>
+        /// <param name="param">Tên thành viên cần tìm</param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult tv_TableThanhVien(int? page, FormCollection param)
+        {
+            int trangHienHanh = (page ?? 1);
+            if (xulyChung.duocTruyCap(idOfPage))
+            {
+                try
+                {
+                    string tenTV = xulyDuLieu.xulyKyTuHTML(param["txtTenThanhVien"]);
+                    qlCaPheEntities db = new qlCaPheEntities();
+                    int soPhanTu = db.thanhViens.Where(t=>t.tenTV.Contains(tenTV)).Count();
+                    ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, createHTML.pageSize, trangHienHanh, "/ThanhVien/tv_TableThanhVien"); //------cấu hình phân trang
+                    var thanhVienList = db.thanhViens.Where(t => t.tenTV.Contains(tenTV)).OrderBy(t=>t.tenTV).Skip((trangHienHanh - 1) * createHTML.pageSize).Take(createHTML.pageSize).ToList();
+                    this.nhungDuLieuLenGiaoDien(thanhVienList);
+                    xulyChung.ghiNhatKyDtb(1, "Danh mục thành viên");
+                }
+                catch (Exception ex)
+                {
+                    xulyFile.ghiLoi("Class: ThanhVienController - Function: tv_TaoMoiThanhVien", ex.Message);
+                    return RedirectToAction("ServerError", "Home");
+                }
+            }
+            return View();
+        }
+        /// <summary>
+        /// Hàm thực hiện nhúng dữ liệu lên giao diện bảng
+        /// Nhúng Script cho giao diện
+        /// </summary>
+        /// <param name="thanhVienList">List object chứa danh sách thành viên kết quả đã truy xuất</param>
+        private void nhungDuLieuLenGiaoDien(List<thanhVien> thanhVienList)
+        {
+            string htmlTable = "";
+            foreach (thanhVien tv in thanhVienList)
+            {
+                htmlTable += "<tr role=\"row\" class=\"odd\">";
+                htmlTable += "<td>";
+                htmlTable += "  <a data-toggle=\"modal\" maTV=\"" + tv.maTV.ToString() + "\" class=\"goiY\">";
+                htmlTable += "          <b>" + tv.hoTV + " " + tv.tenTV + "</b>";
+                htmlTable += "      <span class=\"noiDungGoiY-right\">Click để xem hình</span>";
+                htmlTable += "  </a>";
+                htmlTable += "</td>";
+                htmlTable += "<td>" + (tv.gioiTinh == true ? "Nam" : "Nữ") + "</td>";
+                htmlTable += "<td>" + string.Format("{0:dd/MM/yyyy}", tv.ngaySinh) + "</td>";
+                htmlTable += "<td>" + tv.diaChi + "</td>";
+                htmlTable += "<td>" + tv.soDT + "</td>";
+                htmlTable += "<td>" + string.Format("{0:dd/MM/yyyy}", tv.ngayThamGia) + "</td>";
+                htmlTable += "<td>";
+                htmlTable += "      <div class=\"btn-group\">";
+                htmlTable += "          <button type=\"button\" class=\"btn btn-primary dropdown-toggle\" data-toggle=\"dropdown\">";
+                htmlTable += "              Chức năng <span class=\"caret\"></span>";
+                htmlTable += "          </button>";
+                htmlTable += "          <ul class=\"dropdown-menu\" role=\"menu\">";
+                htmlTable += createTableData.taoNutChinhSua("/ThanhVien/tv_ChinhSuaThanhVien", tv.maTV.ToString());
+                htmlTable += createTableData.taoNutXoaBo(tv.maTV.ToString());
+                htmlTable += "          </ul>";
+                htmlTable += "      </div>";
+                htmlTable += "</td>";
+                htmlTable += "</tr>";
+            }
+            ViewBag.TableData = htmlTable;
+            ViewBag.ScriptAjax = createScriptAjax.scriptAjaxXoaDoiTuong("ThanhVien/xoaThanhVien?maTV=");
+            ViewBag.ModalXoa = createHTML.taoCanhBaoXoa("Thành viên");
+            //----Nhúng script ajax hiển thị hình khi người dùng click vào tên sản phẩm
+            ViewBag.ScriptAjaxXemChiTiet = createScriptAjax.scriptAjaxXemChiTietKhiClick("goiY", "maTV", "ThanhVien/AjaxXemThanhVienModal?maTV=", "vungChiTiet", "modalChiTiet");
+            //----Nhúng các tag html cho modal chi tiết
+            ViewBag.ModalChiTiet = createHTML.taoModalChiTiet("modalChiTiet", "vungChiTiet", 3);
         }
 
         /// <summary>
