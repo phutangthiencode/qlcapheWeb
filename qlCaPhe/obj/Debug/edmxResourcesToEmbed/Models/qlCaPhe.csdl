@@ -1501,6 +1501,9 @@
     <FunctionImport Name="thongKeTongTienXuatKhoTheoThang" ReturnType="Collection(qlCaPheModel.thongKeTongTienXuatKhoTheoThang_Result)">
       <Parameter Name="nam" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="laySanPhamTheoMaNguyenLieu" ReturnType="Collection(qlCaPheModel.laySanPhamTheoMaNguyenLieu_Result)">
+      <Parameter Name="maNguyenLieu" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="sp_helpdiagramdefinition_Result">
     <Property Type="Int32" Name="version" Nullable="true" />
@@ -1643,5 +1646,20 @@
   <ComplexType Name="thongKeTongTienXuatKhoTheoThang_Result">
     <Property Type="Int64" Name="tongTien" Nullable="true" />
     <Property Type="Int32" Name="time" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="laySanPhamTheoMaNguyenLieu_Result">
+    <Property Type="Int32" Name="maSanPham" Nullable="false" />
+    <Property Type="String" Name="tenSanPham" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="maLoai" Nullable="false" />
+    <Property Type="String" Name="tenLoai" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="moTa" Nullable="true" MaxLength="Max" />
+    <Property Type="Int64" Name="donGia" Nullable="false" />
+    <Property Type="Binary" Name="hinhAnh" Nullable="true" />
+    <Property Type="Int32" Name="thoiGianPhaChe" Nullable="true" />
+    <Property Type="Int32" Name="trangThai" Nullable="false" />
+    <Property Type="String" Name="ghiChu" Nullable="true" MaxLength="Max" />
+    <Property Type="Int32" Name="maCongThuc" Nullable="false" />
+    <Property Type="String" Name="tenCongThuc" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="dienGiai" Nullable="false" />
   </ComplexType>
 </Schema>

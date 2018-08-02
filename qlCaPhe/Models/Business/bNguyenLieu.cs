@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using qlCaPhe.Models;
+using qlCaPhe.App_Start;
 
 namespace qlCaPhe.Models.Business
 {
@@ -32,6 +33,36 @@ namespace qlCaPhe.Models.Business
         public double chuyenDoiDonViTuLonSangNho(double? soLuongCu, nguyenLieu nl)
         {
             return (double) (soLuongCu * nl.tyLeChuyenDoi);
+        }
+
+        /// <summary>
+        /// Hàm lấy danh sách các sản phẩm được pha chế từ 1 nguyên liệu
+        /// </summary>
+        /// <param name="maNguyenLieu">Mã nguyên liệu cần xem</param>
+        /// <returns>List object chứa thông tin nguyên liệu, sản phẩm, công thức</returns>
+        public List<NguyenLieuOfSanPham> laySanPhamSuDungNguyenLieu(int maNguyenLieu)
+        {
+            List<NguyenLieuOfSanPham> listKQ = new List<NguyenLieuOfSanPham>();
+            IEnumerable<object> listQuery = new qlCaPheEntities().laySanPhamTheoMaNguyenLieu(maNguyenLieu);
+            foreach (object x in listQuery.ToList())
+            {
+                NguyenLieuOfSanPham nlsp = new NguyenLieuOfSanPham();
+                nlsp.maSanPham = xulyDuLieu.doiChuoiSangInteger(xulyDuLieu.layThuocTinhTrongMotObject(x, "maSanPham"));
+                nlsp.tenSanPham = xulyDuLieu.layThuocTinhTrongMotObject(x, "tenSanPham");
+                nlsp.maLoai = xulyDuLieu.doiChuoiSangInteger(xulyDuLieu.layThuocTinhTrongMotObject(x, "maLoai"));
+                nlsp.tenLoai = xulyDuLieu.layThuocTinhTrongMotObject(x, "tenLoai");
+                nlsp.moTaSanPham = xulyDuLieu.layThuocTinhTrongMotObject(x, "moTa");
+                nlsp.donGia = xulyDuLieu.doiChuoiSangLong(xulyDuLieu.layThuocTinhTrongMotObject(x, "donGia"));
+                nlsp.hinhAnh = xulyDuLieu.layThuocTinhByteArrayMotObject(x, "hinhAnh");
+                nlsp.thoiGianPhaChe = xulyDuLieu.doiChuoiSangInteger(xulyDuLieu.layThuocTinhTrongMotObject(x, "thoiGianPhaChe"));
+                nlsp.trangThaiSanPham = xulyDuLieu.doiChuoiSangInteger(xulyDuLieu.layThuocTinhTrongMotObject(x, "trangThai"));
+                nlsp.ghiChuSanPham = xulyDuLieu.layThuocTinhTrongMotObject(x, "ghiChu");
+                nlsp.maCongThuc = xulyDuLieu.doiChuoiSangInteger(xulyDuLieu.layThuocTinhTrongMotObject(x, "maCongThuc"));
+                nlsp.tenCongThuc = xulyDuLieu.layThuocTinhTrongMotObject(x, "tenCongThuc");
+                nlsp.dienGiaiCongThuc = xulyDuLieu.layThuocTinhTrongMotObject(x, "dienGiai");
+                listKQ.Add(nlsp);
+            }
+            return listKQ;
         }
     }
 }

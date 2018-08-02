@@ -788,5 +788,24 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="laySanPhamTheoMaNguyenLieu" FunctionName="qlCaPheModel.Store.laySanPhamTheoMaNguyenLieu">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="qlCaPheModel.laySanPhamTheoMaNguyenLieu_Result">
+          <ScalarProperty Name="maSanPham" ColumnName="maSanPham" />
+          <ScalarProperty Name="tenSanPham" ColumnName="tenSanPham" />
+          <ScalarProperty Name="maLoai" ColumnName="maLoai" />
+          <ScalarProperty Name="tenLoai" ColumnName="tenLoai" />
+          <ScalarProperty Name="moTa" ColumnName="moTa" />
+          <ScalarProperty Name="donGia" ColumnName="donGia" />
+          <ScalarProperty Name="hinhAnh" ColumnName="hinhAnh" />
+          <ScalarProperty Name="thoiGianPhaChe" ColumnName="thoiGianPhaChe" />
+          <ScalarProperty Name="trangThai" ColumnName="trangThai" />
+          <ScalarProperty Name="ghiChu" ColumnName="ghiChu" />
+          <ScalarProperty Name="maCongThuc" ColumnName="maCongThuc" />
+          <ScalarProperty Name="tenCongThuc" ColumnName="tenCongThuc" />
+          <ScalarProperty Name="dienGiai" ColumnName="dienGiai" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

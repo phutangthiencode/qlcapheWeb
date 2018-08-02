@@ -313,6 +313,9 @@
     <Compile Include="Models\khuVuc.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\laySanPhamTheoMaNguyenLieu_Result.cs">
+      <DependentUpon>qlCaPhe.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\lichSuGia.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
     </Compile>
@@ -328,6 +331,7 @@
     <Compile Include="Models\nguyenLieu.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\NguyenLieuOfSanPham.cs" />
     <Compile Include="Models\nhaCungCap.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
     </Compile>

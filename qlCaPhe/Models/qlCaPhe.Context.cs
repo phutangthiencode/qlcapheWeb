@@ -464,5 +464,14 @@ namespace qlCaPhe.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<thongKeTongTienXuatKhoTheoThang_Result>("thongKeTongTienXuatKhoTheoThang", namParameter);
         }
+    
+        public virtual ObjectResult<laySanPhamTheoMaNguyenLieu_Result> laySanPhamTheoMaNguyenLieu(Nullable<int> maNguyenLieu)
+        {
+            var maNguyenLieuParameter = maNguyenLieu.HasValue ?
+                new ObjectParameter("maNguyenLieu", maNguyenLieu) :
+                new ObjectParameter("maNguyenLieu", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<laySanPhamTheoMaNguyenLieu_Result>("laySanPhamTheoMaNguyenLieu", maNguyenLieuParameter);
+        }
     }
 }

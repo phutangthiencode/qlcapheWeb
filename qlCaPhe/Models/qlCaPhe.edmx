@@ -1062,6 +1062,9 @@
         <Function Name="getNextIdentify" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="tenTable" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="laySanPhamTheoMaNguyenLieu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="maNguyenLieu" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
@@ -2919,6 +2922,9 @@
           <FunctionImport Name="thongKeTongTienXuatKhoTheoThang" ReturnType="Collection(qlCaPheModel.thongKeTongTienXuatKhoTheoThang_Result)">
           <Parameter Name="nam" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="laySanPhamTheoMaNguyenLieu" ReturnType="Collection(qlCaPheModel.laySanPhamTheoMaNguyenLieu_Result)">
+            <Parameter Name="maNguyenLieu" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -3061,6 +3067,21 @@
         <ComplexType Name="thongKeTongTienXuatKhoTheoThang_Result">
           <Property Type="Int64" Name="tongTien" Nullable="true" />
           <Property Type="Int32" Name="time" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="laySanPhamTheoMaNguyenLieu_Result">
+          <Property Type="Int32" Name="maSanPham" Nullable="false" />
+          <Property Type="String" Name="tenSanPham" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="maLoai" Nullable="false" />
+          <Property Type="String" Name="tenLoai" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="moTa" Nullable="true" MaxLength="Max" />
+          <Property Type="Int64" Name="donGia" Nullable="false" />
+          <Property Type="Binary" Name="hinhAnh" Nullable="true" />
+          <Property Type="Int32" Name="thoiGianPhaChe" Nullable="true" />
+          <Property Type="Int32" Name="trangThai" Nullable="false" />
+          <Property Type="String" Name="ghiChu" Nullable="true" MaxLength="Max" />
+          <Property Type="Int32" Name="maCongThuc" Nullable="false" />
+          <Property Type="String" Name="tenCongThuc" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="dienGiai" Nullable="false" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -3852,6 +3873,25 @@
               <ComplexTypeMapping TypeName="qlCaPheModel.thongKeTongTienXuatKhoTheoThang_Result">
                 <ScalarProperty Name="tongTien" ColumnName="tongTien" />
                 <ScalarProperty Name="time" ColumnName="time" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="laySanPhamTheoMaNguyenLieu" FunctionName="qlCaPheModel.Store.laySanPhamTheoMaNguyenLieu">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="qlCaPheModel.laySanPhamTheoMaNguyenLieu_Result">
+                <ScalarProperty Name="maSanPham" ColumnName="maSanPham" />
+                <ScalarProperty Name="tenSanPham" ColumnName="tenSanPham" />
+                <ScalarProperty Name="maLoai" ColumnName="maLoai" />
+                <ScalarProperty Name="tenLoai" ColumnName="tenLoai" />
+                <ScalarProperty Name="moTa" ColumnName="moTa" />
+                <ScalarProperty Name="donGia" ColumnName="donGia" />
+                <ScalarProperty Name="hinhAnh" ColumnName="hinhAnh" />
+                <ScalarProperty Name="thoiGianPhaChe" ColumnName="thoiGianPhaChe" />
+                <ScalarProperty Name="trangThai" ColumnName="trangThai" />
+                <ScalarProperty Name="ghiChu" ColumnName="ghiChu" />
+                <ScalarProperty Name="maCongThuc" ColumnName="maCongThuc" />
+                <ScalarProperty Name="tenCongThuc" ColumnName="tenCongThuc" />
+                <ScalarProperty Name="dienGiai" ColumnName="dienGiai" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

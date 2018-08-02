@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Web;
 
 namespace qlCaPhe.App_Start
@@ -191,6 +192,31 @@ namespace qlCaPhe.App_Start
         public static string layThuocTinhTrongMotObject(object obj, string tenThuocTinh)
         {
             return obj.GetType().GetProperty(tenThuocTinh).GetValue(obj, null).ToString();
+        }
+        /// <summary>
+        /// Hàm đọc dữ liệu từ 1 thuộc tính là hình ảnh trả về byte array
+        /// </summary>
+        /// <param name="obj">Object cần đọc thuộc tính</param>
+        /// <param name="tenThuocTinh">Tên thuộc tình cần đọc</param>
+        /// <returns>byte[] chứa hình ảnh</returns>
+        public static byte[] layThuocTinhByteArrayMotObject(object obj, string tenThuocTinh){
+            object objImage = obj.GetType().GetProperty(tenThuocTinh).GetValue(obj, null);
+            return doiObjectThanhByteArray(objImage);
+        }
+        
+        /// <summary>
+        /// Hàm thực hiện đổi 1 object thành byte array
+        /// </summary>
+        /// <param name="obj">object cần đổi</param>
+        /// <returns>Byte[] đã chuyển đổi</returns>
+        public static byte[] doiObjectThanhByteArray(Object obj)
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            using (var ms = new MemoryStream())
+            {
+                bf.Serialize(ms, obj);
+                return ms.ToArray();
+            }
         }
 
         public static void ganDuLieuVaoThuocTinhMotObject(object obj, string tenThuocTinh, object value)
