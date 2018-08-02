@@ -85,7 +85,7 @@ namespace qlCaPhe.Controllers
             {
                 try
                 {
-                    this.createTableBan(1, trangHienHanh, "/Ban/b_TableBan");
+                    this.layDanhSachBanTheoTrangThai(1, trangHienHanh, "/Ban/b_TableBan");
                     xulyChung.ghiNhatKyDtb(1, "Danh mục bàn đang sử dụng");
                 }
                 catch (Exception ex)
@@ -106,7 +106,7 @@ namespace qlCaPhe.Controllers
             {
                 try
                 {
-                    this.createTableBan(2, trangHienHanh, "/Ban/b_TableBanSuaChua");
+                    this.layDanhSachBanTheoTrangThai(2, trangHienHanh, "/Ban/b_TableBanSuaChua");
                     xulyChung.ghiNhatKyDtb(1, "Danh mục bàn đang sửa chữa");
                 }
                 catch (Exception ex)
@@ -127,7 +127,7 @@ namespace qlCaPhe.Controllers
             {
                 try
                 {
-                    this.createTableBan(0, trangHienHanh, "/Ban/b_TableBanHuyBo");
+                    this.layDanhSachBanTheoTrangThai(0, trangHienHanh, "/Ban/b_TableBanHuyBo");
                     xulyChung.ghiNhatKyDtb(1, "Danh mục bàn bị hủy bỏ");
                 }
                 catch (Exception ex)
@@ -137,18 +137,123 @@ namespace qlCaPhe.Controllers
             }
             return View();
         }
+
+        #region TÌM KIẾM
+
+        /// <summary>
+        /// Hàm thực hiện thực hiện tìm kiếm bàn theo trạng thái được sử dụng
+        /// </summary>
+        /// <returns></returns>
+        /// <param name="page">Trang hiện hành</param>
+        /// <param name="param">Tham số chứa tên bàn cần tìm</param>
+        [HttpPost]
+        public ActionResult b_TableBan(int? page, FormCollection param)
+        {
+            int trangHienHanh = (page ?? 1);
+            if (xulyChung.duocTruyCap(idOfPage))
+            {
+                try
+                {
+                    string tenBan = xulyDuLieu.xulyKyTuHTML(param["txtTenBan"]);
+                    this.layDanhSachBanTimKiem(1, trangHienHanh, "/Ban/b_TableBan", tenBan);
+                    xulyChung.ghiNhatKyDtb(1, "Danh mục bàn đang sử dụng");
+                }
+                catch (Exception ex)
+                {
+                    xulyFile.ghiLoi("Class: BanController - Function: b_TableBan", ex.Message);
+                }
+            }
+            return View();
+        }
+
+        /// <summary>
+        /// hàm lấy danh sách bàn đang sửa chữa trangThai=2
+        /// </summary>
+        /// <param name="page">Trang hiện hành</param>
+        /// <param name="param">Tên bàn cần tìm kiếm</param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult b_TableBanSuaChua(int? page, FormCollection param)
+        {
+            int trangHienHanh = (page ?? 1);
+            if (xulyChung.duocTruyCap(idOfPage))
+            {
+                try
+                {
+                    string tenBan = xulyDuLieu.xulyKyTuHTML(param["txtTenBan"]);
+                    this.layDanhSachBanTimKiem(2, trangHienHanh, "/Ban/b_TableBan", tenBan);
+                    xulyChung.ghiNhatKyDtb(1, "Danh mục bàn đang sửa chữa");
+                }
+                catch (Exception ex)
+                {
+                    xulyFile.ghiLoi("Class: BanController - Function: b_TableBanSuaChua", ex.Message);
+                }
+            }
+            return View();
+        }
+
+        /// <summary>
+        /// Hàm lấy danh sách bàn bị hủy bỏ cần tìm kiếm
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult b_TableBanHuyBo(int? page, FormCollection param)
+        {
+            int trangHienHanh = (page ?? 1);
+            if (xulyChung.duocTruyCap(idOfPage))
+            {
+                try
+                {
+                    string tenBan = xulyDuLieu.xulyKyTuHTML(param["txtTenBan"]);
+                    this.layDanhSachBanTimKiem(0, trangHienHanh, "/Ban/b_TableBanHuyBo", tenBan);
+                    xulyChung.ghiNhatKyDtb(1, "Danh mục bàn bị hủy bỏ");
+                }
+                catch (Exception ex)
+                {
+                    xulyFile.ghiLoi("Class: BanController - Function: b_TableBanSuaChua", ex.Message);
+                }
+            }
+            return View();
+        }
+        #endregion
         /// <summary>
         /// Hảm thực hiện tạo bảng bàn
         /// </summary>
         /// <param name="trangThai">Trạng thái liệt kê danh mục bàn <para/> 1: Bàn được sử dụng, 2: Bàn đang sửa chữa, 0, bàn tạm ngưng</param>
-        private void createTableBan(int trangThai, int trangHienHanh, string url)
+        private void layDanhSachBanTheoTrangThai(int trangThai, int trangHienHanh, string url)
+        {
+            qlCaPheEntities db = new qlCaPheEntities();
+            int soPhanTu = db.BanChoNgois.Where(s => s.trangThai == trangThai).Count();
+            ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, createHTML.pageSize, trangHienHanh, url); //------cấu hình phân trang
+            List<BanChoNgoi> listBan = db.BanChoNgois.Where(b => b.trangThai == trangThai).OrderBy(b => b.tenBan).Skip((trangHienHanh - 1) * createHTML.pageSize).Take(createHTML.pageSize).ToList();
+            this.createTableBan(listBan, trangThai);           
+        }
+        /// <summary>
+        /// Hàm thực hiện đọc danh sách bàn theo yêu cầu tìm kiếm của 1 trạng thái bàn
+        /// </summary>
+        /// <param name="trangThai">Trạng thái bàn cần hiển thị</param>
+        /// <param name="trangHienHanh">Số trang hiện hành</param>
+        /// <param name="url">URL Trang hiện hành chứa danh sách bàn để phân trang</param>
+        /// <param name="tenBan">Tham số chứa tên bàn cần tìm kiếm</param>
+        private void layDanhSachBanTimKiem(int trangThai, int trangHienHanh, string url, string tenBan)
+        {
+            qlCaPheEntities db = new qlCaPheEntities();
+            List<BanChoNgoi> listBanRaw = db.BanChoNgois.Where(b => b.trangThai == trangThai && b.tenBan.Contains(tenBan)).ToList(); //------List object chứa danh sách tất cả bàn lấy trong CSDL
+            int soPhanTu = listBanRaw.Count();
+            ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, createHTML.pageSize, trangHienHanh, url); //------cấu hình phân trang
+            List<BanChoNgoi> listBan = listBanRaw.OrderBy(b => b.tenBan).Skip((trangHienHanh - 1) * createHTML.pageSize).Take(createHTML.pageSize).ToList();
+            this.createTableBan(listBan, trangThai);   
+        }
+        /// <summary>
+        /// Hàm tạo dữ liệu trên giao diện
+        /// Nhúng các script cần thiết
+        /// </summary>
+        /// <param name="banList">List object chứa danh sách bàn</param>
+        /// <param name="trangThai">Trạng thái bàn cần lấy danh sách để thiết kế nút chức năng</param>
+        private void createTableBan(List<BanChoNgoi> banList, int trangThai)
         {
             string htmlTable = "";
-            qlCaPheEntities db = new qlCaPheEntities();
-            int soPhanTu = db.sanPhams.Where(s => s.trangThai == trangThai).Count();
-            ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, createHTML.pageSize, trangHienHanh, url); //------cấu hình phân trang
-
-            foreach (BanChoNgoi ban in db.BanChoNgois.ToList().Where(b => b.trangThai == trangThai).OrderBy(b => b.tenBan).Skip((trangHienHanh - 1) * createHTML.pageSize).Take(createHTML.pageSize))
+            foreach (BanChoNgoi ban in banList)
             {
                 htmlTable += "<tr role=\"row\" class=\"odd\">";
                 htmlTable += "      <td>";
