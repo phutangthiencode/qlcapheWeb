@@ -115,18 +115,46 @@ namespace qlCaPhe.Controllers
                 try
                 {
                     int trangHienHanh = (page ?? 1);
+                    //------Xử lý tham số chứa trạng thái cần lấy danh sách
                     string urlAction = (string)Session["urlAction"];
                     string request = urlAction.Split('|')[1]; //-------request có dạng: request=trangThai
                     request = request.Replace("request=", ""); //-------request có dạng trangThai
                     int trangThai = xulyDuLieu.doiChuoiSangInteger(request);
                     this.thietLapThongSoChung(trangThai);
-
+                    //--------Lấy dữ liệu theo trạng thái
                     qlCaPheEntities db = new qlCaPheEntities();
-
                     int soPhanTu = db.sanPhams.Where(s => s.trangThai == trangThai).Count();
                     ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, createHTML.pageSize, trangHienHanh, "/DoUong/du_TableDoUong"); //------cấu hình phân trang
 
                     List<sanPham> listSP = db.sanPhams.Where(s => s.trangThai == trangThai).OrderBy(s => s.tenSanPham).Skip((trangHienHanh - 1) * createHTML.pageSize).Take(createHTML.pageSize).ToList(); //-----Lấy danh sách các sản phẩm được phân trang
+                    this.createTableDoUong(listSP);
+                }
+                catch (Exception ex)
+                {
+                    xulyFile.ghiLoi("Class: DoUongController - Function: du_TableDoUong", ex.Message);
+                }
+            }
+            return View();
+        }
+
+        /// <summary>
+        /// hàm thực hiện tạo giao diện danh sách đồ uống cần tìm kiếm
+        /// </summary>
+        /// <param name="page">Số trang hiện hành</param>
+        /// <param name="param">Tham số chứa tên đồ uống cần tìm</param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult du_TableDoUong(int? page, FormCollection param)
+        {
+            if (xulyChung.duocTruyCap(idOfPage))
+            {
+                try
+                {
+                    int trangHienHanh = (page ?? 1);
+                    string tenSP = xulyDuLieu.xulyKyTuHTML(param["txtTenSanPham"]);
+                    qlCaPheEntities db = new qlCaPheEntities();
+                    List<sanPham> listSP = db.sanPhams.Where(s => s.tenSanPham.Contains(tenSP)).ToList();
+                    this.thietLapThongSoChung(1);
                     this.createTableDoUong(listSP);
                 }
                 catch (Exception ex)
