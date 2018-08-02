@@ -82,7 +82,7 @@ namespace qlCaPhe.Controllers
         {
             if (xulyChung.duocTruyCap(idOfPage))
             {
-                this.createTableNguyenLieu(true, (page ?? 1), "/NguyenLieu/nl_TableNguyenLieu");
+                this.layDanhSachNguyenLieuTheoTrangThai(true, (page ?? 1), "/NguyenLieu/nl_TableNguyenLieu");
                 xulyChung.ghiNhatKyDtb(1, "Danh mục nguyên liệu đang sử dụng");
                 return View();
             } return null;
@@ -96,61 +96,132 @@ namespace qlCaPhe.Controllers
         {
             if (xulyChung.duocTruyCap(idOfPage))
             {
-                this.createTableNguyenLieu(false, (page ?? 1), "/NguyenLieu/nl_TableNguyenLieuTamNgung");
+                this.layDanhSachNguyenLieuTheoTrangThai(false, (page ?? 1), "/NguyenLieu/nl_TableNguyenLieuTamNgung");
                 xulyChung.ghiNhatKyDtb(1, "Danh mục nguyên liệu tạm ngưng sử dụng");
                 return View();
             }
             return null;
         }
+
+
+        /// <summary>
+        /// hàm tạo giao diện danh sách nguyên liệu cần tìm kiếm theo trạng thái được sử dụng
+        /// <param name="page">Trang hiện hành</param>
+        /// <param name="param">Tham số chứa tên nguyên liệu cần tìm kiếm</param>
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult nl_TableNguyenLieu(int? page, FormCollection param)
+        {
+            if (xulyChung.duocTruyCap(idOfPage))
+            {
+                string tenNL = xulyDuLieu.xulyKyTuHTML(param["txtTenNguynLieu"]);
+                this.layDanhSachNguyenLieuTimKiemTheoTrangThai(true,tenNL);
+                xulyChung.ghiNhatKyDtb(1, "Danh mục nguyên liệu đang sử dụng");
+                return View();
+            } return null;
+        }
+
+        /// <summary>
+        ///hàm tạo giao diện danh sách nguyên liệu cần tìm kiếm theo trạng thái ngưng sử dụng
+        /// <param name="page">Trang hiện hành</param>
+        /// <param name="param">Tham số chứa tên nguyên liệu cần tìm kiếm</param>
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult nl_TableNguyenLieuTamNgung(int? page, FormCollection param)
+        {
+            if (xulyChung.duocTruyCap(idOfPage))
+            {
+                string tenNL = xulyDuLieu.xulyKyTuHTML(param["txtTenNguynLieu"]);
+                this.layDanhSachNguyenLieuTimKiemTheoTrangThai(false, tenNL);
+                xulyChung.ghiNhatKyDtb(1, "Danh mục nguyên liệu đang sử dụng");
+                return View();
+            }
+            return null;
+        }
+
         /// <summary>
         /// Hàm tạo bảng nguyên liệu theo trạng thái
         /// </summary>
         /// <param name="trangThai">Trạng thái nguyên liệu cần lấy. True: Đang sử dụng, False: Tạm ngưng</param>
         /// <param name="trangHienHanh">Trang hiện hành cần xem danh sách</param>
         /// <param name="url">đường dẫn đến trang tiếp theo khi click 1 trang trên danh sách phân trang</param>
-        private void createTableNguyenLieu(bool trangThai, int trangHienHanh, string url)
+        private void layDanhSachNguyenLieuTheoTrangThai(bool trangThai, int trangHienHanh, string url)
         {
-            string htmlTable = "";
+        
             try
             {
-                qlCaPheEntities db = new qlCaPheEntities();
-                int soPhanTu = db.nguyenLieux.Where(n => n.trangThai == trangThai).Count();
+                List<nguyenLieu> listRaw = new qlCaPheEntities().nguyenLieux.Where(n => n.trangThai == trangThai).ToList();
+                int soPhanTu = listRaw.Count();
                 ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, createHTML.pageSize, trangHienHanh, url); //------cấu hình phân trang
-                foreach (nguyenLieu nl in db.nguyenLieux.ToList().Where(n => n.trangThai == trangThai).OrderBy(n => n.tenNguyenLieu).Skip((trangHienHanh - 1) * createHTML.pageSize).Take(createHTML.pageSize))
-                {
-                    htmlTable += "<tr role=\"row\" class=\"odd\">";
-                    htmlTable += "      <td>";
-                    htmlTable += "          <a href=\"#\"  maHinh=\"" + nl.maNguyenLieu.ToString() + "\" class=\"goiY\">";
-                    htmlTable += xulyDuLieu.traVeKyTuGoc(nl.tenNguyenLieu);
-                    htmlTable += "              <span class=\"noiDungGoiY-right\">Click để xem hình</span>";
-                    htmlTable += "          </a>";
-                    htmlTable += "      </td>";
-                    htmlTable += "      <td>" + xulyDuLieu.traVeKyTuGoc(nl.loaiNguyenLieu.tenLoai) + "</td>";
-                    htmlTable += "      <td>" + xulyDuLieu.xulyCatChuoi(xulyDuLieu.traVeKyTuGoc(nl.moTa), 100) + "</td>";
-                    htmlTable += "      <td>" +xulyDuLieu.traVeKyTuGoc(nl.donViHienThi) + "</td>";
-                    htmlTable += "      <td>" + nl.thoiHanSuDung.ToString() + " ngày</td>";
-                    htmlTable += "      <td>";
-                    htmlTable += "          <div class=\"btn-group\">";
-                    htmlTable += "              <button type=\"button\" class=\"btn btn-primary dropdown-toggle\" data-toggle=\"dropdown\">";
-                    htmlTable += "                  Chức năng <span class=\"caret\"></span>";
-                    htmlTable += "              </button>";
-                    htmlTable += "              <ul class=\"dropdown-menu\" role=\"menu\">";
-                    htmlTable += createTableData.taoNutChinhSua("/NguyenLieu/nl_ChinhSuaNguyenLieu", nl.maNguyenLieu.ToString());
-                    if (trangThai == true)//--Kiểm tra trạng thái đề hiện chức năng tương ứng. Trạng thái đang sử dụng có chức năng cập nhật lại là ngưng sử dụng
-                        htmlTable += createTableData.taoNutCapNhat("/NguyenLieu/capNhatTrangThai", nl.maNguyenLieu.ToString(), "col-orange", "clear", "Ngưng sử dụng");
-                    else
-                        htmlTable += createTableData.taoNutCapNhat("/NguyenLieu/capNhatTrangThai", nl.maNguyenLieu.ToString(), "col-orange", "refresh", "Sử dụng lại");
-                    htmlTable += createTableData.taoNutXoaBo(nl.maNguyenLieu.ToString());
-                    htmlTable += "              </ul>";
-                    htmlTable += "          </div>";
-                    htmlTable += "      </td>";
-                    htmlTable += "</tr>";
-                }
+                this.createTableNguyenLieu(listRaw.OrderBy(n => n.tenNguyenLieu).Skip((trangHienHanh - 1) * createHTML.pageSize).Take(createHTML.pageSize).ToList(), trangThai);
+            }
+            catch (Exception ex)
+            {
+                xulyFile.ghiLoi("Class: NguyenLieuController - Function: layDanhSachNguyenLieuTheoTrangThai", ex.Message);
+                Response.Redirect(xulyChung.layTenMien() + "/Home/ServerError");
+            }
+          
+        }
+
+        /// <summary>
+        /// Hàm tạo danh sách các nguyên liệu cần tìm kiếm
+        /// </summary>
+        /// <param name="tenNL">Tên nguyên liệu cần tìm kiếm</param>
+        /// <param name="trangThai">Trạng thái nguyên liệu cần tìm kiếm</param>
+        private void layDanhSachNguyenLieuTimKiemTheoTrangThai(bool trangThai, string tenNL)
+        {
+            try
+            {
+                List<nguyenLieu> listNguyenLieu = new qlCaPheEntities().nguyenLieux.Where(n => n.trangThai == trangThai && n.tenNguyenLieu.Contains(tenNL)).ToList();
+                this.createTableNguyenLieu(listNguyenLieu, trangThai);
             }
             catch (Exception ex)
             {
                 xulyFile.ghiLoi("Class: NguyenLieuController - Function: createTableNguyenLieu", ex.Message);
                 Response.Redirect(xulyChung.layTenMien() + "/Home/ServerError");
+            }
+        }
+
+        /// <summary>
+        /// Hàm thực hiện tạo dữ liệu lên giao diện 
+        /// Nhúng các script cần thiết cho giao diện
+        /// </summary>
+        /// <param name="listNguyenLieu">List object chứa danh sách nguyên liệu cần hiển thị</param>
+        /// <param name="trangThai">Trạng thái để xác định nút chức năng</param>
+        private void createTableNguyenLieu(List<nguyenLieu> listNguyenLieu, bool trangThai)
+        {
+            string htmlTable = "";
+            foreach (nguyenLieu nl in listNguyenLieu)
+            {
+                htmlTable += "<tr role=\"row\" class=\"odd\">";
+                htmlTable += "      <td>";
+                htmlTable += "          <a href=\"#\"  maHinh=\"" + nl.maNguyenLieu.ToString() + "\" class=\"goiY\">";
+                htmlTable += xulyDuLieu.traVeKyTuGoc(nl.tenNguyenLieu);
+                htmlTable += "              <span class=\"noiDungGoiY-right\">Click để xem hình</span>";
+                htmlTable += "          </a>";
+                htmlTable += "      </td>";
+                htmlTable += "      <td>" + xulyDuLieu.traVeKyTuGoc(nl.loaiNguyenLieu.tenLoai) + "</td>";
+                htmlTable += "      <td>" + xulyDuLieu.xulyCatChuoi(xulyDuLieu.traVeKyTuGoc(nl.moTa), 100) + "</td>";
+                htmlTable += "      <td>" + xulyDuLieu.traVeKyTuGoc(nl.donViHienThi) + "</td>";
+                htmlTable += "      <td>" + nl.thoiHanSuDung.ToString() + " ngày</td>";
+                htmlTable += "      <td>";
+                htmlTable += "          <div class=\"btn-group\">";
+                htmlTable += "              <button type=\"button\" class=\"btn btn-primary dropdown-toggle\" data-toggle=\"dropdown\">";
+                htmlTable += "                  Chức năng <span class=\"caret\"></span>";
+                htmlTable += "              </button>";
+                htmlTable += "              <ul class=\"dropdown-menu\" role=\"menu\">";
+                htmlTable += createTableData.taoNutChinhSua("/NguyenLieu/nl_ChinhSuaNguyenLieu", nl.maNguyenLieu.ToString());
+                if (trangThai == true)//--Kiểm tra trạng thái đề hiện chức năng tương ứng. Trạng thái đang sử dụng có chức năng cập nhật lại là ngưng sử dụng
+                    htmlTable += createTableData.taoNutCapNhat("/NguyenLieu/capNhatTrangThai", nl.maNguyenLieu.ToString(), "col-orange", "clear", "Ngưng sử dụng");
+                else
+                    htmlTable += createTableData.taoNutCapNhat("/NguyenLieu/capNhatTrangThai", nl.maNguyenLieu.ToString(), "col-orange", "refresh", "Sử dụng lại");
+                htmlTable += createTableData.taoNutXoaBo(nl.maNguyenLieu.ToString());
+                htmlTable += "              </ul>";
+                htmlTable += "          </div>";
+                htmlTable += "      </td>";
+                htmlTable += "</tr>";
             }
             ViewBag.TableData = htmlTable;
             ViewBag.ScriptAjax = createScriptAjax.scriptAjaxXoaDoiTuong("NguyenLieu/xoaNguyenLieu?maNguyenLieu=");
@@ -160,6 +231,8 @@ namespace qlCaPhe.Controllers
             //----Nhúng các tag html cho modal chi tiết
             ViewBag.ModalChiTiet = createHTML.taoModalChiTiet("modalChiTiet", "vungChiTiet", 1);
         }
+
+
         /// <summary>
         /// Hàm thực hiện hiển thị hình ảnh của đồ uống trên modal khi người dùng click vào tên đồ uống
         /// </summary>
