@@ -462,18 +462,21 @@ namespace qlCaPhe.Controllers
                 string htmlTable = "";
                 try
                 {
+                    int index = 1;
                     //-----------Lấy danh sách nguyên liệu tồn kho trong 1 tháng 
                     List<ctTonKho> listTon = new bTonKho().layDanhSachTon(DateTime.Now.AddMonths(-1));
                     foreach (ctTonKho item in listTon)
                     {
                         string donViTinh = xulyDuLieu.traVeKyTuGoc(item.nguyenLieu.donViPhaChe);
                         htmlTable += "<tr role=\"row\" class=\"odd\">";
+                        htmlTable += "<td>" + index.ToString() +"</td>";
                         htmlTable += "    <td><b>" + xulyDuLieu.traVeKyTuGoc(item.nguyenLieu.tenNguyenLieu) + "</b></td>";
                         htmlTable += "    <td>" + xulyDuLieu.doiVND(item.donGia)+ "</td>";
                         htmlTable += "    <td class=\"col-green\"><b>" + item.soLuongDauKy.ToString() + " (" + donViTinh + ")</b></td>";
                         htmlTable += "    <td class=\"col-blue\"><b>" + item.soLuongCuoiKyLyThuyet.ToString() + " (" + donViTinh + ")</b></td>";
                         htmlTable += "    <td class=\"col-red\"><b>" + item.soLuongThucTe.ToString() + " (" + donViTinh + ")</b></td>";
                         htmlTable += "</tr>";
+                        index++;
                     }
                     xulyChung.ghiNhatKyDtb(1, "Danh mục tồn kho thực tế");
                 }
