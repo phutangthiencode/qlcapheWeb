@@ -36,7 +36,7 @@ namespace qlCaPhe.Controllers
                         html += "   </td>";
                         html += "   <td>" + hoaDon.ngayLap.ToString() + "</td>";
                         html += "   <td>" + xulyDuLieu.traVeKyTuGoc(hoaDon.taiKhoan.thanhVien.hoTV) + " " + xulyDuLieu.traVeKyTuGoc(hoaDon.taiKhoan.thanhVien.tenTV) + "</td>";//-----Hiện họ và tên thành viên phục vụ bàn này
-                        html += "   <td>" + xulyDuLieu.doiVND(hoaDon.tongTien) + "</td>";
+                        html += "   <td>" + xulyDuLieu.doiVND(new bHoaDonTam().layTongTienSanPham(hoaDon)) + "</td>";
                         html += "   <td>";
                         html += "       <div class=\"btn-group\">";
                         html += "             <a task=\"" + xulyChung.taoUrlCoTruyenThamSo("PhaChe/pc_ThucHienPhaCheTheoBan", hoaDon.maBan.ToString()) + "\" class=\" guiRequest  btn btn-success waves-effect\"><i class=\"material-icons\">local_dining</i><span>Pha chế</span></a>";
