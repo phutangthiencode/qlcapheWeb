@@ -78,7 +78,7 @@ namespace qlCaPhe.Controllers
             if (xulyChung.duocTruyCap(idOfPage))
             {
                 xulyChung.ghiNhatKyDtb(1, "Danh mục bài viết đã duyệt");
-                this.createTableBaiViet(1, (page ?? 1), "/BaiViet/bv_TableBaiVietDaDuyet");
+                this.layDanhSachBaiVietTheoTrangThai(1, (page ?? 1), "/BaiViet/bv_TableBaiVietDaDuyet");
             }
             return View();
         }
@@ -91,7 +91,7 @@ namespace qlCaPhe.Controllers
             if (xulyChung.duocTruyCap(idOfPage))
             {
                 xulyChung.ghiNhatKyDtb(1, "Danh mục bài viết chờ duyệt");
-                this.createTableBaiViet(0, (page ?? 1), "/BaiViet/bv_TableBaiVietChoDuyet");
+                this.layDanhSachBaiVietTheoTrangThai(0, (page ?? 1), "/BaiViet/bv_TableBaiVietChoDuyet");
             }
             return View();
         }
@@ -107,7 +107,7 @@ namespace qlCaPhe.Controllers
                 try
                 {
                     xulyChung.ghiNhatKyDtb(1, "Danh mục bài viết bị gở bỏ");
-                    this.createTableBaiViet(2, (page ?? 1), "/BaiViet/bv_TableBaiVietDaDuyet");
+                    this.layDanhSachBaiVietTheoTrangThai(2, (page ?? 1), "/BaiViet/bv_TableBaiVietDaDuyet");
                 }
                 catch (Exception ex)
                 {
@@ -116,43 +116,126 @@ namespace qlCaPhe.Controllers
                 }
             return View();
         }
+
+        #region TÌM KIẾM
+           /// <summary>
+         ///Hàm hiện danh sách những bài viết cần tìm theo trạng thái đã duyệt
+        /// </summary>
+        /// <param name="param">Tham số chứa tên bài viết cần tìm</param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult bv_TableBaiVietDaDuyet(FormCollection param)
+        {
+            if (xulyChung.duocTruyCap(idOfPage))
+            {
+                string tenBV = xulyDuLieu.xulyKyTuHTML(param["txtTenBaiViet"]);
+                xulyChung.ghiNhatKyDtb(5, "Tìm kiếm bài viết với tên \""+tenBV+"\"");
+                this.layDanhSachBaiVietTimKiemTheoTrangThai(1, tenBV);
+            }
+            return View();
+        }
+
         /// <summary>
-        /// Hàm thực hiện tạo table bài viết dựa theo trạng thái
+        /// Hàm hiện danh sách những bài viết cần tìm theo trạng thái chờ duyệt
+        /// <param name="param">Tên bài viết cần tìm</param>
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult bv_TableBaiVietChoDuyet(FormCollection param)
+        {
+            if (xulyChung.duocTruyCap(idOfPage))
+            {
+                string tenBV = xulyDuLieu.xulyKyTuHTML(param["txtTenBaiViet"]);
+                xulyChung.ghiNhatKyDtb(5, "Tìm kiếm bài viết với tên \"" + tenBV + "\"");
+                this.layDanhSachBaiVietTimKiemTheoTrangThai(0, tenBV);
+            }
+            return View();
+        }
+
+        /// <summary>
+        ///Hàm hiện danh sách những bài viết cần tìm theo trạng thái đã gở bỏ
+        /// </summary>
+        /// <param name="param">Tham số chứa tên bài viết cần tìm</param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult bv_TableBaiVietBiGoBo(FormCollection param)
+        {
+            if (xulyChung.duocTruyCap(idOfPage))
+            {
+                string tenBV = xulyDuLieu.xulyKyTuHTML(param["txtTenBaiViet"]);
+                xulyChung.ghiNhatKyDtb(5, "Tìm kiếm bài viết với tên \"" + tenBV + "\"");
+                this.layDanhSachBaiVietTimKiemTheoTrangThai(2, tenBV);
+            }
+            return View();
+        }
+        #endregion
+
+        /// <summary>
+        /// Hàm thực hiện lấy danh sách bài viết dựa theo trạng thái
         /// </summary>
         /// <param name="trangThai">Trạng thái bài viết cần liệt kê</param>
         /// <param name="trangHienHanh">Trang hiện tại cần liệt kê</param>
         /// <param name="url">Đường dẫn đến các trang khác đã phân trang</param>
-        private void createTableBaiViet(int trangThai, int trangHienHanh, string url)
+        private void layDanhSachBaiVietTheoTrangThai(int trangThai, int trangHienHanh, string url)
         {
-            string htmlTable = "";
             try
             {
-                qlCaPheEntities db = new qlCaPheEntities();
-                int soPhanTu = db.baiViets.Where(s => s.trangThai == trangThai).Count();
+                List<baiViet> listRaw = new qlCaPheEntities().baiViets.Where(b => b.trangThai == trangThai).ToList();
+                int soPhanTu = listRaw.Count();
                 ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, createHTML.pageSize, trangHienHanh, url); //------cấu hình phân trang
-                foreach (baiViet bv in db.baiViets.ToList().Where(b => b.trangThai == trangThai).OrderBy(b => b.tenBaiViet).Skip((trangHienHanh - 1) * createHTML.pageSize).Take(createHTML.pageSize))
-                {
-                    htmlTable += "<tr role=\"row\" class=\"odd\">";
-                    htmlTable += "      <td>";
-                    htmlTable += "          <a href=\"#\"  maBV=\"" + bv.maBaiViet.ToString() + "\" class=\"goiY\">";
-                    htmlTable += xulyDuLieu.traVeKyTuGoc(bv.tenBaiViet);
-                    htmlTable += "              <span class=\"noiDungGoiY-right\">Click để xem hình</span>";
-                    htmlTable += "          </a>";
-                    htmlTable += "      </td>";
-                    htmlTable += "      <td>" + xulyDuLieu.traVeKyTuGoc(bv.loaiTin) + "</td>";
-                    htmlTable += "      <td>" + bv.ngayTao.ToString() + "</td>";
-                    htmlTable += "      <td>" + bv.ngayDang.ToString() + "</td>";
-                    htmlTable += "      <td>" + xulyDuLieu.traVeKyTuGoc(bv.taiKhoan.thanhVien.hoTV) + " " + xulyDuLieu.traVeKyTuGoc(bv.taiKhoan.thanhVien.tenTV) + "</td>";
-                    htmlTable += "      <td>";
-                    htmlTable += this.taoNutChucNangTable(trangThai, bv);
-                    htmlTable += "      </td>";
-                    htmlTable += "</tr>";
-                }
+                this.createTableBaiViet(listRaw.OrderBy(b => b.tenBaiViet).Skip((trangHienHanh - 1) * createHTML.pageSize).Take(createHTML.pageSize).ToList(), trangThai);
             }
             catch (Exception ex)
             {
-                xulyFile.ghiLoi("Class: BaiVietController - Function: createTableBaiViet", ex.Message);
+                xulyFile.ghiLoi("Class: BaiVietController - Function: layDanhSachBaiVietTheoTrangThai", ex.Message);
                 Response.Redirect(xulyChung.layTenMien() + "/Home/ServerError");
+            }
+        }
+        /// <summary>
+        /// Hàm lấy danh sách các bài viết cần tìm theo trạng thái
+        /// </summary>
+        /// <param name="trangThai">Trạn thái cần tìm</param>
+        /// <param name="tenBV">Tên bài viết cần tìm</param>
+        private void layDanhSachBaiVietTimKiemTheoTrangThai(int trangThai, string tenBV)
+        {
+            try
+            {
+                List<baiViet> listKQ = new qlCaPheEntities().baiViets.Where(b => b.trangThai == trangThai && b.tenBaiViet.Contains(tenBV)).ToList();
+                this.createTableBaiViet(listKQ, trangThai);
+            }
+            catch (Exception ex)
+            {
+                xulyFile.ghiLoi("Class: BaiVietController - Function: layDanhSachBaiVietTimKiemTheoTrangThai", ex.Message);
+                Response.Redirect(xulyChung.layTenMien() + "/Home/ServerError");
+            }
+        }
+
+        /// <summary>
+        /// Hàm thiết kế danh mục bài viết trên giao diện <para/>
+        /// Nhúng một số script cần thiết cho bài viết
+        /// </summary>
+        /// <param name="listBaiViet">List bài viết cần hiện</param>
+        /// <param name="trangThai">Trạng thái để hiện nút chức năng tương ứng</param>
+        private void createTableBaiViet(List<baiViet> listBaiViet, int trangThai)
+        {
+            string htmlTable = ""; 
+            foreach (baiViet bv in listBaiViet)
+            {
+                htmlTable += "<tr role=\"row\" class=\"odd\">";
+                htmlTable += "      <td>";
+                htmlTable += "          <a href=\"#\"  maBV=\"" + bv.maBaiViet.ToString() + "\" class=\"goiY\">";
+                htmlTable += xulyDuLieu.traVeKyTuGoc(bv.tenBaiViet);
+                htmlTable += "              <span class=\"noiDungGoiY-right\">Click để xem hình</span>";
+                htmlTable += "          </a>";
+                htmlTable += "      </td>";
+                htmlTable += "      <td>" + xulyDuLieu.traVeKyTuGoc(bv.loaiTin) + "</td>";
+                htmlTable += "      <td>" + bv.ngayTao.ToString() + "</td>";
+                htmlTable += "      <td>" + bv.ngayDang.ToString() + "</td>";
+                htmlTable += "      <td>" + xulyDuLieu.traVeKyTuGoc(bv.taiKhoan.thanhVien.hoTV) + " " + xulyDuLieu.traVeKyTuGoc(bv.taiKhoan.thanhVien.tenTV) + "</td>";
+                htmlTable += "      <td>";
+                htmlTable += this.taoNutChucNangTable(trangThai, bv);
+                htmlTable += "      </td>";
+                htmlTable += "</tr>";
             }
             ViewBag.TableData = htmlTable;
             ViewBag.ScriptAjax = createScriptAjax.scriptAjaxXoaDoiTuong("BaiViet/xoaBaiViet?maBV=");
@@ -162,6 +245,7 @@ namespace qlCaPhe.Controllers
             //-----Tạo modal dạng lớn để chứa nội dung bài viết
             ViewBag.ModalChiTiet = createHTML.taoModalChiTiet("modalChiTiet", "vungChiTiet", 3);
         }
+
         /// <summary>
         /// Hàm tạo nút chức năng cho từng row trong table danh sách bài viết
         /// </summary>
