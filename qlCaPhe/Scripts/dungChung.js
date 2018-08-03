@@ -1,13 +1,23 @@
 ﻿$(document).ready(function () {
+    var flag = true;//----Biến cờ nhận thông báo
     //////======Sự kiện lấy và hiển thị danh sách thông báo
     setInterval(function () {
-        $.ajax({
-            url: getDuongDan() + 'Home/Notifications',
-        }).success(function (data) {
-            $('#vungThongBao').html(data);
-        });
+        if (flag == true)
+            $.ajax({
+                url: getDuongDan() + 'Home/Notifications',
+            }).success(function (data) {
+                $('#vungThongBao').html(data);
+            });
     }, 1000);
 
+    //------Sự kiện click để ẩn hộp thoại thông báo
+    $('html').click(function (e) {
+        var idClicked = e.target.id; //-----lấy id name của element vừa click
+        if (idClicked==="js-chuong") //-----Nếu id name là js-chuong = id của icon chuông
+            flag = false; //-----hạ cờ không gọi ajax thông báo
+        else
+            flag = true; //------bật cờ gọi ajax thông báo
+    });
 
     xoaTatCaThongBao();
 });
@@ -57,6 +67,7 @@ function xoaTatCaThongBao() {
                 e.stopImmediatePropagation();
             },
             success: function (data, textStatus, xhr) {
+                $('#vungThongBao').html("");
                 xoaTatCaThongBao();
             },
             error: function (xhr, textStatus, errorThrown) {
