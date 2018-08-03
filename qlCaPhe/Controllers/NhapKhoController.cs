@@ -89,11 +89,44 @@ namespace qlCaPhe.Controllers
                 ctAdd.soLuongNhap = ctTam.soLuongNhap;
                 db.ctPhieuNhapKhoes.Add(ctAdd);
                 db.SaveChanges();
-                //---------Cập nhật nguyên liệu vào tồn kho
-                //  this.insertNguyenLieuVaoTonKhoDauKy(ctAdd.maNguyenLieu, ctAdd.soLuongNhap, ctAdd.donGiaNhap, db);
+                //-------Tạo thông báo gửi đến người quản trị sản phẩm cập nhật lại giá cả
+                this.taoThongBaoDieuChinhGia(ctAdd.maNguyenLieu);
             }
-
         }
+        /// <summary>
+        /// Hàm tạo thông báo gửi đến nhóm tài khoản quản lý
+        /// </summary>
+        /// <param name="maNguyenLieu"></param>
+        private void taoThongBaoDieuChinhGia(int maNguyenLieu)
+        {
+            try
+            {
+                qlCaPheEntities db = new qlCaPheEntities();
+                //---------Lấy danh sách sản phẩm cập nhật giá
+                List<NguyenLieuOfSanPham> listSanPhamCapNhat = new bNguyenLieu().laySanPhamSuDungNguyenLieu(maNguyenLieu);
+                //---------Lấy danh sách tài khoản cần tạo thông báo
+                List<taiKhoan> listTaiKhoan = db.taiKhoans.Where(t => t.nhomTaiKhoan.quyenHan.Contains(":402")).ToList();
+                foreach (NguyenLieuOfSanPham itemSanPham in listSanPhamCapNhat)
+                {
+                    foreach (taiKhoan taiKhoanNhanThongBao in listTaiKhoan)
+                    {
+                        thongBao tbAdd = new thongBao();
+                        tbAdd.daXem = false;
+                        tbAdd.ghiChu = "Thông báo đổi giá cả sản phẩm";
+                        tbAdd.ndThongBao = "Đơn giá nhập nguyên liệu cho sản phẩm " + itemSanPham.tenSanPham + " đã thay đổi.";
+                        tbAdd.ngayTao = DateTime.Now;
+                        tbAdd.taiKhoan = taiKhoanNhanThongBao.tenDangNhap;
+                        db.thongBaos.Add(tbAdd);
+                        db.SaveChanges();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                xulyFile.ghiLoi("Class: NhapKhoController - Function: taoThongBaoDieuChinhGia", ex.Message);
+            }
+        }
+
         /// <summary>
         /// Hàm thực hiện thêm nguyên liệu vào Session chứa chi tiết phiếu nhập kho
         /// </summary>
