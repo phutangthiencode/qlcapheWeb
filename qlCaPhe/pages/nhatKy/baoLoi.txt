@@ -1,1 +1,5 @@
-﻿
+﻿-----------------------8/3/2018 5:15:55 PM----------
+Vị trí: Class: NhapKhoController - Function: nk_TaoMoiPhieuNhap_Post 
+ Lỗi: Vui lòng nhập hàng vào phiếu <br/>
+---------------------------------------------------------------
+

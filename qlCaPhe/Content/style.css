@@ -9974,6 +9974,7 @@ fieldset[disabled] .form-control {
             position: relative;
             top: 3px;
             left: 5px;
+            margin-left: 49px;margin-top: -35px;
         }
 
             .dropdown-menu ul.menu .menu-info h4 {
@@ -9995,6 +9996,9 @@ fieldset[disabled] .form-control {
                     top: 2px;
                 }
 
+                .scrollbar-notifies{
+                    height:400px; overflow-y:auto; overflow-x:hidden;
+                }
     .dropdown-menu .footer a {
         text-align: center;
         border-top: 1px solid #eee;
