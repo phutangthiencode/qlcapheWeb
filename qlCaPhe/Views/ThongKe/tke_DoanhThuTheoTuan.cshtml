@@ -24,6 +24,7 @@
             nextWeek = convertDateToString(getDateOfNextWeek(ts));
             layDuLieuHoaDon(jsonThongKeDoanhThu, soHDs, tamTinhs, dts, ts, 'chart-tuan', "Thống kê tổng doanh thu theo tuần từ ngày: " + ts + " đến " + nextWeek);
             VeBieuDoTronThongKeSanPham(ts, nextWeek);
+            VeBieuDoCotThongKeNguoiPhucVu(ts, nextWeek);
         })
     });
 
@@ -40,6 +41,30 @@
                 hienTongDoanhThuSanPham(kq);
                 drawPieChartSanPham(kq, title, "pie-chart-tuan");
                 drawColumnChartDoanhThuTheoSanPham(kq, titleDoanhThu, "chart-sanpham-tuan");
+            },
+            failure: function (r) {
+                alert(r.d);
+            },
+            error: function (r) {
+                alert(r.d);
+            }
+        });
+    }
+
+    function VeBieuDoCotThongKeNguoiPhucVu(ts, nextWeek) {
+        var titleDoanhThu = "Doanh thu theo người phục vụ trong tuần " + ts + " đến " + nextWeek;
+        $.ajax({
+            type: "GET",
+            url: '/ThongKe/GetJsonNguoiPhucVuTheoTuan',
+            data: 'param=' + ts,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json", async: true,
+            beforeSend: function () {
+                $('#pie-chart-ngay').html('');
+                $('#chart-sanpham-ngay').html('');
+            },
+            success: function (kq) {
+                drawColumnChartDoanhThuTheoPhucVu(kq, titleDoanhThu, "chart-phucvu-tuan");
             },
             failure: function (r) {
                 alert(r.d);
@@ -122,6 +147,17 @@
                                 </div>
 
                           
+                            </div>
+
+                            <div class="row">
+                                <div class="card">
+                                    <div class="header bg-blue">
+                                        <h2>Thống kê doanh thu theo nhân viên</h2>
+                                    </div>
+                                    <div class="body column-chart">
+                                        <div id="chart-phucvu-tuan" class="column-chart"></div>
+                                    </div>
+                                </div>
                             </div>
 
 

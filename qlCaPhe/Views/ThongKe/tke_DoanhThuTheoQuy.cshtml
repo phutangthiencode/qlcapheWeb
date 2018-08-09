@@ -55,6 +55,32 @@
                 alert(r.d);
             }
         });
+
+        VeBieuDoCotThongKeNguoiPhucVu(ts);
+    }
+
+    function VeBieuDoCotThongKeNguoiPhucVu(ts) {
+        var titleDoanhThu = "Doanh thu theo người phục vụ trong quý " + ts;
+        $.ajax({
+            type: "GET",
+            url: '/ThongKe/GetJsonNguoiPhucVuTheoQuy',
+            data: 'param=' + ts,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json", async: true,
+            beforeSend: function () {
+                $('#pie-chart-ngay').html('');
+                $('#chart-sanpham-ngay').html('');
+            },
+            success: function (kq) {
+                drawColumnChartDoanhThuTheoPhucVu(kq, titleDoanhThu, "chart-phucvu-quy");
+            },
+            failure: function (r) {
+                alert(r.d);
+            },
+            error: function (r) {
+                alert(r.d);
+            }
+        });
     }
 
 </script>
@@ -126,28 +152,42 @@
                             </div>
 
                             <div class="row">
+                                <div class="card">
+                                    <div class="header bg-blue">
+                                        <h2>Thống kê doanh thu theo nhân viên</h2>
+                                    </div>
+                                    <div class="body column-chart">
+                                        <div class="row">
+                                            <div class="col-md-6 pull-right">
+                                                <div class="col-md-5 m-t-10">
+                                                    <label>Chọn tháng thống kê</label>
+                                                </div>
+                                                <div class="col-md-6 pull-right">
+                                                    <div class="input-group">
+                                                        <select class="form-control" id="cbbQuySP">
+                                                            <option value="-1">Chọn quý</option>
+                                                            <option value="1">Quý 1</option>
+                                                            <option value="2">Quý 2</option>
+                                                            <option value="3">Quý 3</option>
+                                                            <option value="4">Quý 4</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="chart-phucvu-quy" class="column-chart"></div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="row">
 
                                 <div class="card">
                                     <div class="header bg-green">
                                         <h2>Thống kê số lượng sản phẩm đã bán theo quý</h2>
                                     </div>
                                     <div class="body" style="max-height: 740px; min-height: 740px; ">
-                                        <div class="col-md-5 pull-right">
-                                            <div class="col-md-5 m-t-10">
-                                                <label>Chọn quý thống kê</label>
-                                            </div>
-                                            <div class="col-md-7 pull-right">
-                                                <div class="input-group">
-                                                    <select class="form-control" id="cbbQuySP">
-                                                        <option value="-1">Chọn quý</option>
-                                                        <option value="1">Quý 1</option>
-                                                        <option value="2">Quý 2</option>
-                                                        <option value="3">Quý 3</option>
-                                                        <option value="4">Quý 4</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
                                         <div class="col-md-12">
                                             <div id="pie-chart-quy" class="pie-chart"></div>
                                         </div>

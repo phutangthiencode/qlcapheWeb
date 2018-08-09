@@ -115,6 +115,36 @@ function drawColumnChartDoanhThuTheoSanPham(json, title, chartID) {
     chart.draw(data, options);
 }
 
+//-----------------Hàm vẽ biểu đồ cột cho việc thống kê doanh thu bán sản phẩm
+//------------json: mảng json object chứa dữ liệu được lấy từ database
+//------------title: Title cho biểu đồ cột
+//------------chartID: id của div chứa biểu đồ
+function drawColumnChartDoanhThuTheoPhucVu(json, title, chartID) {
+    // Create the data table.
+    var data = new google.visualization.DataTable();
+    // Create columns for the DataTable
+    data.addColumn('string');
+    data.addColumn('number', 'Doanh số');
+    // Create Rows with data
+    var jsonLenght = Object.keys(json).length;
+    for (i = 0; i < jsonLenght; i++) {
+        var phucVu = json[i]["nguoiPhucVu"];
+        var tongTien = json[i]["tongTien"];
+        data.addRows([
+            [phucVu, tongTien]
+        ]);
+    }
+
+    //Create option for chart
+    var options = {
+        title: title
+    };
+
+    // Instantiate and draw our chart, passing in some options.
+    var chart = new google.visualization.ColumnChart(document.getElementById(chartID));
+    chart.draw(data, options);
+}
+
 function hienTongDoanhThuHoaDon(json) {
     $('.js-tong-doanh-thu-hoadon').html("");
     var lenghtJson = Object.keys(json).length;

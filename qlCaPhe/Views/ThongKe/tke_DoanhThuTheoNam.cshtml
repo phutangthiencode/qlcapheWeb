@@ -46,8 +46,32 @@
                 alert(r.d);
             }
         });
-    }
 
+        VeBieuDoCotThongKeNguoiPhucVu(ts);
+    }
+    function VeBieuDoCotThongKeNguoiPhucVu(ts) {
+        var titleDoanhThu = "Doanh thu theo người phục vụ trong năm " + ts;
+        $.ajax({
+            type: "GET",
+            url: '/ThongKe/GetJsonNguoiPhucVuTheoNam',
+            data: 'param=' + ts,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json", async: true,
+            beforeSend: function () {
+                $('#pie-chart-ngay').html('');
+                $('#chart-sanpham-ngay').html('');
+            },
+            success: function (kq) {
+                drawColumnChartDoanhThuTheoPhucVu(kq, titleDoanhThu, "chart-phucvu-nam");
+            },
+            failure: function (r) {
+                alert(r.d);
+            },
+            error: function (r) {
+                alert(r.d);
+            }
+        });
+    }
 
 </script>
 }
@@ -95,6 +119,32 @@
 
                             </div>
 
+                            <div class="row">
+                                <div class="card">
+                                    <div class="header bg-blue">
+                                        <h2>Thống kê doanh thu theo nhân viên</h2>
+                                    </div>
+                                    <div class="body column-chart">
+                                        <div class="row">
+                                            <div class="col-md-5 pull-right">
+                                                <div class="col-md-6 m-t-10">
+                                                    <label>Chọn năm thống kê</label>
+                                                </div>
+                                                <div class="col-md-6 pull-right">
+                                                    <div class="input-group">
+                                                        <select class="form-control" id="cbbNamSP">
+                                                            <option value="-1">Chọn năm</option>
+                                                            @Html.Raw(ViewBag.CbbNam)
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="chart-phucvu-nam" class="column-chart"></div>
+                                    </div>
+
+                                </div>
+                            </div>
 
                             <div class="row">
                                 <div class="card">

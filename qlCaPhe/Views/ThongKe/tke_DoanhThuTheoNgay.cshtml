@@ -27,6 +27,7 @@
             ts = $('#txtNgay').val();
             layDuLieuHoaDon(jsonThongKeDoanhThu, soHDs, tamTinhs, dts, ts, 'chart-ngay', "Thống kê doanh thu hóa đơn theo ngày: " + ts);
             VeBieuDoTronThongKeSanPham(ts);
+            VeBieuDoCotThongKeNguoiPhucVu(ts);
         })
     });
 
@@ -56,6 +57,33 @@
             }
         });
     }
+
+    function VeBieuDoCotThongKeNguoiPhucVu(ts) {
+        var titleDoanhThu = "Doanh thu theo người phục vụ trong ngày " + ts;
+        $.ajax({
+            type: "GET",
+            url: '/ThongKe/GetJsonNguoiPhucVuTheoNgay',
+            data: 'param=' + ts,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json", async: true,
+            beforeSend: function () {
+                $('#pie-chart-ngay').html('');
+                $('#chart-sanpham-ngay').html('');
+            },
+            success: function (kq) {
+                drawColumnChartDoanhThuTheoPhucVu(kq, titleDoanhThu, "chart-phucvu-ngay");
+            },
+            failure: function (r) {
+                alert(r.d);
+            },
+            error: function (r) {
+                alert(r.d);
+            }
+        });
+    }
+
+
+ 
 </script>
 }
 
@@ -124,16 +152,25 @@
 
                             <div class="row">
                                 <div class="card">
-                                    <div class="header bg-green">
-                                        <h2>Thống kê số lượng sản phẩm đã bán theo ngày</h2>
+                                    <div class="header bg-blue">
+                                        <h2>Thống kê doanh thu theo nhân viên</h2>
+                                    </div>
+                                    <div class="body column-chart">
+                                        <div id="chart-phucvu-ngay" class="column-chart"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="card">
+                                    <div class="header bg-blue">
+                                        <h2>Thống kê doanh thu theo nhân viên</h2>
                                     </div>
                                     <div class="body pie-chart">
                                         <div id="pie-chart-ngay" class="pie-chart"></div>
                                     </div>
                                 </div>
                             </div>
-
-
 
                             <div class="row">
                                 <div class="card">

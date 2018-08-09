@@ -807,5 +807,45 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="thongKeLapHoaDonTheoNam" FunctionName="qlCaPheModel.Store.thongKeLapHoaDonTheoNam">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="qlCaPheModel.thongKeLapHoaDonTheoNam_Result">
+          <ScalarProperty Name="tongTien" ColumnName="tongTien" />
+          <ScalarProperty Name="nguoiPhucVu" ColumnName="nguoiPhucVu" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="thongKeLapHoaDonTheoNgay" FunctionName="qlCaPheModel.Store.thongKeLapHoaDonTheoNgay">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="qlCaPheModel.thongKeLapHoaDonTheoNgay_Result">
+          <ScalarProperty Name="tongTien" ColumnName="tongTien" />
+          <ScalarProperty Name="nguoiPhucVu" ColumnName="nguoiPhucVu" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="thongKeLapHoaDonTheoQuy" FunctionName="qlCaPheModel.Store.thongKeLapHoaDonTheoQuy">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="qlCaPheModel.thongKeLapHoaDonTheoQuy_Result">
+          <ScalarProperty Name="tongTien" ColumnName="tongTien" />
+          <ScalarProperty Name="nguoiPhucVu" ColumnName="nguoiPhucVu" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="thongKeLapHoaDonTheoThang" FunctionName="qlCaPheModel.Store.thongKeLapHoaDonTheoThang">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="qlCaPheModel.thongKeLapHoaDonTheoThang_Result">
+          <ScalarProperty Name="tongTien" ColumnName="tongTien" />
+          <ScalarProperty Name="nguoiPhucVu" ColumnName="nguoiPhucVu" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="thongKeLapHoaDonTheoTuan" FunctionName="qlCaPheModel.Store.thongKeLapHoaDonTheoTuan">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="qlCaPheModel.thongKeLapHoaDonTheoTuan_Result">
+          <ScalarProperty Name="tongTien" ColumnName="tongTien" />
+          <ScalarProperty Name="nguoiPhucVu" ColumnName="nguoiPhucVu" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

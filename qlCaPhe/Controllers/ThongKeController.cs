@@ -87,6 +87,29 @@ namespace qlCaPhe.Controllers
                 }
             return Json(listHoaDon, JsonRequestBehavior.AllowGet);
         }
+        /// <summary>
+        /// Hàm ajax gọi lấy doanh thu theo ngày trên người phục vụ 
+        /// </summary>
+        /// <param name="param">Ngày cần lấy</param>
+        /// <returns></returns>
+        [HttpGet]
+        public JsonResult GetJsonNguoiPhucVuTheoNgay(string param)
+        {
+            List<object> listHoaDon = new List<object>();
+            if (xulyChung.duocTruyCapKhongChuyenTiep(idOfPageDoanhThuTheoThoiDiem))
+                try
+                {
+                    DateTime date = xulyDuLieu.doiChuoiSangDateTime(param);
+                    IEnumerable<object> listIEnumerable = new qlCaPheEntities().thongKeLapHoaDonTheoNgay(date);
+                    this.taoDuLieuThongKeDoanhThuTheoPhucVu(listIEnumerable, listHoaDon);
+                }
+                catch (Exception ex)
+                {
+                    xulyFile.ghiLoi("Class: ThongKeController - Function: GetJsonNguoiPhucVuTheoNgay", ex.Message);
+                }
+            return Json(listHoaDon, JsonRequestBehavior.AllowGet);
+        }
+      
         #endregion
 
         #region DOANH THU THEO TUẦN
@@ -162,6 +185,29 @@ namespace qlCaPhe.Controllers
                 catch (Exception ex)
                 {
                     xulyFile.ghiLoi("Class: ThongKeController - Function: GetJsonSanPhamTheoTuan", ex.Message);
+                }
+            return Json(listHoaDon, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// Hàm ajax gọi lấy doanh thu theo tuần trên người phục vụ 
+        /// </summary>
+        /// <param name="param">ngày bắt đầu lấy</param>
+        /// <returns></returns>
+        [HttpGet]
+        public JsonResult GetJsonNguoiPhucVuTheoTuan(string param)
+        {
+            List<object> listHoaDon = new List<object>();
+            if (xulyChung.duocTruyCapKhongChuyenTiep(idOfPageDoanhThuTheoThoiDiem))
+                try
+                {
+                    DateTime date = xulyDuLieu.doiChuoiSangDateTime(param);
+                    IEnumerable<object> listIEnumerable = new qlCaPheEntities().thongKeLapHoaDonTheoTuan(date);
+                    this.taoDuLieuThongKeDoanhThuTheoPhucVu(listIEnumerable, listHoaDon);
+                }
+                catch (Exception ex)
+                {
+                    xulyFile.ghiLoi("Class: ThongKeController - Function: GetJsonNguoiPhucVuTheoTuan", ex.Message);
                 }
             return Json(listHoaDon, JsonRequestBehavior.AllowGet);
         }
@@ -245,6 +291,29 @@ namespace qlCaPhe.Controllers
                 }
             return Json(listHoaDon, JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// Hàm ajax gọi lấy doanh thu theo tháng trên người phục vụ 
+        /// </summary>
+        /// <param name="param">tháng cần lấy</param>
+        /// <returns></returns>
+        [HttpGet]
+        public JsonResult GetJsonNguoiPhucVuTheoThang(string param)
+        {
+            List<object> listHoaDon = new List<object>();
+            if (xulyChung.duocTruyCapKhongChuyenTiep(idOfPageDoanhThuTheoThoiDiem))
+                try
+                {
+                    int thang = xulyDuLieu.doiChuoiSangInteger(param);
+                    IEnumerable<object> listIEnumerable = new qlCaPheEntities().thongKeLapHoaDonTheoThang(thang);
+                    this.taoDuLieuThongKeDoanhThuTheoPhucVu(listIEnumerable, listHoaDon);
+                }
+                catch (Exception ex)
+                {
+                    xulyFile.ghiLoi("Class: ThongKeController - Function: GetJsonNguoiPhucVuTheoThang", ex.Message);
+                }
+            return Json(listHoaDon, JsonRequestBehavior.AllowGet);
+        }
         #endregion
 
         #region DOANH THU THEO QUÝ
@@ -322,6 +391,29 @@ namespace qlCaPhe.Controllers
                 catch (Exception ex)
                 {
                     xulyFile.ghiLoi("Class: ThongKeController - Function: GetJsonSanPhamTheoQuy", ex.Message);
+                }
+            return Json(listHoaDon, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// Hàm ajax gọi lấy doanh thu theo quý trên người phục vụ 
+        /// </summary>
+        /// <param name="param">quý cần lấy</param>
+        /// <returns></returns>
+        [HttpGet]
+        public JsonResult GetJsonNguoiPhucVuTheoQuy(string param)
+        {
+            List<object> listHoaDon = new List<object>();
+            if (xulyChung.duocTruyCapKhongChuyenTiep(idOfPageDoanhThuTheoThoiDiem))
+                try
+                {
+                    int quy = xulyDuLieu.doiChuoiSangInteger(param);
+                    IEnumerable<object> listIEnumerable = new qlCaPheEntities().thongKeLapHoaDonTheoQuy(quy);
+                    this.taoDuLieuThongKeDoanhThuTheoPhucVu(listIEnumerable, listHoaDon);
+                }
+                catch (Exception ex)
+                {
+                    xulyFile.ghiLoi("Class: ThongKeController - Function: GetJsonNguoiPhucVuTheoQuy", ex.Message);
                 }
             return Json(listHoaDon, JsonRequestBehavior.AllowGet);
         }
@@ -403,6 +495,28 @@ namespace qlCaPhe.Controllers
                 }
             return Json(listHoaDon, JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// Hàm ajax gọi lấy doanh thu theo năm trên người phục vụ 
+        /// </summary>
+        /// <param name="param">quý cần lấy</param>
+        /// <returns></returns>
+        [HttpGet]
+        public JsonResult GetJsonNguoiPhucVuTheoNam(int? param)
+        {
+            List<object> listHoaDon = new List<object>();
+            if (xulyChung.duocTruyCapKhongChuyenTiep(idOfPageDoanhThuTheoThoiDiem))
+                try
+                {
+                    IEnumerable<object> listIEnumerable = new qlCaPheEntities().thongKeLapHoaDonTheoNam(param);
+                    this.taoDuLieuThongKeDoanhThuTheoPhucVu(listIEnumerable, listHoaDon);
+                }
+                catch (Exception ex)
+                {
+                    xulyFile.ghiLoi("Class: ThongKeController - Function: GetJsonNguoiPhucVuTheoNam", ex.Message);
+                }
+            return Json(listHoaDon, JsonRequestBehavior.AllowGet);
+        }
         #endregion
 
         /// <summary>
@@ -437,6 +551,26 @@ namespace qlCaPhe.Controllers
                     tenSP = xulyDuLieu.layThuocTinhTrongMotObject(x, "tenSanPham"),
                     tongTien = tongTienTamTinh,
                     tongDoanhThu = xulyDuLieu.doiVND(tongDoanhThu)
+                };
+                listKQ.Add(a);
+            }
+        }
+
+        /// <summary>
+        /// Hàm đọc dữ liệu từ store procedure lấy về có trong listIEnumerable và gán vào listHoaDon
+        /// </summary>
+        /// <param name="listIEnumerable"></param>
+        /// <param name="listKQ"></param>
+        private void taoDuLieuThongKeDoanhThuTheoPhucVu(IEnumerable<object> listIEnumerable, List<object> listKQ)
+        {
+            foreach (object x in listIEnumerable.ToList())
+            {
+                string nguoiPhucVu = xulyDuLieu.layThuocTinhTrongMotObject(x, "nguoiPhucVu");
+                long tienTamTinh = xulyDuLieu.doiChuoiSangLong(xulyDuLieu.layThuocTinhTrongMotObject(x, "tongTien"));
+                object a = new
+                {
+                    nguoiPhucVu = nguoiPhucVu,
+                    tongTien = tienTamTinh
                 };
                 listKQ.Add(a);
             }

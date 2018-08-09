@@ -440,6 +440,21 @@
     <Compile Include="Models\thongKeHoaDonTheoTuan_Result.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\thongKeLapHoaDonTheoNam_Result.cs">
+      <DependentUpon>qlCaPhe.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\thongKeLapHoaDonTheoNgay_Result.cs">
+      <DependentUpon>qlCaPhe.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\thongKeLapHoaDonTheoQuy_Result.cs">
+      <DependentUpon>qlCaPhe.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\thongKeLapHoaDonTheoThang_Result.cs">
+      <DependentUpon>qlCaPhe.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\thongKeLapHoaDonTheoTuan_Result.cs">
+      <DependentUpon>qlCaPhe.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\thongKeSoLuongNhapKhoTheoNgay_Result.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
     </Compile>

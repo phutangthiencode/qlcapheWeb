@@ -1146,6 +1146,21 @@
     <Parameter Name="startDate" Type="date" Mode="In" />
     <Parameter Name="endDate" Type="date" Mode="In" />
   </Function>
+  <Function Name="thongKeLapHoaDonTheoNam" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="nam" Type="int" Mode="In" />
+  </Function>
+  <Function Name="thongKeLapHoaDonTheoNgay" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ngay" Type="date" Mode="In" />
+  </Function>
+  <Function Name="thongKeLapHoaDonTheoQuy" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="quy" Type="int" Mode="In" />
+  </Function>
+  <Function Name="thongKeLapHoaDonTheoThang" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="thang" Type="int" Mode="In" />
+  </Function>
+  <Function Name="thongKeLapHoaDonTheoTuan" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="startDate" Type="date" Mode="In" />
+  </Function>
   <Function Name="thongKeSoLuongNhapKhoTheoNgay" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="ngay" Type="date" Mode="In" />
   </Function>

@@ -1504,6 +1504,21 @@
     <FunctionImport Name="laySanPhamTheoMaNguyenLieu" ReturnType="Collection(qlCaPheModel.laySanPhamTheoMaNguyenLieu_Result)">
       <Parameter Name="maNguyenLieu" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="thongKeLapHoaDonTheoNam" ReturnType="Collection(qlCaPheModel.thongKeLapHoaDonTheoNam_Result)">
+      <Parameter Name="nam" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="thongKeLapHoaDonTheoNgay" ReturnType="Collection(qlCaPheModel.thongKeLapHoaDonTheoNgay_Result)">
+      <Parameter Name="ngay" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="thongKeLapHoaDonTheoQuy" ReturnType="Collection(qlCaPheModel.thongKeLapHoaDonTheoQuy_Result)">
+      <Parameter Name="quy" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="thongKeLapHoaDonTheoThang" ReturnType="Collection(qlCaPheModel.thongKeLapHoaDonTheoThang_Result)">
+      <Parameter Name="thang" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="thongKeLapHoaDonTheoTuan" ReturnType="Collection(qlCaPheModel.thongKeLapHoaDonTheoTuan_Result)">
+      <Parameter Name="startDate" Mode="In" Type="DateTime" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="sp_helpdiagramdefinition_Result">
     <Property Type="Int32" Name="version" Nullable="true" />
@@ -1661,5 +1676,25 @@
     <Property Type="Int32" Name="maCongThuc" Nullable="false" />
     <Property Type="String" Name="tenCongThuc" Nullable="false" MaxLength="50" />
     <Property Type="String" Name="dienGiai" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="thongKeLapHoaDonTheoNam_Result">
+    <Property Type="Int64" Name="tongTien" Nullable="true" />
+    <Property Type="String" Name="nguoiPhucVu" Nullable="false" MaxLength="68" />
+  </ComplexType>
+  <ComplexType Name="thongKeLapHoaDonTheoNgay_Result">
+    <Property Type="Int64" Name="tongTien" Nullable="true" />
+    <Property Type="String" Name="nguoiPhucVu" Nullable="false" MaxLength="68" />
+  </ComplexType>
+  <ComplexType Name="thongKeLapHoaDonTheoQuy_Result">
+    <Property Type="Int64" Name="tongTien" Nullable="true" />
+    <Property Type="String" Name="nguoiPhucVu" Nullable="false" MaxLength="68" />
+  </ComplexType>
+  <ComplexType Name="thongKeLapHoaDonTheoThang_Result">
+    <Property Type="Int64" Name="tongTien" Nullable="true" />
+    <Property Type="String" Name="nguoiPhucVu" Nullable="false" MaxLength="68" />
+  </ComplexType>
+  <ComplexType Name="thongKeLapHoaDonTheoTuan_Result">
+    <Property Type="Int64" Name="tongTien" Nullable="true" />
+    <Property Type="String" Name="nguoiPhucVu" Nullable="false" MaxLength="68" />
   </ComplexType>
 </Schema>
