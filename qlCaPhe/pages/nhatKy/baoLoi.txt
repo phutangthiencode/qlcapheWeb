@@ -1,5 +1,95 @@
-﻿-----------------------8/3/2018 5:15:55 PM----------
-Vị trí: Class: NhapKhoController - Function: nk_TaoMoiPhieuNhap_Post 
- Lỗi: Vui lòng nhập hàng vào phiếu <br/>
+﻿-----------------------8/10/2018 2:26:48 PM----------
+Vị trí: Class: ThongKeController - Function: GetJsonLoiNhuanTheoNgay 
+ Lỗi: Nullable object must have a value.
+---------------------------------------------------------------
+
+-----------------------8/10/2018 2:29:57 PM----------
+Vị trí: Class: ThongKeController - Function: GetJsonLoiNhuanTheoNgay 
+ Lỗi: Nullable object must have a value.
+---------------------------------------------------------------
+
+-----------------------8/10/2018 2:32:00 PM----------
+Vị trí: Class: ThongKeController - Function: GetJsonLoiNhuanTheoNgay 
+ Lỗi: Nullable object must have a value.
+---------------------------------------------------------------
+
+-----------------------8/10/2018 2:32:06 PM----------
+Vị trí: Class: ThongKeController - Function: GetJsonLoiNhuanTheoNgay 
+ Lỗi: Nullable object must have a value.
+---------------------------------------------------------------
+
+-----------------------8/10/2018 2:42:04 PM----------
+Vị trí: Class: ThongKeController - Function: GetJsonLoiNhuanTheoNgay 
+ Lỗi: Nullable object must have a value.
+---------------------------------------------------------------
+
+-----------------------8/10/2018 2:42:11 PM----------
+Vị trí: Class: ThongKeController - Function: GetJsonLoiNhuanTheoNgay 
+ Lỗi: Nullable object must have a value.
+---------------------------------------------------------------
+
+-----------------------8/10/2018 2:42:52 PM----------
+Vị trí: Class: ThongKeController - Function: GetJsonLoiNhuanTheoNgay 
+ Lỗi: Nullable object must have a value.
+---------------------------------------------------------------
+
+-----------------------8/10/2018 2:57:14 PM----------
+Vị trí: Class: ThongKeController - Function: GetJsonLoiNhuanTheoNgay 
+ Lỗi: Nullable object must have a value.
+---------------------------------------------------------------
+
+-----------------------8/10/2018 3:20:28 PM----------
+Vị trí: Class: ThongKeController - Function: GetJsonLoiNhuanTheoNgay 
+ Lỗi: Nullable object must have a value.
+---------------------------------------------------------------
+
+-----------------------8/10/2018 3:25:47 PM----------
+Vị trí: Class: ThongKeController - Function: GetJsonLoiNhuanTheoNgay 
+ Lỗi: Nullable object must have a value.
+---------------------------------------------------------------
+
+-----------------------8/10/2018 3:45:28 PM----------
+Vị trí: Class: ThongKeController - Function: GetJsonLoiNhuanTheoNgay 
+ Lỗi: Nullable object must have a value.
+---------------------------------------------------------------
+
+-----------------------8/10/2018 3:46:09 PM----------
+Vị trí: Class: ThongKeController - Function: GetJsonLoiNhuanTheoThang 
+ Lỗi: Object reference not set to an instance of an object.
+---------------------------------------------------------------
+
+-----------------------8/10/2018 3:46:12 PM----------
+Vị trí: Class: ThongKeController - Function: GetJsonLoiNhuanTheoThang 
+ Lỗi: Object reference not set to an instance of an object.
+---------------------------------------------------------------
+
+-----------------------8/10/2018 3:46:22 PM----------
+Vị trí: Class: ThongKeController - Function: GetJsonLoiNhuanTheoThang 
+ Lỗi: Object reference not set to an instance of an object.
+---------------------------------------------------------------
+
+-----------------------8/10/2018 3:46:25 PM----------
+Vị trí: Class: ThongKeController - Function: GetJsonLoiNhuanTheoThang 
+ Lỗi: Object reference not set to an instance of an object.
+---------------------------------------------------------------
+
+-----------------------8/10/2018 3:46:50 PM----------
+Vị trí: Class: ThongKeController - Function: GetJsonLoiNhuanTheoThang 
+ Lỗi: Object reference not set to an instance of an object.
+---------------------------------------------------------------
+
+-----------------------8/10/2018 3:47:40 PM----------
+Vị trí: Class: ThongKeController - Function: GetJsonLoiNhuanTheoNgay 
+ Lỗi: Nullable object must have a value.
+---------------------------------------------------------------
+
+-----------------------8/10/2018 4:12:00 PM----------
+Vị trí: Class: ThongKeController - Function: GetJsonLoiNhuanTheoNgay 
+ Lỗi: Nullable object must have a value.
+---------------------------------------------------------------
+
+-----------------------8/10/2018 4:39:26 PM----------
+Vị trí: Class: ThongKeController - Function: GetJsonLoiNhuanTheoNgay 
+ Lỗi: Nullable object must have a value.
 ---------------------------------------------------------------
 

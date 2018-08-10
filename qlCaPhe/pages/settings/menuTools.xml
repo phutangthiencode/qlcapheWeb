@@ -68,5 +68,6 @@
     <menuItem id="1203" idCha="12" name="Thống kê tiền nhập kho" link="../ThongKe/tke_NhapKhoTheoNgay" cssClass="" description="" icon="cloud_download"></menuItem>
     <menuItem id="1204" idCha="12" name="Thống kê tiền xuất kho" link="../ThongKe/tke_XuatKhoTheoNgay" cssClass="" description="" icon="cloud_upload"></menuItem>
     <menuItem id="1205" idCha="12" name="Thống kê tồn kho" link="../ThongKe/tke_TonKhoTheoNgay" cssClass="" description="" icon=""></menuItem>
+  <menuItem id="1206" idCha="12" name="Thống kê lợi nhuận" link="../ThongKe/tke_LoiNhuanTheoNgay" cssClass="" description="" icon="attach_money"></menuItem>
   </menuItem>
 </root>

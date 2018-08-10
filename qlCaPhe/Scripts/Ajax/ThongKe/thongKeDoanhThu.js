@@ -115,7 +115,7 @@ function drawColumnChartDoanhThuTheoSanPham(json, title, chartID) {
     chart.draw(data, options);
 }
 
-//-----------------Hàm vẽ biểu đồ cột cho việc thống kê doanh thu bán sản phẩm
+//-----------------Hàm vẽ biểu đồ cột cho việc thống kê doanh thu kiếm được dựa trên người phục vụ
 //------------json: mảng json object chứa dữ liệu được lấy từ database
 //------------title: Title cho biểu đồ cột
 //------------chartID: id của div chứa biểu đồ
@@ -145,6 +145,38 @@ function drawColumnChartDoanhThuTheoPhucVu(json, title, chartID) {
     chart.draw(data, options);
 }
 
+
+//-----------------Hàm vẽ biểu đồ cột cho việc thống kê lợi nhuận
+//------------json: mảng json object chứa dữ liệu được lấy từ database
+//------------title: Title cho biểu đồ cột
+//------------chartID: id của div chứa biểu đồ
+function drawColumnChartLoiNhuan(json, title, chartID) {
+    // Create the data table.
+    var data = new google.visualization.DataTable();
+    // Create columns for the DataTable
+    data.addColumn('string');
+    data.addColumn('number', 'Lợi nhuận');
+    // Create Rows with data
+    var jsonLenght = Object.keys(json).length;
+    for (i = 0; i < jsonLenght; i++) {
+        var thoiDiem = json[i]["time"];
+        var loiNhuan = json[i]["loiNhuan"];
+        data.addRows([
+            [thoiDiem, loiNhuan]
+        ]);
+    }
+
+    //Create option for chart
+    var options = {
+        title: title
+    };
+
+    // Instantiate and draw our chart, passing in some options.
+    var chart = new google.visualization.ColumnChart(document.getElementById(chartID));
+    chart.draw(data, options);
+}
+
+
 function hienTongDoanhThuHoaDon(json) {
     $('.js-tong-doanh-thu-hoadon').html("");
     var lenghtJson = Object.keys(json).length;
@@ -166,7 +198,16 @@ function hienTongDoanhThuSanPham(json) {
         $('.js-tong-doanh-thu-sanpham').html("Tổng doanh thu trên sản phẩm là: " + tongDoanhThu);
     }
 }
-
+//--------Hàm hiển thị tổng lợi nhuận thu được lên giao diện
+function hienTongLoiNhuan(json) {
+    $('.js-tong-loinhuan').html("");
+    var lenghtJson = Object.keys(json).length;
+    if (lenghtJson > 0) {
+        var lastObject = json[lenghtJson - 1];
+        var tongLoiNhuan = lastObject['tongLoiNhuan'];
+        $('.js-tong-loinhuan').html("Tổng lợi nhuận là: " + tongLoiNhuan);
+    }
+}
 
 //-----------------Hàm vẽ biểu đồ cột cho việc thống kê doanh thu bán sản phẩm
 //------------json: mảng json object chứa dữ liệu được lấy từ database

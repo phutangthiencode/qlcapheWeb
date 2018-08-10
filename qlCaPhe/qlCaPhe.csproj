@@ -4256,6 +4256,11 @@
     <Content Include="Views\ThongKe\tke_XuatKhoTheoNgay.cshtml" />
     <Content Include="Views\ThongKe\tke_XuatKhoTheoTuan.cshtml" />
     <Content Include="Views\ThongKe\tke_XuatKhoTheoThang.cshtml" />
+    <Content Include="Views\ThongKe\tke_LoiNhuanTheoNgay.cshtml" />
+    <Content Include="Views\ThongKe\tke_LoiNhuanTheoTuan.cshtml" />
+    <Content Include="Views\ThongKe\tke_LoiNhuanTheoThang.cshtml" />
+    <Content Include="Views\ThongKe\tke_LoiNhuanTheoQuy.cshtml" />
+    <Content Include="Views\ThongKe\tke_LoiNhuanTheoNam.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
