@@ -115,15 +115,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="ctCungCaps">
-      <EntityTypeMapping TypeName="qlCaPheModel.ctCungCap">
-        <MappingFragment StoreEntitySet="ctCungCap">
-          <ScalarProperty Name="maNhaCC" ColumnName="maNhaCC" />
-          <ScalarProperty Name="maNguyenLieu" ColumnName="maNguyenLieu" />
-          <ScalarProperty Name="ghiChu" ColumnName="ghiChu" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="ctDanhGias">
       <EntityTypeMapping TypeName="qlCaPheModel.ctDanhGia">
         <MappingFragment StoreEntitySet="ctDanhGia">

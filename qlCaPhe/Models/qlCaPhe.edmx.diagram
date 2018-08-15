@@ -13,7 +13,6 @@
         <EntityTypeShape EntityType="qlCaPheModel.congThucPhaChe" Width="1.5" PointX="11.25" PointY="24" IsExpanded="true" />
         <EntityTypeShape EntityType="qlCaPheModel.ctBangGiaoViec" Width="1.5" PointX="10.5" PointY="21.125" IsExpanded="true" />
         <EntityTypeShape EntityType="qlCaPheModel.ctCongThuc" Width="1.5" PointX="16.5" PointY="27.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="qlCaPheModel.ctCungCap" Width="1.5" PointX="18.5" PointY="19.25" IsExpanded="true" />
         <EntityTypeShape EntityType="qlCaPheModel.ctDanhGia" Width="1.5" PointX="8.25" PointY="24.75" IsExpanded="true" />
         <EntityTypeShape EntityType="qlCaPheModel.ctDatBan" Width="1.5" PointX="13.25" PointY="12.75" IsExpanded="true" />
         <EntityTypeShape EntityType="qlCaPheModel.ctHoaDonOrder" Width="1.5" PointX="13.5" PointY="31.75" IsExpanded="true" />
@@ -58,8 +57,6 @@
         <AssociationConnector Association="qlCaPheModel.FK__congThucP__nguoi__6501FCD8" ManuallyRouted="false" />
         <AssociationConnector Association="qlCaPheModel.FK__ctCongThu__maCon__6CA31EA0" ManuallyRouted="false" />
         <AssociationConnector Association="qlCaPheModel.FK__ctCongThu__maNgu__6D9742D9" ManuallyRouted="false" />
-        <AssociationConnector Association="qlCaPheModel.FK__ctCungCap__maNgu__4222D4EF" ManuallyRouted="false" />
-        <AssociationConnector Association="qlCaPheModel.FK__ctCungCap__maNha__412EB0B6" ManuallyRouted="false" />
         <AssociationConnector Association="qlCaPheModel.FK__ctDanhGia__maDan__7CA47C3F" ManuallyRouted="false" />
         <AssociationConnector Association="qlCaPheModel.FK__ctDanhGia__maMuc__7D98A078" ManuallyRouted="false" />
         <AssociationConnector Association="qlCaPheModel.FK__ctDatBan__maDatB__503BEA1C" ManuallyRouted="false" />

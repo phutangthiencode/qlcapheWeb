@@ -35,7 +35,6 @@ namespace qlCaPhe.Models
         public virtual DbSet<congThucPhaChe> congThucPhaChes { get; set; }
         public virtual DbSet<ctBangGiaoViec> ctBangGiaoViecs { get; set; }
         public virtual DbSet<ctCongThuc> ctCongThucs { get; set; }
-        public virtual DbSet<ctCungCap> ctCungCaps { get; set; }
         public virtual DbSet<ctDanhGia> ctDanhGias { get; set; }
         public virtual DbSet<ctDatBan> ctDatBans { get; set; }
         public virtual DbSet<ctHoaDonOrder> ctHoaDonOrders { get; set; }

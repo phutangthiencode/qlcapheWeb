@@ -112,15 +112,6 @@
           <Property Name="hanhDong" Type="nvarchar(max)" />
           <Property Name="ghiChu" Type="ntext" />
         </EntityType>
-        <EntityType Name="ctCungCap">
-          <Key>
-            <PropertyRef Name="maNhaCC" />
-            <PropertyRef Name="maNguyenLieu" />
-          </Key>
-          <Property Name="maNhaCC" Type="int" Nullable="false" />
-          <Property Name="maNguyenLieu" Type="int" Nullable="false" />
-          <Property Name="ghiChu" Type="ntext" />
-        </EntityType>
         <EntityType Name="ctDanhGia">
           <Key>
             <PropertyRef Name="maDanhGia" />
@@ -611,30 +602,6 @@
             </Principal>
             <Dependent Role="ctCongThuc">
               <PropertyRef Name="maNguyenLieu" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__ctCungCap__maNgu__4222D4EF">
-          <End Role="nguyenLieu" Type="Self.nguyenLieu" Multiplicity="1" />
-          <End Role="ctCungCap" Type="Self.ctCungCap" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="nguyenLieu">
-              <PropertyRef Name="maNguyenLieu" />
-            </Principal>
-            <Dependent Role="ctCungCap">
-              <PropertyRef Name="maNguyenLieu" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__ctCungCap__maNha__412EB0B6">
-          <End Role="nhaCungCap" Type="Self.nhaCungCap" Multiplicity="1" />
-          <End Role="ctCungCap" Type="Self.ctCungCap" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="nhaCungCap">
-              <PropertyRef Name="maNhaCC" />
-            </Principal>
-            <Dependent Role="ctCungCap">
-              <PropertyRef Name="maNhaCC" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1211,7 +1178,6 @@
           <EntitySet Name="congThucPhaChe" EntityType="Self.congThucPhaChe" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ctBangGiaoViec" EntityType="Self.ctBangGiaoViec" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ctCongThuc" EntityType="Self.ctCongThuc" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ctCungCap" EntityType="Self.ctCungCap" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ctDanhGia" EntityType="Self.ctDanhGia" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ctDatBan" EntityType="Self.ctDatBan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ctHoaDonOrder" EntityType="Self.ctHoaDonOrder" Schema="dbo" store:Type="Tables" />
@@ -1282,14 +1248,6 @@
           <AssociationSet Name="FK__ctCongThu__maNgu__6D9742D9" Association="Self.FK__ctCongThu__maNgu__6D9742D9">
             <End Role="nguyenLieu" EntitySet="nguyenLieu" />
             <End Role="ctCongThuc" EntitySet="ctCongThuc" />
-          </AssociationSet>
-          <AssociationSet Name="FK__ctCungCap__maNgu__4222D4EF" Association="Self.FK__ctCungCap__maNgu__4222D4EF">
-            <End Role="nguyenLieu" EntitySet="nguyenLieu" />
-            <End Role="ctCungCap" EntitySet="ctCungCap" />
-          </AssociationSet>
-          <AssociationSet Name="FK__ctCungCap__maNha__412EB0B6" Association="Self.FK__ctCungCap__maNha__412EB0B6">
-            <End Role="nhaCungCap" EntitySet="nhaCungCap" />
-            <End Role="ctCungCap" EntitySet="ctCungCap" />
           </AssociationSet>
           <AssociationSet Name="FK__ctDanhGia__maDan__7CA47C3F" Association="Self.FK__ctDanhGia__maDan__7CA47C3F">
             <End Role="danhGiaNhanVien" EntitySet="danhGiaNhanVien" />
@@ -1559,17 +1517,6 @@
           <NavigationProperty Name="congThucPhaChe" Relationship="Self.FK__ctCongThu__maCon__6CA31EA0" FromRole="ctCongThuc" ToRole="congThucPhaChe" />
           <NavigationProperty Name="nguyenLieu" Relationship="Self.FK__ctCongThu__maNgu__6D9742D9" FromRole="ctCongThuc" ToRole="nguyenLieu" />
         </EntityType>
-        <EntityType Name="ctCungCap">
-          <Key>
-            <PropertyRef Name="maNhaCC" />
-            <PropertyRef Name="maNguyenLieu" />
-          </Key>
-          <Property Name="maNhaCC" Type="Int32" Nullable="false" />
-          <Property Name="maNguyenLieu" Type="Int32" Nullable="false" />
-          <Property Name="ghiChu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="nguyenLieu" Relationship="Self.FK__ctCungCap__maNgu__4222D4EF" FromRole="ctCungCap" ToRole="nguyenLieu" />
-          <NavigationProperty Name="nhaCungCap" Relationship="Self.FK__ctCungCap__maNha__412EB0B6" FromRole="ctCungCap" ToRole="nhaCungCap" />
-        </EntityType>
         <EntityType Name="ctDanhGia">
           <Key>
             <PropertyRef Name="maDanhGia" />
@@ -1827,7 +1774,6 @@
           <Property Name="donViHienThi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="tyLeChuyenDoi" Type="Double" />
           <NavigationProperty Name="ctCongThucs" Relationship="Self.FK__ctCongThu__maNgu__6D9742D9" FromRole="nguyenLieu" ToRole="ctCongThuc" />
-          <NavigationProperty Name="ctCungCaps" Relationship="Self.FK__ctCungCap__maNgu__4222D4EF" FromRole="nguyenLieu" ToRole="ctCungCap" />
           <NavigationProperty Name="ctPhieuNhapKhoes" Relationship="Self.FK__ctPhieuNh__maNgu__1F63A897" FromRole="nguyenLieu" ToRole="ctPhieuNhapKho" />
           <NavigationProperty Name="ctPhieuXuatKhoes" Relationship="Self.FK__ctPhieuXu__maNgu__45544755" FromRole="nguyenLieu" ToRole="ctPhieuXuatKho" />
           <NavigationProperty Name="ctTonKhoes" Relationship="Self.FK__ctTonKho__maNguy__5C37ACAD" FromRole="nguyenLieu" ToRole="ctTonKho" />
@@ -1849,7 +1795,6 @@
           <Property Name="logo" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="trangThai" Type="Boolean" Nullable="false" />
           <Property Name="ghiChu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="ctCungCaps" Relationship="Self.FK__ctCungCap__maNha__412EB0B6" FromRole="nhaCungCap" ToRole="ctCungCap" />
           <NavigationProperty Name="ctPhieuNhapKhoes" Relationship="Self.FK__ctPhieuNh__maNha__2057CCD0" FromRole="nhaCungCap" ToRole="ctPhieuNhapKho" />
         </EntityType>
         <EntityType Name="nhatKy">
@@ -2172,30 +2117,6 @@
             </Principal>
             <Dependent Role="ctCongThuc">
               <PropertyRef Name="maNguyenLieu" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__ctCungCap__maNgu__4222D4EF">
-          <End Role="nguyenLieu" Type="Self.nguyenLieu" Multiplicity="1" />
-          <End Role="ctCungCap" Type="Self.ctCungCap" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="nguyenLieu">
-              <PropertyRef Name="maNguyenLieu" />
-            </Principal>
-            <Dependent Role="ctCungCap">
-              <PropertyRef Name="maNguyenLieu" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__ctCungCap__maNha__412EB0B6">
-          <End Role="nhaCungCap" Type="Self.nhaCungCap" Multiplicity="1" />
-          <End Role="ctCungCap" Type="Self.ctCungCap" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="nhaCungCap">
-              <PropertyRef Name="maNhaCC" />
-            </Principal>
-            <Dependent Role="ctCungCap">
-              <PropertyRef Name="maNhaCC" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2592,7 +2513,6 @@
           <EntitySet Name="congThucPhaChes" EntityType="Self.congThucPhaChe" />
           <EntitySet Name="ctBangGiaoViecs" EntityType="Self.ctBangGiaoViec" />
           <EntitySet Name="ctCongThucs" EntityType="Self.ctCongThuc" />
-          <EntitySet Name="ctCungCaps" EntityType="Self.ctCungCap" />
           <EntitySet Name="ctDanhGias" EntityType="Self.ctDanhGia" />
           <EntitySet Name="ctDatBans" EntityType="Self.ctDatBan" />
           <EntitySet Name="ctHoaDonOrders" EntityType="Self.ctHoaDonOrder" />
@@ -2675,14 +2595,6 @@
           <AssociationSet Name="FK__ctCongThu__maNgu__6D9742D9" Association="Self.FK__ctCongThu__maNgu__6D9742D9">
             <End Role="nguyenLieu" EntitySet="nguyenLieux" />
             <End Role="ctCongThuc" EntitySet="ctCongThucs" />
-          </AssociationSet>
-          <AssociationSet Name="FK__ctCungCap__maNgu__4222D4EF" Association="Self.FK__ctCungCap__maNgu__4222D4EF">
-            <End Role="nguyenLieu" EntitySet="nguyenLieux" />
-            <End Role="ctCungCap" EntitySet="ctCungCaps" />
-          </AssociationSet>
-          <AssociationSet Name="FK__ctCungCap__maNha__412EB0B6" Association="Self.FK__ctCungCap__maNha__412EB0B6">
-            <End Role="nhaCungCap" EntitySet="nhaCungCaps" />
-            <End Role="ctCungCap" EntitySet="ctCungCaps" />
           </AssociationSet>
           <AssociationSet Name="FK__ctDanhGia__maDan__7CA47C3F" Association="Self.FK__ctDanhGia__maDan__7CA47C3F">
             <End Role="danhGiaNhanVien" EntitySet="danhGiaNhanViens" />
@@ -3249,15 +3161,6 @@
                 <ScalarProperty Name="soLuongNguyenLieu" ColumnName="soLuongNguyenLieu" />
                 <ScalarProperty Name="donViSuDung" ColumnName="donViSuDung" />
                 <ScalarProperty Name="hanhDong" ColumnName="hanhDong" />
-                <ScalarProperty Name="ghiChu" ColumnName="ghiChu" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ctCungCaps">
-            <EntityTypeMapping TypeName="qlCaPheModel.ctCungCap">
-              <MappingFragment StoreEntitySet="ctCungCap">
-                <ScalarProperty Name="maNhaCC" ColumnName="maNhaCC" />
-                <ScalarProperty Name="maNguyenLieu" ColumnName="maNguyenLieu" />
                 <ScalarProperty Name="ghiChu" ColumnName="ghiChu" />
               </MappingFragment>
             </EntityTypeMapping>

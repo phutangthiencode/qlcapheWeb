@@ -357,9 +357,12 @@ namespace qlCaPhe.Controllers
             ncc.website = xulyDuLieu.xulyKyTuHTML(f["txtWebSite"]);
             ncc.ghiChu = xulyDuLieu.xulyKyTuHTML(f["txtGhiChu"]);
             ncc.maSoThue = xulyDuLieu.xulyKyTuHTML(f["txtMST"]);
-            string ngayLap = f["txtNgayThanhLap"];
-            if (!ngayLap.Equals(""))
-                ncc.ngayThanhLap = DateTime.Parse(ngayLap);
+            if (!f["txtNgayThanhLap"].Equals(""))
+            {
+                ncc.ngayThanhLap = DateTime.Parse(f["txtNgayThanhLap"]);
+                if (ncc.ngayThanhLap > DateTime.Now)
+                    loi += "Ngày cung cấp quá giới hạn <br/>";
+            }
             string pathHinh = f["pathHinh"];
             //------Kiểm tra xem có chọn hình không. 
             if (!pathHinh.Equals("")) //Nếu có chọn hình  thì luu hình vào csdl

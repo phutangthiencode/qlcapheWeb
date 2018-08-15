@@ -587,6 +587,8 @@ namespace qlCaPhe.Controllers
             d.SDT = xulyDuLieu.xulyKyTuHTML(f["SDT"]).Trim();
             d.soLuongKhach = xulyDuLieu.doiChuoiSangInteger(f["soLuongKhach"]);
             d.ngayDenDuKien = xulyDuLieu.doiChuoiSangDateTime(f["ngayDenDuKien"]);
+            if (d.ngayDenDuKien < DateTime.Now)
+                throw new Exception("Ngày đặt không đúng giới hạn");
             d.ngayDat = DateTime.Now;
             d.trangThai = 0;
             d.yeuCauThem = xulyDuLieu.xulyKyTuHTML(f["yeuCauThem"]);

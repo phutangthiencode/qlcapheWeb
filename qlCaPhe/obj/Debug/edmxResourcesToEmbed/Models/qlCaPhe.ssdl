@@ -107,15 +107,6 @@
     <Property Name="hanhDong" Type="nvarchar(max)" />
     <Property Name="ghiChu" Type="ntext" />
   </EntityType>
-  <EntityType Name="ctCungCap">
-    <Key>
-      <PropertyRef Name="maNhaCC" />
-      <PropertyRef Name="maNguyenLieu" />
-    </Key>
-    <Property Name="maNhaCC" Type="int" Nullable="false" />
-    <Property Name="maNguyenLieu" Type="int" Nullable="false" />
-    <Property Name="ghiChu" Type="ntext" />
-  </EntityType>
   <EntityType Name="ctDanhGia">
     <Key>
       <PropertyRef Name="maDanhGia" />
@@ -606,30 +597,6 @@
       </Principal>
       <Dependent Role="ctCongThuc">
         <PropertyRef Name="maNguyenLieu" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK__ctCungCap__maNgu__4222D4EF">
-    <End Role="nguyenLieu" Type="Self.nguyenLieu" Multiplicity="1" />
-    <End Role="ctCungCap" Type="Self.ctCungCap" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="nguyenLieu">
-        <PropertyRef Name="maNguyenLieu" />
-      </Principal>
-      <Dependent Role="ctCungCap">
-        <PropertyRef Name="maNguyenLieu" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK__ctCungCap__maNha__412EB0B6">
-    <End Role="nhaCungCap" Type="Self.nhaCungCap" Multiplicity="1" />
-    <End Role="ctCungCap" Type="Self.ctCungCap" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="nhaCungCap">
-        <PropertyRef Name="maNhaCC" />
-      </Principal>
-      <Dependent Role="ctCungCap">
-        <PropertyRef Name="maNhaCC" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -1206,7 +1173,6 @@
     <EntitySet Name="congThucPhaChe" EntityType="Self.congThucPhaChe" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ctBangGiaoViec" EntityType="Self.ctBangGiaoViec" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ctCongThuc" EntityType="Self.ctCongThuc" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="ctCungCap" EntityType="Self.ctCungCap" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ctDanhGia" EntityType="Self.ctDanhGia" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ctDatBan" EntityType="Self.ctDatBan" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ctHoaDonOrder" EntityType="Self.ctHoaDonOrder" Schema="dbo" store:Type="Tables" />
@@ -1277,14 +1243,6 @@
     <AssociationSet Name="FK__ctCongThu__maNgu__6D9742D9" Association="Self.FK__ctCongThu__maNgu__6D9742D9">
       <End Role="nguyenLieu" EntitySet="nguyenLieu" />
       <End Role="ctCongThuc" EntitySet="ctCongThuc" />
-    </AssociationSet>
-    <AssociationSet Name="FK__ctCungCap__maNgu__4222D4EF" Association="Self.FK__ctCungCap__maNgu__4222D4EF">
-      <End Role="nguyenLieu" EntitySet="nguyenLieu" />
-      <End Role="ctCungCap" EntitySet="ctCungCap" />
-    </AssociationSet>
-    <AssociationSet Name="FK__ctCungCap__maNha__412EB0B6" Association="Self.FK__ctCungCap__maNha__412EB0B6">
-      <End Role="nhaCungCap" EntitySet="nhaCungCap" />
-      <End Role="ctCungCap" EntitySet="ctCungCap" />
     </AssociationSet>
     <AssociationSet Name="FK__ctDanhGia__maDan__7CA47C3F" Association="Self.FK__ctDanhGia__maDan__7CA47C3F">
       <End Role="danhGiaNhanVien" EntitySet="danhGiaNhanVien" />

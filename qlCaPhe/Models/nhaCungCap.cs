@@ -16,7 +16,6 @@ namespace qlCaPhe.Models
     {
         public nhaCungCap()
         {
-            this.ctCungCaps = new HashSet<ctCungCap>();
             this.ctPhieuNhapKhoes = new HashSet<ctPhieuNhapKho>();
         }
     
@@ -33,7 +32,6 @@ namespace qlCaPhe.Models
         public bool trangThai { get; set; }
         public string ghiChu { get; set; }
     
-        public virtual ICollection<ctCungCap> ctCungCaps { get; set; }
         public virtual ICollection<ctPhieuNhapKho> ctPhieuNhapKhoes { get; set; }
     }
 }

@@ -81,41 +81,6 @@ namespace qlCaPhe.Controllers
                     int soPhanTu = db.thanhViens.Count();
                     ViewBag.PhanTrang = createHTML.taoPhanTrang(soPhanTu, createHTML.pageSize, trangHienHanh, "/ThanhVien/tv_TableThanhVien"); //------cấu hình phân trang
                     var thanhVienList = db.thanhViens.OrderBy(t => t.tenTV).Skip((trangHienHanh - 1) * createHTML.pageSize).Take(createHTML.pageSize).ToList();
-                    //string htmlTable = "";
-                    //foreach (thanhVien tv in thanhVienList)
-                    //{
-                    //    htmlTable += "<tr role=\"row\" class=\"odd\">";
-                    //    htmlTable += "<td>";
-                    //    htmlTable += "  <a data-toggle=\"modal\" maTV=\"" + tv.maTV.ToString() + "\" class=\"goiY\">";
-                    //    htmlTable += "          <b>" + tv.hoTV + " " + tv.tenTV + "</b>";
-                    //    htmlTable += "      <span class=\"noiDungGoiY-right\">Click để xem hình</span>";
-                    //    htmlTable += "  </a>";
-                    //    htmlTable += "</td>";
-                    //    htmlTable += "<td>" + (tv.gioiTinh == true ? "Nam" : "Nữ") + "</td>";
-                    //    htmlTable += "<td>" + string.Format("{0:dd/MM/yyyy}", tv.ngaySinh) + "</td>";
-                    //    htmlTable += "<td>" + tv.diaChi + "</td>";
-                    //    htmlTable += "<td>" + tv.soDT + "</td>";
-                    //    htmlTable += "<td>" + string.Format("{0:dd/MM/yyyy}", tv.ngayThamGia) + "</td>";
-                    //    htmlTable += "<td>";
-                    //    htmlTable += "      <div class=\"btn-group\">";
-                    //    htmlTable += "          <button type=\"button\" class=\"btn btn-primary dropdown-toggle\" data-toggle=\"dropdown\">";
-                    //    htmlTable += "              Chức năng <span class=\"caret\"></span>";
-                    //    htmlTable += "          </button>";
-                    //    htmlTable += "          <ul class=\"dropdown-menu\" role=\"menu\">";
-                    //    htmlTable += createTableData.taoNutChinhSua("/ThanhVien/tv_ChinhSuaThanhVien", tv.maTV.ToString());
-                    //    htmlTable += createTableData.taoNutXoaBo(tv.maTV.ToString());
-                    //    htmlTable += "          </ul>";
-                    //    htmlTable += "      </div>";
-                    //    htmlTable += "</td>";
-                    //    htmlTable += "</tr>";
-                    //}
-                    //ViewBag.TableData = htmlTable;
-                    //ViewBag.ScriptAjax = createScriptAjax.scriptAjaxXoaDoiTuong("ThanhVien/xoaThanhVien?maTV=");
-                    //ViewBag.ModalXoa = createHTML.taoCanhBaoXoa("Thành viên");
-                    ////----Nhúng script ajax hiển thị hình khi người dùng click vào tên sản phẩm
-                    //ViewBag.ScriptAjaxXemChiTiet = createScriptAjax.scriptAjaxXemChiTietKhiClick("goiY", "maTV", "ThanhVien/AjaxXemThanhVienModal?maTV=", "vungChiTiet", "modalChiTiet");
-                    ////----Nhúng các tag html cho modal chi tiết
-                    //ViewBag.ModalChiTiet = createHTML.taoModalChiTiet("modalChiTiet", "vungChiTiet", 3);
                     this.nhungDuLieuLenGiaoDien(thanhVienList);
                     xulyChung.ghiNhatKyDtb(1, "Danh mục thành viên");
                 }
@@ -383,11 +348,12 @@ namespace qlCaPhe.Controllers
             if (tv.tenTV.Length <= 0)
                 loi += "Vui lòng nhập tên thành viên <br/>";
             var valGender = f["Gender"];
-            if (valGender.Equals("1"))
-                tv.gioiTinh = true;
-            else
-                tv.gioiTinh = false;
+            if (valGender.Equals("1")) tv.gioiTinh = true;
+            else tv.gioiTinh = false;
             tv.ngaySinh = DateTime.Parse(f["txtNgaySinh"]);
+            //------Kiểm tra tuổi của thành viên
+            if ((DateTime.Now.Year - tv.ngaySinh.Value.Year) < 15 || (DateTime.Now.Year - tv.ngaySinh.Value.Year) > 60)
+                loi += "Tuổi của thành viên quá giới hạn lao động!!!<br/>";
             tv.noiSinh = xulyDuLieu.xulyKyTuHTML(f["txtNoiSinh"]);
             tv.diaChi = xulyDuLieu.xulyKyTuHTML(f["txtDiaChi"]);
             if (tv.diaChi.Length <= 0)
@@ -401,7 +367,11 @@ namespace qlCaPhe.Controllers
             if (tv.soCMND.Length <= 0)
                 loi += "Vui lòng nhập số CMND của thành viên <br/>";
             if (!f["txtNgayCap"].Equals(""))
+            {
                 tv.ngayCap = DateTime.Parse(f["txtNgayCap"]);
+                if (tv.ngayCap > DateTime.Now || tv.ngayCap <= tv.ngaySinh || (tv.ngayCap.Value.Year - tv.ngaySinh.Value.Year) <= 12)
+                    loi += "Ngày cấp CMND của thành viên quá giới hạn <br/>"; 
+            }
             tv.noiCap = xulyDuLieu.xulyKyTuHTML(f["txtNoiCap"]);
             tv.ngayThamGia = DateTime.Now;
             tv.ghiChu = xulyDuLieu.xulyKyTuHTML(f["txtGhiChu"]);

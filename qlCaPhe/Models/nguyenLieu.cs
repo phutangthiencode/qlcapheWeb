@@ -17,7 +17,6 @@ namespace qlCaPhe.Models
         public nguyenLieu()
         {
             this.ctCongThucs = new HashSet<ctCongThuc>();
-            this.ctCungCaps = new HashSet<ctCungCap>();
             this.ctPhieuNhapKhoes = new HashSet<ctPhieuNhapKho>();
             this.ctPhieuXuatKhoes = new HashSet<ctPhieuXuatKho>();
             this.ctTonKhoes = new HashSet<ctTonKho>();
@@ -36,7 +35,6 @@ namespace qlCaPhe.Models
         public Nullable<double> tyLeChuyenDoi { get; set; }
     
         public virtual ICollection<ctCongThuc> ctCongThucs { get; set; }
-        public virtual ICollection<ctCungCap> ctCungCaps { get; set; }
         public virtual ICollection<ctPhieuNhapKho> ctPhieuNhapKhoes { get; set; }
         public virtual ICollection<ctPhieuXuatKho> ctPhieuXuatKhoes { get; set; }
         public virtual ICollection<ctTonKho> ctTonKhoes { get; set; }

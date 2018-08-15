@@ -254,9 +254,6 @@
     <Compile Include="Models\ctCongThuc.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ctCungCap.cs">
-      <DependentUpon>qlCaPhe.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\ctDanhGia.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
     </Compile>
