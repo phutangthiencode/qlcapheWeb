@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using qlCaPhe.Models;
 using qlCaPhe.App_Start;
+using qlCaPhe.Models.Entities;
 
 namespace qlCaPhe.Models.Business
 {
@@ -75,38 +76,46 @@ namespace qlCaPhe.Models.Business
         /// Hàm lấy danh sách nguyên liệu tồn kho
         /// </summary>
         /// <param name="ngayNhap">Ngày nhập nguyên liệu muốn lấy.</param>
-        public List<ctTonKho> layDanhSachTon(DateTime ngayNhap)
+        public List<ctTonKho> layDanhSachTon(DateTime ngayLay)
         {
-            List<ctTonKho> listTonKho = new List<ctTonKho>();
-            qlCaPheEntities db = new qlCaPheEntities();
-            var listNhap = db.ctPhieuNhapKhoes.Where(ct => ct.phieuNhapKho.ngayNhap >= ngayNhap && ct.phieuNhapKho.ngayNhap <= DateTime.Now).GroupBy(ct => ct.maNguyenLieu).ToList();
-            //==================================LẶP QUA DANH SÁCH NHẬP NGUYÊN LIỆU
-            //------Lặp qua từng nguyên liệu đã được groupby
-            foreach (var itemListNhap in listNhap)
+            List<ctTonKho> kq = new List<ctTonKho>();
+            try
             {
-                ctPhieuNhapKho itemNhap = new ctPhieuNhapKho(); itemNhap.soLuongNhap = 0;
-                double soLuongXuat = 0;
-                //----------Lặp qua danh sách nguyên liệu có trong group
-                foreach (var ctNhap in itemListNhap)
+                qlCaPheEntities db = new qlCaPheEntities();
+                //------Lấy thông tin đợt kiểm kho gần nhất
+                TonKho tonKho = db.TonKhoes.OrderByDescending(t => t.ngayKiem).First(t => t.ngayKiem <= ngayLay);
+                if (tonKho != null)
                 {
-                    itemNhap.maPhieu = ctNhap.maPhieu; itemNhap.maNguyenLieu = ctNhap.maNguyenLieu; itemNhap.maNhaCC = ctNhap.maNhaCC; itemNhap.donGiaNhap = ctNhap.donGiaNhap; itemNhap.ghiChu = ctNhap.ghiChu;
-                    itemNhap.nguyenLieu = ctNhap.nguyenLieu;
-                    itemNhap.soLuongNhap += ctNhap.soLuongNhap;
+                    List<NguyenLieuXuat> listNguyenLieuXuat = new bNguyenLieu().layDanhSachNguyenLieuXuat(db, tonKho.ngayKiem);
+                    //------Đọc nguyên liệu trong sổ kho đợt trước
+                    List<ctTonKho> listTonKhoTruoc = tonKho.ctTonKhoes.ToList();
+                    //------Lặp qua nguyên liệu trong sổ kho và tính số liệu thực tế
+                    foreach (ctTonKho itemSoKho in listTonKhoTruoc)
+                    {
+                        ctTonKho ctKQ = new ctTonKho();
+                        ctKQ.maNguyenLieu = itemSoKho.maNguyenLieu;
+                        ctKQ.soLuongDauKy = itemSoKho.soLuongDauKy;
+                        ctKQ.soLuongCuoiKyLyThuyet = itemSoKho.soLuongCuoiKyLyThuyet;
+                        ctKQ.nguyenLieu = itemSoKho.nguyenLieu;
+                        ctKQ.donGia = itemSoKho.donGia;
+                        //----Kiểm tra nguyên liệu đang duyệt cần kiểm tra có được xuất chưa. 
+                        NguyenLieuXuat nguyenLieuXuat =  listNguyenLieuXuat.SingleOrDefault(s=>s.maNguyenLieu==itemSoKho.maNguyenLieu);
+                        if (nguyenLieuXuat != null) //------Nguyên liệu đã duyệt có xuất
+                            ctKQ.soLuongThucTe = itemSoKho.soLuongCuoiKyLyThuyet - nguyenLieuXuat.soLuongXuat; //-----Tính lại số lượng thực tế
+                        else
+                            ctKQ.soLuongThucTe = itemSoKho.soLuongCuoiKyLyThuyet;
+                        kq.Add(ctKQ);
+                    }
                 }
-                var listXuat = db.ctPhieuXuatKhoes.Where(ct => ct.phieuXuatKho.ngayXuat >= ngayNhap && ct.phieuXuatKho.ngayXuat <= DateTime.Now && ct.maNguyenLieu == itemNhap.maNguyenLieu).GroupBy(ct => ct.maNguyenLieu).ToList();
-                if (listXuat.Count > 0)
-                    //--------Lặp qua danh sách nguyên liệu đã xuất để tính tồn kho
-                    foreach (var listXuatItem in listXuat)
-                        if (listXuatItem != null)
-                            //---------Lặp qua mỗi record nguyên liệu đã được groupby
-                            foreach (var ctXuat in listXuatItem)
-                                if (ctXuat != null)
-                                    soLuongXuat += (double)ctXuat.soLuongXuat;
-                //-----------Thêm vào danh sách để hiển thị lên giao diện                    
-                listTonKho.Add(this.addCtTonKhoToList(itemNhap, db, soLuongXuat));
-            }//------Quay lại lặp nguyên liệu tiếp theo
-            return listTonKho;
+            }
+            catch (Exception ex)
+            {
+                xulyFile.ghiLoi("Class: bTonKho - Function: layDanhSachTon", ex.Message);
+            }
+            return kq;
         }
+
+
 
         /// <summary>
         /// Hàm gán dữ liệu cho object cttonkho để thêm vào danh sách hiện lên giao diện
@@ -127,6 +136,7 @@ namespace qlCaPhe.Models.Business
                     //----------Lấy số lượng tồn kho cuối kỳ trước làm đầu kỳ này. (Số lượng cuối kỳ trước là số lượng thực tế).
                     soLuongCuoiKyTruoc = (int)ctTonTruoc.soLuongThucTe;
             }
+
             ctTonKho ctTon = new ctTonKho();
             ctTon.maNguyenLieu = itemNhap.maNguyenLieu;
             ctTon.donGia = itemNhap.donGiaNhap;

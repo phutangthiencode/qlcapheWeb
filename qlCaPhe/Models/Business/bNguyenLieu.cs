@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using qlCaPhe.Models;
 using qlCaPhe.App_Start;
+using qlCaPhe.Models.Entities;
 
 namespace qlCaPhe.Models.Business
 {
@@ -63,6 +64,29 @@ namespace qlCaPhe.Models.Business
                 listKQ.Add(nlsp);
             }
             return listKQ;
+        }
+
+        /// <summary>
+        /// Hàm lấy tất cả các nguyên liệu đã xuất kho từ ngày ... đến ngày hiện tại
+        /// </summary>
+        /// <param name="db"></param>
+        /// <param name="ngayLay">Ngày bắt đầu cần lấy</param>
+        /// <returns>List object chứa các nguyên liệu đã xuất</returns>
+        public List<NguyenLieuXuat> layDanhSachNguyenLieuXuat(qlCaPheEntities db,DateTime ngayLay)
+        {
+            List<NguyenLieuXuat> listNguyenLieuXuat = new List<NguyenLieuXuat>();
+            //------Lấy danh sách nguyên liệu đã xuất từ ngày đã kiểm kho đến ngày hiện tại
+            IEnumerable<object> listNguyenLieuXuatStore = db.laySoLuongNguyenLieuXuatTuNgay(ngayLay);
+            //-----Đọc dữ liệu đã lấy và thêm vảo listobject nguyên liệu xuất
+            foreach (object itemXuat in listNguyenLieuXuatStore)
+            {
+                int maNguyenLieuGet = xulyDuLieu.doiChuoiSangInteger(xulyDuLieu.layThuocTinhTrongMotObject(itemXuat, "maNguyenLieu"));
+                int soLuongXuatGet = xulyDuLieu.doiChuoiSangInteger(xulyDuLieu.layThuocTinhTrongMotObject(itemXuat, "soLuongXuat"));
+                long tongTienXuatGet = xulyDuLieu.doiChuoiSangLong(xulyDuLieu.layThuocTinhTrongMotObject(itemXuat, "tongTienXuat"));
+                NguyenLieuXuat nguyenLieuXuatGet = new NguyenLieuXuat(maNguyenLieuGet, soLuongXuatGet, tongTienXuatGet);
+                listNguyenLieuXuat.Add(nguyenLieuXuatGet);
+            }
+            return listNguyenLieuXuat;
         }
     }
 }

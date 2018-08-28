@@ -28,7 +28,8 @@ namespace qlCaPhe.Controllers
                     //-----Khởi tạo lại dữ liệu cho các giỏ nguyên liệu
                     this.xoaSession();
                     cartKiemKho cartTruoc = (cartKiemKho)Session["truocKiemKho"];
-                    List<ctTonKho> listTon = new bTonKho().layDanhSachTon(DateTime.Now.AddMonths(-1));
+                    //List<ctTonKho> listTon = new bTonKho().layDanhSachTon(DateTime.Now.AddMonths(-1));
+                    List<ctTonKho> listTon = new bTonKho().layDanhSachTonThucTe(DateTime.Now);
                     //------Lặp qua danh sách tồn kho theo tháng
                     foreach (ctTonKho item in listTon)
                     {

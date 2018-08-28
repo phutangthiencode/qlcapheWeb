@@ -1,4 +1,5 @@
 ﻿using qlCaPhe.App_Start;
+using qlCaPhe.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,7 @@ namespace qlCaPhe.Models.Business
             congThucPhaChe congThucSanPham = sp.congThucPhaChes.SingleOrDefault(c => c.trangThai == true);
             //---------Kiểm tra công thức của sản phẩm
             if (congThucSanPham != null)
+            {
                 //-------------Lặp qua những bước có sử dụng nguyên liệu
                 foreach (ctCongThuc ctCongThuc in congThucSanPham.ctCongThucs.Where(c => c.maNguyenLieu > 0).ToList())
                 {
@@ -34,25 +36,24 @@ namespace qlCaPhe.Models.Business
                     {
                         /////////////-----------------Lấy danh sách nguyên liệu trong tồn kho
                         ctTonKho ctTon = tonKhoNew.ctTonKhoes.SingleOrDefault(ct => ct.maNguyenLieu == ctCongThuc.maNguyenLieu);
+                        ////////////------------------Lấy danh sách xuất kho từ thời điểm kiểm kê kho đến nay=> để lấy Số lượng tồn
+                        List<NguyenLieuXuat> listNguyenLieuXuat = new bNguyenLieu().layDanhSachNguyenLieuXuat(db, tonKhoNew.ngayKiem);
                         if (ctTon != null)
                         {
                             int soLuongThucTe = (int)ctTon.soLuongThucTe; //-----Lấy số lượng thực tế trong tồn kho
-                            ////////////------------------Lấy danh sách xuất kho từ thời điểm kiểm kê kho đến nay=> để lấy Số lượng tồn
-                            var listXuat = db.ctPhieuXuatKhoes.Where(ct => ct.phieuXuatKho.ngayXuat >= tonKhoNew.ngayKiem && ct.phieuXuatKho.ngayXuat <= DateTime.Now && ct.maNguyenLieu == ctCongThuc.maNguyenLieu).GroupBy(ct => ct.maNguyenLieu);
-                            double soLuongXuat = 0;
-                            //--------Lặp qua danh sách nguyên liệu đã xuất để tính tồn kho
-                            foreach (var listXuatItem in listXuat)
-                                foreach (var ctXuat in listXuatItem)
-                                    soLuongXuat += (double)ctXuat.soLuongXuat; //-----Lấy tổng số lượng xuất kho
-                            //----------Tính số lượng tồn = số lượng trong kho - số lượng đã xuất
+                            int soLuongXuat = 0; NguyenLieuXuat nguyenLieuXuat = listNguyenLieuXuat.SingleOrDefault(s => s.maNguyenLieu == ctTon.maNguyenLieu);
+                            if (nguyenLieuXuat != null)
+                                soLuongXuat = nguyenLieuXuat.soLuongXuat;
                             if (soLuongThucTe - soLuongXuat < soLuongSuDung)
-                                return false;
+                                return false; //-----Trả về khi số lượng không đủ
                         }
                         else
-                            return false;
+                            return false; //------trả về khi không có nguyên liệu trong kho
                     }
                 }
-            return true;
+                return true; //----Trả về khi đã kiểm tra số lượng nguyên liệu pha chế sản phẩm đủ
+            }
+            return false; //------Trả về khi không có công thức pha chế của sản phẩm
         }
 
         /// <summary>

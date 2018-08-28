@@ -283,6 +283,7 @@
     </Compile>
     <Compile Include="Models\EditorHTML.cs" />
     <Compile Include="Models\Entities\MenuTools.cs" />
+    <Compile Include="Models\Entities\NguyenLieuXuat.cs" />
     <Compile Include="Models\Entities\Services\svBanChoNgoi.cs" />
     <Compile Include="Models\Entities\Services\svCtHoaDonTam.cs" />
     <Compile Include="Models\Entities\Services\svCtTonKho.cs" />
@@ -311,6 +312,9 @@
       <DependentUpon>qlCaPhe.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\laySanPhamTheoMaNguyenLieu_Result.cs">
+      <DependentUpon>qlCaPhe.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\laySoLuongNguyenLieuXuatTuNgay_Result.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\lichSuGia.cs">

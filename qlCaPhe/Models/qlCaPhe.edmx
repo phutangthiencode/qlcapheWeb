@@ -1032,6 +1032,9 @@
         <Function Name="laySanPhamTheoMaNguyenLieu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="maNguyenLieu" Type="int" Mode="In" />
         </Function>
+        <Function Name="laySoLuongNguyenLieuXuatTuNgay" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ngay" Type="date" Mode="In" />
+        </Function>
         <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
@@ -2853,19 +2856,22 @@
           <Parameter Name="maNguyenLieu" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="thongKeLapHoaDonTheoNam" ReturnType="Collection(qlCaPheModel.thongKeLapHoaDonTheoNam_Result)">
-            <Parameter Name="nam" Mode="In" Type="Int32" />
+          <Parameter Name="nam" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="thongKeLapHoaDonTheoNgay" ReturnType="Collection(qlCaPheModel.thongKeLapHoaDonTheoNgay_Result)">
-            <Parameter Name="ngay" Mode="In" Type="DateTime" />
+          <Parameter Name="ngay" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="thongKeLapHoaDonTheoQuy" ReturnType="Collection(qlCaPheModel.thongKeLapHoaDonTheoQuy_Result)">
-            <Parameter Name="quy" Mode="In" Type="Int32" />
+          <Parameter Name="quy" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="thongKeLapHoaDonTheoThang" ReturnType="Collection(qlCaPheModel.thongKeLapHoaDonTheoThang_Result)">
-            <Parameter Name="thang" Mode="In" Type="Int32" />
+          <Parameter Name="thang" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="thongKeLapHoaDonTheoTuan" ReturnType="Collection(qlCaPheModel.thongKeLapHoaDonTheoTuan_Result)">
-            <Parameter Name="startDate" Mode="In" Type="DateTime" />
+          <Parameter Name="startDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="laySoLuongNguyenLieuXuatTuNgay" ReturnType="Collection(qlCaPheModel.laySoLuongNguyenLieuXuatTuNgay_Result)">
+            <Parameter Name="ngay" Mode="In" Type="DateTime" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
@@ -3044,6 +3050,11 @@
         <ComplexType Name="thongKeLapHoaDonTheoTuan_Result">
           <Property Type="Int64" Name="tongTien" Nullable="true" />
           <Property Type="String" Name="nguoiPhucVu" Nullable="false" MaxLength="68" />
+        </ComplexType>
+        <ComplexType Name="laySoLuongNguyenLieuXuatTuNgay_Result">
+          <Property Type="Int32" Name="maNguyenLieu" Nullable="false" />
+          <Property Type="Double" Name="soLuongXuat" Nullable="true" />
+          <Property Type="Double" Name="tongTienXuat" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -3885,6 +3896,15 @@
               <ComplexTypeMapping TypeName="qlCaPheModel.thongKeLapHoaDonTheoTuan_Result">
                 <ScalarProperty Name="tongTien" ColumnName="tongTien" />
                 <ScalarProperty Name="nguoiPhucVu" ColumnName="nguoiPhucVu" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="laySoLuongNguyenLieuXuatTuNgay" FunctionName="qlCaPheModel.Store.laySoLuongNguyenLieuXuatTuNgay">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="qlCaPheModel.laySoLuongNguyenLieuXuatTuNgay_Result">
+                <ScalarProperty Name="maNguyenLieu" ColumnName="maNguyenLieu" />
+                <ScalarProperty Name="soLuongXuat" ColumnName="soLuongXuat" />
+                <ScalarProperty Name="tongTienXuat" ColumnName="tongTienXuat" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

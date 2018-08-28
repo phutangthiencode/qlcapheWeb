@@ -148,3 +148,223 @@ Vị trí: Class: ThongKeController - Function: GetJsonLoiNhuanTheoNgay
  Lỗi: Nullable object must have a value.
 ---------------------------------------------------------------
 
+-----------------------8/16/2018 4:09:08 PM----------
+Vị trí: Class: ThongKeController - Function: GetJsonLoiNhuanTheoNgay 
+ Lỗi: Nullable object must have a value.
+---------------------------------------------------------------
+
+-----------------------8/16/2018 4:10:02 PM----------
+Vị trí: Class: TonKhoController - Function: AjaxLayNguyenLieuKiemKho 
+ Lỗi: Object reference not set to an instance of an object.
+---------------------------------------------------------------
+
+-----------------------8/16/2018 4:10:29 PM----------
+Vị trí: Class: TonKhoController - Function: tkho_TonThucTe 
+ Lỗi: Object reference not set to an instance of an object.
+---------------------------------------------------------------
+
+-----------------------8/16/2018 4:10:35 PM----------
+Vị trí: Class: TonKhoController - Function: tkho_TonThucTe 
+ Lỗi: Object reference not set to an instance of an object.
+---------------------------------------------------------------
+
+-----------------------8/16/2018 4:10:44 PM----------
+Vị trí: Class: ThongKeController - Function: GetJsonLoiNhuanTheoNgay 
+ Lỗi: Nullable object must have a value.
+---------------------------------------------------------------
+
+-----------------------8/16/2018 4:12:29 PM----------
+Vị trí: Class: TonKhoController - Function: AjaxLayNguyenLieuKiemKho 
+ Lỗi: Object reference not set to an instance of an object.
+---------------------------------------------------------------
+
+-----------------------8/16/2018 4:12:32 PM----------
+Vị trí: Class: TonKhoController - Function: AjaxLayNguyenLieuKiemKho 
+ Lỗi: Object reference not set to an instance of an object.
+---------------------------------------------------------------
+
+-----------------------8/16/2018 4:12:51 PM----------
+Vị trí: Class: TonKhoController - Function: tkho_TonThucTe 
+ Lỗi: Object reference not set to an instance of an object.
+---------------------------------------------------------------
+
+-----------------------8/16/2018 4:14:41 PM----------
+Vị trí: Class: TonKhoController - Function: AjaxLayDanhSachNguyenLieuCanKiem 
+ Lỗi: Object reference not set to an instance of an object.
+---------------------------------------------------------------
+
+-----------------------8/16/2018 4:14:47 PM----------
+Vị trí: Class: TonKhoController - Function: AjaxLayNguyenLieuKiemKho 
+ Lỗi: Object reference not set to an instance of an object.
+---------------------------------------------------------------
+
+-----------------------8/16/2018 4:14:54 PM----------
+Vị trí: Class: TonKhoController - Function: AjaxLayNguyenLieuKiemKho 
+ Lỗi: Object reference not set to an instance of an object.
+---------------------------------------------------------------
+
+-----------------------8/16/2018 4:15:25 PM----------
+Vị trí: Class: TonKhoController - Function: AjaxLayNguyenLieuKiemKho 
+ Lỗi: Object reference not set to an instance of an object.
+---------------------------------------------------------------
+
+-----------------------8/16/2018 4:15:42 PM----------
+Vị trí: Class: TonKhoController - Function: AjaxLayNguyenLieuKiemKho 
+ Lỗi: Object reference not set to an instance of an object.
+---------------------------------------------------------------
+
+-----------------------8/16/2018 4:35:17 PM----------
+Vị trí: Class: TonKhoController - Function: AjaxLayNguyenLieuKiemKho 
+ Lỗi: Object reference not set to an instance of an object.
+---------------------------------------------------------------
+
+-----------------------8/16/2018 4:35:22 PM----------
+Vị trí: Class: ThongKeController - Function: GetJsonLoiNhuanTheoNgay 
+ Lỗi: Nullable object must have a value.
+---------------------------------------------------------------
+
+-----------------------8/16/2018 4:38:20 PM----------
+Vị trí: Class: TonKhoController - Function: tkho_TonThucTe 
+ Lỗi: Object reference not set to an instance of an object.
+---------------------------------------------------------------
+
+-----------------------8/16/2018 4:38:28 PM----------
+Vị trí: Class: TonKhoController - Function: AjaxLayNguyenLieuKiemKho 
+ Lỗi: Object reference not set to an instance of an object.
+---------------------------------------------------------------
+
+-----------------------8/16/2018 4:43:33 PM----------
+Vị trí: Class: ThongKeController - Function: GetJsonLoiNhuanTheoNgay 
+ Lỗi: Nullable object must have a value.
+---------------------------------------------------------------
+
+-----------------------8/28/2018 3:49:55 PM----------
+Vị trí: Class: ThongKeController - Function: GetJsonLoiNhuanTheoNgay 
+ Lỗi: Nullable object must have a value.
+---------------------------------------------------------------
+
+-----------------------8/28/2018 3:59:34 PM----------
+Vị trí: Class: ThongKeController - Function: GetJsonLoiNhuanTheoNgay 
+ Lỗi: Nullable object must have a value.
+---------------------------------------------------------------
+
+-----------------------8/28/2018 4:00:55 PM----------
+Vị trí: Class CongThucController - Function: themLichSuGiaVaoDatabase 
+ Lỗi: Vui lòng nhập số tiền cho sản phẩm
+---------------------------------------------------------------
+
+-----------------------8/28/2018 4:01:39 PM----------
+Vị trí: Class CongThucController - Function: themLichSuGiaVaoDatabase 
+ Lỗi: Vui lòng nhập số tiền cho sản phẩm
+---------------------------------------------------------------
+
+-----------------------8/28/2018 4:02:23 PM----------
+Vị trí: Class CongThucController - Function: themLichSuGiaVaoDatabase 
+ Lỗi: Vui lòng nhập số tiền cho sản phẩm
+---------------------------------------------------------------
+
+-----------------------8/28/2018 4:03:44 PM----------
+Vị trí: Class CongThucController - Function: themLichSuGiaVaoDatabase 
+ Lỗi: Vui lòng nhập số tiền cho sản phẩm
+---------------------------------------------------------------
+
+-----------------------8/28/2018 4:18:23 PM----------
+Vị trí: Class: bTonKho - Function: layDanhSachTonThucTe 
+ Lỗi: The specified type member 'Date' is not supported in LINQ to Entities. Only initializers, entity members, and entity navigation properties are supported.
+---------------------------------------------------------------
+
+-----------------------8/28/2018 4:18:38 PM----------
+Vị trí: Class: bTonKho - Function: layDanhSachTonThucTe 
+ Lỗi: The specified type member 'Date' is not supported in LINQ to Entities. Only initializers, entity members, and entity navigation properties are supported.
+---------------------------------------------------------------
+
+-----------------------8/28/2018 4:18:42 PM----------
+Vị trí: Class: bTonKho - Function: layDanhSachTonThucTe 
+ Lỗi: The specified type member 'Date' is not supported in LINQ to Entities. Only initializers, entity members, and entity navigation properties are supported.
+---------------------------------------------------------------
+
+-----------------------8/28/2018 4:19:07 PM----------
+Vị trí: Class: bTonKho - Function: layDanhSachTonThucTe 
+ Lỗi: The specified type member 'Date' is not supported in LINQ to Entities. Only initializers, entity members, and entity navigation properties are supported.
+---------------------------------------------------------------
+
+-----------------------8/28/2018 4:19:21 PM----------
+Vị trí: Class: bTonKho - Function: layDanhSachTonThucTe 
+ Lỗi: The specified type member 'Date' is not supported in LINQ to Entities. Only initializers, entity members, and entity navigation properties are supported.
+---------------------------------------------------------------
+
+-----------------------8/28/2018 4:59:11 PM----------
+Vị trí: Class: bTonKho - Function: layDanhSachTonThucTe 
+ Lỗi: Sequence contains no matching element
+---------------------------------------------------------------
+
+-----------------------8/28/2018 5:02:12 PM----------
+Vị trí: Class: bTonKho - Function: layDanhSachTonThucTe 
+ Lỗi: Sequence contains no matching element
+---------------------------------------------------------------
+
+-----------------------8/28/2018 5:04:42 PM----------
+Vị trí: Class: bTonKho - Function: layDanhSachTonThucTe 
+ Lỗi: Sequence contains no matching element
+---------------------------------------------------------------
+
+-----------------------8/28/2018 5:06:10 PM----------
+Vị trí: Class: bTonKho - Function: layDanhSachTonThucTe 
+ Lỗi: Sequence contains no matching element
+---------------------------------------------------------------
+
+-----------------------8/28/2018 5:06:56 PM----------
+Vị trí: Class: bTonKho - Function: layDanhSachTonThucTe 
+ Lỗi: Sequence contains no matching element
+---------------------------------------------------------------
+
+-----------------------8/28/2018 5:19:09 PM----------
+Vị trí: Class: ThongKeController - Function: GetJsonLoiNhuanTheoNgay 
+ Lỗi: Nullable object must have a value.
+---------------------------------------------------------------
+
+-----------------------8/28/2018 5:58:59 PM----------
+Vị trí: Class: ThongKeController - Function: GetJsonLoiNhuanTheoNgay 
+ Lỗi: Nullable object must have a value.
+---------------------------------------------------------------
+
+-----------------------8/28/2018 5:59:59 PM----------
+Vị trí: Class: NghiepVuBanController - Fucntion: AjaxLaySanPhamTheoLoai 
+ Lỗi: Object reference not set to an instance of an object.
+---------------------------------------------------------------
+
+-----------------------8/28/2018 6:00:49 PM----------
+Vị trí: Class: NghiepVuBanController - Fucntion: AjaxLaySanPhamTheoLoai 
+ Lỗi: Object reference not set to an instance of an object.
+---------------------------------------------------------------
+
+-----------------------8/28/2018 6:02:36 PM----------
+Vị trí: Class: NghiepVuBanController - Fucntion: AjaxLaySanPhamTheoLoai 
+ Lỗi: Object reference not set to an instance of an object.
+---------------------------------------------------------------
+
+-----------------------8/28/2018 6:07:15 PM----------
+Vị trí: Class: ThongKeController - Function: GetJsonLoiNhuanTheoNgay 
+ Lỗi: Nullable object must have a value.
+---------------------------------------------------------------
+
+-----------------------8/28/2018 6:10:55 PM----------
+Vị trí: Class CongThucController - Function: themLichSuGiaVaoDatabase 
+ Lỗi: Vui lòng nhập số tiền cho sản phẩm
+---------------------------------------------------------------
+
+-----------------------8/28/2018 6:18:56 PM----------
+Vị trí: Class: ThongKeController - Function: GetJsonLoiNhuanTheoNgay 
+ Lỗi: Nullable object must have a value.
+---------------------------------------------------------------
+
+-----------------------8/28/2018 6:24:14 PM----------
+Vị trí: Class: ThongKeController - Function: GetJsonLoiNhuanTheoNgay 
+ Lỗi: Nullable object must have a value.
+---------------------------------------------------------------
+
+-----------------------8/28/2018 6:32:37 PM----------
+Vị trí: Class: ThongKeController - Function: GetJsonLoiNhuanTheoNgay 
+ Lỗi: Nullable object must have a value.
+---------------------------------------------------------------
+
