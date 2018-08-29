@@ -28,8 +28,7 @@ namespace qlCaPhe.Controllers
                     //-----Khởi tạo lại dữ liệu cho các giỏ nguyên liệu
                     this.xoaSession();
                     cartKiemKho cartTruoc = (cartKiemKho)Session["truocKiemKho"];
-                    //List<ctTonKho> listTon = new bTonKho().layDanhSachTon(DateTime.Now.AddMonths(-1));
-                    List<ctTonKho> listTon = new bTonKho().layDanhSachTonThucTe(DateTime.Now);
+                    List<ctTonKho> listTon = new bTonKho().layDanhSachTon(DateTime.Now);
                     //------Lặp qua danh sách tồn kho theo tháng
                     foreach (ctTonKho item in listTon)
                     {
@@ -146,7 +145,7 @@ namespace qlCaPhe.Controllers
                 kq += "                     <tbody>";
                 int index = 1;
                 //---------Lấy danh sách các nguyên liệu cần kiểm kho. Có trong nhập kho trong 1 tháng trước
-                foreach (ctTonKho item in new bTonKho().layDanhSachTon(DateTime.Now.AddMonths(-1)))
+                foreach (ctTonKho item in new bTonKho().layDanhSachTon(DateTime.Now))
                 {
                     kq += "                         <tr>";
                     kq += "                             <td>" + index.ToString() + "</td>";
@@ -465,7 +464,7 @@ namespace qlCaPhe.Controllers
                 {
                     int index = 1;
                     //-----------Lấy danh sách nguyên liệu tồn kho trong 1 tháng 
-                    List<ctTonKho> listTon = new bTonKho().layDanhSachTon(DateTime.Now.AddMonths(-1));
+                    List<ctTonKho> listTon = new bTonKho().layDanhSachTon(DateTime.Now);
                     foreach (ctTonKho item in listTon)
                     {
                         string donViTinh = xulyDuLieu.traVeKyTuGoc(item.nguyenLieu.donViPhaChe);

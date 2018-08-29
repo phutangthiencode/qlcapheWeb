@@ -72,10 +72,9 @@ namespace qlCaPhe.Models.Business
         }
 
         /// <summary>
-        /// CẦN OPTIMIZE
-        /// Hàm lấy danh sách nguyên liệu tồn kho
+        /// Hàm lấy danh sách nguyên liệu tồn kho thực tế
         /// </summary>
-        /// <param name="ngayNhap">Ngày nhập nguyên liệu muốn lấy.</param>
+        /// <param name="ngayNhap">Ngày nhập trong sổ kho nguyên liệu muốn lấy.</param>
         public List<ctTonKho> layDanhSachTon(DateTime ngayLay)
         {
             List<ctTonKho> kq = new List<ctTonKho>();
