@@ -8,7 +8,7 @@
             }).success(function (data) {
                 $('#vungThongBao').html(data);
             });
-    }, 1000);
+    }, 5000);
 
     //------Sự kiện click để ẩn hộp thoại thông báo
     $('html').click(function (e) {
