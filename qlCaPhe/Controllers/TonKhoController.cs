@@ -28,7 +28,7 @@ namespace qlCaPhe.Controllers
                     //-----Khởi tạo lại dữ liệu cho các giỏ nguyên liệu
                     this.xoaSession();
                     cartKiemKho cartTruoc = (cartKiemKho)Session["truocKiemKho"];
-                    List<ctTonKho> listTon = new bTonKho().layDanhSachTon(DateTime.Now);
+                    List<ctTonKho> listTon = new bTonKho().layDanhSachTon();
                     //------Lặp qua danh sách tồn kho theo tháng
                     foreach (ctTonKho item in listTon)
                     {
@@ -145,7 +145,7 @@ namespace qlCaPhe.Controllers
                 kq += "                     <tbody>";
                 int index = 1;
                 //---------Lấy danh sách các nguyên liệu cần kiểm kho. Có trong nhập kho trong 1 tháng trước
-                foreach (ctTonKho item in new bTonKho().layDanhSachTon(DateTime.Now))
+                foreach (ctTonKho item in new bTonKho().layDanhSachTon())
                 {
                     kq += "                         <tr>";
                     kq += "                             <td>" + index.ToString() + "</td>";
@@ -464,7 +464,7 @@ namespace qlCaPhe.Controllers
                 {
                     int index = 1;
                     //-----------Lấy danh sách nguyên liệu tồn kho trong 1 tháng 
-                    List<ctTonKho> listTon = new bTonKho().layDanhSachTon(DateTime.Now);
+                    List<ctTonKho> listTon = new bTonKho().layDanhSachTon();
                     foreach (ctTonKho item in listTon)
                     {
                         string donViTinh = xulyDuLieu.traVeKyTuGoc(item.nguyenLieu.donViPhaChe);
@@ -474,7 +474,7 @@ namespace qlCaPhe.Controllers
                         htmlTable += "    <td>" + xulyDuLieu.doiVND(item.donGia)+ "</td>";
                         htmlTable += "    <td class=\"col-green\"><b>" + item.soLuongDauKy.ToString() + " (" + donViTinh + ")</b></td>";
                         htmlTable += "    <td class=\"col-blue\"><b>" + item.soLuongCuoiKyLyThuyet.ToString() + " (" + donViTinh + ")</b></td>";
-                        htmlTable += "    <td class=\"col-red\"><b>" + item.soLuongThucTe.ToString() + " (" + donViTinh + ")</b></td>";
+                        htmlTable += "    <td class=\"col-red\"><b>" + item.tyLeHaoHut.ToString() + " (" + donViTinh + ")</b></td>";
                         htmlTable += "</tr>";
                         index++;
                     }

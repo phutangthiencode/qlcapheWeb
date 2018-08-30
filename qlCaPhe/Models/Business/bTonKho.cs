@@ -74,35 +74,35 @@ namespace qlCaPhe.Models.Business
         /// <summary>
         /// Hàm lấy danh sách nguyên liệu tồn kho thực tế
         /// </summary>
-        /// <param name="ngayNhap">Ngày nhập trong sổ kho nguyên liệu muốn lấy.</param>
-        public List<ctTonKho> layDanhSachTon(DateTime ngayLay)
+        /// <returns>Trả về danh sách các nguyên liệu tồn kho thực tế</returns>
+        public List<ctTonKho> layDanhSachTon()
         {
             List<ctTonKho> kq = new List<ctTonKho>();
             try
             {
                 qlCaPheEntities db = new qlCaPheEntities();
                 //------Lấy thông tin đợt kiểm kho gần nhất
-                TonKho tonKho = db.TonKhoes.OrderByDescending(t => t.ngayKiem).First(t => t.ngayKiem <= ngayLay);
+                TonKho tonKho = db.TonKhoes.OrderByDescending(t=>t.maSoKy).FirstOrDefault();
                 if (tonKho != null)
                 {
                     List<NguyenLieuXuat> listNguyenLieuXuat = new bNguyenLieu().layDanhSachNguyenLieuXuat(db, tonKho.ngayKiem);
                     //------Đọc nguyên liệu trong sổ kho đợt trước
-                    List<ctTonKho> listTonKhoTruoc = tonKho.ctTonKhoes.ToList();
-                    //------Lặp qua nguyên liệu trong sổ kho và tính số liệu thực tế
-                    foreach (ctTonKho itemSoKho in listTonKhoTruoc)
+                    foreach (ctTonKho itemSoKho in tonKho.ctTonKhoes.ToList())
                     {
                         ctTonKho ctKQ = new ctTonKho();
                         ctKQ.maNguyenLieu = itemSoKho.maNguyenLieu;
                         ctKQ.soLuongDauKy = itemSoKho.soLuongDauKy;
-                        ctKQ.soLuongCuoiKyLyThuyet = itemSoKho.soLuongCuoiKyLyThuyet;
+                        ctKQ.soLuongThucTe = ctKQ.soLuongThucTe; //------Số lượng thực tế nhận sau khi đã kiểm kê
                         ctKQ.nguyenLieu = itemSoKho.nguyenLieu;
                         ctKQ.donGia = itemSoKho.donGia;
                         //----Kiểm tra nguyên liệu đang duyệt cần kiểm tra có được xuất chưa. 
                         NguyenLieuXuat nguyenLieuXuat =  listNguyenLieuXuat.SingleOrDefault(s=>s.maNguyenLieu==itemSoKho.maNguyenLieu);
+                        //-------Số lượng tồn lý thuyết tại thời điểm cần xem
                         if (nguyenLieuXuat != null) //------Nguyên liệu đã duyệt có xuất
-                            ctKQ.soLuongThucTe = itemSoKho.soLuongCuoiKyLyThuyet - nguyenLieuXuat.soLuongXuat; //-----Tính lại số lượng thực tế
+                            ctKQ.soLuongCuoiKyLyThuyet= itemSoKho.soLuongDauKy- nguyenLieuXuat.soLuongXuat; //-----Tính lại số lượng thực tế lý thuyết
                         else
-                            ctKQ.soLuongThucTe = itemSoKho.soLuongCuoiKyLyThuyet;
+                            ctKQ.soLuongCuoiKyLyThuyet = itemSoKho.soLuongCuoiKyLyThuyet;
+                        ctKQ.tyLeHaoHut = ctKQ.soLuongDauKy - ctKQ.soLuongCuoiKyLyThuyet;
                         kq.Add(ctKQ);
                     }
                 }
