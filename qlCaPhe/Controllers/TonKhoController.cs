@@ -30,7 +30,7 @@ namespace qlCaPhe.Controllers
                     cartKiemKho cartTruoc = (cartKiemKho)Session["truocKiemKho"];
                     List<ctTonKho> listTon = new bTonKho().layDanhSachTon();
                     //------Lặp qua danh sách tồn kho theo tháng
-                    foreach (ctTonKho item in listTon)
+                    foreach (ctTonKho item in listTon.Where(s=>s.soLuongCuoiKyLyThuyet>0))
                     {
                         cartTruoc.addCart(item);
                         Session["kiemKho"] = cartTruoc;
@@ -214,7 +214,7 @@ namespace qlCaPhe.Controllers
                     kq += "    <td>   <input type=\"number\" min=\"0\" class=\"form-control\" id=\"txtSoLuongThucTe" + item.maNguyenLieu.ToString() + "\" style=\"width:100%\"></td>";
                     kq += "    <td>" + xulyDuLieu.traVeKyTuGoc(item.nguyenLieu.donViPhaChe) + "</td>";
                     kq += "    <td>   <input type=\"text\" min=\"0\" class=\"form-control\" id=\"txtNguyenNhan" + item.maNguyenLieu.ToString() + "\" placeholder=\"Nguyên nhân hao hụt\" style=\"width:100%\"></td>";
-                    kq += "    <td>      <button type=\"button\" manl=\"" + item.maNguyenLieu.ToString() + "\" class=\"btnKiemHang btn btn-info  waves-effect\">Nhập </button>  </td>";
+                    kq += "    <td>      <button type=\"button\" manl=\"" + item.nguyenLieu.maNguyenLieu.ToString() + "\" class=\"btnKiemHang btn btn-info  waves-effect\">Nhập </button>  </td>";
                     kq += "</tr>";
                 }
             }
@@ -278,15 +278,21 @@ namespace qlCaPhe.Controllers
         /// <param name="param">Chuỗi dữ liệu lấy từ giao diện</param>
         private void ganDuLieuTuItemCuSangItemMoi(ctTonKho oldItem, ctTonKho newItem)
         {
-            double soLuongLyThuyet = (double)oldItem.soLuongCuoiKyLyThuyet;
-            newItem.maNguyenLieu = oldItem.maNguyenLieu;
-            newItem.donGia = oldItem.donGia;
-            newItem.nguyenLieu = oldItem.nguyenLieu;
-            newItem.soLuongCuoiKyLyThuyet = soLuongLyThuyet;
-            newItem.soLuongDauKy = oldItem.soLuongDauKy;
-            //------Tính tỷ lệ hao hụt
-            double haoHut = (double)(soLuongLyThuyet - newItem.soLuongThucTe);
-            newItem.tyLeHaoHut = (double)(haoHut * 100 / soLuongLyThuyet);
+            if (oldItem != null)
+            {
+                if(oldItem.soLuongCuoiKyLyThuyet>0)
+                {
+                    double soLuongLyThuyet = (double)oldItem.soLuongCuoiKyLyThuyet;
+                    newItem.donGia = oldItem.donGia;
+                    newItem.soLuongCuoiKyLyThuyet = soLuongLyThuyet;
+                    newItem.soLuongDauKy = oldItem.soLuongDauKy;
+                    //------Tính tỷ lệ hao hụt
+                    double haoHut = (double)(soLuongLyThuyet - newItem.soLuongThucTe);
+                    newItem.tyLeHaoHut = (double)(haoHut * 100 / soLuongLyThuyet);
+                }
+                newItem.maNguyenLieu = oldItem.nguyenLieu.maNguyenLieu;
+                newItem.nguyenLieu = oldItem.nguyenLieu;               
+            }
         }
 
         /// <summary>
@@ -467,23 +473,26 @@ namespace qlCaPhe.Controllers
                     List<ctTonKho> listTon = new bTonKho().layDanhSachTon();
                     foreach (ctTonKho item in listTon)
                     {
-                        string donViTinh = xulyDuLieu.traVeKyTuGoc(item.nguyenLieu.donViPhaChe);
-                        htmlTable += "<tr role=\"row\" class=\"odd\">";
-                        htmlTable += "<td>" + index.ToString() +"</td>";
-                        htmlTable += "    <td><b>" + xulyDuLieu.traVeKyTuGoc(item.nguyenLieu.tenNguyenLieu) + "</b></td>";
-                        htmlTable += "    <td>" + xulyDuLieu.doiVND(item.donGia)+ "</td>";
-                        htmlTable += "    <td class=\"col-green\"><b>" + item.soLuongDauKy.ToString() + " (" + donViTinh + ")</b></td>";
-                        htmlTable += "    <td class=\"col-blue\"><b>" + item.soLuongCuoiKyLyThuyet.ToString() + " (" + donViTinh + ")</b></td>";
-                        string soLieuHaoHut="";
-                        if (item.tyLeHaoHut > 0) //-----Thêm icon phù hợp với số liệu đã thay đổi
-                            soLieuHaoHut = "<i class=\"material-icons\">arrow_drop_down</i>" + item.tyLeHaoHut.ToString();
-                        else if (item.tyLeHaoHut < 0)
-                            soLieuHaoHut = "<i class=\"material-icons\">arrow_drop_up</i>" + (item.tyLeHaoHut * (-1)).ToString();
-                        else
-                            soLieuHaoHut = item.tyLeHaoHut.ToString();
-                        htmlTable += "    <td class=\"col-red\"><b>" + soLieuHaoHut + " (" + donViTinh + ")</b></td>";
-                        htmlTable += "</tr>";
-                        index++;
+                        if (item != null)
+                        {
+                            string donViTinh = xulyDuLieu.traVeKyTuGoc(item.nguyenLieu.donViPhaChe);
+                            htmlTable += "<tr role=\"row\" class=\"odd\">";
+                            htmlTable += "<td>" + index.ToString() + "</td>";
+                            htmlTable += "    <td><b>" + xulyDuLieu.traVeKyTuGoc(item.nguyenLieu.tenNguyenLieu) + "</b></td>";
+                            htmlTable += "    <td>" + xulyDuLieu.doiVND(item.donGia) + "</td>";
+                            htmlTable += "    <td class=\"col-green\"><b>" + item.soLuongDauKy.ToString() + " (" + donViTinh + ") </b></td>";
+                            htmlTable += "    <td class=\"col-blue\"><b>" + item.soLuongCuoiKyLyThuyet.ToString() + " (" + donViTinh + ")" + "</b></td>";
+                            string soLieuHaoHut = "";
+                            if (item.tyLeHaoHut > 0) //-----Thêm icon phù hợp với số liệu đã thay đổi
+                                soLieuHaoHut = "<i class=\"material-icons\">arrow_drop_down</i>" + item.tyLeHaoHut.ToString();
+                            else if (item.tyLeHaoHut < 0)
+                                soLieuHaoHut = "<i class=\"material-icons\">arrow_drop_up</i>" + (item.tyLeHaoHut * (-1)).ToString();
+                            else
+                                soLieuHaoHut = "0";
+                            htmlTable += "    <td class=\"col-red\"><b>" + ((item.tyLeHaoHut!=0)?soLieuHaoHut + " (" + donViTinh + ")":"0")+"</b></td>";
+                            htmlTable += "</tr>";
+                            index++;
+                        }
                     }
                     xulyChung.ghiNhatKyDtb(1, "Danh mục tồn kho thực tế");
                 }

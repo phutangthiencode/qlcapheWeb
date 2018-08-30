@@ -109,7 +109,7 @@ namespace qlCaPhe.Models.Business
                 ctPhieuNhapKho ctAdd = new ctPhieuNhapKho();
                 ctAdd.maNguyenLieu = maNguyenLieuGet;
                 ctAdd.soLuongNhap = soLuongNhapGet;
-                ctAdd.donGiaNhap = tongTienNhapGet;
+                ctAdd.donGiaNhap = tongTienNhapGet/soLuongNhapGet;
                 kq.Add(ctAdd);
             }
             return kq;

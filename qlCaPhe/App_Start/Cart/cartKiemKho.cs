@@ -67,7 +67,7 @@ namespace qlCaPhe.App_Start.Cart
             try
             {
                 foreach (ctTonKho item in this.Info.Values)
-                    if (item.maNguyenLieu == maNguyenLieu)
+                    if (item.nguyenLieu.maNguyenLieu == maNguyenLieu)
                         return item;
             }
             catch (Exception ex)
