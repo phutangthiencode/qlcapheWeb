@@ -317,6 +317,9 @@
     <Compile Include="Models\laySoLuongNguyenLieuXuatTuNgay_Result.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\laySuongLuongNguyenLieuNhapTrongKy_Result.cs">
+      <DependentUpon>qlCaPhe.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\lichSuGia.cs">
       <DependentUpon>qlCaPhe.tt</DependentUpon>
     </Compile>

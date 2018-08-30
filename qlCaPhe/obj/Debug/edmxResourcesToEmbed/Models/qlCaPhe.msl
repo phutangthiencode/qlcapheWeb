@@ -847,5 +847,14 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="laySuongLuongNguyenLieuNhapTrongKy" FunctionName="qlCaPheModel.Store.laySuongLuongNguyenLieuNhapTrongKy">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="qlCaPheModel.laySuongLuongNguyenLieuNhapTrongKy_Result">
+          <ScalarProperty Name="maNguyenLieu" ColumnName="maNguyenLieu" />
+          <ScalarProperty Name="soLuongNhap" ColumnName="soLuongNhap" />
+          <ScalarProperty Name="tongTienNhap" ColumnName="tongTienNhap" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

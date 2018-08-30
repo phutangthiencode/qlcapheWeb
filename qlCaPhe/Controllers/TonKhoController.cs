@@ -474,7 +474,14 @@ namespace qlCaPhe.Controllers
                         htmlTable += "    <td>" + xulyDuLieu.doiVND(item.donGia)+ "</td>";
                         htmlTable += "    <td class=\"col-green\"><b>" + item.soLuongDauKy.ToString() + " (" + donViTinh + ")</b></td>";
                         htmlTable += "    <td class=\"col-blue\"><b>" + item.soLuongCuoiKyLyThuyet.ToString() + " (" + donViTinh + ")</b></td>";
-                        htmlTable += "    <td class=\"col-red\"><b>" + item.tyLeHaoHut.ToString() + " (" + donViTinh + ")</b></td>";
+                        string soLieuHaoHut="";
+                        if (item.tyLeHaoHut > 0) //-----Thêm icon phù hợp với số liệu đã thay đổi
+                            soLieuHaoHut = "<i class=\"material-icons\">arrow_drop_down</i>" + item.tyLeHaoHut.ToString();
+                        else if (item.tyLeHaoHut < 0)
+                            soLieuHaoHut = "<i class=\"material-icons\">arrow_drop_up</i>" + (item.tyLeHaoHut * (-1)).ToString();
+                        else
+                            soLieuHaoHut = item.tyLeHaoHut.ToString();
+                        htmlTable += "    <td class=\"col-red\"><b>" + soLieuHaoHut + " (" + donViTinh + ")</b></td>";
                         htmlTable += "</tr>";
                         index++;
                     }

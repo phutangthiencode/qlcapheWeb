@@ -635,7 +635,7 @@ namespace qlCaPhe.Controllers
             foreach (khoHang kh in db.khoHangs.ToList().OrderBy(s => s.tenKhoHang))
             {
                 if (kh.maKhoHang == phieu.maKho)
-                    htmlCbb += "<option selected ";// value=\""  + kh.maKhoHang.ToString() + "\">" + xulyDuLieu.traVeKyTuGoc(kh.tenKhoHang) + "</option>";
+                    htmlCbb += "<option selected ";
                 else
                     htmlCbb += "<option ";
                 htmlCbb += "value=\"" + kh.maKhoHang.ToString() + "\">" + "<b>" + xulyDuLieu.traVeKyTuGoc(kh.tenKhoHang) + "</b>" + " - " + xulyDuLieu.traVeKyTuGoc(kh.diaChi) + "</option>";

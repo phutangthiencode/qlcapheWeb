@@ -88,5 +88,31 @@ namespace qlCaPhe.Models.Business
             }
             return listNguyenLieuXuat;
         }
+
+        /// <summary>
+        /// Lấy danh sách các nguyên liệu đã nhập trong kỳ. TỪ NGÀY KIỂM KHO TRƯỚC ĐẾN NGÀY HIỆN TẠI    
+        /// </summary>
+        /// <param name="db"></param>
+        /// <param name="ngayKiemKyTruoc">Ngày kiểm kê kho gần nhất</param>
+        /// <returns>Danh sách chứa các object có các thuộc tính nguyên liệu nhập</returns>
+        public List<ctPhieuNhapKho> layDanhSachNguyenLieuNhapTrongKy(qlCaPheEntities db, DateTime ngayKiemKyTruoc)
+        {
+            List<ctPhieuNhapKho> kq = new List<ctPhieuNhapKho>();
+            //------Lấy danh sách nguyên liệu đã xuất từ ngày đã kiểm kho đến ngày hiện tại
+            IEnumerable<object> listNguyenLieuNhapStore= db.laySuongLuongNguyenLieuNhapTrongKy(ngayKiemKyTruoc);
+            //-----Đọc dữ liệu đã lấy và thêm vảo listobject nguyên liệu xuất
+            foreach (object itemXuat in listNguyenLieuNhapStore)
+            {
+                int maNguyenLieuGet = xulyDuLieu.doiChuoiSangInteger(xulyDuLieu.layThuocTinhTrongMotObject(itemXuat, "maNguyenLieu"));
+                int soLuongNhapGet = xulyDuLieu.doiChuoiSangInteger(xulyDuLieu.layThuocTinhTrongMotObject(itemXuat, "soLuongNhap"));
+                long tongTienNhapGet = xulyDuLieu.doiChuoiSangLong(xulyDuLieu.layThuocTinhTrongMotObject(itemXuat, "tongTienNhap"));
+                ctPhieuNhapKho ctAdd = new ctPhieuNhapKho();
+                ctAdd.maNguyenLieu = maNguyenLieuGet;
+                ctAdd.soLuongNhap = soLuongNhapGet;
+                ctAdd.donGiaNhap = tongTienNhapGet;
+                kq.Add(ctAdd);
+            }
+            return kq;
+        }
     }
 }

@@ -1035,6 +1035,9 @@
         <Function Name="laySoLuongNguyenLieuXuatTuNgay" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ngay" Type="date" Mode="In" />
         </Function>
+        <Function Name="laySuongLuongNguyenLieuNhapTrongKy" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ngayKiemKyTruoc" Type="date" Mode="In" />
+        </Function>
         <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
@@ -2871,7 +2874,10 @@
           <Parameter Name="startDate" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="laySoLuongNguyenLieuXuatTuNgay" ReturnType="Collection(qlCaPheModel.laySoLuongNguyenLieuXuatTuNgay_Result)">
-            <Parameter Name="ngay" Mode="In" Type="DateTime" />
+          <Parameter Name="ngay" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="laySuongLuongNguyenLieuNhapTrongKy" ReturnType="Collection(qlCaPheModel.laySuongLuongNguyenLieuNhapTrongKy_Result)">
+            <Parameter Name="ngayKiemKyTruoc" Mode="In" Type="DateTime" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
@@ -3055,6 +3061,11 @@
           <Property Type="Int32" Name="maNguyenLieu" Nullable="false" />
           <Property Type="Double" Name="soLuongXuat" Nullable="true" />
           <Property Type="Double" Name="tongTienXuat" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="laySuongLuongNguyenLieuNhapTrongKy_Result">
+          <Property Type="Int32" Name="maNguyenLieu" Nullable="false" />
+          <Property Type="Double" Name="soLuongNhap" Nullable="true" />
+          <Property Type="Double" Name="tongTienNhap" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -3905,6 +3916,15 @@
                 <ScalarProperty Name="maNguyenLieu" ColumnName="maNguyenLieu" />
                 <ScalarProperty Name="soLuongXuat" ColumnName="soLuongXuat" />
                 <ScalarProperty Name="tongTienXuat" ColumnName="tongTienXuat" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="laySuongLuongNguyenLieuNhapTrongKy" FunctionName="qlCaPheModel.Store.laySuongLuongNguyenLieuNhapTrongKy">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="qlCaPheModel.laySuongLuongNguyenLieuNhapTrongKy_Result">
+                <ScalarProperty Name="maNguyenLieu" ColumnName="maNguyenLieu" />
+                <ScalarProperty Name="soLuongNhap" ColumnName="soLuongNhap" />
+                <ScalarProperty Name="tongTienNhap" ColumnName="tongTienNhap" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
