@@ -287,8 +287,7 @@ namespace qlCaPhe.Controllers
                     newItem.soLuongCuoiKyLyThuyet = soLuongLyThuyet;
                     newItem.soLuongDauKy = oldItem.soLuongDauKy;
                     //------Tính tỷ lệ hao hụt
-                    double haoHut = (double)(soLuongLyThuyet - newItem.soLuongThucTe);
-                    newItem.tyLeHaoHut = (double)(haoHut * 100 / soLuongLyThuyet);
+                    newItem.tyLeHaoHut = (double)(soLuongLyThuyet - newItem.soLuongThucTe);
                 }
                 newItem.maNguyenLieu = oldItem.nguyenLieu.maNguyenLieu;
                 newItem.nguyenLieu = oldItem.nguyenLieu;               
@@ -315,7 +314,7 @@ namespace qlCaPhe.Controllers
                     kq += "    <td>" + item.soLuongDauKy.ToString() + " (" + donViTinh + ")</td>";
                     kq += "    <td>" + item.soLuongCuoiKyLyThuyet.ToString() + " (" + donViTinh + ")</td>";
                     kq += "    <td><b>" + item.soLuongThucTe.ToString() + " (" + donViTinh + ")</b></td>";
-                    kq += "    <td class=\"col-red\">" + Math.Round((double)item.tyLeHaoHut, 3).ToString() + " %</td>";
+                    kq += "    <td class=\"col-red\">" + item.tyLeHaoHut.ToString() + " (" + donViTinh + " )</td>";
                     kq += "    <td><i>" + xulyDuLieu.traVeKyTuGoc(item.nguyenNhanHaoHut) + "</i></td>";
                     kq += "    <td><button type=\"button\" manl=\"" + item.maNguyenLieu.ToString() + "\" class=\"btnKiemLai btn btn-warning  waves-effect\">Kiểm lại</button>";
                     kq += "    </td>";
@@ -438,7 +437,7 @@ namespace qlCaPhe.Controllers
                             html += "  <td>" + item.soLuongDauKy.ToString() + " (" + xulyDuLieu.traVeKyTuGoc(item.nguyenLieu.donViPhaChe) + ")</td>";
                             html += "  <td>" + item.soLuongCuoiKyLyThuyet.ToString() + " (" + xulyDuLieu.traVeKyTuGoc(item.nguyenLieu.donViPhaChe) + ")</td>";
                             html += "  <td><b>" + item.soLuongThucTe.ToString() + " (" + xulyDuLieu.traVeKyTuGoc(item.nguyenLieu.donViPhaChe) + ")</b></td>";
-                            html += "   <td>" + item.tyLeHaoHut.ToString() + "</td>";
+                            html += "   <td>" + item.tyLeHaoHut.ToString() + " (" + xulyDuLieu.traVeKyTuGoc(item.nguyenLieu.donViPhaChe) + ")</td>";
                             html += "   <td>" + xulyDuLieu.traVeKyTuGoc(item.nguyenNhanHaoHut) + "</td>";
                             html += "</tr>";
                         }

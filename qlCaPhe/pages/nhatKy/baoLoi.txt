@@ -1,60 +1,10 @@
-﻿-----------------------8/30/2018 8:25:55 PM----------
-Vị trí: Class: PhaCheController - Function: insertCtPhieuXuatKho 
- Lỗi: An error occurred while updating the entries. See the inner exception for details.
+﻿-----------------------8/31/2018 2:13:00 PM----------
+Vị trí: Class: ThongKeController - Function: GetJsonLoiNhuanTheoNgay 
+ Lỗi: Nullable object must have a value.
 ---------------------------------------------------------------
 
------------------------8/30/2018 8:26:01 PM----------
-Vị trí: Class: PhaCheController - Function: insertCtPhieuXuatKho 
- Lỗi: Conflicting changes detected. This may happen when trying to insert multiple entities with the same key.
----------------------------------------------------------------
-
------------------------8/30/2018 8:26:06 PM----------
-Vị trí: Class: PhaCheController - Function: insertCtPhieuXuatKho 
- Lỗi: Conflicting changes detected. This may happen when trying to insert multiple entities with the same key.
----------------------------------------------------------------
-
------------------------8/30/2018 8:26:35 PM----------
-Vị trí: Class: PhaCheController - Function: insertCtPhieuXuatKho 
- Lỗi: Conflicting changes detected. This may happen when trying to insert multiple entities with the same key.
----------------------------------------------------------------
-
------------------------8/30/2018 8:26:42 PM----------
-Vị trí: Class: PhaCheController - Function: insertCtPhieuXuatKho 
- Lỗi: Conflicting changes detected. This may happen when trying to insert multiple entities with the same key.
----------------------------------------------------------------
-
------------------------8/30/2018 8:26:42 PM----------
-Vị trí: Class: PhaCheController - Function: AjaxPhaCheSanPham 
- Lỗi: Conflicting changes detected. This may happen when trying to insert multiple entities with the same key.
----------------------------------------------------------------
-
------------------------8/30/2018 8:30:14 PM----------
-Vị trí: Class: PhaCheController - Function: insertCtPhieuXuatKho 
- Lỗi: An error occurred while updating the entries. See the inner exception for details.
----------------------------------------------------------------
-
------------------------8/30/2018 8:31:10 PM----------
-Vị trí: Class: PhaCheController - Function: insertCtPhieuXuatKho 
- Lỗi: Conflicting changes detected. This may happen when trying to insert multiple entities with the same key.
----------------------------------------------------------------
-
------------------------8/30/2018 8:31:24 PM----------
-Vị trí: Class: PhaCheController - Function: insertCtPhieuXuatKho 
- Lỗi: Conflicting changes detected. This may happen when trying to insert multiple entities with the same key.
----------------------------------------------------------------
-
------------------------8/30/2018 8:31:28 PM----------
-Vị trí: Class: PhaCheController - Function: insertCtPhieuXuatKho 
- Lỗi: Conflicting changes detected. This may happen when trying to insert multiple entities with the same key.
----------------------------------------------------------------
-
------------------------8/30/2018 8:31:35 PM----------
-Vị trí: Class: PhaCheController - Function: insertCtPhieuXuatKho 
- Lỗi: Conflicting changes detected. This may happen when trying to insert multiple entities with the same key.
----------------------------------------------------------------
-
------------------------8/30/2018 8:31:35 PM----------
-Vị trí: Class: PhaCheController - Function: AjaxPhaCheSanPham 
- Lỗi: Conflicting changes detected. This may happen when trying to insert multiple entities with the same key.
+-----------------------8/31/2018 2:17:18 PM----------
+Vị trí: Class: ThongKeController - Function: GetJsonLoiNhuanTheoNgay 
+ Lỗi: Nullable object must have a value.
 ---------------------------------------------------------------
 

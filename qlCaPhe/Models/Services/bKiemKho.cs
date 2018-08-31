@@ -34,7 +34,6 @@ public class bKiemKho : System.Web.Services.WebService
         List<svCtTonKho> kq = new List<svCtTonKho>();
         try
         {
-            //List<ctTonKho> listTon = new bTonKho().layDanhSachTon(DateTime.Now.AddMonths(-1));
             List<ctTonKho> listTon = new bTonKho().layDanhSachTon();
             //------Lặp qua danh sách tồn kho theo tháng
             foreach (ctTonKho item in listTon)
