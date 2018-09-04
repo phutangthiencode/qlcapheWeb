@@ -6,7 +6,9 @@
     @{
         var index = 0;
     }
-    @foreach (var baiViet in Model)
+    @if (Model.Count > 0)
+    {
+           foreach (var baiViet in Model)
     {
         string tenBV = xulyDuLieu.traVeKyTuGoc(baiViet.tenBaiViet);
         string urlRewrite = xulyDuLieu.taoUrlChoSEO("bai-viet", tenBV, baiViet.maBaiViet.ToString());
@@ -30,6 +32,7 @@
             <div class="clearfix"></div>
             <div class="clearfix"></div>
         }
+    }
     }
 
 </div>

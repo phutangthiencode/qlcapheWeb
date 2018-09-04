@@ -8,3 +8,13 @@ Vị trí: Class: ThongKeController - Function: GetJsonLoiNhuanTheoNgay
  Lỗi: Nullable object must have a value.
 ---------------------------------------------------------------
 
+-----------------------9/4/2018 3:20:16 PM----------
+Vị trí: Class: PublicPageController - Function: PartHome_Banner1 
+ Lỗi: The underlying provider failed on Open.
+---------------------------------------------------------------
+
+-----------------------9/4/2018 3:20:17 PM----------
+Vị trí: Class: PublicPageController - Function: PartHome_BaiViet 
+ Lỗi: The underlying provider failed on Open.
+---------------------------------------------------------------
+
