@@ -455,6 +455,8 @@ namespace qlCaPhe.Controllers
                     sanPham spXoa = db.sanPhams.SingleOrDefault(s => s.maSanPham == maDoUong);
                     if (spXoa != null)
                     {
+                        //-------Xóa lịch sử giá của sản phẩm
+
                         db.sanPhams.Remove(spXoa);
                         kqLuu=db.SaveChanges();
                         if(kqLuu>0)
@@ -468,6 +470,24 @@ namespace qlCaPhe.Controllers
                     xulyFile.ghiLoi("Class: DoUongController - Function: xoaDoUong", ex.Message);
                     RedirectToAction("ServerError", "Home");
                 }
+        }
+
+        /// <summary>
+        /// Hàm xóa tất cả các lịch sữ giá đã lưu của sản phẩm
+        /// </summary>
+        /// <param name="db"></param>
+        /// <param name="maSP"></param>
+        private void xoaLichSuGiaSanPham(qlCaPheEntities db, int maSP)
+        {
+            try
+            {
+                db.lichSuGias.RemoveRange(db.lichSuGias.Where(l => l.maSanPham == maSP));
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                xulyFile.ghiLoi("Class: DoUongController - Function: xoaLichSuGiaSanPham", ex.Message);
+            }
         }
         #endregion
         #region ORTHERS
