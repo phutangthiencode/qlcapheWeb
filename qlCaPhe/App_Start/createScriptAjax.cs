@@ -72,7 +72,7 @@ namespace qlCaPhe.App_Start
             kq += "     });";
             kq += "     $('#xacNhanXoa').click(function () {";
             kq += "         var ts = $(this).attr('maXoa');";
-            kq+= scriptAjax(action,"GET", "html","$('#xacNhanXoa').unbind('click');\n","location.reload();\n bindingCommand();\n","bindingCommand();\n");
+            kq += scriptAjax(action, "GET", "html", "$('#xacNhanXoa').unbind('click');\n", "location.reload();\n bindingCommand();\n", "bindingCommand();\n");
             kq += "     });";
             kq += "}";
             kq += "</script>";
@@ -111,8 +111,10 @@ namespace qlCaPhe.App_Start
             script += "                 processData: false,\n"; // Not to process data
             script += "                 data: fileData,\n";
             script += "                 success: function (result) {\n";
-            script += "                     if (result != \"\")\n";
+            script += "                     if (result != \"\") {\n";
             script += "                         $('#imgCrop').attr('src', result);\n";
+            script += "                         reloadImageUploaded(result);\n";
+            script += "                     }\n";
             script += "                     else\n";
             script += "                         $('#hinhDD').attr('src', '/images/gallery-upload-256.png');\n";
             script += "                 },\n";
@@ -164,6 +166,10 @@ namespace qlCaPhe.App_Start
             script += "     $('#y').val(parseInt(c.y));\n";
             script += "     $('#w').val(parseInt(c.w));\n";
             script += "     $('#h').val(parseInt(c.h));\n";
+            script += "}\n";
+            script += "function reloadImageUploaded(result) {\n";
+            script += "    $('.jcrop-holder').children().children().find('img').attr('src', result);\n";
+            script += "    $('.jcrop-holder').find('img').attr('src', result);\n";
             script += "}\n";
             return script;
         }
@@ -291,20 +297,20 @@ namespace qlCaPhe.App_Start
             string kq = "";
             kq += "$.ajax({\n";
             kq += "     url: getDuongDan() + '" + urlAction + "' + ts,";
-            kq += "     type: '"+method+"',\n";
-     //       kq += "     data: 'qlChiNhanh='+ ts,\n";
+            kq += "     type: '" + method + "',\n";
+            //       kq += "     data: 'qlChiNhanh='+ ts,\n";
             kq += "     context: this, \n";
-            kq += "     dataType: '"+dataType+"',\n";
+            kq += "     dataType: '" + dataType + "',\n";
             kq += "     beforeSend: function () {\n";
             //kq += "$('#vungDL').html('<div class=\"bdgLoading\" style=\"display:block;\"></div>');\n";
-            kq +=           beforeSend;
+            kq += beforeSend;
             kq += "     },\n";
             kq += "     success: function (data, textStatus, xhr) {\n";
             //kq += "         $('#"+idVungHienThi+"').html(data);\n";
-            kq += "         "+sucess+"\n";
+            kq += "         " + sucess + "\n";
             kq += "     },\n";
             kq += "     error: function (xhr, textStatus, errorThrown) {\n";
-            kq += "         "+error+";\n";
+            kq += "         " + error + ";\n";
             kq += "     }\n";
             kq += "});\n";
             return kq;

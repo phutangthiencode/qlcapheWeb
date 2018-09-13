@@ -18,3 +18,93 @@ Vị trí: Class: PublicPageController - Function: PartHome_BaiViet
  Lỗi: The underlying provider failed on Open.
 ---------------------------------------------------------------
 
+-----------------------9/13/2018 2:02:17 PM----------
+Vị trí: Class: ThongKeController - Function: GetJsonLoiNhuanTheoNgay 
+ Lỗi: Nullable object must have a value.
+---------------------------------------------------------------
+
+-----------------------9/13/2018 2:11:05 PM----------
+Vị trí: Class: xulyFile - Function: donDepTM 
+ Lỗi: The process cannot access the file 'hoptac.jpg' because it is being used by another process.
+---------------------------------------------------------------
+
+-----------------------9/13/2018 2:11:51 PM----------
+Vị trí: Class: xulyFile - Function: donDepTM 
+ Lỗi: The process cannot access the file 'congbang.jpg' because it is being used by another process.
+---------------------------------------------------------------
+
+-----------------------9/13/2018 2:18:28 PM----------
+Vị trí: Class: xulyFile - Function: donDepTM 
+ Lỗi: The process cannot access the file '6.jpg' because it is being used by another process.
+---------------------------------------------------------------
+
+-----------------------9/13/2018 2:20:19 PM----------
+Vị trí: Class: xulyFile - Function: donDepTM 
+ Lỗi: The process cannot access the file '1.jpg' because it is being used by another process.
+---------------------------------------------------------------
+
+-----------------------9/13/2018 2:22:26 PM----------
+Vị trí: Class: xulyFile - Function: donDepTM 
+ Lỗi: The process cannot access the file '1.jpg' because it is being used by another process.
+---------------------------------------------------------------
+
+-----------------------9/13/2018 2:27:12 PM----------
+Vị trí: Class: xulyFile - Function: donDepTM 
+ Lỗi: The process cannot access the file '20.jpg' because it is being used by another process.
+---------------------------------------------------------------
+
+-----------------------9/13/2018 2:27:56 PM----------
+Vị trí: Class: xulyFile - Function: donDepTM 
+ Lỗi: The process cannot access the file '3.jpg' because it is being used by another process.
+---------------------------------------------------------------
+
+-----------------------9/13/2018 2:29:20 PM----------
+Vị trí: Class: ThongKeController - Function: GetJsonLoiNhuanTheoNgay 
+ Lỗi: Nullable object must have a value.
+---------------------------------------------------------------
+
+-----------------------9/13/2018 2:37:09 PM----------
+Vị trí: Class: ThongKeController - Function: GetJsonLoiNhuanTheoNgay 
+ Lỗi: Nullable object must have a value.
+---------------------------------------------------------------
+
+-----------------------9/13/2018 2:39:10 PM----------
+Vị trí: Class: xulyFile - Function: donDepTM 
+ Lỗi: The process cannot access the file '20.jpg' because it is being used by another process.
+---------------------------------------------------------------
+
+-----------------------9/13/2018 2:43:11 PM----------
+Vị trí: Class: xulyFile - Function: donDepTM 
+ Lỗi: The process cannot access the file '46.jpg' because it is being used by another process.
+---------------------------------------------------------------
+
+-----------------------9/13/2018 2:49:34 PM----------
+Vị trí: Class: ThongKeController - Function: GetJsonLoiNhuanTheoNgay 
+ Lỗi: Nullable object must have a value.
+---------------------------------------------------------------
+
+-----------------------9/13/2018 2:50:48 PM----------
+Vị trí: Class: xulyFile - Function: donDepTM 
+ Lỗi: The process cannot access the file '5.jpg' because it is being used by another process.
+---------------------------------------------------------------
+
+-----------------------9/13/2018 2:51:15 PM----------
+Vị trí: Class: DoUongController - Function: xoaDoUong 
+ Lỗi: An error occurred while updating the entries. See the inner exception for details.
+---------------------------------------------------------------
+
+-----------------------9/13/2018 2:51:32 PM----------
+Vị trí: Class: DoUongController - Function: xoaDoUong 
+ Lỗi: An error occurred while updating the entries. See the inner exception for details.
+---------------------------------------------------------------
+
+-----------------------9/13/2018 2:52:33 PM----------
+Vị trí: Class: DoUongController - Function: xoaDoUong 
+ Lỗi: An error occurred while updating the entries. See the inner exception for details.
+---------------------------------------------------------------
+
+-----------------------9/13/2018 2:53:59 PM----------
+Vị trí: Class: DoUongController - Function: xoaDoUong 
+ Lỗi: An error occurred while updating the entries. See the inner exception for details.
+---------------------------------------------------------------
+

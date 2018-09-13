@@ -71,10 +71,8 @@ namespace qlCaPhe.Controllers
                 //---Lưu hình ảnh đã crop trên host
                 anhCrop.Save(duongDanHinhCrop);
                 //----Lưu lại đường dẫn vào tập tin hình đã crop
-             //   xulyChung.pathHinhAnhCrop = duongDanHinhCrop;
                 //----Lưu lại đường dẫn hình để hiện lên view
                 kq = "/pages/temp/" + folder + "/" + tenHinhCrop;
-           //     xulyChung.srcHinhCrop = kq;
                 kq += "||" + xulyMaHoa.Encrypt(duongDanHinhCrop);
             }
             catch (Exception ex)
