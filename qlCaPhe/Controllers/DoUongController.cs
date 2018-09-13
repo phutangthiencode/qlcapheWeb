@@ -456,7 +456,7 @@ namespace qlCaPhe.Controllers
                     if (spXoa != null)
                     {
                         //-------Xóa lịch sử giá của sản phẩm
-
+                        this.xoaLichSuGiaSanPham(db, maDoUong);
                         db.sanPhams.Remove(spXoa);
                         kqLuu=db.SaveChanges();
                         if(kqLuu>0)

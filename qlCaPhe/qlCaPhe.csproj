@@ -4094,7 +4094,6 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\script.js" />
-    <Content Include="Scripts\testCropImg.js" />
     <Content Include="Scripts\tinymce.min.js" />
     <Content Include="Scripts\validate.js" />
     <Content Include="Scripts\_references.js" />
