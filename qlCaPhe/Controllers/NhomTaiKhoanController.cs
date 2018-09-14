@@ -15,55 +15,6 @@ namespace qlCaPhe.Controllers
 {
     public class NhomTaiKhoanController : Controller
     {
-        #region CREATE
-        /// <summary>
-        /// Hàm vào giao diện tạo mới nhóm tài khoản
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult ntk_TaoMoiNhomTK()
-        {
-            if (xulyChung.duocTruyCap("201"))
-            {
-                xulyChung.ghiNhatKyDtb(1, "Tạo mới nhóm tài khoản");
-                return View();
-            }
-            return null;
-        }
-        /// <summary>
-        /// Hàm thực hiện thêm mới nhóm tài khoản vào csdl
-        /// </summary>
-        /// <returns></returns>
-        [HttpPost]
-        public ActionResult ntk_TaoMoiNhomTK(FormCollection f, nhomTaiKhoan nhomTK)
-        {
-            if (xulyChung.duocCapNhat("201", "7"))
-            {
-                string noiDungTB = ""; int kqLuu = 0;
-                try
-                {
-                    qlCaPheEntities db = new qlCaPheEntities();
-                    layDuLieuTuView(nhomTK, f);
-                    db.nhomTaiKhoans.Add(nhomTK);
-                    kqLuu = db.SaveChanges();
-                    if (kqLuu > 0)
-                    {
-                        noiDungTB = createHTML.taoNoiDungThongBao("Nhóm Tài Khoản", xulyDuLieu.traVeKyTuGoc(nhomTK.tenNhom), "ntk_TableNhomTK");
-                        xulyChung.ghiNhatKyDtb(2, "Nhóm tài khoản \" " + xulyDuLieu.traVeKyTuGoc(nhomTK.tenNhom) + " \"");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    noiDungTB = ex.Message;
-                    xulyFile.ghiLoi("Class: NhomTaiKhoanController - Function: ntk_TaoMoiNhomTK", ex.Message);
-                    this.doDuLieuLenView(nhomTK);
-                }
-
-                ViewBag.ThongBao = createHTML.taoThongBaoLuu(noiDungTB);
-            }
-            return View();
-
-        }
-        #endregion
         #region READ
         /// <summary>
         /// Hàm thực hiện tạo giao diện danh sách nhóm tài khoản
@@ -86,15 +37,7 @@ namespace qlCaPhe.Controllers
                         htmlTable += "      <td>" + xulyDuLieu.traVeKyTuGoc(n.dienGiai) + "</td>";
                         htmlTable += "      <td>" + xulyDuLieu.traVeKyTuGoc(n.trangMacDinh) + "</td>";
                         htmlTable += "      <td>";
-                        htmlTable += "          <div class=\"btn-group\">";
-                        htmlTable += "              <button type=\"button\" class=\"btn btn-primary dropdown-toggle\" data-toggle=\"dropdown\">";
-                        htmlTable += "                  Chức năng <span class=\"caret\"></span>";
-                        htmlTable += "              </button>";
-                        htmlTable += "              <ul class=\"dropdown-menu\" role=\"menu\">";
-                        htmlTable += createTableData.taoNutChinhSua("/NhomTaiKhoan/ntk_ChinhSuaNhomTK", n.maNhomTK.ToString());
-                        htmlTable += createTableData.taoNutXoaBo(n.maNhomTK.ToString());
-                        htmlTable += "              </ul>";
-                        htmlTable += "          </div>";
+                        htmlTable += "          <a  task=\"" + xulyChung.taoUrlCoTruyenThamSo("/NhomTaiKhoan/ntk_ChinhSuaNhomTK", n.maNhomTK.ToString()) + "\" class=\"guiRequest btn btn-primary\"><i class=\"material-icons\">mode_edit</i>Chỉnh sửa</a>";
                         htmlTable += "      </td>";
                         htmlTable += "</tr>";
                     }
@@ -243,52 +186,6 @@ namespace qlCaPhe.Controllers
             ViewBag.txtDienGiai = xulyDuLieu.traVeKyTuGoc(x.dienGiai);
             ViewBag.txtTrangMacDinh = xulyDuLieu.traVeKyTuGoc(x.trangMacDinh);
             ViewBag.txtGhiChu = xulyDuLieu.traVeKyTuGoc(x.ghiChu);
-        }
-        /// <summary>
-        /// Hàm tạo danh sách chức năng phân quyền
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult ntk_PartListPagePermission()
-        {
-
-            return PartialView(new bMenuTools().readAllMenuTools()); //----Truyền qua danh sách trang phân quyền
-        }
-
-        public ActionResult ntk_Script()
-        {
-            return PartialView();
-        }
-        /// <summary>
-        /// Hàm ajax thêm quyền hạn khi click chọn vào quyền trên vùng quyền hạn
-        /// </summary>
-        /// <param name="data"></param>
-        public void selectPermission(string data)
-        {
-
-            //data = "2|201&2/2|201&4/2|201&1/2|202&4/3|301&1/2|201&6";
-            //List<QuyenHan> listQuyen = new List<QuyenHan>();
-            //foreach (string itemQuyen in data.Split('/')) //------itemQuyen = 2|201&2
-            //{
-            //    QuyenHan quyen = new QuyenHan();
-            //    quyen.IdMenuCha = itemQuyen.Split('|')[0]; //======cha = 2
-            //    string valueQuyen = itemQuyen.Split('|')[1]; //-------valueQuyen=201&2
-            //    quyen.IdMenuCon = valueQuyen.Split('&')[0];//------con=201
-            //    quyen.SoQuyen = xulyDuLieu.doiChuoiSangInteger(valueQuyen.Split('&')[1]);
-            //    listQuyen.Add(quyen);
-            //}
-
-            //List<QuyenHan> listKq = new List<QuyenHan>();
-            //string idConTem = ""; int soQuyen=0;
-            //foreach (QuyenHan q in listQuyen)
-            //{
-            //    if (q.IdMenuCon.Equals(idConTem))//------Nếu trùng id con
-            //    {
-            //        soQuyen++;
-            //    }
-            //    var listQuyenGroup = listQuyen.Where(c => c.IdMenuCon.Equals(q.IdMenuCon));
-
-            //}
-
         }
         #endregion
     }

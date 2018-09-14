@@ -22,16 +22,12 @@
                             <div class="col-md-7 col-lg-7 col-sm-7 col-xs-12">
                                 <!-- Nav tabs -->
                                 <ul class="nav nav-tabs" style="float:right">
-                                    <li>
-                                        <a href="~/NhomTaiKhoan/ntk_TaoMoiNhomTK">
-                                            <i class="material-icons">add</i> TẠO MỚI NHÓM TÀI KHOẢN
-                                        </a>
-                                    </li>
                                     <li class="">
                                         <a href="~/NhomTaiKhoan/ntk_TableNhomTK">
                                             <i class="material-icons">list</i> DANH MỤC NHÓM TÀI KHOẢN
                                         </a>
                                     </li>
+
                                 </ul>
                             </div>
                         </div>
@@ -108,17 +104,11 @@
                                             </div>
                                         </div>
 
-
-                                        <div class="col-md-12 col-lg-12">
-                                            @Html.Action("ntk_PartListPagePermission", "NhomTaiKhoan")
-                                        </div>
-
                                         <div class="col-md-7"></div>
 
                                         <div class="col-md-5">
                                             <br>
                                             <input type="submit" class="btn btn-primary m-t-15 waves-effect" data-toggle="modal" data-target="#myModal" value="Lưu lại">
-                                            <a type="reset" href="/NhomTaiKhoan/ntk_TaoMoiNhomTK" class="btn btn-default m-t-15 waves-effect">Reset</a>
                                             <button type="button" onclick="troVeTrangTruoc()" class="btn btn-default m-t-15 waves-effect">Trở lại</button>
                                         </div>
                                     </div>

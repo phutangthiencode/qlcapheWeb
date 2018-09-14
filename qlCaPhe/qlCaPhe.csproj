@@ -4113,7 +4113,6 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Tools_VungLamViec\Index.cshtml" />
-    <Content Include="Views\NhomTaiKhoan\ntk_TaoMoiNhomTK.cshtml" />
     <Content Include="Views\NhomTaiKhoan\ntk_TableNhomTK.cshtml" />
     <Content Include="Views\TaiKhoan\tk_TaoMoiTaiKhoan.cshtml" />
     <Content Include="Views\TaiKhoan\tk_TableTaiKhoan.cshtml" />
@@ -4207,8 +4206,6 @@
     <Content Include="Views\Home\Profile.cshtml" />
     <Content Include="Views\Home\PartProfileNavTools.cshtml" />
     <Content Include="Views\Home\PartMenuTools.cshtml" />
-    <Content Include="Views\NhomTaiKhoan\ntk_PartListPagePermission.cshtml" />
-    <Content Include="Views\NhomTaiKhoan\ntk_Script.cshtml" />
     <Content Include="Views\Home\h_AccessDenied.cshtml" />
     <Content Include="Views\Home\Notifications.cshtml" />
     <Content Include="Views\TonKho\tkho_KiemKho.cshtml" />
