@@ -12,6 +12,7 @@ namespace qlCaPhe.Controllers
     public class HoaDonController : Controller
     {
         private string idOfPage = "502";
+        private string idOfPageAllBill = "503";
 
         #region CRUD    
 
@@ -379,7 +380,7 @@ namespace qlCaPhe.Controllers
         /// <returns></returns>
         public ActionResult hd_TableTatCaHoaDonOrder(int ?page)
         {
-            if (xulyChung.duocCapNhat(idOfPage, "7"))
+            if (xulyChung.duocCapNhat(idOfPageAllBill, "7"))
             {
                 try
                 {
@@ -403,7 +404,7 @@ namespace qlCaPhe.Controllers
         [HttpPost]
         public ActionResult hd_TableTatCaHoaDonOrder(FormCollection param)
         {
-            if (xulyChung.duocCapNhat(idOfPage, "7"))
+            if (xulyChung.duocCapNhat(idOfPageAllBill, "7"))
             {
                 try
                 {
@@ -427,7 +428,7 @@ namespace qlCaPhe.Controllers
         /// <returns></returns>
         public ActionResult hd_TableHoaDonOrderTrongNgay(int ?page)
         {
-            if (xulyChung.duocCapNhat(idOfPage, "7"))
+            if (xulyChung.duocCapNhat(idOfPageAllBill, "7"))
             {
                 try
                 {
@@ -447,7 +448,7 @@ namespace qlCaPhe.Controllers
         /// <returns></returns>
         public ActionResult hd_TableHoaDonOrderTrongTuan(int ?page)
         {
-            if (xulyChung.duocCapNhat(idOfPage, "7"))
+            if (xulyChung.duocCapNhat(idOfPageAllBill, "7"))
             {
                 try
                 {
@@ -569,7 +570,7 @@ namespace qlCaPhe.Controllers
         public string AjaxXemChiTietHoaDonOrder(int maHD)
         {
             string htmlDetails = "";
-            if (xulyChung.duocTruyCap(idOfPage))
+            if (xulyChung.duocTruyCap(idOfPageAllBill))
             {
                 try
                 {
