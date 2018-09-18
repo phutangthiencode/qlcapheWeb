@@ -12,9 +12,7 @@
         <!-- Thống kê số lượng bàn -->
         @Html.Action("tools_PartThongKeSoLuongBan", "Tools_VungLamViec")
         <!-- #END# Thống kê số lượng bàn -->
-        <!-- Download app-->
-        @Html.Action("tools_PartDownloadApp", "Tools_VungLamViec")
-        <!-- #END# Download app -->
+
 
         <div class="row clearfix">
             <!-- Đặt bàn online -->
@@ -28,17 +26,32 @@
             <!-- #END# Bài viết mới-->
         </div>
 
-        <div class="row clearfix">
-            <!-- Nhật ký-->
-            @Html.Action("tools_PartNhatKy", "Tools_VungLamViec")
-            <!-- #END# Nhật ký -->
-        </div>
 
         <div class="row clearfix">           
              <!-- Thống kê sản phảm chạy -->
             @Html.Action("tools_ThongKeSanPham", "Tools_VungLamViec")
             <!-- #END# Thống kê sản phảm chạy  -->
         </div> 
+
+        <div class="row clearfix">
+            <!-- Thống kê nguyên liệu tồn dưới cảnh báo-->
+            @Html.Action("tools_PartTonKhoDuoiCanhBao", "Tools_VungLamViec")
+            <!-- #END# Thống kê nguyên liệu tồn dưới cảnh báo-->
+        </div> 
+
+        <div class="row clearfix" >
+            @Html.Action("tools_PartThongBaoKiemKeKho", "Tools_VungLamViec")
+        </div>
+
+        <div class="row clearfix">
+            <!-- Nhật ký-->
+            @Html.Action("tools_PartNhatKy", "Tools_VungLamViec")
+            <!-- #END# Nhật ký -->
+        </div>
+
+        <!-- Download app-->
+        @Html.Action("tools_PartDownloadApp", "Tools_VungLamViec")
+        <!-- #END# Download app -->
     </div>
 </section>
 

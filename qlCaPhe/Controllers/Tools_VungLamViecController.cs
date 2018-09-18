@@ -7,6 +7,7 @@ using qlCaPhe.App_Start;
 using qlCaPhe.Models;
 using qlCaPhe.Models.Entities;
 using qlCaPhe.Models.Business;
+using qlCaPhe.Models.Entities.Services;
 
 namespace qlCaPhe.Controllers
 {
@@ -147,7 +148,7 @@ namespace qlCaPhe.Controllers
             if (xulyChung.duocTruyCapKhongChuyenTiep("1103"))
                 try
                 {
-                    listNhatKy = new qlCaPheEntities().nhatKies.Take(5).OrderByDescending(n=>n.thoiDiem).ToList();//----Lấy 5 nhật ký gần đây
+                    listNhatKy = new qlCaPheEntities().nhatKies.Take(5).OrderByDescending(n => n.thoiDiem).ToList();//----Lấy 5 nhật ký gần đây
                 }
                 catch (Exception ex)
                 {
@@ -162,6 +163,54 @@ namespace qlCaPhe.Controllers
         public ActionResult tools_ThongKeSanPham()
         {
             return PartialView();
+        }
+
+        /// <summary>
+        /// Hàm tạo vùng thông báo kiểm kê kho hàng
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult tools_PartThongBaoKiemKeKho()
+        {
+            List<svThongBao> listThongBao = new List<svThongBao>();
+            if (xulyChung.duocTruyCapKhongChuyenTiep("803"))
+                try
+                {
+                    listThongBao = new bKiemKho().getListThongBaoKiemKho();
+                }
+                catch (Exception ex)
+                {
+                    xulyFile.ghiLoi("Class: Tools_VungLamViecController - Function: tools_PartThongBaoKiemKeKho", ex.Message);
+                }
+            return PartialView(listThongBao);
+        }
+        /// <summary>
+        /// Hàm tạo vùng danh sách các nguyên liệu tồn kho dưới cảnh báo
+        /// Dưới 75%
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult tools_PartTonKhoDuoiCanhBao()
+        {
+            List<ctTonKho> listTonCanhBao = new List<ctTonKho>();
+            if(xulyChung.duocTruyCapKhongChuyenTiep("804"))
+                try
+                {
+                    List<ctTonKho> listTon = new bTonKho().layDanhSachTon();
+                    foreach (ctTonKho item in listTon)
+                    {
+                        double soLieuHaoHut = (double)item.tyLeHaoHut;
+                        if (soLieuHaoHut > 0) //-----hao hụt trong quá trình sử dụng
+                        {
+                            double phanTramHaoHut = (double)((soLieuHaoHut * 100) / item.soLuongDauKy);
+                            if (phanTramHaoHut >= 75)
+                                listTonCanhBao.Add(item);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    xulyFile.ghiLoi("Class: Tools_VungLamViecController - Function: tools_PartTonKhoDuoiCanhBao", ex.Message);
+                }
+            return PartialView(listTonCanhBao);
         }
     }
 }

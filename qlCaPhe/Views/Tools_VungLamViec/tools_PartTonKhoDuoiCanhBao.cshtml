@@ -1,0 +1,52 @@
+﻿@model List<qlCaPhe.Models.ctTonKho>
+@using qlCaPhe.App_Start
+
+@if (Model.Count > 0)
+{
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="card">
+            <div class="header bg-orange">
+                <h2>NGUYÊN LIỆU TỒN DƯỚI CẢNH BÁO</h2>
+                <ul class="header-dropdown m-r--5">
+                    <li class="dropdown">
+                        <a href="/TonKho/tkho_TonThucTe">
+                            <i class="material-icons">link</i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="body">
+                <div class="table-responsive">
+                    <table class="table table-hover dashboard-task-infos">
+                        <thead>
+                            <tr>
+                                <th width="5%">#</th>
+                                <th width="30%">Nguyên liệu</th>
+                                <th width="25%">Số lượng tồn đầu kỳ</th>
+                                <th width="25%">Số lượng thực tế trên lý thuyết	</th>
+                                <th width="15%">Số lượng hao hụt</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+    int index = 1;
+                            }
+
+                            @foreach (var ctTonKho in Model)
+                            {
+                                <tr role="row" class="odd">
+                                    <td>@index.ToString()</td>
+                                    <td><b>@xulyDuLieu.traVeKyTuGoc(ctTonKho.nguyenLieu.tenNguyenLieu)</b></td>
+                                    <td class="col-green"><b>@ctTonKho.soLuongDauKy.ToString() (@ctTonKho.nguyenLieu.donViPhaChe) </b></td>
+                                    <td class="col-blue"><b>@ctTonKho.soLuongCuoiKyLyThuyet.ToString() (@ctTonKho.nguyenLieu.donViPhaChe)</b></td>
+                                    <td class="col-red"><b>@ctTonKho.tyLeHaoHut.ToString()</b></td>
+                                </tr>
+                                index++;
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+}

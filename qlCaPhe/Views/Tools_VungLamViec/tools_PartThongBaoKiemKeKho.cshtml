@@ -1,0 +1,34 @@
+﻿@model List<qlCaPhe.Models.Entities.Services.svThongBao>
+@using qlCaPhe.App_Start
+
+@if(Model.Count>0){
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="panel-group" id="accordion_1" role="tablist" aria-multiselectable="true">
+        <div class="panel panel-danger">
+            <div class="panel-heading" role="tab" id="headingOne_2">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion_1" href="#collapseOne_2" aria-expanded="true" aria-controls="collapseOne_1" class="">
+                        KẾ HOẠCH KIỂM KÊ KHO HÀNG
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseOne_2" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingOne_2" aria-expanded="true" style="">
+                <div class="dropzone dz-clickable">
+@foreach (var thongBao in Model){
+                    <a href="/TonKho/tkho_KiemKho" class="link-download-app">
+                        <div class="dz-message col-red">
+                            <div class="drag-icon-cph">
+                                <i class="material-icons" style="color:red!important;">spellcheck</i>
+                            </div>
+                            <h3>Đã đến thời điểm kiểm kê kho hàng</h3>
+                            <em>@xulyDuLieu.traVeKyTuGoc(thongBao.ndThongBao)</em>
+
+                        </div>
+                    </a>
+}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+}
