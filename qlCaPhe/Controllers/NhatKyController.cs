@@ -10,7 +10,7 @@ namespace qlCaPhe.Controllers
 {
     public class NhatKyController : Controller
     {
-        private static string idOfPage = "1103";
+        private static string idOfPage = "1203";
         //-------Khởi tạo một số biến ban đầu
         private static string tenDangNhap = "-1";
         private static DateTime startDate = new DateTime(2015,1,1), endDate = DateTime.Now;

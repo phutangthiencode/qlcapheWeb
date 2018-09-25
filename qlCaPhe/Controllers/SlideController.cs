@@ -10,7 +10,7 @@ namespace qlCaPhe.Controllers
 {
     public class SlideController : Controller
     {
-        private string idOfPage = "1102";
+        private string idOfPage = "1202";
         #region CREATE
         /// <summary>
         /// Hàm thực hiện tạo giao diện thêm mới Slide

@@ -12,7 +12,7 @@ namespace qlCaPhe.Controllers
     public class ThongKeController : Controller
     {
         #region THỐNG KÊ DOANH THU THEO THỜI ĐIỂM
-        private static string idOfPageDoanhThuTheoThoiDiem = "1201";
+        private static string idOfPageDoanhThuTheoThoiDiem = "1101";
         #region DOANH THU THEO NGÀY
         /// <summary>
         /// Hàm tạo vùng thống kê doanh thu theo ngày
@@ -578,7 +578,7 @@ namespace qlCaPhe.Controllers
         #endregion
 
         #region THỐNG KÊ TỔNG THU THEO SẢN PHẨM
-        private static string idOfPageDoanhThuTheoSanPham = "1202";
+        private static string idOfPageDoanhThuTheoSanPham = "1102";
 
         #region THEO NGÀY
         /// <summary>
@@ -833,7 +833,7 @@ namespace qlCaPhe.Controllers
 
         #region THỐNG KÊ NHẬP XUẤT TỒN
         #region NHẬP
-        private static string idOfPageThongKeNhapKho = "1203";
+        private static string idOfPageThongKeNhapKho = "1103";
         #region NHẬP KHO THEO NGÀY
         /// <summary>
         /// Hàm tạo giao diện thống kê tiền nhập kho theo ngày
@@ -1051,7 +1051,7 @@ namespace qlCaPhe.Controllers
         #endregion
 
         #region XUẤT
-        private static string idOfPageThongKeXuatKho = "1204";
+        private static string idOfPageThongKeXuatKho = "1104";
         #region XUẤT KHO THEO NGÀY
         /// <summary>
         /// Hàm tạo giao diện thống kê tiền xuất kho theo ngày
@@ -1297,7 +1297,7 @@ namespace qlCaPhe.Controllers
 
 
         #region THỐNG KÊ LỢI NHUẬN
-        private static string idOfPageLoiNhuan = "1206";
+        private static string idOfPageLoiNhuan = "1105";
         #region NGÀY
         /// <summary>
         /// Hàm tạo giao diện thống kê lợi nhuận theo ngày

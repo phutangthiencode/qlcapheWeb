@@ -11,7 +11,7 @@ namespace qlCaPhe.Controllers
 {
     public class CauHinhController : Controller
     {
-        private string idOfPage = "1101";
+        private string idOfPage = "1201";
         #region UPDATE
         /// <summary>
         /// Hàm tạo giao diện thiết lập thông số chung

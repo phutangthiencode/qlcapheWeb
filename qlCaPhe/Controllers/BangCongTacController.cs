@@ -136,7 +136,7 @@ namespace qlCaPhe.Controllers
                         htmlTable += "            </button>";
                         htmlTable += "            <ul class=\"dropdown-menu\" role=\"menu\">";
                         htmlTable += createTableData.taoNutChinhSua("/BangCongTac/bct_ChinhSuaDieuPhoi", bgv.maBang.ToString());
-                        htmlTable += createTableData.taoNutCapNhat("BangCongTac/capNhatTrangThai", bgv.maBang.ToString(), "col-orange", "clear", "Chuyển đổi");
+                        htmlTable += createTableData.taoNutCapNhat("BangCongTac/capNhatTrangThai", bgv.maBang.ToString(), "col-orange", "cached", "Đổi trạng thái");
                         htmlTable += createTableData.taoNutXoaBo(bgv.maBang.ToString());
                         htmlTable += "            </ul>";
                         htmlTable += "        </div>";
