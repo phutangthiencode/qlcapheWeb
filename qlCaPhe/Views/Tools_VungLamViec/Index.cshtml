@@ -27,10 +27,15 @@
         </div>
 
 
-        <div class="row clearfix">           
-             <!-- Thống kê sản phảm chạy -->
-            @Html.Action("tools_ThongKeSanPham", "Tools_VungLamViec")
-            <!-- #END# Thống kê sản phảm chạy  -->
+        <div class="row clearfix">          
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="display:none;" id="js-vung-thongke">
+                <!-- Thống kê sản phảm chạy -->
+                @Html.Action("tools_ThongKeSanPham", "Tools_VungLamViec")
+                <!-- #END# Thống kê sản phảm chạy  -->
+                @Html.Action("tools_ThongKeDoanhThuTuan", "Tools_VungLamViec")
+            </div> 
+            
+            
         </div> 
 
         <div class="row clearfix">

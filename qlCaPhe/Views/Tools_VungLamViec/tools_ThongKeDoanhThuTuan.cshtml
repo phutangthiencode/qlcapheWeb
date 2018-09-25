@@ -1,0 +1,31 @@
+﻿
+
+<script src="~/Scripts/jsapi.js"></script>
+<script src="~/Scripts/Ajax/ThongKe/thongKeDoanhThu.js"></script>
+
+@section sciptajax{
+    
+}
+@Html.Raw(ViewBag.ScriptAjaxThongKeTuan)
+<script>
+    google.load("visualization", "1", { packages: ["corechart"] });
+    var soHDs, tamTinhs, dts, nextWeek;
+    $(document).ready(function () {
+        var tsTuan = getDateLastWeek();
+        layDuLieuHoaDon(jsonThongKeDoanhThu, soHDs, tamTinhs, dts, tsTuan, 'chart-tuan', "Thống kê tổng doanh thu theo tuần từ ngày: " + tsTuan + " đến " + convertDateToString(getDateOfNextWeek(tsTuan)));
+    });
+
+</script>
+
+
+<div class="card col-md-6">
+    <div class="header bg-green">
+        <h2>DOANH THU 7 NGÀY GẦN NHẤT</h2>
+    </div>
+    <div class="body">
+        <label class="font-18 col-red js-tong-doanh-thu-hoadon"></label>
+        <div id="chart-tuan" style="height: 580px!important;" class="col-md-12 col-sm-12 col-xs-12 col-lg-12 column-chart"></div>
+    </div>
+</div>
+
+

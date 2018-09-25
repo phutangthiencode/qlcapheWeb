@@ -14,6 +14,7 @@ namespace qlCaPhe.Controllers
     public class Tools_VungLamViecController : Controller
     {
         private static string idOfpage = "1";
+        private static string idOfPageDoanhThuTheoThoiDiem = "1101";
         /// <summary>
         /// Hàm tạo giao diện vùng làm việc
         /// </summary>
@@ -145,7 +146,7 @@ namespace qlCaPhe.Controllers
         public ActionResult tools_PartNhatKy()
         {
             List<nhatKy> listNhatKy = new List<nhatKy>();
-            if (xulyChung.duocTruyCapKhongChuyenTiep("1103"))
+            if (xulyChung.duocTruyCapKhongChuyenTiep("1203"))
                 try
                 {
                     listNhatKy = new qlCaPheEntities().nhatKies.Take(5).OrderByDescending(n => n.thoiDiem).ToList();//----Lấy 5 nhật ký gần đây
@@ -162,7 +163,22 @@ namespace qlCaPhe.Controllers
         /// <returns></returns>
         public ActionResult tools_ThongKeSanPham()
         {
-            return PartialView();
+            if(xulyChung.duocTruyCapKhongChuyenTiep(idOfPageDoanhThuTheoThoiDiem))
+                return PartialView();
+            return null;
+        }
+        /// <summary>
+        /// hàm thống kê doanh thu trong tuần
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult tools_ThongKeDoanhThuTuan()
+        {
+            if (xulyChung.duocTruyCapKhongChuyenTiep(idOfPageDoanhThuTheoThoiDiem))
+            {
+                ViewBag.ScriptAjaxThongKeTuan = createScriptCarvas.ScriptAjaxThongKeDoanhThu("/ThongKe/GetJsonDoanhThuTheoTuan", "chart-tuan");
+                return PartialView();
+            }
+            return null; 
         }
 
         /// <summary>

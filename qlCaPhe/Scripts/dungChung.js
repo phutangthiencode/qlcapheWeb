@@ -152,6 +152,14 @@ function getDateCurrent() {
     var today = convertDateToString(now);
     return today;
 }
+//---------Hàm lấy ngày này tuần trước
+//----------Trả về chuỗi ngày hiện tại theo đạng dd/MM/yyyy
+function getDateLastWeek() {
+    var now = new Date();
+    var kq = new Date();
+    kq.setDate(now.getDate() - 6);
+    return convertDateToString(kq);
+}
 //----------Hàm lấy ngày của của tháng tiếp theo
 //--------------startDate ngày bắt đầu
 //--------------return ngày của tháng tiếp theo

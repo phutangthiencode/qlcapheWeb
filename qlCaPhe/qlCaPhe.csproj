@@ -4264,6 +4264,7 @@
     <Content Include="Views\ThongKe\tke_LoiNhuanTheoNam.cshtml" />
     <Content Include="Views\Tools_VungLamViec\tools_PartThongBaoKiemKeKho.cshtml" />
     <Content Include="Views\Tools_VungLamViec\tools_PartTonKhoDuoiCanhBao.cshtml" />
+    <Content Include="Views\Tools_VungLamViec\tools_ThongKeDoanhThuTuan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
